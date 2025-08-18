@@ -1,0 +1,48 @@
+---
+title: Installation
+description: Get started with the UI package by cloning the repository and installing dependencies
+---
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (version 18 or higher)
+- [pnpm](https://pnpm.io/) package manager
+
+## Clone the Repository
+
+```bash
+git clone https://github.com/Hoanggd/base-stack
+cd base-stack
+```
+
+## Install Dependencies
+
+Install all workspace dependencies using pnpm:
+
+```bash
+pnpm install
+```
+
+This will install dependencies for all packages in the monorepo.
+
+## Development
+
+To start the development servers for both projects:
+
+```bash
+pnpm dev
+```
+
+This will start two development servers:
+- **docs**: Documentation site at `http://localhost:9009`
+- **web**: Web application at `http://localhost:3000`
+
+The docs app showcases the UI components and documentation, while the web app is the main application.
+
+## Building
+
+To build the project for production:
+
+```bash
+pnpm build
+```
