@@ -1,6 +1,6 @@
 import { Switch } from '@workspace/ui/components/switch'
 
-export default function SwitchDisabled() {
+export function SwitchDisabled() {
   return (
     <Switch isDisabled>
       Airplane mode
