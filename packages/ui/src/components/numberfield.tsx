@@ -56,7 +56,7 @@ function NumberFieldStepper({ className, ...props }: AriaButtonProps) {
     <Button
       className={composeRenderProps(className, (className) =>
         cn(
-          "w-auto grow rounded-none px-0.5 text-muted-foreground size-[14px] data-[hovered]:text-foreground cursor-default",
+          "w-auto grow rounded-none px-0.5 text-muted-foreground size-[14px] data-[hovered]:text-foreground cursor-pointer",
           className
         )
       )}

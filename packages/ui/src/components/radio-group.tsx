@@ -36,7 +36,7 @@ const Radio = ({ className, children, ...props }: AriaRadioProps) => {
     <AriaRadio
       className={composeRenderProps(className, (className) =>
         cn(
-          "group/radio flex items-center gap-x-2 text-sm",
+          "group/radio flex items-center gap-x-2 text-sm cursor-pointer",
           /* Disabled */
           "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-70",
           labelVariants,
