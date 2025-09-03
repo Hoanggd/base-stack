@@ -54,6 +54,35 @@ function getMenuGroups(module: string): MenuGroup[] {
         ],
       },
       {
+        title: "Date and Time",
+        items: [
+          {
+            title: "Calendar",
+            href: "/docs/ui/calendar",
+          },
+          {
+            title: "DateField",
+            href: "/docs/ui/date-field",
+          },
+          {
+            title: "DatePicker",
+            href: "/docs/ui/date-picker",
+          },
+          {
+            title: "DateRangePicker",
+            href: "/docs/ui/date-range-picker",
+          },
+          {
+            title: "RangeCalendar",
+            href: "/docs/ui/range-calendar",
+          },
+          {
+            title: "TimeField",
+            href: "/docs/ui/time-field",
+          },
+        ],
+      },
+      {
         title: "Forms",
         items: [
           {
@@ -69,7 +98,7 @@ function getMenuGroups(module: string): MenuGroup[] {
             href: "/docs/ui/textarea",
           },
           {
-            title: "Number Field",
+            title: "NumberField",
             href: "/docs/ui/number-field",
           },
           {
@@ -77,7 +106,7 @@ function getMenuGroups(module: string): MenuGroup[] {
             href: "/docs/ui/checkbox",
           },
           {
-            title: "Radio Group",
+            title: "RadioGroup",
             href: "/docs/ui/radio-group",
           },
           {
