@@ -12,6 +12,7 @@ export function DatePickerDemo() {
       label="Select Date"
       value={value}
       onChange={setValue}
+      className="w-[200px]"
     />
   );
 }

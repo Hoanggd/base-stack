@@ -20,7 +20,7 @@ import {
 import { cn } from "@workspace/ui/lib/utils"
 
 
-import { FieldError, fieldGroupVariants, Label } from "./field"
+import { fieldGroupVariants, Label } from "./field"
 
 const DateField = AriaDateField
 
@@ -31,13 +31,13 @@ function DateSegment({ className, ...props }: AriaDateSegmentProps) {
     <AriaDateSegment
       className={composeRenderProps(className, (className) =>
         cn(
-          "type-literal:px-0 inline rounded p-0.5 caret-transparent outline outline-0",
+          "type-literal:px-0 inline rounded px-0.5 caret-transparent outline outline-0",
           /* Placeholder */
           "data-[placeholder]:text-muted-foreground",
           /* Disabled */
           "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
           /* Focused */
-          "data-[focused]:bg-accent data-[focused]:text-accent-foreground",
+          "data-[focused]:bg-primary data-[focused]:text-white data-[focused]:data-[placeholder]:text-white",
           /* Invalid */
           "data-[invalid]:data-[focused]:bg-destructive data-[invalid]:data-[focused]:data-[placeholder]:text-destructive-foreground data-[invalid]:data-[focused]:text-destructive-foreground data-[invalid]:data-[placeholder]:text-destructive data-[invalid]:text-destructive",
           className
@@ -97,7 +97,6 @@ function JollyDateField<T extends AriaDateValue>({
           {description}
         </Text>
       )}
-      <FieldError>{errorMessage}</FieldError>
     </DateField>
   )
 }
@@ -126,7 +125,6 @@ function JollyTimeField<T extends AriaTimeValue>({
       <Label>{label}</Label>
       <DateInput />
       {description && <Text slot="description">{description}</Text>}
-      <FieldError>{errorMessage}</FieldError>
     </TimeField>
   )
 }

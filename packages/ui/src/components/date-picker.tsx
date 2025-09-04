@@ -30,7 +30,7 @@ import {
   RangeCalendar,
 } from "./calendar"
 import { DateInput } from "./datefield"
-import { FieldError, FieldGroup, Label } from "./field"
+import {  FieldGroup, Label } from "./field"
 import { Popover } from "./popover"
 
 const DatePicker = AriaDatePicker
@@ -44,7 +44,7 @@ const DatePickerContent = ({
 }: AriaDialogProps & { popoverClassName?: AriaPopoverProps["className"] }) => (
   <Popover
     className={composeRenderProps(popoverClassName, (className) =>
-      cn("w-auto p-3", className)
+      cn("w-auto p-1", className)
     )}
   >
     <AriaDialog
@@ -84,9 +84,9 @@ function JollyDatePicker<T extends AriaDateValue>({
         <Button
           variant="ghost"
           size="icon"
-          className="mr-1 size-6 data-[focus-visible]:ring-offset-0"
+          className="-mr-1 size-6 data-[focus-visible]:ring-offset-0"
         >
-          <CalendarIcon aria-hidden className="size-4" />
+          <CalendarIcon aria-hidden className="size-4 text-muted-foreground" />
         </Button>
       </FieldGroup>
       {description && (
@@ -94,7 +94,6 @@ function JollyDatePicker<T extends AriaDateValue>({
           {description}
         </Text>
       )}
-      <FieldError>{errorMessage}</FieldError>
       <DatePickerContent>
         <Calendar>
           <CalendarHeading />
@@ -154,7 +153,6 @@ function JollyDateRangePicker<T extends AriaDateValue>({
           {description}
         </Text>
       )}
-      <FieldError>{errorMessage}</FieldError>
       <DatePickerContent>
         <RangeCalendar>
           <CalendarHeading />

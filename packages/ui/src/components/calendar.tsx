@@ -39,7 +39,7 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
   let { direction } = useLocale();
 
   return (
-    <header className="flex w-full items-center gap-0.5 pb-2" {...props}>
+    <header className="flex w-full items-center gap-0.5 pb-1" {...props}>
       <AriaHeading className="pl-2 grow text-sm font-medium" />
 
       <AriaButton
@@ -48,7 +48,7 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
           buttonVariants({ variant: "ghost" }),
           "size-8 rounded-full bg-transparent p-0 opacity-50",
           /* Hover */
-          "data-[hovered]:opacity-100"
+          "data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10"
         )}
       >
         {direction === "rtl" ? (
@@ -63,7 +63,7 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
           buttonVariants({ variant: "ghost" }),
           "size-8 rounded-full bg-transparent p-0 opacity-50",
           /* Hover */
-          "data-[hovered]:opacity-100"
+          "data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10"
         )}
       >
         {direction === "rtl" ? (
@@ -79,7 +79,7 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
 const CalendarGrid = ({ className, ...props }: AriaCalendarGridProps) => (
   <AriaCalendarGrid
     className={cn(
-      "border-separate border-spacing-x-0.5 border-spacing-y-0.5",
+      "border-separate border-spacing-x-0 border-spacing-y-0.5",
       className
     )}
     {...props}
@@ -111,7 +111,6 @@ const CalendarGridBody = ({
 );
 
 const CalendarCell = ({ className, ...props }: AriaCalendarCellProps) => {
-  const isRange = Boolean(React.useContext(AriaRangeCalendarStateContext));
   return (
     <AriaCalendarCell
       className={composeRenderProps(className, (className, renderProps) =>
@@ -123,19 +122,6 @@ const CalendarCell = ({ className, ...props }: AriaCalendarCellProps) => {
           /* Selected */
           renderProps.isSelected &&
             "bg-primary text-white data-[focused]:bg-primary",
-          /* Hover */
-          renderProps.isHovered &&
-            renderProps.isSelected &&
-            (renderProps.isSelectionStart ||
-              renderProps.isSelectionEnd ||
-              !isRange) &&
-            "data-[hovered]:bg-primary",
-          /* Selection Start/End */
-          renderProps.isSelected &&
-            isRange &&
-            !renderProps.isSelectionStart &&
-            !renderProps.isSelectionEnd &&
-            "rounded-none bg-accent text-accent-foreground",
           /* Outside Month */
           renderProps.isOutsideMonth &&
             "text-muted-foreground opacity-50 data-[selected]:bg-accent/50 data-[selected]:text-muted-foreground data-[selected]:opacity-30",
