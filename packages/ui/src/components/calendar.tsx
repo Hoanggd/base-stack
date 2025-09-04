@@ -40,7 +40,7 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
 
   return (
     <header className="flex w-full items-center gap-0.5 pb-1" {...props}>
-      <AriaHeading className="pl-3 grow text-sm font-medium" />
+      <AriaHeading className="pl-2.5 grow text-sm font-medium" />
 
       <AriaButton
         slot="previous"
@@ -148,15 +148,12 @@ const CalendarCell = ({
   );
 };
 
+/** Accepts values in the format YYYY-MM-DD */
 interface BsCalendarProps {
-  /** YYYY-MM-DD */
   value?: string;
   onChange?: (date: string) => void;
-  /** YYYY-MM-DD */
   defaultValue?: string;
-  /** YYYY-MM-DD */
   minValue?: string;
-  /** YYYY-MM-DD */
   maxValue?: string;
   variant?: "default" | "unstyled";
   className?: string;
@@ -187,7 +184,7 @@ function BsCalendar({
         cn(
           "w-fit",
           variant === "default"
-            ? "border rounded-md p-1 bg-background-secondary/40"
+            ? "border rounded-lg p-1 bg-background-secondary/40"
             : "",
           className
         )
@@ -209,25 +206,58 @@ function BsCalendar({
   );
 }
 
-interface BsRangeCalendarProps<T extends AriaDateValue>
-  extends AriaRangeCalendarProps<T> {
-  errorMessage?: string;
-  variant?: "default" | "unstyled";
+interface DateRangeValues {
+  start: string;
+  end: string;
 }
 
-function BsRangeCalendar<T extends AriaDateValue>({
-  errorMessage,
+/** Accepts values in the format YYYY-MM-DD */
+interface BsRangeCalendarProps {
+  value?: DateRangeValues;
+  onChange?: (value: DateRangeValues) => void;
+  defaultValue?: DateRangeValues;
+  className?: string;
+  variant?: "default" | "unstyled";
+  minValue?: string;
+  maxValue?: string;
+}
+
+function BsRangeCalendar({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
   variant = "default",
   ...props
-}: BsRangeCalendarProps<T>) {
+}: BsRangeCalendarProps) {
+  const [uncontrolledValue, uncontrolledOnChange] = React.useState<
+    DateRangeValues | undefined
+  >(defaultValue);
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? uncontrolledOnChange;
+
   return (
     <RangeCalendar
+      value={
+        value?.start && value?.end
+          ? { start: parseDate(value.start), end: parseDate(value.end) }
+          : null
+      }
+      onChange={(value) =>
+        onChange?.({
+          start: value?.start?.toString(),
+          end: value?.end?.toString(),
+        })
+      }
+      minValue={minValue ? parseDate(minValue) : null}
+      maxValue={maxValue ? parseDate(maxValue) : null}
       className={composeRenderProps(className, (className) =>
         cn(
           "w-fit",
           variant === "default"
-            ? "border rounded-md p-1 bg-background-secondary/40"
+            ? "border rounded-lg p-1 bg-background-secondary/40"
             : "",
           className
         )
@@ -243,11 +273,6 @@ function BsRangeCalendar<T extends AriaDateValue>({
           {(date) => <CalendarCell date={date} type="range" />}
         </CalendarGridBody>
       </CalendarGrid>
-      {errorMessage && (
-        <Text slot="errorMessage" className="text-sm text-destructive">
-          {errorMessage}
-        </Text>
-      )}
     </RangeCalendar>
   );
 }
@@ -264,4 +289,4 @@ export {
   BsCalendar,
   BsRangeCalendar,
 };
-export type { BsCalendarProps, BsRangeCalendarProps };
+export type { BsCalendarProps, BsRangeCalendarProps, DateRangeValues };

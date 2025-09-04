@@ -9,21 +9,18 @@ import { cva } from "class-variance-authority";
 const cell = cva(
   [
     "w-full h-full flex items-center justify-center rounded-full text-sm font-medium text-neutral-600 dark:text-neutral-200",
+    "data-[disabled=true]:text-muted-foreground data-[disabled=true]:opacity-50",
   ],
   {
     variants: {
       selectionState: {
-        none: "group-hover:bg-neutral-600/10 group-pressed:bg-neutral-200",
+        none: "group-pressed:bg-neutral-200",
         middle: [
           "group-invalid:group-hover:bg-red-200",
           "group-pressed:bg-primary/80",
           "group-invalid:group-pressed:bg-red-300",
         ],
         cap: "bg-primary group-invalid:bg-red-600 text-white",
-      },
-      isDisabled: {
-        true: "text-neutral-300",
-        false: "",
       },
     },
   }
@@ -60,19 +57,20 @@ export function RangeCalendarCell({ date }: AriaCalendarCellProps) {
           <div
             className={cn(
               "w-8 h-8 cursor-pointer",
-              isSelected && "bg-neutral-500/20",
+              isDisabled && "cursor-default",
+              isSelected && "bg-neutral-400/15",
               isSelectionStart && "rounded-s-full",
               isSelectionEnd && "rounded-e-full",
               fadeRight &&
-                "bg-transparent bg-gradient-to-r from-neutral-500/20 to-neutral-500/0",
+                "bg-transparent bg-gradient-to-r from-neutral-400/15 to-neutral-400/0",
               fadeLeft &&
-                "bg-transparent bg-gradient-to-l from-neutral-500/20 to-neutral-500/0"
+                "bg-transparent bg-gradient-to-l from-neutral-400/15 to-neutral-400/0"
             )}
           >
             <span
+              data-disabled={isDisabled}
               className={cell({
                 selectionState,
-                isDisabled,
               })}
             >
               {formattedDate}

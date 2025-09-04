@@ -24,11 +24,11 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="relative px-4 py-30 mx-auto max-w-7xl">
           <div className="text-center">
-            <h1 className="text-6xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground">
+            <h1 className="text-6xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground font-mono">
               Build Production Apps
               <div>Faster Than Ever</div>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed mt-6">
+            <p className="text-xl text-muted-foreground max-w-4xl mx-auto mb-8 leading-relaxed mt-6">
               A modern Next.js boilerplate with opinionated project structure,
               React Aria components, TanStack Query, and everything you need to
               start building immediately.
@@ -36,15 +36,6 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link variant="default" size="xl" href="/docs/ui/introduction">
                 Get Started
-              </Link>
-              <Link
-                variant="outline"
-                size="xl"
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View on GitHub
               </Link>
             </div>
           </div>
