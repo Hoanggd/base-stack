@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
-import { JollyDateRangePicker } from "@workspace/ui/components/date-picker";
+import { BsDateRangePicker } from "@workspace/ui/components/date-picker";
 
 export function DateRangePickerWithLabel() {
   const [value, setValue] = useState({
@@ -11,7 +11,7 @@ export function DateRangePickerWithLabel() {
   });
 
   return (
-    <JollyDateRangePicker
+    <BsDateRangePicker
       label="Vacation Period"
       value={value}
       onChange={setValue}

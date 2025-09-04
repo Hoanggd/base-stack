@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
-import { JollyCalendar } from "@workspace/ui/components/calendar";
+import { BsCalendar } from "@workspace/ui/components/calendar";
 
 export function CalendarDisabled() {
   const [value, setValue] = useState(today(getLocalTimeZone()));
@@ -14,7 +14,7 @@ export function CalendarDisabled() {
   };
 
   return (
-    <JollyCalendar
+    <BsCalendar
       value={value}
       onChange={setValue}
       isDateUnavailable={isDateUnavailable}

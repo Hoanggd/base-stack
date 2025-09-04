@@ -47,9 +47,9 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
         slot="previous"
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "size-8 rounded-full bg-transparent p-0 opacity-50",
+          "size-8 rounded-full bg-transparent p-0 text-primary",
           /* Hover */
-          "data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10"
+          "data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10 data-[hovered]:text-primary"
         )}
       >
         {direction === "rtl" ? (
@@ -62,9 +62,9 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
         slot="next"
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "size-8 rounded-full bg-transparent p-0 opacity-50",
+          "size-8 rounded-full bg-transparent p-0 text-primary",
           /* Hover */
-          "data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10"
+          "data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10 data-[hovered]:text-primary"
         )}
       >
         {direction === "rtl" ? (
@@ -132,8 +132,7 @@ const CalendarCell = ({
           renderProps.isSelected &&
             "bg-primary text-white data-[focused]:bg-primary",
           /* Outside Month */
-          renderProps.isOutsideMonth &&
-            "text-muted-foreground opacity-50 data-[selected]:bg-accent/50 data-[selected]:text-muted-foreground data-[selected]:opacity-30",
+          renderProps.isOutsideMonth && "hidden",
           /* Current Date */
           renderProps.date.compare(today(getLocalTimeZone())) === 0 &&
             !renderProps.isSelected &&
@@ -150,18 +149,18 @@ const CalendarCell = ({
   );
 };
 
-interface JollyCalendarProps<T extends AriaDateValue>
+interface BsCalendarProps<T extends AriaDateValue>
   extends AriaCalendarProps<T> {
   errorMessage?: string;
   variant?: "default" | "unstyled";
 }
 
-function JollyCalendar<T extends AriaDateValue>({
+function BsCalendar<T extends AriaDateValue>({
   errorMessage,
   className,
   variant = "default",
   ...props
-}: JollyCalendarProps<T>) {
+}: BsCalendarProps<T>) {
   return (
     <Calendar
       className={composeRenderProps(className, (className) =>
@@ -193,18 +192,18 @@ function JollyCalendar<T extends AriaDateValue>({
   );
 }
 
-interface JollyRangeCalendarProps<T extends AriaDateValue>
+interface BsRangeCalendarProps<T extends AriaDateValue>
   extends AriaRangeCalendarProps<T> {
   errorMessage?: string;
   variant?: "default" | "unstyled";
 }
 
-function JollyRangeCalendar<T extends AriaDateValue>({
+function BsRangeCalendar<T extends AriaDateValue>({
   errorMessage,
   className,
   variant = "default",
   ...props
-}: JollyRangeCalendarProps<T>) {
+}: BsRangeCalendarProps<T>) {
   return (
     <RangeCalendar
       className={composeRenderProps(className, (className) =>
@@ -245,7 +244,7 @@ export {
   CalendarHeaderCell,
   CalendarHeading,
   RangeCalendar,
-  JollyCalendar,
-  JollyRangeCalendar,
+  BsCalendar,
+  BsRangeCalendar,
 };
-export type { JollyCalendarProps, JollyRangeCalendarProps };
+export type { BsCalendarProps, BsRangeCalendarProps };

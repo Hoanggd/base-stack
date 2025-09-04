@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@workspace/ui/components/form";
-import { JollyDatePicker } from "@workspace/ui/components/date-picker";
+import { BsDatePicker } from "@workspace/ui/components/date-picker";
 
 interface FormData {
   startDate: any;
@@ -51,7 +51,7 @@ export function DatePickerForm() {
             <FormItem>
               <FormLabel>Start Date</FormLabel>
               <FormControl>
-                <JollyDatePicker
+                <BsDatePicker
                   value={field.value}
                   onChange={field.onChange}
                 />

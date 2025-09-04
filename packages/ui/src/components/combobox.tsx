@@ -75,7 +75,7 @@ const ComboboxListBox = <T extends object>({
   />
 )
 
-interface JollyComboBoxProps<T extends object>
+interface BsComboBoxProps<T extends object>
   extends Omit<AriaComboBoxProps<T>, "children"> {
   label?: string
   description?: string | null
@@ -83,14 +83,14 @@ interface JollyComboBoxProps<T extends object>
   children: React.ReactNode | ((item: T) => React.ReactNode)
 }
 
-function JollyComboBox<T extends object>({
+function BsComboBox<T extends object>({
   label,
   description,
   errorMessage,
   className,
   children,
   ...props
-}: JollyComboBoxProps<T>) {
+}: BsComboBoxProps<T>) {
   return (
     <Combobox
       className={composeRenderProps(className, (className) =>
@@ -127,6 +127,6 @@ export {
   ComboboxItem,
   ComboboxHeader,
   ComboboxPopover,
-  JollyComboBox,
+  BsComboBox,
 }
-export type { JollyComboBoxProps }
+export type { BsComboBoxProps }

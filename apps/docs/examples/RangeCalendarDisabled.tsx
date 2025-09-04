@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
-import { JollyRangeCalendar } from "@workspace/ui/components/calendar";
+import { BsRangeCalendar } from "@workspace/ui/components/calendar";
 
 export function RangeCalendarDisabled() {
   const [value, setValue] = useState({
@@ -17,7 +17,7 @@ export function RangeCalendarDisabled() {
   };
 
   return (
-    <JollyRangeCalendar
+    <BsRangeCalendar
       value={value}
       onChange={setValue}
       isDateUnavailable={isDateUnavailable}

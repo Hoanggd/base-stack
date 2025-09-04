@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
-import { JollyDateRangePicker } from "@workspace/ui/components/date-picker";
+import { BsDateRangePicker } from "@workspace/ui/components/date-picker";
 
 export function DateRangePickerWithDescription() {
   const [value, setValue] = useState({
@@ -11,7 +11,7 @@ export function DateRangePickerWithDescription() {
   });
 
   return (
-    <JollyDateRangePicker
+    <BsDateRangePicker
       label="Project Timeline"
       description="Select the start and end dates for your project"
       value={value}

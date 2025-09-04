@@ -69,20 +69,20 @@ function DateInput({
   )
 }
 
-interface JollyDateFieldProps<T extends AriaDateValue>
+interface BsDateFieldProps<T extends AriaDateValue>
   extends AriaDateFieldProps<T> {
   label?: string
   description?: string
   errorMessage?: string | ((validation: AriaValidationResult) => string)
 }
 
-function JollyDateField<T extends AriaDateValue>({
+function BsDateField<T extends AriaDateValue>({
   label,
   description,
   className,
   errorMessage,
   ...props
-}: JollyDateFieldProps<T>) {
+}: BsDateFieldProps<T>) {
   return (
     <DateField
       className={composeRenderProps(className, (className) =>
@@ -101,20 +101,20 @@ function JollyDateField<T extends AriaDateValue>({
   )
 }
 
-interface JollyTimeFieldProps<T extends AriaTimeValue>
+interface BsTimeFieldProps<T extends AriaTimeValue>
   extends AriaTimeFieldProps<T> {
   label?: string
   description?: string
   errorMessage?: string | ((validation: AriaValidationResult) => string)
 }
 
-function JollyTimeField<T extends AriaTimeValue>({
+function BsTimeField<T extends AriaTimeValue>({
   label,
   description,
   errorMessage,
   className,
   ...props
-}: JollyTimeFieldProps<T>) {
+}: BsTimeFieldProps<T>) {
   return (
     <TimeField
       className={composeRenderProps(className, (className) =>
@@ -134,7 +134,7 @@ export {
   DateSegment,
   DateInput,
   TimeField,
-  JollyDateField,
-  JollyTimeField,
+  BsDateField,
+  BsTimeField,
 }
-export type { DateInputProps, JollyDateFieldProps, JollyTimeFieldProps }
+export type { DateInputProps, BsDateFieldProps, BsTimeFieldProps }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
-import { JollyDateRangePicker } from "@workspace/ui/components/date-picker";
+import { BsDateRangePicker } from "@workspace/ui/components/date-picker";
 
 export function DateRangePickerDemo() {
   const [value, setValue] = useState({
@@ -11,7 +11,7 @@ export function DateRangePickerDemo() {
   });
 
   return (
-    <JollyDateRangePicker
+    <BsDateRangePicker
       label="Date Range"
       value={value}
       onChange={setValue}

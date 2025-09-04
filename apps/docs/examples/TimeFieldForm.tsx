@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@workspace/ui/components/form";
-import { JollyTimeField } from "@workspace/ui/components/datefield";
+import { BsTimeField } from "@workspace/ui/components/datefield";
 
 interface FormData {
   appointmentTime: any;
@@ -51,7 +51,7 @@ export function TimeFieldForm() {
             <FormItem>
               <FormLabel>Appointment Time</FormLabel>
               <FormControl>
-                <JollyTimeField
+                <BsTimeField
                   value={field.value}
                   onChange={field.onChange}
                 />

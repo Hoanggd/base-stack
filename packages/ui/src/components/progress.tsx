@@ -54,17 +54,17 @@ const Progress = ({
   </AriaProgressBar>
 )
 
-interface JollyProgressBarProps extends ProgressProps {
+interface BsProgressBarProps extends ProgressProps {
   label?: string
   showValue?: boolean
 }
 
-function JollyProgressBar({
+function BsProgressBar({
   label,
   className,
   showValue = true,
   ...props
-}: JollyProgressBarProps) {
+}: BsProgressBarProps) {
   return (
     <Progress
       className={composeRenderProps(className, (className) =>
@@ -82,5 +82,5 @@ function JollyProgressBar({
   )
 }
 
-export { Progress, JollyProgressBar }
-export type { ProgressProps, JollyProgressBarProps }
+export { Progress, BsProgressBar }
+export type { ProgressProps, BsProgressBarProps }

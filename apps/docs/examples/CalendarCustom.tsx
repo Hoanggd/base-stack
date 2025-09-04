@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone } from "@internationalized/date";
-import { JollyCalendar } from "@workspace/ui/components/calendar";
+import { BsCalendar } from "@workspace/ui/components/calendar";
 
 export function CalendarCustom() {
   const [value, setValue] = useState(today(getLocalTimeZone()));
@@ -15,7 +15,7 @@ export function CalendarCustom() {
           {value ? value.toString() : "No date selected"}
         </p>
       </div>
-      <JollyCalendar
+      <BsCalendar
         value={value}
         onChange={setValue}
       />

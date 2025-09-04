@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
-import { JollyDatePicker } from "@workspace/ui/components/date-picker";
+import { BsDatePicker } from "@workspace/ui/components/date-picker";
 
 export function DatePickerWithError() {
   const [value, setValue] = useState<CalendarDate | null>(null);
 
   return (
-    <JollyDatePicker
+    <BsDatePicker
       label="Required Date"
       value={value}
       onChange={setValue}

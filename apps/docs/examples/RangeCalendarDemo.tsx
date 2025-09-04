@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
-import { JollyRangeCalendar } from "@workspace/ui/components/calendar";
+import { BsRangeCalendar } from "@workspace/ui/components/calendar";
 
 export function RangeCalendarDemo() {
   const [value, setValue] = useState({
@@ -11,7 +11,7 @@ export function RangeCalendarDemo() {
   });
 
   return (
-    <JollyRangeCalendar
+    <BsRangeCalendar
       value={value}
       onChange={setValue}
     />

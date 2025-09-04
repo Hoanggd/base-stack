@@ -13,7 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@workspace/ui/components/form";
-import { JollyDateRangePicker } from "@workspace/ui/components/date-picker";
+import { BsDateRangePicker } from "@workspace/ui/components/date-picker";
 
 interface FormData {
   dateRange: {
@@ -57,7 +57,7 @@ export function DateRangePickerForm() {
             <FormItem>
               <FormLabel>Date Range</FormLabel>
               <FormControl>
-                <JollyDateRangePicker
+                <BsDateRangePicker
                   value={field.value}
                   onChange={field.onChange}
                 />

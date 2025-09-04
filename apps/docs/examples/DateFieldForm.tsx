@@ -14,7 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@workspace/ui/components/form";
-import { JollyDateField } from "@workspace/ui/components/datefield";
+import { BsDateField } from "@workspace/ui/components/datefield";
 
 interface FormData {
   eventDate: any;
@@ -52,7 +52,7 @@ export function DateFieldForm() {
             <FormItem>
               <FormLabel>Event Date</FormLabel>
               <FormControl>
-                <JollyDateField
+                <BsDateField
                   value={field.value}
                   onChange={field.onChange}
                 />

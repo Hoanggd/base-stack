@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
-import { JollyRangeCalendar } from "@workspace/ui/components/calendar";
+import { BsRangeCalendar } from "@workspace/ui/components/calendar";
 
 export function RangeCalendarMinMax() {
   const [value, setValue] = useState({
@@ -13,7 +13,7 @@ export function RangeCalendarMinMax() {
   const maxValue = new CalendarDate(2025, 12, 31);
 
   return (
-    <JollyRangeCalendar
+    <BsRangeCalendar
       value={value}
       onChange={setValue}
       minValue={minValue}

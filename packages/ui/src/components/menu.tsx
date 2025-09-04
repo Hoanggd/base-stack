@@ -137,19 +137,19 @@ const MenuKeyboard = ({
     />
   )
 }
-interface JollyMenuProps<T>
+interface BsMenuProps<T>
   extends AriaMenuProps<T>,
     VariantProps<typeof buttonVariants>,
     Omit<AriaMenuTriggerProps, "children"> {
   label?: string
 }
-function JollyMenu<T extends object>({
+function BsMenu<T extends object>({
   label,
   children,
   variant,
   size,
   ...props
-}: JollyMenuProps<T>) {
+}: BsMenuProps<T>) {
   return (
     <MenuTrigger {...props}>
       <Button variant={variant} size={size}>
@@ -173,6 +173,6 @@ export {
   MenuSection,
   MenuSubTrigger,
   MenuCollection,
-  JollyMenu,
+  BsMenu,
 }
-export type { MenuHeaderProps, JollyMenuProps }
+export type { MenuHeaderProps, BsMenuProps }

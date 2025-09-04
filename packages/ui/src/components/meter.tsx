@@ -54,17 +54,17 @@ const Meter = ({
   </AriaMeter>
 )
 
-interface JollyMeterProps extends MeterProps {
+interface BsMeterProps extends MeterProps {
   label?: string
   showValue?: boolean
 }
 
-function JollyMeter({
+function BsMeter({
   label,
   className,
   showValue = true,
   ...props
-}: JollyMeterProps) {
+}: BsMeterProps) {
   return (
     <Meter
       className={composeRenderProps(className, (className) =>
@@ -82,5 +82,5 @@ function JollyMeter({
   )
 }
 
-export { Meter, JollyMeter }
-export type { MeterProps, JollyMeterProps }
+export { Meter, BsMeter }
+export type { MeterProps, BsMeterProps }

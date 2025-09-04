@@ -57,20 +57,20 @@ const DatePickerContent = ({
   </Popover>
 )
 
-interface JollyDatePickerProps<T extends AriaDateValue>
+interface BsDatePickerProps<T extends AriaDateValue>
   extends AriaDatePickerProps<T> {
   label?: string
   description?: string
   errorMessage?: string | ((validation: AriaValidationResult) => string)
 }
 
-function JollyDatePicker<T extends AriaDateValue>({
+function BsDatePicker<T extends AriaDateValue>({
   label,
   description,
   errorMessage,
   className,
   ...props
-}: JollyDatePickerProps<T>) {
+}: BsDatePickerProps<T>) {
   return (
     <DatePicker
       className={composeRenderProps(className, (className) =>
@@ -111,20 +111,20 @@ function JollyDatePicker<T extends AriaDateValue>({
   )
 }
 
-interface JollyDateRangePickerProps<T extends AriaDateValue>
+interface BsDateRangePickerProps<T extends AriaDateValue>
   extends AriaDateRangePickerProps<T> {
   label?: string
   description?: string
   errorMessage?: string | ((validation: AriaValidationResult) => string)
 }
 
-function JollyDateRangePicker<T extends AriaDateValue>({
+function BsDateRangePicker<T extends AriaDateValue>({
   label,
   description,
   errorMessage,
   className,
   ...props
-}: JollyDateRangePickerProps<T>) {
+}: BsDateRangePickerProps<T>) {
   return (
     <DateRangePicker
       className={composeRenderProps(className, (className) =>
@@ -174,7 +174,7 @@ export {
   DatePicker,
   DatePickerContent,
   DateRangePicker,
-  JollyDatePicker,
-  JollyDateRangePicker,
+  BsDatePicker,
+  BsDateRangePicker,
 }
-export type { JollyDatePickerProps, JollyDateRangePickerProps }
+export type { BsDatePickerProps, BsDateRangePickerProps }

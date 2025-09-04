@@ -118,7 +118,7 @@ function Tag({ children, className, ...props }: AriaTagProps) {
   )
 }
 
-interface JollyTagGroupProps<T>
+interface BsTagGroupProps<T>
   extends Omit<AriaTagGroupProps, "children">,
     Pick<AriaTagListProps<T>, "items" | "children" | "renderEmptyState"> {
   label?: string
@@ -126,7 +126,7 @@ interface JollyTagGroupProps<T>
   errorMessage?: string
 }
 
-function JollyTagGroup<T extends object>({
+function BsTagGroup<T extends object>({
   label,
   description,
   className,
@@ -135,7 +135,7 @@ function JollyTagGroup<T extends object>({
   children,
   renderEmptyState,
   ...props
-}: JollyTagGroupProps<T>) {
+}: BsTagGroupProps<T>) {
   return (
     <TagGroup className={cn("group flex flex-col gap-2", className)} {...props}>
       <Label>{label}</Label>
@@ -156,5 +156,5 @@ function JollyTagGroup<T extends object>({
   )
 }
 
-export { TagGroup, TagList, Tag, badgeVariants, JollyTagGroup }
-export type { JollyTagGroupProps }
+export { TagGroup, TagList, Tag, badgeVariants, BsTagGroup }
+export type { BsTagGroupProps }

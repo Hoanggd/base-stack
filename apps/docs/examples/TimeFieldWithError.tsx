@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { Time } from "@internationalized/date";
-import { JollyTimeField } from "@workspace/ui/components/datefield";
+import { BsTimeField } from "@workspace/ui/components/datefield";
 
 export function TimeFieldWithError() {
   const [value, setValue] = useState<Time | null>(null);
 
   return (
-    <JollyTimeField
+    <BsTimeField
       label="Required Time"
       value={value}
       onChange={setValue}
