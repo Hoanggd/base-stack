@@ -1,20 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
 import { BsCalendar } from "@workspace/ui/components/calendar";
+import dayjs from "dayjs";
 
 export function CalendarMinMax() {
-  const [value, setValue] = useState(today(getLocalTimeZone()));
-  const minValue = today(getLocalTimeZone());
-  const maxValue = new CalendarDate(2025, 12, 31);
-
   return (
     <BsCalendar
-      value={value}
-      onChange={setValue}
-      minValue={minValue}
-      maxValue={maxValue}
+      minValue={dayjs().format("YYYY-MM-DD")}
+      maxValue={dayjs().add(10, "days").format("YYYY-MM-DD")}
     />
   );
 }

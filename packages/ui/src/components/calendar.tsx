@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { getLocalTimeZone, today } from "@internationalized/date";
+import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Button as AriaButton,
@@ -16,7 +16,6 @@ import {
   CalendarGridProps as AriaCalendarGridProps,
   CalendarHeaderCell as AriaCalendarHeaderCell,
   CalendarHeaderCellProps as AriaCalendarHeaderCellProps,
-  CalendarProps as AriaCalendarProps,
   DateValue as AriaDateValue,
   Heading as AriaHeading,
   RangeCalendar as AriaRangeCalendar,
@@ -41,7 +40,7 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
 
   return (
     <header className="flex w-full items-center gap-0.5 pb-1" {...props}>
-      <AriaHeading className="pl-2 grow text-sm font-medium" />
+      <AriaHeading className="pl-3 grow text-sm font-medium" />
 
       <AriaButton
         slot="previous"
@@ -149,20 +148,41 @@ const CalendarCell = ({
   );
 };
 
-interface BsCalendarProps<T extends AriaDateValue>
-  extends AriaCalendarProps<T> {
-  errorMessage?: string;
+interface BsCalendarProps {
+  /** YYYY-MM-DD */
+  value?: string;
+  onChange?: (date: string) => void;
+  /** YYYY-MM-DD */
+  defaultValue?: string;
+  /** YYYY-MM-DD */
+  minValue?: string;
+  /** YYYY-MM-DD */
+  maxValue?: string;
   variant?: "default" | "unstyled";
+  className?: string;
 }
 
-function BsCalendar<T extends AriaDateValue>({
-  errorMessage,
+function BsCalendar({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
   variant = "default",
   ...props
-}: BsCalendarProps<T>) {
+}: BsCalendarProps) {
+  const [uncontrolledValue, setUncontrolledValue] = React.useState<
+    string | undefined
+  >(defaultValue);
+
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? setUncontrolledValue;
+
   return (
     <Calendar
+      value={value ? parseDate(value) : null}
+      onChange={(value) => onChange(value?.toString())}
       className={composeRenderProps(className, (className) =>
         cn(
           "w-fit",
@@ -172,6 +192,8 @@ function BsCalendar<T extends AriaDateValue>({
           className
         )
       )}
+      minValue={minValue ? parseDate(minValue) : null}
+      maxValue={maxValue ? parseDate(maxValue) : null}
       {...props}
     >
       <CalendarHeading />
@@ -183,11 +205,6 @@ function BsCalendar<T extends AriaDateValue>({
           {(date) => <CalendarCell date={date} />}
         </CalendarGridBody>
       </CalendarGrid>
-      {errorMessage && (
-        <Text className="text-sm text-destructive" slot="errorMessage">
-          {errorMessage}
-        </Text>
-      )}
     </Calendar>
   );
 }
