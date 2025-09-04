@@ -143,9 +143,9 @@ function JollyDateRangePicker<T extends AriaDateValue>({
         <Button
           variant="ghost"
           size="icon"
-          className="mr-1 size-6 data-[focus-visible]:ring-offset-0"
+          className="-mr-1 size-6 data-[focus-visible]:ring-offset-0"
         >
-          <CalendarIcon aria-hidden className="size-4" />
+          <CalendarIcon aria-hidden className="size-4 text-muted-foreground" />
         </Button>
       </FieldGroup>
       {description && (
@@ -161,7 +161,7 @@ function JollyDateRangePicker<T extends AriaDateValue>({
               {(day) => <CalendarHeaderCell>{day}</CalendarHeaderCell>}
             </CalendarGridHeader>
             <CalendarGridBody>
-              {(date) => <CalendarCell date={date} />}
+              {(date) => <CalendarCell date={date} type="range" />}
             </CalendarGridBody>
           </CalendarGrid>
         </RangeCalendar>

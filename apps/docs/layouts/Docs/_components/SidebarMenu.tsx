@@ -61,8 +61,8 @@ function getMenuGroups(module: string): MenuGroup[] {
             href: "/docs/ui/calendar",
           },
           {
-            title: "DateField",
-            href: "/docs/ui/date-field",
+            title: "RangeCalendar",
+            href: "/docs/ui/range-calendar",
           },
           {
             title: "DatePicker",
@@ -73,8 +73,8 @@ function getMenuGroups(module: string): MenuGroup[] {
             href: "/docs/ui/date-range-picker",
           },
           {
-            title: "RangeCalendar",
-            href: "/docs/ui/range-calendar",
+            title: "DateField",
+            href: "/docs/ui/date-field",
           },
           {
             title: "TimeField",

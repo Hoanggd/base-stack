@@ -30,6 +30,7 @@ import {
 import { cn } from "@workspace/ui/lib/utils";
 
 import { buttonVariants } from "@workspace/ui/components/button";
+import { RangeCalendarCell } from "./calendar.helper";
 
 const Calendar = AriaCalendar;
 
@@ -110,7 +111,15 @@ const CalendarGridBody = ({
   <AriaCalendarGridBody className={cn("[&>tr>td]:p-0", className)} {...props} />
 );
 
-const CalendarCell = ({ className, ...props }: AriaCalendarCellProps) => {
+const CalendarCell = ({
+  className,
+  type = "single",
+  ...props
+}: AriaCalendarCellProps & { type?: "single" | "range" }) => {
+  if (type === "range") {
+    return <RangeCalendarCell date={props.date} />;
+  }
+
   return (
     <AriaCalendarCell
       className={composeRenderProps(className, (className, renderProps) =>
@@ -187,17 +196,25 @@ function JollyCalendar<T extends AriaDateValue>({
 interface JollyRangeCalendarProps<T extends AriaDateValue>
   extends AriaRangeCalendarProps<T> {
   errorMessage?: string;
+  variant?: "default" | "unstyled";
 }
 
 function JollyRangeCalendar<T extends AriaDateValue>({
   errorMessage,
   className,
+  variant = "default",
   ...props
 }: JollyRangeCalendarProps<T>) {
   return (
     <RangeCalendar
       className={composeRenderProps(className, (className) =>
-        cn("w-fit", className)
+        cn(
+          "w-fit",
+          variant === "default"
+            ? "border rounded-md p-1 bg-background-secondary/40"
+            : "",
+          className
+        )
       )}
       {...props}
     >
@@ -207,7 +224,7 @@ function JollyRangeCalendar<T extends AriaDateValue>({
           {(day) => <CalendarHeaderCell>{day}</CalendarHeaderCell>}
         </CalendarGridHeader>
         <CalendarGridBody>
-          {(date) => <CalendarCell date={date} />}
+          {(date) => <CalendarCell date={date} type="range" />}
         </CalendarGridBody>
       </CalendarGrid>
       {errorMessage && (
