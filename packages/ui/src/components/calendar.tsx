@@ -167,7 +167,6 @@ function BsCalendar({
   maxValue,
   className,
   variant = "default",
-  ...props
 }: BsCalendarProps) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState<
     string | undefined
@@ -191,7 +190,6 @@ function BsCalendar({
       )}
       minValue={minValue ? parseDate(minValue) : null}
       maxValue={maxValue ? parseDate(maxValue) : null}
-      {...props}
     >
       <CalendarHeading />
       <CalendarGrid>
@@ -230,7 +228,6 @@ function BsRangeCalendar({
   maxValue,
   className,
   variant = "default",
-  ...props
 }: BsRangeCalendarProps) {
   const [uncontrolledValue, uncontrolledOnChange] = React.useState<
     DateRangeValues | undefined
@@ -262,7 +259,6 @@ function BsRangeCalendar({
           className
         )
       )}
-      {...props}
     >
       <CalendarHeading />
       <CalendarGrid>

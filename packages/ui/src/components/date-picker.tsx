@@ -1,24 +1,19 @@
-"use client"
+"use client";
 
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon } from "lucide-react";
 import {
   DatePicker as AriaDatePicker,
-  DatePickerProps as AriaDatePickerProps,
   DateRangePicker as AriaDateRangePicker,
-  DateRangePickerProps as AriaDateRangePickerProps,
   DateValue as AriaDateValue,
   Dialog as AriaDialog,
   DialogProps as AriaDialogProps,
   PopoverProps as AriaPopoverProps,
-  ValidationResult as AriaValidationResult,
   composeRenderProps,
-  Text,
-} from "react-aria-components"
+} from "react-aria-components";
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "@workspace/ui/lib/utils";
 
-
-import { Button } from "./button"
+import { Button } from "./button";
 import {
   Calendar,
   CalendarCell,
@@ -28,14 +23,16 @@ import {
   CalendarHeaderCell,
   CalendarHeading,
   RangeCalendar,
-} from "./calendar"
-import { DateInput } from "./datefield"
-import {  FieldGroup, Label } from "./field"
-import { Popover } from "./popover"
+} from "./calendar";
+import { DateInput } from "./datefield";
+import { FieldGroup } from "./field";
+import { Popover } from "./popover";
+import { parseDate } from "@internationalized/date";
+import React from "react";
 
-const DatePicker = AriaDatePicker
+const DatePicker = AriaDatePicker;
 
-const DateRangePicker = AriaDateRangePicker
+const DateRangePicker = AriaDateRangePicker;
 
 const DatePickerContent = ({
   className,
@@ -55,30 +52,42 @@ const DatePickerContent = ({
       {...props}
     />
   </Popover>
-)
+);
 
-interface BsDatePickerProps<T extends AriaDateValue>
-  extends AriaDatePickerProps<T> {
-  label?: string
-  description?: string
-  errorMessage?: string | ((validation: AriaValidationResult) => string)
+interface BsDatePickerProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  defaultValue?: string;
+  className?: string;
+  minValue?: string;
+  maxValue?: string;
 }
 
 function BsDatePicker<T extends AriaDateValue>({
-  label,
-  description,
-  errorMessage,
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
-  ...props
-}: BsDatePickerProps<T>) {
+}: BsDatePickerProps) {
+  const [uncontrolledValue, setUncontrolledValue] = React.useState<
+    string | undefined
+  >(defaultValue);
+
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? setUncontrolledValue;
+
   return (
     <DatePicker
       className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
+        cn("group flex flex-col gap-2 w-full", className)
       )}
-      {...props}
+      value={value ? parseDate(value) : null}
+      onChange={(value) => onChange(value?.toString() ?? "")}
+      minValue={minValue ? parseDate(minValue) : null}
+      maxValue={maxValue ? parseDate(maxValue) : null}
     >
-      <Label>{label}</Label>
       <FieldGroup>
         <DateInput className="flex-1" variant="ghost" />
         <Button
@@ -89,11 +98,6 @@ function BsDatePicker<T extends AriaDateValue>({
           <CalendarIcon aria-hidden className="size-4 text-muted-foreground" />
         </Button>
       </FieldGroup>
-      {description && (
-        <Text className="text-sm text-muted-foreground" slot="description">
-          {description}
-        </Text>
-      )}
       <DatePickerContent>
         <Calendar>
           <CalendarHeading />
@@ -108,31 +112,58 @@ function BsDatePicker<T extends AriaDateValue>({
         </Calendar>
       </DatePickerContent>
     </DatePicker>
-  )
+  );
 }
 
-interface BsDateRangePickerProps<T extends AriaDateValue>
-  extends AriaDateRangePickerProps<T> {
-  label?: string
-  description?: string
-  errorMessage?: string | ((validation: AriaValidationResult) => string)
+interface DateRangeValues {
+  start: string;
+  end: string;
+}
+
+/** Accepts values in the format YYYY-MM-DD */
+interface BsDateRangePickerProps {
+  value?: DateRangeValues;
+  onChange?: (value: DateRangeValues) => void;
+  defaultValue?: DateRangeValues;
+  className?: string;
+  variant?: "default" | "unstyled";
+  minValue?: string;
+  maxValue?: string;
 }
 
 function BsDateRangePicker<T extends AriaDateValue>({
-  label,
-  description,
-  errorMessage,
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
-  ...props
-}: BsDateRangePickerProps<T>) {
+}: BsDateRangePickerProps) {
+  const [uncontrolledValue, uncontrolledOnChange] = React.useState<
+    DateRangeValues | undefined
+  >(defaultValue);
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? uncontrolledOnChange;
+
   return (
     <DateRangePicker
       className={composeRenderProps(className, (className) =>
         cn("group flex flex-col gap-2", className)
       )}
-      {...props}
+      value={
+        value?.start && value?.end
+          ? { start: parseDate(value.start), end: parseDate(value.end) }
+          : null
+      }
+      onChange={(value) =>
+        onChange?.({
+          start: value?.start?.toString() ?? "",
+          end: value?.end?.toString() ?? "",
+        })
+      }
+      minValue={minValue ? parseDate(minValue) : null}
+      maxValue={maxValue ? parseDate(maxValue) : null}
     >
-      <Label>{label}</Label>
       <FieldGroup>
         <DateInput variant="ghost" slot={"start"} />
         <span aria-hidden className="px-2 text-sm text-muted-foreground">
@@ -148,11 +179,6 @@ function BsDateRangePicker<T extends AriaDateValue>({
           <CalendarIcon aria-hidden className="size-4 text-muted-foreground" />
         </Button>
       </FieldGroup>
-      {description && (
-        <Text className="text-sm text-muted-foreground" slot="description">
-          {description}
-        </Text>
-      )}
       <DatePickerContent>
         <RangeCalendar>
           <CalendarHeading />
@@ -167,7 +193,7 @@ function BsDateRangePicker<T extends AriaDateValue>({
         </RangeCalendar>
       </DatePickerContent>
     </DateRangePicker>
-  )
+  );
 }
 
 export {
@@ -176,5 +202,5 @@ export {
   DateRangePicker,
   BsDatePicker,
   BsDateRangePicker,
-}
-export type { BsDatePickerProps, BsDateRangePickerProps }
+};
+export type { BsDatePickerProps, BsDateRangePickerProps, DateRangeValues };
