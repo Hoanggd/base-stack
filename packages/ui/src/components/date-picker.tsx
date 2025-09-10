@@ -8,6 +8,7 @@ import {
   Dialog as AriaDialog,
   DialogProps as AriaDialogProps,
   PopoverProps as AriaPopoverProps,
+  DatePickerProps as AriaDatePickerProps,
   composeRenderProps,
 } from "react-aria-components";
 
@@ -61,15 +62,18 @@ interface BsDatePickerProps {
   className?: string;
   minValue?: string;
   maxValue?: string;
+  isDisabled?: boolean;
 }
 
-function BsDatePicker<T extends AriaDateValue>({
+function BsDatePicker({
   value: controlledValue,
   onChange: controlledOnChange,
   defaultValue,
   minValue,
   maxValue,
   className,
+  isDisabled,
+  ...props
 }: BsDatePickerProps) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState<
     string | undefined
@@ -80,6 +84,7 @@ function BsDatePicker<T extends AriaDateValue>({
 
   return (
     <DatePicker
+      aria-label="Date Picker"
       className={composeRenderProps(className, (className) =>
         cn("group flex flex-col gap-2 w-full", className)
       )}
@@ -87,6 +92,8 @@ function BsDatePicker<T extends AriaDateValue>({
       onChange={(value) => onChange(value?.toString() ?? "")}
       minValue={minValue ? parseDate(minValue) : null}
       maxValue={maxValue ? parseDate(maxValue) : null}
+      isDisabled={isDisabled}
+      {...props}
     >
       <FieldGroup>
         <DateInput className="flex-1" variant="ghost" />
@@ -147,6 +154,7 @@ function BsDateRangePicker<T extends AriaDateValue>({
 
   return (
     <DateRangePicker
+      aria-label="Date Range Picker"
       className={composeRenderProps(className, (className) =>
         cn("group flex flex-col gap-2", className)
       )}

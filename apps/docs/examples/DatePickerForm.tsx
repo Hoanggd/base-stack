@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { today, getLocalTimeZone } from "@internationalized/date";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -16,13 +15,13 @@ import {
 import { BsDatePicker } from "@workspace/ui/components/date-picker";
 
 interface FormData {
-  startDate: any;
+  startDate: string;
 }
 
 export function DatePickerForm() {
   const form = useForm<FormData>({
     defaultValues: {
-      startDate: today(getLocalTimeZone()),
+      startDate: "",
     },
   });
 
@@ -40,7 +39,7 @@ export function DatePickerForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <FormField
           control={form.control}
           name="startDate"
@@ -51,10 +50,7 @@ export function DatePickerForm() {
             <FormItem>
               <FormLabel>Start Date</FormLabel>
               <FormControl>
-                <BsDatePicker
-                  value={field.value}
-                  onChange={field.onChange}
-                />
+                <BsDatePicker {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

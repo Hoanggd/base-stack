@@ -31,6 +31,8 @@ const fieldGroupVariants = cva("", {
         "transition-all data-[focus-within]:ring-primary data-[focus-within]:ring-2 aria-invalid:ring-destructive",
         /* Disabled */
         "data-[disabled]:opacity-80",
+        /* Invalid */
+        "data-[invalid]:ring-destructive",
       ],
       ghost: "",
     },

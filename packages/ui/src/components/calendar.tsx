@@ -124,18 +124,20 @@ const CalendarCell = ({
       className={composeRenderProps(className, (className, renderProps) =>
         cn(
           buttonVariants({ variant: "unstyled" }),
-          "relative flex size-8 rounded-full items-center justify-center p-0 text-sm font-normal",
+          "transition-none relative flex size-8 rounded-full items-center justify-center p-0 text-sm font-normal",
           /* Disabled */
           renderProps.isDisabled && "text-muted-foreground opacity-50",
           /* Selected */
           renderProps.isSelected &&
             "bg-primary text-white data-[focused]:bg-primary",
-          /* Outside Month */
-          renderProps.isOutsideMonth && "hidden",
           /* Current Date */
           renderProps.date.compare(today(getLocalTimeZone())) === 0 &&
             !renderProps.isSelected &&
             "bg-neutral-400/10 text-accent-foreground",
+          /* Hovered */
+          renderProps.isHovered && "bg-neutral-400/20",
+          /* Outside Month */
+          renderProps.isOutsideMonth && "hidden",
           /* Unavailable Date */
           renderProps.isUnavailable && "cursor-default text-destructive ",
           renderProps.isInvalid &&

@@ -1,17 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { today, getLocalTimeZone } from "@internationalized/date";
 import { BsDatePicker } from "@workspace/ui/components/date-picker";
+import { Label } from "@workspace/ui/components/field";
 
 export function DatePickerWithLabel() {
-  const [value, setValue] = useState(today(getLocalTimeZone()));
-
   return (
-    <BsDatePicker
-      label="Meeting Date"
-      value={value}
-      onChange={setValue}
-    />
+    <div className="w-full">
+      <Label>Date</Label>
+      <BsDatePicker />
+    </div>
   );
 }

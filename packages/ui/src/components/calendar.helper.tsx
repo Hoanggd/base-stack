@@ -14,9 +14,9 @@ const cell = cva(
   {
     variants: {
       selectionState: {
-        none: "group-pressed:bg-neutral-200",
+        none: "group-pressed:bg-neutral-200 group-data-[hovered]:bg-neutral-400/20",
         middle: [
-          "group-invalid:group-hover:bg-red-200",
+          "group-invalid:group-hover:bg-red-200 group-data-[hovered]:bg-neutral-400/20",
           "group-pressed:bg-primary/80",
           "group-invalid:group-pressed:bg-red-300",
         ],
