@@ -30,6 +30,7 @@ import { FieldGroup } from "./field";
 import { Popover } from "./popover";
 import { parseDate } from "@internationalized/date";
 import React from "react";
+import { useIsMobile } from "../hooks/use-mobile";
 
 const DatePicker = AriaDatePicker;
 
@@ -138,7 +139,7 @@ interface BsDateRangePickerProps {
   maxValue?: string;
 }
 
-function BsDateRangePicker<T extends AriaDateValue>({
+function BsDateRangePicker({
   value: controlledValue,
   onChange: controlledOnChange,
   defaultValue,
@@ -152,11 +153,14 @@ function BsDateRangePicker<T extends AriaDateValue>({
   const value = controlledValue ?? uncontrolledValue;
   const onChange = controlledOnChange ?? uncontrolledOnChange;
 
+  const isMobile = useIsMobile();
+  const months = isMobile ? 1 : 2;
+
   return (
     <DateRangePicker
       aria-label="Date Range Picker"
       className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
+        cn("w-full group flex flex-col gap-2", className)
       )}
       value={
         value?.start && value?.end
@@ -188,16 +192,20 @@ function BsDateRangePicker<T extends AriaDateValue>({
         </Button>
       </FieldGroup>
       <DatePickerContent>
-        <RangeCalendar>
+        <RangeCalendar visibleDuration={{ months }}>
           <CalendarHeading />
-          <CalendarGrid>
-            <CalendarGridHeader>
-              {(day) => <CalendarHeaderCell>{day}</CalendarHeaderCell>}
-            </CalendarGridHeader>
-            <CalendarGridBody>
-              {(date) => <CalendarCell date={date} type="range" />}
-            </CalendarGridBody>
-          </CalendarGrid>
+          <div className="flex gap-3 items-start">
+            {Array.from({ length: months }).map((_, index) => (
+              <CalendarGrid key={index} offset={{ months: index }}>
+                <CalendarGridHeader>
+                  {(day) => <CalendarHeaderCell>{day}</CalendarHeaderCell>}
+                </CalendarGridHeader>
+                <CalendarGridBody>
+                  {(date) => <CalendarCell date={date} type="range" />}
+                </CalendarGridBody>
+              </CalendarGrid>
+            ))}
+          </div>
         </RangeCalendar>
       </DatePickerContent>
     </DateRangePicker>
