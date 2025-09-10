@@ -123,20 +123,21 @@ function BsDatePicker({
   );
 }
 
-interface DateRangeValues {
+interface BsDateRangePickerValue {
   start: string;
   end: string;
 }
 
 /** Accepts values in the format YYYY-MM-DD */
 interface BsDateRangePickerProps {
-  value?: DateRangeValues;
-  onChange?: (value: DateRangeValues) => void;
-  defaultValue?: DateRangeValues;
+  value?: BsDateRangePickerValue;
+  onChange?: (value: BsDateRangePickerValue) => void;
+  defaultValue?: BsDateRangePickerValue;
   className?: string;
   variant?: "default" | "unstyled";
   minValue?: string;
   maxValue?: string;
+  isDisabled?: boolean;
 }
 
 function BsDateRangePicker({
@@ -146,9 +147,11 @@ function BsDateRangePicker({
   minValue,
   maxValue,
   className,
+  isDisabled,
+  ...props
 }: BsDateRangePickerProps) {
   const [uncontrolledValue, uncontrolledOnChange] = React.useState<
-    DateRangeValues | undefined
+    BsDateRangePickerValue | undefined
   >(defaultValue);
   const value = controlledValue ?? uncontrolledValue;
   const onChange = controlledOnChange ?? uncontrolledOnChange;
@@ -175,6 +178,8 @@ function BsDateRangePicker({
       }
       minValue={minValue ? parseDate(minValue) : null}
       maxValue={maxValue ? parseDate(maxValue) : null}
+      isDisabled={isDisabled}
+      {...props}
     >
       <FieldGroup>
         <DateInput variant="ghost" slot={"start"} />
@@ -219,4 +224,8 @@ export {
   BsDatePicker,
   BsDateRangePicker,
 };
-export type { BsDatePickerProps, BsDateRangePickerProps, DateRangeValues };
+export type {
+  BsDatePickerProps,
+  BsDateRangePickerProps,
+  BsDateRangePickerValue,
+};

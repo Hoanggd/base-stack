@@ -1,20 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
 import { BsDateRangePicker } from "@workspace/ui/components/date-picker";
+import { Label } from "@workspace/ui/components/field";
 
 export function DateRangePickerWithLabel() {
-  const [value, setValue] = useState({
-    start: today(getLocalTimeZone()),
-    end: today(getLocalTimeZone()).add({ days: 3 }),
-  });
-
   return (
-    <BsDateRangePicker
-      label="Vacation Period"
-      value={value}
-      onChange={setValue}
-    />
+    <div className="w-full">
+      <Label>Date</Label>
+      <BsDateRangePicker />
+    </div>
   );
 }

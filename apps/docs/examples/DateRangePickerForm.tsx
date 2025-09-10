@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { today, getLocalTimeZone, CalendarDate } from "@internationalized/date";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -13,24 +12,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@workspace/ui/components/form";
-import { BsDateRangePicker } from "@workspace/ui/components/date-picker";
+import {
+  BsDateRangePicker,
+  BsDateRangePickerValue,
+} from "@workspace/ui/components/date-picker";
 
 interface FormData {
-  dateRange: {
-    start: CalendarDate | null;
-    end: CalendarDate | null;
-  } | null;
+  dateRange?: BsDateRangePickerValue;
 }
 
 export function DateRangePickerForm() {
-  const form = useForm<FormData>({
-    defaultValues: {
-      dateRange: {
-        start: today(getLocalTimeZone()),
-        end: today(getLocalTimeZone()).add({ days: 7 }),
-      },
-    },
-  });
+  const form = useForm<FormData>();
 
   function onSubmit(data: FormData) {
     toast("You submitted the following values", {
@@ -46,21 +38,15 @@ export function DateRangePickerForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <FormField
           control={form.control}
           name="dateRange"
-          rules={{
-            required: "Date range is required",
-          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Date Range</FormLabel>
               <FormControl>
-                <BsDateRangePicker
-                  value={field.value}
-                  onChange={field.onChange}
-                />
+                <BsDateRangePicker {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

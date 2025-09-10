@@ -30,6 +30,7 @@ import { cn } from "@workspace/ui/lib/utils";
 
 import { buttonVariants } from "@workspace/ui/components/button";
 import { RangeCalendarCell } from "./calendar.helper";
+import { useIsMobile } from "../hooks/use-mobile";
 
 const Calendar = AriaCalendar;
 
@@ -206,16 +207,16 @@ function BsCalendar({
   );
 }
 
-interface DateRangeValues {
+interface RangeCalendarValue {
   start: string;
   end: string;
 }
 
 /** Accepts values in the format YYYY-MM-DD */
 interface BsRangeCalendarProps {
-  value?: DateRangeValues;
-  onChange?: (value: DateRangeValues) => void;
-  defaultValue?: DateRangeValues;
+  value?: RangeCalendarValue;
+  onChange?: (value: RangeCalendarValue) => void;
+  defaultValue?: RangeCalendarValue;
   className?: string;
   variant?: "default" | "unstyled";
   minValue?: string;
@@ -232,13 +233,17 @@ function BsRangeCalendar({
   variant = "default",
 }: BsRangeCalendarProps) {
   const [uncontrolledValue, uncontrolledOnChange] = React.useState<
-    DateRangeValues | undefined
+    RangeCalendarValue | undefined
   >(defaultValue);
   const value = controlledValue ?? uncontrolledValue;
   const onChange = controlledOnChange ?? uncontrolledOnChange;
 
+  const isMobile = useIsMobile();
+  const months = isMobile ? 1 : 2;
+
   return (
     <RangeCalendar
+      visibleDuration={{ months }}
       value={
         value?.start && value?.end
           ? { start: parseDate(value.start), end: parseDate(value.end) }
@@ -263,14 +268,18 @@ function BsRangeCalendar({
       )}
     >
       <CalendarHeading />
-      <CalendarGrid>
-        <CalendarGridHeader>
-          {(day) => <CalendarHeaderCell>{day}</CalendarHeaderCell>}
-        </CalendarGridHeader>
-        <CalendarGridBody>
-          {(date) => <CalendarCell date={date} type="range" />}
-        </CalendarGridBody>
-      </CalendarGrid>
+      <div className="flex gap-3 items-start">
+        {Array.from({ length: months }).map((_, index) => (
+          <CalendarGrid key={index} offset={{ months: index }}>
+            <CalendarGridHeader>
+              {(day) => <CalendarHeaderCell>{day}</CalendarHeaderCell>}
+            </CalendarGridHeader>
+            <CalendarGridBody>
+              {(date) => <CalendarCell date={date} type="range" />}
+            </CalendarGridBody>
+          </CalendarGrid>
+        ))}
+      </div>
     </RangeCalendar>
   );
 }
@@ -287,4 +296,4 @@ export {
   BsCalendar,
   BsRangeCalendar,
 };
-export type { BsCalendarProps, BsRangeCalendarProps, DateRangeValues };
+export type { BsCalendarProps, BsRangeCalendarProps, RangeCalendarValue };

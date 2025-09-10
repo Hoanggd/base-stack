@@ -8,6 +8,7 @@ import {
 } from "@workspace/ui/components/card";
 import { Link } from "@workspace/ui/components/link";
 import {
+  ArrowRightIcon,
   Database,
   FormInput,
   PackageIcon,
@@ -34,8 +35,9 @@ export default function Home() {
               start building immediately.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link variant="default" size="xl" href="/docs/ui/introduction">
+              <Link variant="default" size="lg" href="/docs/ui/installation">
                 Get Started
+                <ArrowRightIcon />
               </Link>
             </div>
           </div>
