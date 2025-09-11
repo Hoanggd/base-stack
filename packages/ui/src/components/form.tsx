@@ -106,7 +106,7 @@ function FormLabel({
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={className}
+      className={cn("whitespace-nowrap", className)}
       htmlFor={formItemId}
       {...props}
     />

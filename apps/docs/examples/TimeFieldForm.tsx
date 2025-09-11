@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Time } from "@internationalized/date";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -14,17 +13,15 @@ import {
   FormMessage,
 } from "@workspace/ui/components/form";
 import { BsTimeField } from "@workspace/ui/components/datefield";
+import { BsDatePicker } from "@workspace/ui/components/date-picker";
 
 interface FormData {
-  appointmentTime: any;
+  appointmentTime: string;
+  appointmentDate: string;
 }
 
 export function TimeFieldForm() {
-  const form = useForm<FormData>({
-    defaultValues: {
-      appointmentTime: new Time(10, 0),
-    },
-  });
+  const form = useForm<FormData>();
 
   function onSubmit(data: FormData) {
     toast("You submitted the following values", {
@@ -40,26 +37,35 @@ export function TimeFieldForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="appointmentTime"
-          rules={{
-            required: "Appointment time is required",
-          }}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Appointment Time</FormLabel>
-              <FormControl>
-                <BsTimeField
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
+        <div className="flex gap-2">
+          <FormField
+            control={form.control}
+            name="appointmentDate"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>Appointment Time</FormLabel>
+                <FormControl>
+                  <BsDatePicker {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="appointmentTime"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="opacity-0">Time</FormLabel>
+                <FormControl>
+                  <BsTimeField {...field} className="w-[72px]" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <Button type="submit">Submit</Button>
       </form>
     </Form>

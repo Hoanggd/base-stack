@@ -1,27 +1,21 @@
 "use client";
 
+import { parseTime } from "@internationalized/date";
+import { cn } from "@workspace/ui/lib/utils";
 import { VariantProps } from "class-variance-authority";
 import {
   DateField as AriaDateField,
-  DateFieldProps as AriaDateFieldProps,
   DateInput as AriaDateInput,
   DateInputProps as AriaDateInputProps,
   DateSegment as AriaDateSegment,
   DateSegmentProps as AriaDateSegmentProps,
-  DateValue as AriaDateValue,
   TimeField as AriaTimeField,
-  TimeFieldProps as AriaTimeFieldProps,
-  TimeValue as AriaTimeValue,
-  ValidationResult as AriaValidationResult,
   composeRenderProps,
-  Text,
 } from "react-aria-components";
 
-import { cn } from "@workspace/ui/lib/utils";
-
-import { fieldGroupVariants, Label } from "./field";
-import React from "react";
 import { parseDate } from "@internationalized/date";
+import React from "react";
+import { fieldGroupVariants } from "./field";
 
 const DateField = AriaDateField;
 
@@ -113,33 +107,61 @@ function BsDateField({
   );
 }
 
-interface BsTimeFieldProps<T extends AriaTimeValue>
-  extends AriaTimeFieldProps<T> {
-  label?: string;
-  description?: string;
-  errorMessage?: string | ((validation: AriaValidationResult) => string);
+/** Accepts values in the format HH:mm:ss or HH:mm */
+interface BsTimeFieldProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  defaultValue?: string;
+  className?: string;
+  variant?: "default" | "unstyled";
+  minValue?: string;
+  maxValue?: string;
+  isDisabled?: boolean;
+  granularity?: "hour" | "minute" | "second";
 }
 
-function BsTimeField<T extends AriaTimeValue>({
-  label,
-  description,
-  errorMessage,
+function BsTimeField({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
+  isDisabled,
+  granularity = "minute",
   ...props
-}: BsTimeFieldProps<T>) {
+}: BsTimeFieldProps) {
+  const [uncontrolledValue, setUncontrolledValue] = React.useState<
+    string | undefined
+  >(defaultValue);
+
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? setUncontrolledValue;
+
   return (
-    <TimeField onChange={(e) => console.log(e)} {...props}>
-      <DateInput />
+    <TimeField
+      aria-label="Date Field"
+      granularity={granularity}
+      className={cn("w-max", className)}
+      value={value ? parseTime(value) : undefined}
+      onChange={(value) => onChange(value?.toString() ?? "")}
+      minValue={minValue ? parseTime(minValue) : null}
+      maxValue={maxValue ? parseTime(maxValue) : null}
+      isDisabled={isDisabled}
+      {...props}
+    >
+      <DateInput className="justify-center" />
     </TimeField>
   );
 }
 
 export {
-  DateField,
-  DateSegment,
-  DateInput,
-  TimeField,
   BsDateField,
   BsTimeField,
+  DateField,
+  DateInput,
+  DateSegment,
+  TimeField
 };
-export type { DateInputProps, BsDateFieldProps, BsTimeFieldProps };
+export type { BsDateFieldProps, BsTimeFieldProps, DateInputProps };
+
