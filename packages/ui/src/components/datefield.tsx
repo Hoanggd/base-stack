@@ -94,6 +94,7 @@ function BsDateField({
   return (
     <DateField
       aria-label="Date Field"
+      isInvalid={(props as any)["aria-invalid"]}
       className={cn("w-full", className)}
       value={value ? parseDate(value) : null}
       onChange={(value) => onChange(value?.toString() ?? "")}
@@ -141,6 +142,7 @@ function BsTimeField({
   return (
     <TimeField
       aria-label="Date Field"
+      isInvalid={(props as any)["aria-invalid"]}
       granularity={granularity}
       className={cn("w-max", className)}
       value={value ? parseTime(value) : undefined}
@@ -161,7 +163,6 @@ export {
   DateField,
   DateInput,
   DateSegment,
-  TimeField
+  TimeField,
 };
 export type { BsDateFieldProps, BsTimeFieldProps, DateInputProps };
-

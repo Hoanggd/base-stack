@@ -86,6 +86,7 @@ function BsDatePicker({
   return (
     <DatePicker
       aria-label="Date Picker"
+      isInvalid={(props as any)["aria-invalid"]}
       className={composeRenderProps(className, (className) =>
         cn("w-full", className)
       )}
@@ -162,6 +163,7 @@ function BsDateRangePicker({
   return (
     <DateRangePicker
       aria-label="Date Range Picker"
+      isInvalid={(props as any)["aria-invalid"]}
       className={composeRenderProps(className, (className) =>
         cn("w-full", className)
       )}

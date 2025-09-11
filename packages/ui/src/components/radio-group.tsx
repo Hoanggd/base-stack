@@ -6,9 +6,7 @@ import {
   RadioGroup as AriaRadioGroup,
   RadioGroupProps as AriaRadioGroupProps,
   RadioProps as AriaRadioProps,
-  ValidationResult as AriaValidationResult,
   composeRenderProps,
-  Text,
 } from "react-aria-components";
 
 import { cn } from "@workspace/ui/lib/utils";
@@ -18,6 +16,7 @@ import { labelVariants } from "./field";
 const RadioGroup = ({ className, ...props }: AriaRadioGroupProps) => {
   return (
     <AriaRadioGroup
+      isInvalid={(props as any)["aria-invalid"]}
       className={composeRenderProps(className, (className, renderProps) =>
         cn(
           "group/radiogroup flex flex-col flex-wrap gap-2",
@@ -75,4 +74,4 @@ const Radio = ({ className, children, ...props }: AriaRadioProps) => {
   );
 };
 
-export { RadioGroup, Radio };
+export { Radio, RadioGroup };

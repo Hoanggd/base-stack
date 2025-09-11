@@ -116,7 +116,6 @@ function FormLabel({
 function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
-  const reactAreaProps = { isInvalid: !!error };
 
   return (
     <Slot
@@ -128,7 +127,6 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
           : `${formDescriptionId} ${formMessageId}`
       }
       aria-invalid={!!error}
-      {...reactAreaProps}
       {...props}
     />
   );

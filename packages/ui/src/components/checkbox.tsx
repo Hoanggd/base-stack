@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { Check, Minus } from "lucide-react";
 import {
   Checkbox as AriaCheckbox,
@@ -12,14 +11,11 @@ import {
 
 import { cn } from "@workspace/ui/lib/utils";
 
-import { Label, labelVariants } from "./field";
+import { labelVariants } from "./field";
 
 const CheckboxGroup = ({ className, ...props }: AriaCheckboxGroupProps) => {
   return (
-    <AriaCheckboxGroup
-      className={cn("grid gap-2", className)}
-      {...props}
-    />
+    <AriaCheckboxGroup className={cn("grid gap-2", className)} {...props} />
   );
 };
 
@@ -34,6 +30,7 @@ const Checkbox = ({ className, children, ...props }: AriaCheckboxProps) => (
         className
       )
     )}
+    isInvalid={(props as any)["aria-invalid"]}
     {...props}
   >
     {composeRenderProps(children, (children, renderProps) => (
@@ -67,32 +64,4 @@ const Checkbox = ({ className, children, ...props }: AriaCheckboxProps) => (
   </AriaCheckbox>
 );
 
-interface BsCheckboxGroupProps extends AriaCheckboxGroupProps {
-  label?: string;
-}
-
-function BsCheckboxGroup({
-  label,
-  className,
-  children,
-  ...props
-}: BsCheckboxGroupProps) {
-  return (
-    <CheckboxGroup
-      className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
-      )}
-      {...props}
-    >
-      {composeRenderProps(children, (children) => (
-        <>
-          <Label>{label}</Label>
-          {children}
-        </>
-      ))}
-    </CheckboxGroup>
-  );
-}
-
-export { Checkbox, CheckboxGroup, BsCheckboxGroup };
-export type { BsCheckboxGroupProps };
+export { Checkbox, CheckboxGroup };
