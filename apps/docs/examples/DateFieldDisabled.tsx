@@ -2,6 +2,6 @@
 
 import { BsDateField } from "@workspace/ui/components/datefield";
 
-export function DateFieldDemo() {
-  return <BsDateField />;
+export function DateFieldDisabled() {
+  return <BsDateField isDisabled />;
 }

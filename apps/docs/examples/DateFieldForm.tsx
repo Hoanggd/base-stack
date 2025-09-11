@@ -2,8 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { today, getLocalTimeZone } from "@internationalized/date";
-import { z } from "@workspace/ui/lib/zod";
 
 import { Button } from "@workspace/ui/components/button";
 import {
@@ -17,13 +15,13 @@ import {
 import { BsDateField } from "@workspace/ui/components/datefield";
 
 interface FormData {
-  eventDate: any;
+  eventDate: string;
 }
 
 export function DateFieldForm() {
   const form = useForm<FormData>({
     defaultValues: {
-      eventDate: today(getLocalTimeZone()),
+      eventDate: "",
     },
   });
 
@@ -41,7 +39,7 @@ export function DateFieldForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <FormField
           control={form.control}
           name="eventDate"
@@ -52,10 +50,7 @@ export function DateFieldForm() {
             <FormItem>
               <FormLabel>Event Date</FormLabel>
               <FormControl>
-                <BsDateField
-                  value={field.value}
-                  onChange={field.onChange}
-                />
+                <BsDateField {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

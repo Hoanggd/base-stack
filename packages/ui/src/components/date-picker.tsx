@@ -87,7 +87,7 @@ function BsDatePicker({
     <DatePicker
       aria-label="Date Picker"
       className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2 w-full", className)
+        cn("w-full", className)
       )}
       value={value ? parseDate(value) : null}
       onChange={(value) => onChange(value?.toString() ?? "")}
@@ -163,7 +163,7 @@ function BsDateRangePicker({
     <DateRangePicker
       aria-label="Date Range Picker"
       className={composeRenderProps(className, (className) =>
-        cn("w-full group flex flex-col gap-2", className)
+        cn("w-full", className)
       )}
       value={
         value?.start && value?.end

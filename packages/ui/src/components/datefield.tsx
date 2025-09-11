@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { VariantProps } from "class-variance-authority"
+import { VariantProps } from "class-variance-authority";
 import {
   DateField as AriaDateField,
   DateFieldProps as AriaDateFieldProps,
@@ -15,16 +15,17 @@ import {
   ValidationResult as AriaValidationResult,
   composeRenderProps,
   Text,
-} from "react-aria-components"
+} from "react-aria-components";
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "@workspace/ui/lib/utils";
 
+import { fieldGroupVariants, Label } from "./field";
+import React from "react";
+import { parseDate } from "@internationalized/date";
 
-import { fieldGroupVariants, Label } from "./field"
+const DateField = AriaDateField;
 
-const DateField = AriaDateField
-
-const TimeField = AriaTimeField
+const TimeField = AriaTimeField;
 
 function DateSegment({ className, ...props }: AriaDateSegmentProps) {
   return (
@@ -43,7 +44,7 @@ function DateSegment({ className, ...props }: AriaDateSegmentProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 interface DateInputProps
@@ -64,46 +65,59 @@ function DateInput({
     >
       {(segment) => <DateSegment segment={segment} />}
     </AriaDateInput>
-  )
+  );
 }
 
-interface BsDateFieldProps<T extends AriaDateValue>
-  extends AriaDateFieldProps<T> {
-  label?: string
-  description?: string
-  errorMessage?: string | ((validation: AriaValidationResult) => string)
+/** Accepts values in the format YYYY-MM-DD */
+interface BsDateFieldProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  defaultValue?: string;
+  className?: string;
+  variant?: "default" | "unstyled";
+  minValue?: string;
+  maxValue?: string;
+  isDisabled?: boolean;
 }
 
-function BsDateField<T extends AriaDateValue>({
-  label,
-  description,
+function BsDateField({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
-  errorMessage,
+  isDisabled,
   ...props
-}: BsDateFieldProps<T>) {
+}: BsDateFieldProps) {
+  const [uncontrolledValue, setUncontrolledValue] = React.useState<
+    string | undefined
+  >(defaultValue);
+
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? setUncontrolledValue;
+
   return (
     <DateField
-      className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
-      )}
+      aria-label="Date Field"
+      className={cn("w-full", className)}
+      value={value ? parseDate(value) : null}
+      onChange={(value) => onChange(value?.toString() ?? "")}
+      minValue={minValue ? parseDate(minValue) : null}
+      maxValue={maxValue ? parseDate(maxValue) : null}
+      isDisabled={isDisabled}
       {...props}
     >
-      <Label>{label}</Label>
       <DateInput />
-      {description && (
-        <Text className="text-sm text-muted-foreground" slot="description">
-          {description}
-        </Text>
-      )}
     </DateField>
-  )
+  );
 }
 
 interface BsTimeFieldProps<T extends AriaTimeValue>
   extends AriaTimeFieldProps<T> {
-  label?: string
-  description?: string
-  errorMessage?: string | ((validation: AriaValidationResult) => string)
+  label?: string;
+  description?: string;
+  errorMessage?: string | ((validation: AriaValidationResult) => string);
 }
 
 function BsTimeField<T extends AriaTimeValue>({
@@ -114,17 +128,10 @@ function BsTimeField<T extends AriaTimeValue>({
   ...props
 }: BsTimeFieldProps<T>) {
   return (
-    <TimeField
-      className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
-      )}
-      {...props}
-    >
-      <Label>{label}</Label>
+    <TimeField onChange={(e) => console.log(e)} {...props}>
       <DateInput />
-      {description && <Text slot="description">{description}</Text>}
     </TimeField>
-  )
+  );
 }
 
 export {
@@ -134,5 +141,5 @@ export {
   TimeField,
   BsDateField,
   BsTimeField,
-}
-export type { DateInputProps, BsDateFieldProps, BsTimeFieldProps }
+};
+export type { DateInputProps, BsDateFieldProps, BsTimeFieldProps };
