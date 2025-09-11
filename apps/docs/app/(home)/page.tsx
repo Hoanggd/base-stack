@@ -1,5 +1,4 @@
-import { HeroBackground } from "@/components/HeroBackground";
-import { GITHUB_URL } from "@/constants/common";
+
 import {
   Card,
   CardDescription,
@@ -35,7 +34,7 @@ export default function Home() {
               start building immediately.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link variant="default" size="lg" href="/docs/ui/installation">
+              <Link variant="default" size="lg" href="/docs/getting-started/installation">
                 Get Started
                 <ArrowRightIcon />
               </Link>

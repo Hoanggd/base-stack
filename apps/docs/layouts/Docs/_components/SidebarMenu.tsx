@@ -29,17 +29,17 @@ function getMenuGroups(module: string): MenuGroup[] {
         items: [
           {
             title: "Introduction",
-            href: "/docs/ui/introduction",
+            href: "/docs/getting-started/introduction",
             icon: <BookOpen size={16} strokeWidth={1.5} />,
           },
           {
             title: "Installation",
-            href: "/docs/ui/installation",
+            href: "/docs/getting-started/installation",
             icon: <BoltIcon size={16} strokeWidth={1.5} />,
           },
           {
             title: "Philosophy",
-            href: "/docs/ui/philosophy",
+            href: "/docs/getting-started/philosophy",
             icon: <BrainIcon size={16} strokeWidth={1.5} />,
           },
         ],
@@ -83,12 +83,8 @@ function getMenuGroups(module: string): MenuGroup[] {
         ],
       },
       {
-        title: "Forms",
+        title: "Form Fields",
         items: [
-          {
-            title: "Form",
-            href: "/docs/ui/form",
-          },
           {
             title: "Input",
             href: "/docs/ui/input",
@@ -148,7 +144,7 @@ export function SidebarMenu() {
             <div className="pb-24">
               <div className="h-10" />
               {groups.map((group) => (
-                <div className="mb-5 space-y-1" key={group.title}>
+                <div className="mb-7 space-y-1" key={group.title}>
                   <div>
                     <h3 className="px-6 flex items-center text-xs uppercase tracking-wide text-muted-foreground/70">
                       {group.title}
@@ -176,7 +172,7 @@ function MenuItem({ title, href, icon }: MenuItem) {
       className={cn(
         "flex items-center gap-2 text-sm px-[23px] h-8 transition-colors text-muted-foreground border-l border-transparent focus-visible:outline-none focus-visible:bg-background-secondary",
         isActive
-          ? "text-foreground border-foreground"
+          ? "text-foreground border-foreground font-medium"
           : "hover:text-foreground hover:border-foreground/20"
       )}
       href={href}

@@ -3,9 +3,9 @@ title: Philosophy
 description: Our guiding principles for building maintainable, performant, and beautiful user interfaces
 ---
 
-> Our approach to building user interfaces is guided by a simple principle: **simplicity over complexity**. We believe that the best code is the code that's easiest to understand, maintain, and modify. This philosophy influences every decision we make, from component architecture to state management.
+Our approach to building user interfaces is guided by a simple principle: **simplicity over complexity**. We believe that the best code is the code that's easiest to understand, maintain, and modify. This philosophy influences every decision we make, from component architecture to state management.
 
-## Write Simple Code
+## 1. Write Simple Code
 
 > The best code isn't the most elegant or sophisticated - it's the code that future developers (including yourself) can understand quickly. - [Cognitive Load Theory](https://github.com/zakirullin/cognitive-load)
 
@@ -46,7 +46,7 @@ function isEven(n) {
 }
 ```
 
-## Avoid Hasty Abstractions
+## 2. Avoid Hasty Abstractions
 
 > Prefer duplication over the wrong abstraction - [Sandi Metz](https://kentcdodds.com/blog/aha-programming)
 
@@ -65,7 +65,7 @@ Following the **AHA Programming** principle (Avoid Hasty Abstractions), we belie
 - ❌ **Before you understand** the full scope of use cases
 - ❌ **To satisfy DRY dogma** without clear benefits
 
-## Limit useEffect Usage
+## 3. Limit useEffect Usage
 
 > Effects are an escape hatch from React's paradigm. - [React Documentation](https://react.dev/learn/you-might-not-need-an-effect)
 
@@ -106,7 +106,7 @@ const user = useQuery({
 - **Cleanup operations** (subscriptions, timers, event listeners)
 - **Logging and analytics** that can't be handled declaratively
 
-## Prefer URL State Over Global State
+## 4. Prefer URL State Over Global State
 
 Global state management libraries (Zustand, Redux, Context) create invisible dependencies that make code harder to understand and test. Instead, we prefer:
 
@@ -139,33 +139,39 @@ const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
 - **Theme preferences** (light/dark mode, color schemes)
 - **Layout configuration** (sidebar collapsed state, panel sizes, view preferences)
 
-## Write Pixel-Perfect UI
 
-Attention to detail matters. Users notice when interfaces are polished and professional. We strive for:
+## 5. Obsess Over User Experience
 
-### Visual Precision
+That 2px difference you think nobody will notice? Users feel it. They may not know exactly what's wrong, but something feels off, and they leave.
 
-- **Exact spacing** - Use design tokens, not arbitrary values
-- **Perfect alignment** - Everything should line up on a consistent grid
-- **Smooth animations** - 60fps transitions with proper easing
-- **Responsive design** - Works perfectly on all screen sizes
-- **Accessibility** - WCAG 2.1 AA compliance minimum
+### Perfect Pixel UI
 
-### Implementation Details
+- **Match designs exactly**: Use dev tools to measure spacing, font sizes, line heights, and radii
+- **Cross-browser and device testing**: Verify on Safari, Chrome, Firefox, and real iOS/Android hardware
+- **Interactive polish**: Implement hover states, focus rings, pressed/disabled styles, and micro-interactions
+- **Design tokens**: Centralize spacing, colors, and typography tokens to enforce consistency
 
-```tsx
-// ❌ Arbitrary values
-<div style={{ margin: '10px', padding: '15px' }}>
+### Always Provide Feedback
 
-// ✅ Design tokens
-<div className="space-y-4 p-6">
+#### Loading States
 
-// ❌ Hardcoded colors
-<div style={{ color: '#ff0000' }}>
+- **Skeletons**: Prefer skeleton screens over blank spaces to reduce perceived wait time
+- **Loading indicators**: Display a loading indicator during any mutation (such as create, update, or delete actions)
 
-// ✅ Semantic color tokens
-<div className="text-destructive">
-```
+#### Error Handling
+
+- **Human-friendly**: Say what happened and how to fix it, avoid jargon
+- **Inline validation**: Validate as users type, place messages near the field with clear guidance
+
+#### Success States
+- **Affirmation**: Confirm actions with toasts or visual cues without interrupting flow
+
+### Prevent Layout Shift
+
+- **Explicit dimensions**: Always set width/height for images and videos
+- **Skeleton sizing**: Match skeleton dimensions to final content to avoid jumps
+- **Font performance**: Use next/font to optimize loading and reduce layout shift.
+- **Performant animations**: Animate with transforms/opacity, avoid layout-affecting properties
 
 ## Summary
 
@@ -175,6 +181,4 @@ Our philosophy can be distilled into these core principles:
 2. **Embrace duplication** - Wait for patterns to emerge naturally
 3. **Minimize side effects** - Prefer declarative over imperative
 4. **URL as state** - Make app state visible and shareable with [nuqs](https://nuqs.47ng.com/)
-5. **Pixel perfection** - Attention to detail builds trust
-
-Remember: **The best code is the code that's easiest to change.** When in doubt, choose the simpler option. You can always make it more sophisticated later, but it's much harder to simplify complex code.
+5. **Obsess Over User Experience** - Attention to detail builds trust

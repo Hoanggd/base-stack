@@ -3,12 +3,11 @@ import { Logo } from "@/components/Logo";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { GITHUB_URL } from "@/constants/common";
 import { Link } from "@workspace/ui/components/link";
-import { DocsSearch } from "./_shared/DocsSearch";
 
 const navLinks = [
   {
     label: "Docs",
-    href: "/docs/ui/introduction",
+    href: "/docs/getting-started/introduction",
   },
 ];
 
