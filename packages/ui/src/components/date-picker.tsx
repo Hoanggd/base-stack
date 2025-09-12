@@ -42,6 +42,7 @@ const DatePickerContent = ({
   ...props
 }: AriaDialogProps & { popoverClassName?: AriaPopoverProps["className"] }) => (
   <Popover
+    isAnimated={false}
     className={composeRenderProps(popoverClassName, (className) =>
       cn("w-auto p-1", className)
     )}

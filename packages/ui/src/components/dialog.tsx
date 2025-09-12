@@ -61,7 +61,7 @@ const DialogContent = ({
   <AriaModal
     className={composeRenderProps(className, (className) =>
       cn(
-        "fixed left-[50vw] top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 bg-background p-6 shadow-2xl max-w-lg w-full rounded-xl dark:border max-md:max-w-svw max-md:w-svw max-md:h-svh max-md:rounded-none",
+        "fixed left-[50vw] top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 bg-background p-6 shadow-2xl max-w-lg w-full rounded-xl dark:border max-md:p-5 max-md:max-w-svw max-md:w-svw max-md:h-svh max-md:rounded-none",
         "data-[entering]:animate-in data-[exiting]:animate-out data-[entering]:fade-in-0 data-[exiting]:fade-out-0",
         "md:data-[entering]:zoom-in-97 md:data-[exiting]:zoom-out-97",
         "max-md:data-[entering]:duration-300 max-md:data-[exiting]:duration-300 max-md:data-[entering]:slide-in-from-bottom-1/2 max-md:data-[exiting]:slide-out-to-bottom-1/2",
@@ -137,7 +137,7 @@ const DialogDescription = ({
 }: React.HTMLAttributes<HTMLParagraphElement>) => (
   <p
     className={cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
+      "flex flex-col space-y-1.5 text-center text-sm sm:text-left text-muted-foreground",
       className
     )}
     {...props}

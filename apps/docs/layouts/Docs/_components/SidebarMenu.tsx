@@ -111,6 +111,36 @@ function getMenuGroups(module: string): MenuGroup[] {
           },
         ],
       },
+      {
+        title: "Overlays",
+        items: [
+          {
+            title: "Dialog",
+            href: "/docs/ui/dialog",
+          },
+          {
+            title: "Popover",
+            href: "/docs/ui/popover",
+          },
+          {
+            title: "Tooltip",
+            href: "/docs/ui/tooltip",
+          },
+        ],
+      },
+      {
+        title: "Pickers",
+        items: [
+          {
+            title: "ComboBox",
+            href: "/docs/ui/combobox",
+          },
+          {
+            title: "Select",
+            href: "/docs/ui/select",
+          },
+        ],
+      },
     ];
   }
 

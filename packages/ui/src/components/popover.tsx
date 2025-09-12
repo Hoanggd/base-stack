@@ -17,7 +17,7 @@ const PopoverTrigger = AriaDialogTrigger;
 const Popover = ({
   className,
   offset = 4,
-  isAnimated = false,
+  isAnimated = true,
   ...props
 }: AriaPopoverProps & { isAnimated?: boolean }) => (
   <AriaPopover
@@ -41,7 +41,7 @@ const Popover = ({
 
 function PopoverDialog({ className, ...props }: AriaDialogProps) {
   return (
-    <AriaDialog className={cn("p-4 outline outline-0", className)} {...props} />
+    <AriaDialog className={cn("p-3 outline outline-0", className)} {...props} />
   );
 }
 
