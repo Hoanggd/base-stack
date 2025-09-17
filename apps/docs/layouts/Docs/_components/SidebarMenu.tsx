@@ -132,8 +132,8 @@ function getMenuGroups(module: string): MenuGroup[] {
         title: "Pickers",
         items: [
           {
-            title: "ComboBox",
-            href: "/docs/ui/combobox",
+            title: "Searchable Select",
+            href: "/docs/ui/searchable-select",
           },
           {
             title: "Select",

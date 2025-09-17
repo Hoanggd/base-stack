@@ -96,13 +96,8 @@ function BsSearchField({
   ...props
 }: BsSearchFieldProps) {
   return (
-    <SearchField
-      className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
-      )}
-      {...props}
-    >
-      <FieldGroup>
+    <SearchField className="group flex flex-col gap-2" {...props}>
+      <FieldGroup className={() => cn(className)}>
         <SearchIcon
           aria-hidden
           className="size-4 text-muted-foreground pointer-events-none"

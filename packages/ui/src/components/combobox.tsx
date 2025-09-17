@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { ChevronsUpDown } from "lucide-react"
+import { ChevronsUpDown } from "lucide-react";
 import {
   ComboBox as AriaComboBox,
   ComboBoxProps as AriaComboBoxProps,
@@ -12,36 +12,35 @@ import {
   ValidationResult as AriaValidationResult,
   composeRenderProps,
   Text,
-} from "react-aria-components"
+} from "react-aria-components";
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "@workspace/ui/lib/utils";
 
-
-import { Button } from "./button"
-import { FieldError, FieldGroup, Label } from "./field"
+import { Button } from "./button";
+import { FieldGroup, Label } from "./field";
 import {
   ListBoxCollection,
   ListBoxHeader,
   ListBoxItem,
   ListBoxSection,
-} from "./list-box"
-import { Popover } from "./popover"
+} from "./list-box";
+import { Popover } from "./popover";
 
-const Combobox = AriaComboBox
+const Combobox = AriaComboBox;
 
-const ComboboxItem = ListBoxItem
+const ComboboxItem = ListBoxItem;
 
-const ComboboxHeader = ListBoxHeader
+const ComboboxHeader = ListBoxHeader;
 
-const ComboboxSection = ListBoxSection
+const ComboboxSection = ListBoxSection;
 
-const ComboboxCollection = ListBoxCollection
+const ComboboxCollection = ListBoxCollection;
 
 const ComboboxInput = ({ className, ...props }: AriaInputProps) => (
   <AriaInput
     className={composeRenderProps(className, (className) =>
       cn(
-        "flex h-10 w-full bg-background px-3 py-2 outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground",
+        "flex h-7 w-full px-3 py-2 outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground",
         /* Disabled */
         "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
         className
@@ -49,7 +48,7 @@ const ComboboxInput = ({ className, ...props }: AriaInputProps) => (
     )}
     {...props}
   />
-)
+);
 
 const ComboboxPopover = ({ className, ...props }: AriaPopoverProps) => (
   <Popover
@@ -58,7 +57,7 @@ const ComboboxPopover = ({ className, ...props }: AriaPopoverProps) => (
     )}
     {...props}
   />
-)
+);
 
 const ComboboxListBox = <T extends object>({
   className,
@@ -73,14 +72,14 @@ const ComboboxListBox = <T extends object>({
     )}
     {...props}
   />
-)
+);
 
 interface BsComboBoxProps<T extends object>
   extends Omit<AriaComboBoxProps<T>, "children"> {
-  label?: string
-  description?: string | null
-  errorMessage?: string | ((validation: AriaValidationResult) => string)
-  children: React.ReactNode | ((item: T) => React.ReactNode)
+  label?: string;
+  description?: string | null;
+  errorMessage?: string | ((validation: AriaValidationResult) => string);
+  children: React.ReactNode | ((item: T) => React.ReactNode);
 }
 
 function BsComboBox<T extends object>({
@@ -110,12 +109,11 @@ function BsComboBox<T extends object>({
           {description}
         </Text>
       )}
-      <FieldError>{errorMessage}</FieldError>
       <ComboboxPopover>
         <ComboboxListBox>{children}</ComboboxListBox>
       </ComboboxPopover>
     </Combobox>
-  )
+  );
 }
 
 export {
@@ -128,5 +126,5 @@ export {
   ComboboxHeader,
   ComboboxPopover,
   BsComboBox,
-}
-export type { BsComboBoxProps }
+};
+export type { BsComboBoxProps };
