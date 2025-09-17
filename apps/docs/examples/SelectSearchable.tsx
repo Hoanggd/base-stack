@@ -1,7 +1,4 @@
-"use client";
-
 import { BsSelect } from "@workspace/ui/components/select";
-import React from "react";
 
 const languages = [
   { id: 1, name: "English" },
@@ -11,6 +8,6 @@ const languages = [
   { id: 5, name: "Italian" },
 ];
 
-export function SelectDemo() {
-  return <BsSelect options={languages} />;
+export function SelectSearchable() {
+  return <BsSelect isSearchable options={languages} />;
 }

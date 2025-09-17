@@ -25,7 +25,7 @@ const Popover = ({
     className={composeRenderProps(className, (className) =>
       cn(
         // "dark", // dark mode only, disable it if you want to use it in both modes
-        "z-50 rounded-lg border bg-popover text-popover-foreground shadow-popover outline-none",
+        "z-50 rounded-lg border bg-popover/80 backdrop-blur-xl text-popover-foreground shadow-popover outline-none",
         /* Entering */
         isAnimated && "data-[entering]:animate-in data-[entering]:fade-in-0",
         /* Exiting */

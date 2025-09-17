@@ -82,9 +82,9 @@ const DialogContent = ({
               onClick={renderProps.close}
               size="icon"
               variant="ghost"
-              className="absolute right-4 top-4"
+              className="absolute right-2.5 top-2.5"
             >
-              <X className="size-5! text-muted-foreground" />
+              <X className="size-4! text-muted-foreground" />
               <span className="sr-only">Close</span>
             </Button>
           )}
