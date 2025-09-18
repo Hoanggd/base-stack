@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority";
 import {
   Button as AriaButton,
   composeRenderProps,
   type ButtonProps as AriaButtonProps,
-} from "react-aria-components"
+} from "react-aria-components";
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "@workspace/ui/lib/utils";
 
 const buttonVariants = cva(
   [
     "cursor-pointer inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-sm text-sm font-medium ring-offset-background transition-all no-underline",
     "data-[hovered]:opacity-90 data-[pressed]:opacity-100",
     /* SVGs */
-    '[&_svg]:pointer-events-none [&_svg]:size-[16px] [&_svg]:shrink-0 [&_svg]:stroke-[2]',
+    "[&_svg]:pointer-events-none [&_svg]:size-[16px] [&_svg]:shrink-0 [&_svg]:stroke-[2]",
     /* Disabled */
     "data-[disabled]:pointer-events-none data-[disabled]:opacity-80",
     /* Focus Visible */
@@ -32,8 +32,9 @@ const buttonVariants = cva(
         outline:
           "bg-background-secondary shadow-sm border border-input text-foreground",
         secondary:
-          "bg-secondary data-[hovered]:bg-secondary/80",
-        ghost: "data-[hovered]:bg-accent data-[hovered]:text-accent-foreground data-[pressed]:bg-accent/50",
+          "border-transparent bg-neutral-500/15 text-secondary-foreground",
+        ghost:
+          "data-[hovered]:bg-accent data-[hovered]:text-accent-foreground data-[pressed]:bg-accent/50",
         link: "text-primary underline-offset-4 data-[hovered]:underline px-0! py-0! h-auto! underline",
         unstyled: "",
       },
@@ -50,7 +51,7 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
 interface ButtonProps
   extends AriaButtonProps,
@@ -70,8 +71,8 @@ const Button = ({ className, variant, size, ...props }: ButtonProps) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Button, buttonVariants }
-export type { ButtonProps }
+export { Button, buttonVariants };
+export type { ButtonProps };

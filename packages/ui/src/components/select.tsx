@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
+import { CheckIcon, ChevronsUpDownIcon, XIcon } from "lucide-react";
 import React from "react";
 import type { ListBoxItemProps } from "react-aria-components";
 import {
@@ -15,6 +15,7 @@ import { cn } from "../lib/utils";
 import { Button } from "./button";
 import { Popover, PopoverTrigger } from "./popover";
 import { BsSearchField } from "./searchfield";
+import { Badge } from "./badge";
 
 const languages = [
   { id: 1, name: "English" },
@@ -145,35 +146,137 @@ function BsSelect<S extends BsSelectOption>({
   );
 }
 
-function BsMultipleSelect() {
-  let { contains } = useFilter({ sensitivity: "base" });
+interface BsMultipleSelectProps<S extends BsSelectOption> {
+  /**
+   * The array of options to display in the select dropdown.
+   */
+  options: Array<S>;
+
+  /**
+   * The currently selected value (option id).
+   */
+  value?: Array<S["id"]>;
+
+  /**
+   * Callback fired when the selected value changes.
+   */
+  onChange?: (value?: Array<S["id"]>) => void;
+
+  /**
+   * The default selected value (option id).
+   */
+  defaultValue?: Array<S["id"]>;
+
+  /**
+   * If true, enables a search field for filtering options.
+   */
+  isSearchable?: boolean;
+
+  /**
+   * Custom render function for the selected value display.
+   */
+  renderValue?: (value: S) => React.ReactNode;
+
+  /**
+   * Custom render function for each option in the dropdown.
+   */
+  renderOption?: (item: S) => React.ReactNode;
+
+  /**
+   * If true, the select is disabled.
+   */
+  isDisabled?: boolean;
+
+  /**
+   * The maximum number of badges to display. To show all badges, set to Infinity.
+   */
+  maxVisibleBadges?: number;
+}
+
+function BsMultipleSelect<S extends BsSelectOption>({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  isSearchable = false,
+  options,
+  renderOption,
+  renderValue,
+  isDisabled,
+  maxVisibleBadges = 2,
+  ...props
+}: BsMultipleSelectProps<S>) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [uncontrolledValue, uncontrolledOnChange] = React.useState<
+    Array<S["id"]> | undefined
+  >(defaultValue);
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? uncontrolledOnChange;
+  const isInvalid = (props as any)["aria-invalid"];
 
   return (
-    <PopoverTrigger>
-      <Button variant="outline" className="justify-between w-full pr-2">
-        {/* <SelectValue>
-          {({ defaultChildren, isPlaceholder }) => {
-            return isPlaceholder ? (
-              <div className="flex-1 w-full text-muted-foreground">Select</div>
-            ) : (
-              defaultChildren
+    <PopoverTrigger
+      aria-label="Select"
+      isOpen={isOpen}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          setIsOpen(false);
+        }
+      }}
+    >
+      <Button
+        isDisabled={isDisabled}
+        variant="outline"
+        className={cn(
+          "w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start",
+          "group-data-[invalid]:border-destructive group-data-[disabled]:opacity-80",
+          isInvalid && "border-destructive"
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="flex-1 flex gap-1 flex-wrap">
+          {value?.slice(0, maxVisibleBadges).map((v) => {
+            const option = options.find((o) => o.id === v);
+            return (
+              <Badge variant="secondary" className="pr-0.5">
+                <span>{option ? option.name : null}</span>
+                <button
+                  className="size-4! flex items-center justify-center z-10 rounded bg-transparent hover:bg-neutral-400/15"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onChange(value.filter((c) => c !== v));
+                  }}
+                >
+                  <XIcon className="size-2.5!" />
+                </button>
+              </Badge>
             );
-          }}
-        </SelectValue> */}
+          })}
+          {value?.length && value.length > maxVisibleBadges && (
+            <Badge variant="secondary">
+              <span>{`+${value?.length - maxVisibleBadges}`}</span>
+            </Badge>
+          )}
+        </div>
         <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
       </Button>
       <Popover
         isAnimated={false}
-        className="!max-h-[400px] w-(--trigger-width) flex flex-col p-2 gap-1"
+        className="!max-h-[400px] w-(--trigger-width) flex flex-col p-1.5 gap-1"
       >
-        <ItemsWrapper isSearchable={true}>
+        <ItemsWrapper isSearchable={isSearchable}>
           <ListBox
+            items={options}
+            aria-label="Select"
             selectionMode="multiple"
-            onSelectionChange={(v) => console.log(v)}
-            items={languages}
+            selectedKeys={value}
+            onSelectionChange={(v) => onChange(Array.from(v))}
             className="outline-hidden overflow-auto flex-1 scroll-pb-1"
           >
-            {(item) => <BsSelectItem>{item.name}</BsSelectItem>}
+            {(item) => (
+              <BsSelectItem renderOption={renderOption}>
+                {item.name}
+              </BsSelectItem>
+            )}
           </ListBox>
         </ItemsWrapper>
       </Popover>
@@ -214,7 +317,7 @@ function BsSelectItem<S extends BsSelectOption>(
         "data-[focus-visible]:bg-neutral-500/15 data-hovered:bg-primary! data-hovered:text-white!"
       )}
     >
-      {({ isSelected, ...rest }) => (
+      {({ isSelected }) => (
         <>
           <span className="w-4 flex items-center justify-center">
             {isSelected && <CheckIcon size={16} />}
@@ -231,4 +334,4 @@ function BsSelectItem<S extends BsSelectOption>(
 }
 
 export { BsMultipleSelect, BsSelect };
-export type { BsSelectOption, BsSelectProps };
+export type { BsSelectOption, BsSelectProps, BsMultipleSelectProps };
