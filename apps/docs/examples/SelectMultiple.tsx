@@ -1,7 +1,6 @@
 "use client";
 
 import { BsMultipleSelect } from "@workspace/ui/components/select";
-import { useState } from "react";
 
 const languages = [
   { id: 1, name: "English" },
@@ -12,14 +11,5 @@ const languages = [
 ];
 
 export function SelectMultiple() {
-  const [value, setValue] = useState<Array<number> | undefined>();
-
-  return (
-    <BsMultipleSelect
-      isSearchable
-      options={languages}
-      value={value}
-      onChange={setValue}
-    />
-  );
+  return <BsMultipleSelect options={languages} isSearchable isClearable />;
 }

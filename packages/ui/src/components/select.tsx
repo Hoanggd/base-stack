@@ -73,6 +73,11 @@ interface BsSelectProps<S extends BsSelectOption> {
    * If true, the select is disabled.
    */
   isDisabled?: boolean;
+
+  /**
+   * If true, the clear button will be shown.
+   */
+  isClearable?: boolean;
 }
 
 function BsSelect<S extends BsSelectOption>({
@@ -84,16 +89,29 @@ function BsSelect<S extends BsSelectOption>({
   renderOption,
   renderValue,
   isDisabled,
+  isClearable = true,
   ...props
 }: BsSelectProps<S>) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
   const [uncontrolledValue, uncontrolledOnChange] = React.useState<
     S["id"] | undefined
   >(defaultValue);
   const value = controlledValue ?? uncontrolledValue;
   const onChange = controlledOnChange ?? uncontrolledOnChange;
 
+  const handleClear = () => {
+    onChange(undefined);
+  };
+
   return (
     <AriaSelect
+      isOpen={isOpen}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          setIsOpen(false);
+        }
+      }}
       aria-label="Select"
       isDisabled={isDisabled}
       className="group w-full"
@@ -104,30 +122,45 @@ function BsSelect<S extends BsSelectOption>({
       <Button
         variant="outline"
         className={cn(
-          "justify-between w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start",
+          "justify-between w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative",
           "group-data-[invalid]:border-destructive group-data-[disabled]:opacity-80"
         )}
+        onClick={() => setIsOpen(!isOpen)}
       >
-        <SelectValue>
-          {({ defaultChildren, isPlaceholder, selectedItem }) => {
+        <SelectValue className="truncate">
+          {({ isPlaceholder, selectedItem }) => {
             if (isPlaceholder) {
-              return (
-                <div className="flex-1 w-full text-muted-foreground">
-                  Select
-                </div>
-              );
+              return <div className="text-muted-foreground">Select</div>;
             }
 
             return renderValue
               ? renderValue(selectedItem as S)
-              : defaultChildren;
+              : (selectedItem as S)?.name;
           }}
         </SelectValue>
+        {isClearable && !!value && (
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClear();
+            }}
+            className={cn(
+              "size-6! flex items-center justify-center z-10 rounded bg-background-secondary text-muted-foreground hover:bg-background-tertiary",
+              "absolute right-1 top-1/2 -translate-y-1/2",
+              "transition-opacity opacity-0 group-hover:opacity-100"
+            )}
+          >
+            <XIcon className="w-4 h-4" />
+          </div>
+        )}
+
         <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
       </Button>
       <Popover
         isAnimated={false}
-        className="!max-h-[400px] w-(--trigger-width) flex flex-col p-1.5 gap-1"
+        className="!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1"
       >
         <ItemsWrapper isSearchable={isSearchable}>
           <ListBox
@@ -191,6 +224,11 @@ interface BsMultipleSelectProps<S extends BsSelectOption> {
    * The maximum number of badges to display. To show all badges, set to Infinity.
    */
   maxVisibleBadges?: number;
+
+  /**
+   * If true, the clear button will be shown.
+   */
+  isClearable?: boolean;
 }
 
 function BsMultipleSelect<S extends BsSelectOption>({
@@ -203,6 +241,7 @@ function BsMultipleSelect<S extends BsSelectOption>({
   renderValue,
   isDisabled,
   maxVisibleBadges = 2,
+  isClearable = true,
   ...props
 }: BsMultipleSelectProps<S>) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -211,7 +250,14 @@ function BsMultipleSelect<S extends BsSelectOption>({
   >(defaultValue);
   const value = controlledValue ?? uncontrolledValue;
   const onChange = controlledOnChange ?? uncontrolledOnChange;
+
   const isInvalid = (props as any)["aria-invalid"];
+  const isPlaceholder = !value || value.length === 0;
+
+  const handleClear = () => {
+    onChange([]);
+    setIsOpen(false);
+  };
 
   return (
     <PopoverTrigger
@@ -227,19 +273,30 @@ function BsMultipleSelect<S extends BsSelectOption>({
         isDisabled={isDisabled}
         variant="outline"
         className={cn(
-          "w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start",
-          "group-data-[invalid]:border-destructive group-data-[disabled]:opacity-80",
+          "group w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative",
           isInvalid && "border-destructive"
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex-1 flex gap-1 flex-wrap">
+          {isPlaceholder && <div className="text-muted-foreground">Select</div>}
+
+          {/* Visible badges */}
           {value?.slice(0, maxVisibleBadges).map((v) => {
             const option = options.find((o) => o.id === v);
+
+            if (!option) return null;
+
             return (
-              <Badge variant="secondary" className="pr-0.5">
-                <span>{option ? option.name : null}</span>
-                <button
+              <Badge
+                key={v}
+                variant="secondary"
+                className="pr-0.5 grid grid-cols-[1fr_16px]"
+              >
+                <div className="truncate">{option.name}</div>
+                <div
+                  role="button"
+                  tabIndex={0}
                   className="size-4! flex items-center justify-center z-10 rounded bg-transparent hover:bg-neutral-400/15"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -247,21 +304,42 @@ function BsMultipleSelect<S extends BsSelectOption>({
                   }}
                 >
                   <XIcon className="size-2.5!" />
-                </button>
+                </div>
               </Badge>
             );
           })}
-          {value?.length && value.length > maxVisibleBadges && (
+
+          {/* Remaining badges count */}
+          {!!value?.length && value.length > maxVisibleBadges && (
             <Badge variant="secondary">
               <span>{`+${value?.length - maxVisibleBadges}`}</span>
             </Badge>
           )}
         </div>
+
+        {isClearable && !!value?.length && (
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClear();
+            }}
+            className={cn(
+              "size-6! flex items-center justify-center z-10 rounded bg-background-secondary text-muted-foreground hover:bg-background-tertiary",
+              "absolute right-1 top-1/2 -translate-y-1/2",
+              "transition-opacity opacity-0 group-hover:opacity-100"
+            )}
+          >
+            <XIcon className="w-4 h-4" />
+          </div>
+        )}
+
         <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
       </Button>
       <Popover
         isAnimated={false}
-        className="!max-h-[400px] w-(--trigger-width) flex flex-col p-1.5 gap-1"
+        className="!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1"
       >
         <ItemsWrapper isSearchable={isSearchable}>
           <ListBox
@@ -319,14 +397,16 @@ function BsSelectItem<S extends BsSelectOption>(
     >
       {({ isSelected }) => (
         <>
-          <span className="w-4 flex items-center justify-center">
+          <div className="w-5 flex items-center justify-center">
             {isSelected && <CheckIcon size={16} />}
-          </span>
-          <span className="text-sm flex-1 flex items-center gap-2 truncate font-normal group-selected:font-medium">
-            {props.renderOption
-              ? props.renderOption(props.value as S)
-              : props.children}
-          </span>
+          </div>
+          <div className="text-sm flex-1 font-normal group-selected:font-medium overflow-hidden">
+            <div className="truncate">
+              {props.renderOption
+                ? props.renderOption(props.value as S)
+                : props.children}
+            </div>
+          </div>
         </>
       )}
     </ListBoxItem>

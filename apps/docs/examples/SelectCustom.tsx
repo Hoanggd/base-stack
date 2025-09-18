@@ -1,9 +1,7 @@
 "use client";
 
-import { BsSelect } from "@workspace/ui/components/select";
 import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar";
-import { Label } from "@workspace/ui/components/field";
-import { Button } from "@workspace/ui/components/button";
+import { BsSelect } from "@workspace/ui/components/select";
 
 const users = [
   {
@@ -24,24 +22,6 @@ const users = [
     email: "bob@example.com",
     className: "bg-green-500",
   },
-  {
-    id: 4,
-    name: "Bob Johnson",
-    email: "bob@example.com",
-    className: "bg-green-500",
-  },
-  {
-    id: 5,
-    name: "Alice Brown",
-    email: "alice@example.com",
-    className: "bg-yellow-500",
-  },
-  {
-    id: 6,
-    name: "Charlie Wilson",
-    email: "charlie@example.com",
-    className: "bg-purple-500",
-  },
 ];
 
 export function SelectCustom() {
@@ -49,6 +29,16 @@ export function SelectCustom() {
     <BsSelect
       options={users}
       defaultValue={1}
+      renderValue={(value) => (
+        <div className="flex items-center gap-2">
+          <Avatar className="size-5 text-xs">
+            <AvatarFallback className={value.className}>
+              {value.name.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">{value.name}</div>
+        </div>
+      )}
       renderOption={(value) => (
         <div className="flex items-center gap-2">
           <Avatar>
