@@ -10,6 +10,8 @@ const languages = [
   { id: 5, name: "Italian" },
 ];
 
-export function SelectMultiple() {
-  return <BsMultipleSelect options={languages} />;
+export function SelectMultipleDisabled() {
+  return (
+    <BsMultipleSelect options={languages} isDisabled />
+  );
 }

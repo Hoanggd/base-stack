@@ -28,7 +28,7 @@ const fieldGroupVariants = cva("", {
         "bg-background-secondary relative flex h-8 w-full items-center overflow-hidden rounded-sm px-3 py-2 text-sm",
         'ring-inset ring ring-input',
         /* Focus Within */
-        "transition-all data-[focus-within]:ring-primary data-[focus-within]:ring-2 aria-invalid:ring-destructive",
+        "transition-all data-[focus-within]:ring-primary! data-[focus-within]:ring-2 aria-invalid:ring-destructive",
         /* Disabled */
         "data-[disabled]:opacity-80",
         /* Invalid */

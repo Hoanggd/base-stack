@@ -55,6 +55,7 @@ const buttonVariants = cva(
 
 interface ButtonProps
   extends AriaButtonProps,
+    React.RefAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {}
 
 const Button = ({ className, variant, size, ...props }: ButtonProps) => {

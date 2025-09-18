@@ -50,6 +50,11 @@ interface BsSelectProps<S extends BsSelectOption> {
   onChange?: (value?: S["id"]) => void;
 
   /**
+   * Callback fired when the select is blurred.
+   */
+  onBlur?: () => void;
+
+  /**
    * The default selected value (option id).
    */
   defaultValue?: S["id"];
@@ -90,6 +95,7 @@ function BsSelect<S extends BsSelectOption>({
   renderValue,
   isDisabled,
   isClearable = true,
+  onBlur,
   ...props
 }: BsSelectProps<S>) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -110,6 +116,7 @@ function BsSelect<S extends BsSelectOption>({
       onOpenChange={(isOpen) => {
         if (!isOpen) {
           setIsOpen(false);
+          onBlur?.();
         }
       }}
       aria-label="Select"
@@ -196,6 +203,11 @@ interface BsMultipleSelectProps<S extends BsSelectOption> {
   onChange?: (value?: Array<S["id"]>) => void;
 
   /**
+   * Callback fired when the select is blurred.
+   */
+  onBlur?: () => void;
+
+  /**
    * The default selected value (option id).
    */
   defaultValue?: Array<S["id"]>;
@@ -242,6 +254,7 @@ function BsMultipleSelect<S extends BsSelectOption>({
   isDisabled,
   maxVisibleBadges = 2,
   isClearable = true,
+  onBlur,
   ...props
 }: BsMultipleSelectProps<S>) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -266,12 +279,13 @@ function BsMultipleSelect<S extends BsSelectOption>({
       onOpenChange={(isOpen) => {
         if (!isOpen) {
           setIsOpen(false);
+          onBlur?.();
         }
       }}
     >
       <Button
-        isDisabled={isDisabled}
         variant="outline"
+        isDisabled={isDisabled}
         className={cn(
           "group w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative",
           isInvalid && "border-destructive"
@@ -293,7 +307,9 @@ function BsMultipleSelect<S extends BsSelectOption>({
                 variant="secondary"
                 className="pr-0.5 grid grid-cols-[1fr_16px]"
               >
-                <div className="truncate">{option.name}</div>
+                <div className="truncate">
+                  {renderValue ? renderValue(option) : option.name}
+                </div>
                 <div
                   role="button"
                   tabIndex={0}

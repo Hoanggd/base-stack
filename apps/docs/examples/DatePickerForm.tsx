@@ -56,7 +56,12 @@ export function DatePickerForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className="grid grid-cols-2 gap-2">
+          <Button type="button" variant="outline">
+            Clear
+          </Button>
+          <Button type="submit">Save</Button>
+        </div>
       </form>
     </Form>
   );

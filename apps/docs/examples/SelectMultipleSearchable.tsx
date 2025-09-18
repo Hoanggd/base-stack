@@ -1,5 +1,3 @@
-"use client";
-
 import { BsMultipleSelect } from "@workspace/ui/components/select";
 
 const languages = [
@@ -10,6 +8,6 @@ const languages = [
   { id: 5, name: "Italian" },
 ];
 
-export function SelectMultiple() {
-  return <BsMultipleSelect options={languages} />;
+export function SelectMultipleSearchable() {
+  return <BsMultipleSelect options={languages} isSearchable isClearable />;
 }
