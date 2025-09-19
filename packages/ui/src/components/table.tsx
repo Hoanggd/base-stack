@@ -1,139 +1,116 @@
-"use client"
+"use client";
 
-import { ArrowUpDown } from "lucide-react"
-import {
-  Cell as AriaCell,
-  Column as AriaColumn,
-  ColumnProps as AriaColumnProps,
-  ResizableTableContainer as AriaResizableTableContainer,
-  Row as AriaRow,
-  Table as AriaTable,
-  TableBody as AriaTableBody,
-  TableHeader as AriaTableHeader,
-  CellProps,
-  ColumnResizer,
-  composeRenderProps,
-  Group,
-  ResizableTableContainerProps,
-  RowProps,
-  TableBodyProps,
-  TableHeaderProps,
-  TableProps,
-} from "react-aria-components"
+import * as React from "react";
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "@workspace/ui/lib/utils";
 
-
-import { buttonVariants } from "./button"
-
-const ResizableTableContainer = AriaResizableTableContainer
-
-const Table = ({ className, ...props }: TableProps) => (
-  <AriaTable
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "w-full caption-bottom text-sm -outline-offset-2 data-[focus-visible]:outline-ring",
-        className
-      )
-    )}
-    {...props}
-  />
-)
-
-const TableHeader = <T extends object>({
-  className,
-  ...props
-}: TableHeaderProps<T>) => (
-  <AriaTableHeader
-    className={composeRenderProps(className, (className) =>
-      cn("[&_tr]:border-b", className)
-    )}
-    {...props}
-  />
-)
-
-export interface ColumnProps extends AriaColumnProps {
-  isResizable?: boolean
+function Table({ className, ...props }: React.ComponentProps<"table">) {
+  return (
+    <div
+      data-slot="table-container"
+      className="relative w-full overflow-x-auto border rounded-md bg-background-secondary"
+    >
+      <table
+        data-slot="table"
+        className={cn("w-full caption-bottom text-sm", className)}
+        {...props}
+      />
+    </div>
+  );
 }
 
-const Column = ({ className, children, ...props }: ColumnProps) => (
-  <AriaColumn
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "h-12 text-left align-middle font-medium text-muted-foreground -outline-offset-2 data-[focus-visible]:outline-ring",
-        className
-      )
-    )}
-    {...props}
-  >
-    {composeRenderProps(children, (children, { allowsSorting }) => (
-      <div className="flex items-center">
-        <Group
-          role="presentation"
-          tabIndex={-1}
-          className={cn(
-            "flex h-10 flex-1 items-center gap-1 overflow-hidden rounded-md px-4",
-            allowsSorting &&
-              "p-2 data-[hovered]:bg-accent data-[hovered]:text-accent-foreground",
-            "focus-visible:outline-none  data-[focus-visible]:-outline-offset-2 data-[focus-visible]:outline-ring [&:has([slot=selection])]:pr-0"
-          )}
-        >
-          <span className="truncate">{children}</span>
-          {allowsSorting && <ArrowUpDown className="ml-2 size-4" />}
-        </Group>
-        {props.isResizable && (
-          <ColumnResizer className="data-[focus-visible]:ring-rin box-content h-5 w-px translate-x-[8px] cursor-col-resize rounded bg-muted-foreground bg-clip-content px-[8px]  py-1 focus-visible:outline-none data-[resizing]:w-[2px] data-[resizing]:bg-primary data-[resizing]:pl-[7px] data-[focus-visible]:ring-1  data-[focus-visible]:ring-ring" />
-        )}
-      </div>
-    ))}
-  </AriaColumn>
-)
+function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+  return (
+    <thead
+      data-slot="table-header"
+      className={cn("[&_tr]:border-b", className)}
+      {...props}
+    />
+  );
+}
 
-const TableBody = <T extends object>({
+function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+  return (
+    <tbody
+      data-slot="table-body"
+      className={cn("[&_tr:nth-child(even)]:bg-neutral-400/10", className)}
+      {...props}
+    />
+  );
+}
+
+function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
+  return (
+    <tfoot
+      data-slot="table-footer"
+      className={cn(
+        "bg-neutral-400/10 border-t font-medium [&>tr]:last:border-b-0",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
+  return (
+    <tr
+      data-slot="table-row"
+      className={cn(
+        "data-[state=selected]:bg-neutral-400/10 transition-colors rounded-md",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+  return (
+    <th
+      data-slot="table-head"
+      className={cn(
+        "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+  return (
+    <td
+      data-slot="table-cell"
+      className={cn(
+        "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableCaption({
   className,
   ...props
-}: TableBodyProps<T>) => (
-  <AriaTableBody
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "-outline-offset-2 data-[empty]:h-24 data-[empty]:text-center data-[focus-visible]:outline-ring [&_tr:last-child]:border-0",
-        className
-      )
-    )}
-    {...props}
-  />
-)
-
-const Row = <T extends object>({ className, ...props }: RowProps<T>) => (
-  <AriaRow
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "border-b -outline-offset-2 transition-colors data-[hovered]:bg-muted/50 data-[selected]:bg-muted data-[focus-visible]:outline-ring",
-        className
-      )
-    )}
-    {...props}
-  />
-)
-
-const Cell = ({ className, ...props }: CellProps) => (
-  <AriaCell
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "p-4 align-middle -outline-offset-2 data-[focus-visible]:outline-ring [&:has([role=checkbox])]:pr-0",
-        className
-      )
-    )}
-    {...props}
-  />
-)
+}: React.ComponentProps<"caption">) {
+  return (
+    <caption
+      data-slot="table-caption"
+      className={cn("text-muted-foreground my-4 text-sm", className)}
+      {...props}
+    />
+  );
+}
 
 export {
   Table,
   TableHeader,
-  Column,
   TableBody,
-  Row,
-  Cell,
-  ResizableTableContainer,
-}
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+};

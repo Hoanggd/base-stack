@@ -54,6 +54,19 @@ function getMenuGroups(module: string): MenuGroup[] {
         ],
       },
       {
+        title: "Collections",
+        items: [
+          {
+            title: "Table",
+            href: "/docs/ui/table",
+          },
+          {
+            title: "Pagination",
+            href: "/docs/ui/pagination",
+          },
+        ],
+      },
+      {
         title: "Date and Time",
         items: [
           {
@@ -134,15 +147,6 @@ function getMenuGroups(module: string): MenuGroup[] {
           {
             title: "Select",
             href: "/docs/ui/select",
-          },
-        ],
-      },
-      {
-        title: "Navigation",
-        items: [
-          {
-            title: "Pagination",
-            href: "/docs/ui/pagination",
           },
         ],
       },
