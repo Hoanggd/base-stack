@@ -137,6 +137,15 @@ function getMenuGroups(module: string): MenuGroup[] {
           },
         ],
       },
+      {
+        title: "Navigation",
+        items: [
+          {
+            title: "Pagination",
+            href: "/docs/ui/pagination",
+          },
+        ],
+      },
     ];
   }
 

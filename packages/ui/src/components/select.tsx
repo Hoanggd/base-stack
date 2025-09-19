@@ -83,6 +83,21 @@ interface BsSelectProps<S extends BsSelectOption> {
    * If true, the clear button will be shown.
    */
   isClearable?: boolean;
+
+  /**
+   * The class name of the select.
+   */
+  className?: string;
+
+  /**
+   * The class name of the popover.
+   */
+  popoverClassName?: string;
+
+  /**
+   * The placeholder of the select. Default is "Select".
+   */
+  placeholder?: string;
 }
 
 function BsSelect<S extends BsSelectOption>({
@@ -96,6 +111,9 @@ function BsSelect<S extends BsSelectOption>({
   isDisabled,
   isClearable = true,
   onBlur,
+  className,
+  popoverClassName,
+  placeholder = "Select",
   ...props
 }: BsSelectProps<S>) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -121,7 +139,7 @@ function BsSelect<S extends BsSelectOption>({
       }}
       aria-label="Select"
       isDisabled={isDisabled}
-      className="group w-full"
+      className={cn("group w-full", className)}
       selectedKey={value || null}
       onSelectionChange={(value) => onChange(value || undefined)}
       isInvalid={(props as any)["aria-invalid"]}
@@ -137,7 +155,17 @@ function BsSelect<S extends BsSelectOption>({
         <SelectValue className="truncate">
           {({ isPlaceholder, selectedItem }) => {
             if (isPlaceholder) {
-              return <div className="text-muted-foreground">Select</div>;
+
+              // If placeholder is not set, return an empty div
+              if (!placeholder) {
+                return (
+                  <div className="opacity-0" aria-hidden="true">
+                    &nbsp;
+                  </div>
+                );
+              }
+              
+              return <div className="text-muted-foreground">{placeholder}</div>;
             }
 
             return renderValue
@@ -167,7 +195,10 @@ function BsSelect<S extends BsSelectOption>({
       </Button>
       <Popover
         isAnimated={false}
-        className="!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1"
+        className={cn(
+          "!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1",
+          popoverClassName
+        )}
       >
         <ItemsWrapper isSearchable={isSearchable}>
           <ListBox
@@ -241,6 +272,21 @@ interface BsMultipleSelectProps<S extends BsSelectOption> {
    * If true, the clear button will be shown.
    */
   isClearable?: boolean;
+
+  /**
+   * The class name of the select.
+   */
+  className?: string;
+
+  /**
+   * The class name of the popover.
+   */
+  popoverClassName?: string;
+
+  /**
+   * The placeholder of the select. Default is "Select".
+   */
+  placeholder?: string;
 }
 
 function BsMultipleSelect<S extends BsSelectOption>({
@@ -255,6 +301,9 @@ function BsMultipleSelect<S extends BsSelectOption>({
   maxVisibleBadges = 2,
   isClearable = true,
   onBlur,
+  className,
+  popoverClassName,
+  placeholder = "Select",
   ...props
 }: BsMultipleSelectProps<S>) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -288,12 +337,15 @@ function BsMultipleSelect<S extends BsSelectOption>({
         isDisabled={isDisabled}
         className={cn(
           "group w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative",
-          isInvalid && "border-destructive"
+          isInvalid && "border-destructive",
+          className
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex-1 flex gap-1 flex-wrap">
-          {isPlaceholder && <div className="text-muted-foreground">Select</div>}
+          {isPlaceholder && placeholder && (
+            <div className="text-muted-foreground">{placeholder}</div>
+          )}
 
           {/* Visible badges */}
           {value?.slice(0, maxVisibleBadges).map((v) => {
@@ -355,7 +407,10 @@ function BsMultipleSelect<S extends BsSelectOption>({
       </Button>
       <Popover
         isAnimated={false}
-        className="!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1"
+        className={cn(
+          "!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1",
+          popoverClassName
+        )}
       >
         <ItemsWrapper isSearchable={isSearchable}>
           <ListBox
@@ -413,15 +468,15 @@ function BsSelectItem<S extends BsSelectOption>(
     >
       {({ isSelected }) => (
         <>
-          <div className="w-5 flex items-center justify-center">
-            {isSelected && <CheckIcon size={16} />}
-          </div>
           <div className="text-sm flex-1 font-normal group-selected:font-medium overflow-hidden">
             <div className="truncate">
               {props.renderOption
                 ? props.renderOption(props.value as S)
                 : props.children}
             </div>
+          </div>
+          <div className="w-5 flex items-center justify-center">
+            {isSelected && <CheckIcon size={16} />}
           </div>
         </>
       )}

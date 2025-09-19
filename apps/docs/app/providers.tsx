@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { RouterProvider } from "react-aria-components";
 import { Toaster } from "@workspace/ui/components/sonner";
 import { I18nProvider as ReactAriaI18nProvider } from "react-aria-components";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 dayjs.extend(isoWeek);
 
@@ -29,7 +30,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           disableTransitionOnChange
           enableColorScheme
         >
-          {children}
+          <NuqsAdapter>{children}</NuqsAdapter>
           <Toaster />
         </ThemeProvider>
       </ReactAriaI18nProvider>

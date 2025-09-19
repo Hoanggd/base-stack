@@ -54,7 +54,7 @@ export function DateRangePickerForm() {
         />
         <div className="grid grid-cols-2 gap-2">
           <Button type="button" variant="outline">
-            Clear
+            Canel
           </Button>
           <Button type="submit">Submit</Button>
         </div>

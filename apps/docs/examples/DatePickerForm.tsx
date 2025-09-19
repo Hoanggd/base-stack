@@ -58,7 +58,7 @@ export function DatePickerForm() {
         />
         <div className="grid grid-cols-2 gap-2">
           <Button type="button" variant="outline">
-            Clear
+            Cancel
           </Button>
           <Button type="submit">Save</Button>
         </div>
