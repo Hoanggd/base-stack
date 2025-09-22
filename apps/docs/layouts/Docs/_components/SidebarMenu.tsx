@@ -61,6 +61,10 @@ function getMenuGroups(module: string): MenuGroup[] {
             href: "/docs/ui/table",
           },
           {
+            title: "Data Table",
+            href: "/docs/ui/data-table",
+          },
+          {
             title: "Pagination",
             href: "/docs/ui/pagination",
           },
