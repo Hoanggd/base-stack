@@ -7,6 +7,8 @@ import { RouterProvider } from "react-aria-components";
 import { Toaster } from "@workspace/ui/components/sonner";
 import { I18nProvider as ReactAriaI18nProvider } from "react-aria-components";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 dayjs.extend(isoWeek);
 
@@ -17,6 +19,8 @@ declare module "react-aria-components" {
     >;
   }
 }
+
+const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
   let router = useRouter();
@@ -30,7 +34,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
           disableTransitionOnChange
           enableColorScheme
         >
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <NuqsAdapter>
+            <QueryClientProvider client={queryClient}>
+              {children}
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
+          </NuqsAdapter>
           <Toaster />
         </ThemeProvider>
       </ReactAriaI18nProvider>
