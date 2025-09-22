@@ -20,7 +20,7 @@ interface GetPaymentsParams {
 export async function getPayments(
   params?: GetPaymentsParams | null
 ): Promise<Array<Payment>> {
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
 
   const sortedData = sortByString(

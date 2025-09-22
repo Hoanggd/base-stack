@@ -13,6 +13,7 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "email",
     header: "Email",
+    size: 300,
   },
   {
     accessorKey: "paymentMethod",
@@ -45,12 +46,17 @@ export function DataTableDemo() {
   });
 
   return (
-    <DataTable
-      sorting={sorting}
-      setSorting={setSorting}
-      columns={columns}
-      data={payments.data ?? []}
-      containerClassName="h-[450px]"
-    />
+    <div className="w-full">
+      <DataTable
+        enableSorting
+        containerClassName="h-[450px]"
+        sorting={sorting}
+        setSorting={setSorting}
+        columns={columns}
+        data={payments.data ?? []}
+        isLoading={payments.isLoading}
+        isFetching={payments.isFetching}
+      />
+    </div>
   );
 }

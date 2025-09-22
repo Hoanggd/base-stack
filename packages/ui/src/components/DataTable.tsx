@@ -18,14 +18,18 @@ import {
   TableHeader,
   TableRow,
 } from "@workspace/ui/components/table";
-import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, FileSearch } from "lucide-react";
 import React from "react";
 import { z } from "@workspace/ui/lib/zod";
+import { cn } from "../lib/utils";
+import { Skeleton } from "./skeleton";
 
 export const DataTableSortingSchema = z.object({
   sortBy: z.string(),
   sortDirection: z.enum(["asc", "desc"]),
 });
+
+const SKELETON_DATA = Array.from({ length: 10 }).map((item) => ({})) as any;
 
 export type DataTableSorting = z.infer<typeof DataTableSortingSchema>;
 export interface DataTableProps<TData, TValue> {
@@ -43,21 +47,40 @@ export interface DataTableProps<TData, TValue> {
   containerClassName?: string;
 
   /**
+   * Whether to enable sorting in the table.
+   */
+  enableSorting?: boolean;
+
+  /**
    * The sorting to display in the table.
    */
   sorting?: DataTableSorting | null;
+
   /**
    * The function to set the sorting in the table.
    */
   setSorting?: (sorting: DataTableSorting | null) => void;
+
+  /**
+   * Indicates if the table is currently loading for the first time.
+   */
+  isLoading?: boolean;
+
+  /**
+   * Indicates if the table is being updated with new data after the initial load.
+   */
+  isFetching?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   containerClassName,
+  enableSorting = false,
   sorting: controlledSorting,
   setSorting: controlledSetSorting,
+  isLoading,
+  isFetching,
 }: DataTableProps<TData, TValue>) {
   // sorting
   const [uncontrolledSorting, setUncontrolledSorting] =
@@ -67,10 +90,10 @@ export function DataTable<TData, TValue>({
 
   // table config
   const table = useReactTable({
-    data,
     columns,
+    data: isLoading ? SKELETON_DATA : data,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+    enableSorting: enableSorting,
     onSortingChange: (updater) => {
       const oldTanstackSorting: TanstackSortingState = sorting
         ? [
@@ -104,16 +127,25 @@ export function DataTable<TData, TValue>({
         : [],
     },
     manualSorting: true, // IMPORTANT: Always set manualSorting to true
+    defaultColumn: {
+      size: 180,
+    },
   });
 
   return (
-    <Table containerClassName={containerClassName}>
+    <Table containerClassName={cn("relative", containerClassName)}>
       <TableHeader>
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
               return (
-                <TableHead key={header.id}>
+                <TableHead
+                  key={header.id}
+                  style={{
+                    minWidth: header.column.columnDef.size,
+                    maxWidth: header.column.columnDef.size,
+                  }}
+                >
                   {header.isPlaceholder ? null : (
                     <div
                       className={
@@ -154,7 +186,7 @@ export function DataTable<TData, TValue>({
           </TableRow>
         ))}
       </TableHeader>
-      <TableBody>
+      <TableBody className={cn(isFetching && "opacity-70")}>
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => (
             <TableRow
@@ -162,18 +194,30 @@ export function DataTable<TData, TValue>({
               data-state={row.getIsSelected() && "selected"}
             >
               {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                <TableCell
+                  key={cell.id}
+                  style={{
+                    minWidth: cell.column.columnDef.size,
+                    maxWidth: cell.column.columnDef.size,
+                  }}
+                  title={String(cell.getValue() || "")}
+                >
+                  {isLoading ? (
+                    <Skeleton className="h-5" />
+                  ) : (
+                    flexRender(cell.column.columnDef.cell, cell.getContext())
+                  )}
                 </TableCell>
               ))}
             </TableRow>
           ))
         ) : (
-          <TableRow>
-            <TableCell colSpan={columns.length} className="h-24 text-center">
-              No results.
-            </TableCell>
-          </TableRow>
+          <tr>
+            <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 text-muted-foreground">
+              <FileSearch className="size-10 stroke-1" />
+              <span>No results.</span>
+            </td>
+          </tr>
         )}
       </TableBody>
     </Table>
