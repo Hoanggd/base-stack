@@ -109,7 +109,7 @@ function BsSelect<S extends BsSelectOption>({
   renderOption,
   renderValue,
   isDisabled,
-  isClearable = true,
+  isClearable,
   onBlur,
   className,
   popoverClassName,

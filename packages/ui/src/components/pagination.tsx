@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import React from "react";
-import ReactPaginate from "react-paginate";
-import { cn } from "../lib/utils";
-import { BsSelect } from "./select";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
+import ReactPaginate from 'react-paginate';
+import { cn } from '../lib/utils';
+import { BsSelect } from './select';
 
 const baseClass =
-  "cursor-pointer select-none text-[13px] font-medium flex w-8 h-8 items-center justify-center rounded-sm hover:bg-neutral-400/15";
+  'cursor-pointer select-none text-[13px] font-medium flex w-8 h-8 items-center justify-center rounded-sm hover:bg-background-secondary';
 
 interface PaginationProps {
   /**
@@ -43,22 +43,22 @@ function Pagination({
       forcePage={(value || 1) - 1}
       onPageChange={(data) => onChange?.(data.selected + 1)}
       pageCount={pageCount}
-      previousLabel={<ChevronLeft className="w-4 h-4" />}
-      nextLabel={<ChevronRight className="w-4 h-4" />}
+      previousLabel={<ChevronLeft className='w-4 h-4' />}
+      nextLabel={<ChevronRight className='w-4 h-4' />}
       pageRangeDisplayed={2}
       marginPagesDisplayed={1}
-      containerClassName="flex items-center justify-center gap-1"
+      containerClassName='flex items-center justify-center gap-1'
       pageLinkClassName={baseClass}
       activeLinkClassName={cn(
         baseClass,
-        "border-transparent bg-neutral-500/15 text-secondary-foreground"
+        'bg-background-secondary shadow-sm border border-input text-foreground'
       )}
       previousLinkClassName={baseClass}
       nextLinkClassName={baseClass}
       breakLinkClassName={baseClass}
-      disabledLinkClassName="opacity-50 cursor-not-allowed! hover:bg-transparent!"
-      breakLabel="..."
-      breakClassName="block"
+      disabledLinkClassName='opacity-50 cursor-not-allowed! hover:bg-transparent!'
+      breakLabel='...'
+      breakClassName='block'
     />
   );
 }
@@ -99,10 +99,7 @@ function PaginationPageSelector({
   const onChange = controlledOnChange ?? setUncontrolledValue;
 
   return (
-    <div className="flex items-center gap-2">
-      <span className="text-xs text-muted-foreground whitespace-nowrap">
-        Items per page:
-      </span>
+    <div className='flex items-center gap-2'>
       <BsSelect
         value={value}
         onChange={(value) => onChange?.(value || 0)}
@@ -110,11 +107,14 @@ function PaginationPageSelector({
           id: option,
           name: option.toString(),
         }))}
-        placeholder=""
+        placeholder=''
         isClearable={false}
-        className="min-w-[66px]"
-        popoverClassName="w-[90px]"
+        className='min-w-[66px]'
+        popoverClassName='w-[90px]'
       />
+      <span className='text-xs text-muted-foreground whitespace-nowrap'>
+        Items per page
+      </span>
     </div>
   );
 }

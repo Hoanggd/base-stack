@@ -20,7 +20,13 @@ declare module "react-aria-components" {
   }
 }
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export function Providers({ children }: { children: React.ReactNode }) {
   let router = useRouter();

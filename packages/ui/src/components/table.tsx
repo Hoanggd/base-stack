@@ -16,7 +16,7 @@ function Table({ className, containerClassName, ...props }: TableProps) {
     <div className="grid bg-background-secondary rounded-md overflow-hidden border">
       <div
         data-slot="table-container"
-        className={cn("relative w-full overflow-x-auto", containerClassName)}
+        className={cn(" w-full overflow-x-auto", containerClassName)}
       >
         <table
           data-slot="table"

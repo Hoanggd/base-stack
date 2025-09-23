@@ -1,14 +1,12 @@
-"use client";
+'use client';
 
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  getSortedRowModel,
-  OnChangeFn,
   SortingState as TanstackSortingState,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 
 import {
   Table,
@@ -17,19 +15,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@workspace/ui/components/table";
-import { ArrowDownIcon, ArrowUpIcon, FileSearch } from "lucide-react";
-import React from "react";
-import { z } from "@workspace/ui/lib/zod";
-import { cn } from "../lib/utils";
-import { Skeleton } from "./skeleton";
+} from '@workspace/ui/components/table';
+import { z } from '@workspace/ui/lib/zod';
+import { ArrowDownIcon, ArrowUpIcon, FileSearch } from 'lucide-react';
+import React, { useEffect, useId } from 'react';
+import { cn } from '../lib/utils';
+import * as NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+import { Spinner } from './Spinner';
 
 export const DataTableSortingSchema = z.object({
   sortBy: z.string(),
-  sortDirection: z.enum(["asc", "desc"]),
+  sortDirection: z.enum(['asc', 'desc']),
 });
-
-const SKELETON_DATA = Array.from({ length: 10 }).map((item) => ({})) as any;
 
 export type DataTableSorting = z.infer<typeof DataTableSortingSchema>;
 export interface DataTableProps<TData, TValue> {
@@ -91,7 +89,7 @@ export function DataTable<TData, TValue>({
   // table config
   const table = useReactTable({
     columns,
-    data: isLoading ? SKELETON_DATA : data,
+    data,
     getCoreRowModel: getCoreRowModel(),
     enableSorting: enableSorting,
     onSortingChange: (updater) => {
@@ -99,18 +97,18 @@ export function DataTable<TData, TValue>({
         ? [
             {
               id: sorting?.sortBy,
-              desc: sorting?.sortDirection === "desc",
+              desc: sorting?.sortDirection === 'desc',
             },
           ]
         : [];
 
       const newTanstackSorting =
-        typeof updater === "function" ? updater(oldTanstackSorting) : updater;
+        typeof updater === 'function' ? updater(oldTanstackSorting) : updater;
 
       if (newTanstackSorting[0]?.id) {
         setSorting({
           sortBy: newTanstackSorting[0].id,
-          sortDirection: newTanstackSorting[0].desc ? "desc" : "asc",
+          sortDirection: newTanstackSorting[0].desc ? 'desc' : 'asc',
         });
       } else {
         setSorting(null);
@@ -121,7 +119,7 @@ export function DataTable<TData, TValue>({
         ? [
             {
               id: sorting?.sortBy,
-              desc: sorting?.sortDirection === "desc",
+              desc: sorting?.sortDirection === 'desc',
             },
           ]
         : [],
@@ -133,8 +131,9 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <Table containerClassName={cn("relative", containerClassName)}>
+    <Table containerClassName={cn('relative', containerClassName)}>
       <TableHeader>
+        <ProgressBar isFetching={!!isFetching && !isLoading} />
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
@@ -150,17 +149,17 @@ export function DataTable<TData, TValue>({
                     <div
                       className={
                         header.column.getCanSort()
-                          ? "cursor-pointer select-none"
-                          : ""
+                          ? 'cursor-pointer select-none'
+                          : ''
                       }
                       onClick={header.column.getToggleSortingHandler()}
                       title={
                         header.column.getCanSort()
-                          ? header.column.getNextSortingOrder() === "asc"
-                            ? "Sort ascending"
-                            : header.column.getNextSortingOrder() === "desc"
-                              ? "Sort descending"
-                              : "Clear sort"
+                          ? header.column.getNextSortingOrder() === 'asc'
+                            ? 'Sort ascending'
+                            : header.column.getNextSortingOrder() === 'desc'
+                              ? 'Sort descending'
+                              : 'Clear sort'
                           : undefined
                       }
                     >
@@ -168,14 +167,14 @@ export function DataTable<TData, TValue>({
                         header.column.columnDef.header,
                         header.getContext()
                       )}
-                      <div className="inline-block ml-0.5 -translate-y-px">
+                      <div className='inline-block ml-0.5 -translate-y-px'>
                         {{
-                          asc: <ArrowUpIcon className="inline-block size-4!" />,
+                          asc: <ArrowUpIcon className='inline-block size-4!' />,
                           desc: (
-                            <ArrowDownIcon className="inline-block size-4!" />
+                            <ArrowDownIcon className='inline-block size-4!' />
                           ),
                         }[header.column.getIsSorted() as string] ?? (
-                          <ArrowUpIcon className="inline-block size-4! opacity-0" />
+                          <ArrowUpIcon className='inline-block size-4! opacity-0' />
                         )}
                       </div>
                     </div>
@@ -186,12 +185,12 @@ export function DataTable<TData, TValue>({
           </TableRow>
         ))}
       </TableHeader>
-      <TableBody className={cn(isFetching && "opacity-70")}>
+      <TableBody>
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => (
             <TableRow
               key={row.id}
-              data-state={row.getIsSelected() && "selected"}
+              data-state={row.getIsSelected() && 'selected'}
             >
               {row.getVisibleCells().map((cell) => (
                 <TableCell
@@ -200,26 +199,53 @@ export function DataTable<TData, TValue>({
                     minWidth: cell.column.columnDef.size,
                     maxWidth: cell.column.columnDef.size,
                   }}
-                  title={String(cell.getValue() || "")}
+                  title={String(cell.getValue() || '')}
                 >
-                  {isLoading ? (
-                    <Skeleton className="h-5" />
-                  ) : (
-                    flexRender(cell.column.columnDef.cell, cell.getContext())
-                  )}
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}
             </TableRow>
           ))
         ) : (
           <tr>
-            <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 text-muted-foreground">
-              <FileSearch className="size-10 stroke-1" />
-              <span>No results.</span>
+            <td className='flex flex-col items-center justify-center gap-2 absolute inset-0 text-muted-foreground'>
+              {isLoading && <Spinner />}
+              {!isLoading && (
+                <>
+                  <FileSearch className='size-10 stroke-1' />
+                  <span>No results.</span>
+                </>
+              )}
             </td>
           </tr>
         )}
       </TableBody>
     </Table>
+  );
+}
+
+function ProgressBar({ isFetching }: { isFetching: boolean }) {
+  const progressBarId = useId();
+
+  useEffect(() => {
+    NProgress.configure({
+      parent: `#${progressBarId}`,
+      showSpinner: false,
+      trickleSpeed: 150,
+      template:
+        '<div class="bar bg-primary!" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>',
+    });
+
+    if (isFetching) {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [isFetching]);
+
+  return (
+    <tr className='w-full absolute -bottom-0.5 left-0'>
+      <th className='h-1 block' id={progressBarId} />
+    </tr>
   );
 }

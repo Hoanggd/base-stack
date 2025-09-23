@@ -9,7 +9,6 @@ import {
 } from "react-aria-components";
 
 import { cn } from "@workspace/ui/lib/utils";
-import { omit } from "lodash";
 
 const Input = ({ className, ...props }: AriaInputProps) => {
   return (
