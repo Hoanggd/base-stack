@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 
-import { cn } from "@workspace/ui/lib/utils";
+import { cn } from '@workspace/ui/lib/utils';
 
-interface TableProps extends React.ComponentProps<"table"> {
+interface TableProps extends React.ComponentProps<'table'> {
   /**
    * The class name for the container of the table. This is useful for setting height or width.
    */
@@ -12,15 +12,48 @@ interface TableProps extends React.ComponentProps<"table"> {
 }
 
 function Table({ className, containerClassName, ...props }: TableProps) {
+  const tableContainerRef = React.useRef<HTMLDivElement>(null);
+  const tableRef = React.useRef<HTMLTableElement>(null);
+
+  const calculateScrollPosition = () => {
+    const container = tableContainerRef.current;
+    const table = tableRef.current;
+
+    if (!container) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    const isAtHorizontalStart = scrollLeft === 0;
+    const isAtHorizontalEnd =
+      Math.abs(scrollLeft + clientWidth - scrollWidth) < 1;
+
+    if (!table) return;
+
+    table.setAttribute(
+      'data-at-start',
+      isAtHorizontalStart.toString()
+    );
+    table.setAttribute(
+      'data-at-end',
+      isAtHorizontalEnd.toString()
+    );
+  };
+
+  React.useEffect(() => {
+    calculateScrollPosition();
+  }, []);
+
   return (
-    <div className="grid bg-background-secondary rounded-md overflow-hidden border">
+    <div className='grid bg-background-secondary rounded-md overflow-hidden border'>
       <div
-        data-slot="table-container"
-        className={cn(" w-full overflow-x-auto", containerClassName)}
+        ref={tableContainerRef}
+        data-slot='table-container'
+        className={cn('w-full overflow-x-auto', containerClassName)}
+        onScroll={calculateScrollPosition}
       >
         <table
-          data-slot="table"
-          className={cn("w-full caption-bottom text-sm", className)}
+          ref={tableRef}
+          data-slot='table'
+          className={cn('group w-full caption-bottom text-sm', className)}
           {...props}
         />
       </div>
@@ -28,32 +61,35 @@ function Table({ className, containerClassName, ...props }: TableProps) {
   );
 }
 
-function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
   return (
     <thead
-      data-slot="table-header"
-      className={cn("sticky top-0 z-[2] bg-background-secondary", className)}
+      data-slot='table-header'
+      className={cn('sticky top-0 z-[2] bg-background-secondary', className)}
       {...props}
     />
   );
 }
 
-function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
   return (
     <tbody
-      data-slot="table-body"
-      className={cn("[&_tr:nth-child(odd)]:bg-background-secondary [&_tr:nth-child(even)]:bg-background-tertiary", className)}
+      data-slot='table-body'
+      className={cn(
+        '[&_tr:nth-child(odd)]:bg-background-secondary [&_tr:nth-child(even)]:bg-background-tertiary',
+        className
+      )}
       {...props}
     />
   );
 }
 
-function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
+function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
   return (
     <tfoot
-      data-slot="table-footer"
+      data-slot='table-footer'
       className={cn(
-        "bg-neutral-400/10 border-t font-medium sticky bottom-0",
+        'bg-neutral-400/10 border-t font-medium sticky bottom-0',
         className
       )}
       {...props}
@@ -61,12 +97,12 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
   );
 }
 
-function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
+function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
   return (
     <tr
-      data-slot="table-row"
+      data-slot='table-row'
       className={cn(
-        "data-[state=selected]:bg-primary/15! transition-colors",
+        'data-[state=selected]:bg-blue-200! dark:data-[state=selected]:bg-blue-900! transition-colors',
         className
       )}
       {...props}
@@ -74,12 +110,12 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
   );
 }
 
-function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
   return (
     <th
-      data-slot="table-head"
+      data-slot='table-head'
       className={cn(
-        "px-3 text-foreground h-10 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] bg-background-secondary",
+        'px-3 text-foreground h-10 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] bg-background-secondary',
         "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-border",
         className
       )}
@@ -88,12 +124,12 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
   );
 }
 
-function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
   return (
     <td
-      data-slot="table-cell"
+      data-slot='table-cell'
       className={cn(
-        "p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] truncate bg-inherit",
+        'p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] truncate bg-inherit',
         className
       )}
       {...props}
@@ -104,11 +140,11 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
 function TableCaption({
   className,
   ...props
-}: React.ComponentProps<"caption">) {
+}: React.ComponentProps<'caption'>) {
   return (
     <caption
-      data-slot="table-caption"
-      className={cn("text-muted-foreground my-4 text-sm", className)}
+      data-slot='table-caption'
+      className={cn('text-muted-foreground my-4 text-sm', className)}
       {...props}
     />
   );
@@ -116,11 +152,11 @@ function TableCaption({
 
 export {
   Table,
-  TableHeader,
   TableBody,
+  TableCaption,
+  TableCell,
   TableFooter,
   TableHead,
+  TableHeader,
   TableRow,
-  TableCell,
-  TableCaption,
 };

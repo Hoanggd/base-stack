@@ -40,9 +40,9 @@ function getCommonPinningStyles<T>(column: Column<T>): string {
     isPinned === 'right' && 'sticky right-0',
     isPinned ? 'z-[1]' : 'z-0',
     isLastLeftPinnedColumn &&
-      'shadow-[-6px_0_6px_-6px_oklch(0_0_0_/_0.1)_inset] dark:shadow-[-6px_0_6px_-6px_oklch(0_0_0_/_0.3)_inset]',
+      'group-data-[at-start="false"]:shadow-[-6px_0_6px_-6px_oklch(0_0_0_/_0.15)_inset] dark:group-data-[at-start="false"]:shadow-[-6px_0_6px_-6px_oklch(0_0_0_/_0.3)_inset]',
     isFirstRightPinnedColumn &&
-      'shadow-[6px_0_6px_-6px_oklch(0_0_0_/_0.1)_inset] dark:shadow-[6px_0_6px_-6px_oklch(0_0_0_/_0.3)_inset]'
+      'group-data-[at-end="false"]:shadow-[6px_0_6px_-6px_oklch(0_0_0_/_0.15)_inset] dark:group-data-[at-end="false"]:shadow-[6px_0_6px_-6px_oklch(0_0_0_/_0.3)_inset]'
   );
 }
 
