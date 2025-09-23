@@ -32,7 +32,7 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
   return (
     <thead
       data-slot="table-header"
-      className={cn("sticky top-0 z-[1] bg-background-secondary ", className)}
+      className={cn("sticky top-0 z-[1] bg-background-secondary", className)}
       {...props}
     />
   );
@@ -42,7 +42,7 @@ function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
   return (
     <tbody
       data-slot="table-body"
-      className={cn("[&_tr:nth-child(even)]:bg-background-tertiary", className)}
+      className={cn("[&_tr:nth-child(even)]:bg-background-tertiary/50 [&_tr]:border-b [&_tr]:border-transparent [&_tr]:last:border-b-0", className)}
       {...props}
     />
   );
@@ -66,7 +66,7 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
     <tr
       data-slot="table-row"
       className={cn(
-        "data-[state=selected]:bg-neutral-400/10 transition-colors",
+        "data-[state=selected]:bg-primary/15! transition-colors",
         className
       )}
       {...props}

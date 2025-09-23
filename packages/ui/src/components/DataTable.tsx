@@ -4,10 +4,12 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  TableOptions,
+  TableState,
   SortingState as TanstackSortingState,
   useReactTable,
 } from '@tanstack/react-table';
-
+import { Spinner } from '@workspace/ui/components/Spinner';
 import {
   Table,
   TableBody,
@@ -16,29 +18,32 @@ import {
   TableHeader,
   TableRow,
 } from '@workspace/ui/components/table';
-import { z } from '@workspace/ui/lib/zod';
+import { cn } from '@workspace/ui/lib/utils';
 import { ArrowDownIcon, ArrowUpIcon, FileSearch } from 'lucide-react';
-import React, { useEffect, useId } from 'react';
-import { cn } from '../lib/utils';
 import * as NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { Spinner } from './Spinner';
+import React, { useEffect, useId } from 'react';
+import {
+  DataTableSorting,
+  DataTableSortingSchema,
+  getCheckboxColumnDef,
+} from './DataTable.utils';
 
-export const DataTableSortingSchema = z.object({
-  sortBy: z.string(),
-  sortDirection: z.enum(['asc', 'desc']),
-});
+interface Identifiable {
+  id: string | number;
+}
 
-export type DataTableSorting = z.infer<typeof DataTableSortingSchema>;
-export interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends Identifiable, TValue> {
   /**
    * The columns to display in the table.
    */
   columns: ColumnDef<TData, TValue>[];
+
   /**
    * The data to display in the table.
    */
   data: TData[];
+
   /**
    * The class name for the container of the table. This is useful for setting height or width.
    */
@@ -60,6 +65,21 @@ export interface DataTableProps<TData, TValue> {
   setSorting?: (sorting: DataTableSorting | null) => void;
 
   /**
+   * Whether to enable row selection in the table.
+   */
+  enableRowSelection?: boolean;
+
+  /**
+   * The row selection in the table.
+   */
+  rowSelection?: TableState['rowSelection'];
+
+  /**
+   * The function to set the row selection in the table.
+   */
+  setRowSelection?: TableOptions<TData>['onRowSelectionChange'];
+
+  /**
    * Indicates if the table is currently loading for the first time.
    */
   isLoading?: boolean;
@@ -70,13 +90,16 @@ export interface DataTableProps<TData, TValue> {
   isFetching?: boolean;
 }
 
-export function DataTable<TData, TValue>({
-  columns,
+function DataTable<TData extends Identifiable, TValue>({
   data,
+  columns,
   containerClassName,
   enableSorting = false,
   sorting: controlledSorting,
   setSorting: controlledSetSorting,
+  enableRowSelection = false,
+  rowSelection,
+  setRowSelection,
   isLoading,
   isFetching,
 }: DataTableProps<TData, TValue>) {
@@ -86,12 +109,21 @@ export function DataTable<TData, TValue>({
   const sorting = controlledSorting ?? uncontrolledSorting;
   const setSorting = controlledSetSorting ?? setUncontrolledSorting;
 
-  // table config
   const table = useReactTable({
-    columns,
+    // core settings
     data,
-    getCoreRowModel: getCoreRowModel(),
+    columns: enableRowSelection
+      ? [getCheckboxColumnDef<TData>(), ...columns]
+      : columns,
+
+    // row selection settings
+    enableRowSelection,
+    ...(setRowSelection ? { onRowSelectionChange: setRowSelection } : {}),
+
+    // sorting settings - IMPORTANT: Always set manualSorting to true
+    manualSorting: true,
     enableSorting: enableSorting,
+    getCoreRowModel: getCoreRowModel(),
     onSortingChange: (updater) => {
       const oldTanstackSorting: TanstackSortingState = sorting
         ? [
@@ -114,7 +146,10 @@ export function DataTable<TData, TValue>({
         setSorting(null);
       }
     },
+
+    // state settings
     state: {
+      ...(rowSelection ? { rowSelection } : {}),
       sorting: sorting
         ? [
             {
@@ -124,7 +159,9 @@ export function DataTable<TData, TValue>({
           ]
         : [],
     },
-    manualSorting: true, // IMPORTANT: Always set manualSorting to true
+
+    // additional settings
+    getRowId: (row) => String(row.id),
     defaultColumn: {
       size: 180,
     },
@@ -167,16 +204,20 @@ export function DataTable<TData, TValue>({
                         header.column.columnDef.header,
                         header.getContext()
                       )}
-                      <div className='inline-block ml-0.5 -translate-y-px'>
-                        {{
-                          asc: <ArrowUpIcon className='inline-block size-4!' />,
-                          desc: (
-                            <ArrowDownIcon className='inline-block size-4!' />
-                          ),
-                        }[header.column.getIsSorted() as string] ?? (
-                          <ArrowUpIcon className='inline-block size-4! opacity-0' />
-                        )}
-                      </div>
+                      {header.column.getCanSort() && (
+                        <div className='inline-block ml-0.5 -translate-y-px'>
+                          {{
+                            asc: (
+                              <ArrowUpIcon className='inline-block size-4!' />
+                            ),
+                            desc: (
+                              <ArrowDownIcon className='inline-block size-4!' />
+                            ),
+                          }[header.column.getIsSorted() as string] ?? (
+                            <ArrowUpIcon className='inline-block size-4! opacity-0' />
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                 </TableHead>
@@ -224,7 +265,11 @@ export function DataTable<TData, TValue>({
   );
 }
 
-function ProgressBar({ isFetching }: { isFetching: boolean }) {
+interface ProgressBarProps {
+  isFetching: boolean;
+}
+
+function ProgressBar({ isFetching }: ProgressBarProps) {
   const progressBarId = useId();
 
   useEffect(() => {
@@ -249,3 +294,7 @@ function ProgressBar({ isFetching }: { isFetching: boolean }) {
     </tr>
   );
 }
+
+export { DataTable, DataTableSortingSchema };
+export type { DataTableProps, DataTableSorting };
+

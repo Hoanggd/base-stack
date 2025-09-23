@@ -54,7 +54,7 @@ export function DataTableDemo() {
   });
 
   return (
-    <div className='w-full space-y-4'>
+    <div className='w-full space-y-3'>
       <div className='flex gap-2'>
         <BsSearchField />
         <BsSelect

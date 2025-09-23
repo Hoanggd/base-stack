@@ -13,8 +13,8 @@ export interface Payment {
 }
 
 interface GetPaymentsParams {
-  sortBy: string;
-  sortDirection: "asc" | "desc";
+  sortBy?: string;
+  sortDirection?: "asc" | "desc";
 }
 
 export async function getPayments(
