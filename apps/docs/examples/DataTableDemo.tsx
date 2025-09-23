@@ -31,14 +31,20 @@ export const columns: ColumnDef<Payment>[] = [
     accessorKey: 'transactionDate',
     header: 'Transaction Date',
   },
-  // {
-  //   accessorKey: "paymentReference",
-  //   header: "Payment Reference",
-  // },
-  // {
-  //   accessorKey: "status",
-  //   header: "Status",
-  // },
+  {
+    accessorKey: 'paymentReference',
+    header: 'Payment Reference',
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+  },
+  {
+    accessorKey: 'actions',
+    header: 'Actions',
+    cell: () => <div>Actions</div>,
+    size: 100,
+  }
 ];
 
 export function DataTableDemo() {
@@ -73,6 +79,7 @@ export function DataTableDemo() {
       </div>
       <DataTable
         enableSorting
+        enableRowSelection
         containerClassName='h-[450px]'
         sorting={sorting}
         setSorting={setSorting}

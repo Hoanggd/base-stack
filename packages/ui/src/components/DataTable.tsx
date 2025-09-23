@@ -27,6 +27,7 @@ import {
   DataTableSorting,
   DataTableSortingSchema,
   getCheckboxColumnDef,
+  getCommonPinningStyles,
 } from './DataTable.utils';
 
 interface Identifiable {
@@ -165,6 +166,12 @@ function DataTable<TData extends Identifiable, TValue>({
     defaultColumn: {
       size: 180,
     },
+    initialState: {
+      columnPinning: {
+        left: ['select'],
+        right: ['actions'],
+      },
+    },
   });
 
   return (
@@ -181,6 +188,7 @@ function DataTable<TData extends Identifiable, TValue>({
                     minWidth: header.column.columnDef.size,
                     maxWidth: header.column.columnDef.size,
                   }}
+                  className={getCommonPinningStyles(header.column)}
                 >
                   {header.isPlaceholder ? null : (
                     <div
@@ -240,6 +248,7 @@ function DataTable<TData extends Identifiable, TValue>({
                     minWidth: cell.column.columnDef.size,
                     maxWidth: cell.column.columnDef.size,
                   }}
+                  className={getCommonPinningStyles(cell.column)}
                   title={String(cell.getValue() || '')}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -297,4 +306,3 @@ function ProgressBar({ isFetching }: ProgressBarProps) {
 
 export { DataTable, DataTableSortingSchema };
 export type { DataTableProps, DataTableSorting };
-
