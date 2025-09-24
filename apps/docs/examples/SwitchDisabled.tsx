@@ -1,5 +1,5 @@
-import { Switch } from "@workspace/ui/components/Switch";
+import { Switch } from '@workspace/ui/components/Switch'
 
 export function SwitchDisabled() {
-  return <Switch isDisabled>Airplane mode</Switch>;
+    return <Switch isDisabled>Airplane mode</Switch>
 }

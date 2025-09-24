@@ -1,5 +1,5 @@
-import { Pagination } from "@workspace/ui/components/Pagination";
+import { Pagination } from '@workspace/ui/components/Pagination'
 
 export function PaginationDemo() {
-  return <Pagination pageCount={10} />;
+    return <Pagination pageCount={10} />
 }

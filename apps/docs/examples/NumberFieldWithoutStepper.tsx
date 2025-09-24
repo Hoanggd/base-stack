@@ -1,5 +1,5 @@
-import { BsNumberField } from "@workspace/ui/components/Numberfield";
+import { BsNumberField } from '@workspace/ui/components/Numberfield'
 
 export function NumberFieldWithoutStepper() {
-  return <BsNumberField showStepper={false} placeholder="Enter a number" />;
+    return <BsNumberField showStepper={false} placeholder="Enter a number" />
 }

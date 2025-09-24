@@ -1,11 +1,11 @@
-import { BsTimeField } from "@workspace/ui/components/Datefield";
-import { Label } from "@workspace/ui/components/field";
+import { BsTimeField } from '@workspace/ui/components/Datefield'
+import { Label } from '@workspace/ui/components/field'
 
 export function TimeFieldWithLabel() {
-  return (
-    <div>
-      <Label>Time</Label>
-      <BsTimeField className="w-[72px]" />
-    </div>
-  );
+    return (
+        <div>
+            <Label>Time</Label>
+            <BsTimeField className="w-[72px]" />
+        </div>
+    )
 }

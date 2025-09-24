@@ -1,5 +1,5 @@
-import { BsRangeCalendar } from "@workspace/ui/components/Calendar";
+import { BsRangeCalendar } from '@workspace/ui/components/Calendar'
 
 export function RangeCalendarUnstyled() {
-  return <BsRangeCalendar variant="unstyled" />;
+    return <BsRangeCalendar variant="unstyled" />
 }

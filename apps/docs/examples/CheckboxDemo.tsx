@@ -1,5 +1,5 @@
-import { Checkbox } from "@workspace/ui/components/Checkbox";
+import { Checkbox } from '@workspace/ui/components/Checkbox'
 
 export function CheckboxDemo() {
-  return <Checkbox>Accept terms and conditions</Checkbox>;
+    return <Checkbox>Accept terms and conditions</Checkbox>
 }

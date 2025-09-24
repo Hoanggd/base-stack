@@ -1,5 +1,5 @@
-import { Button } from "@workspace/ui/components/Button";
+import { Button } from '@workspace/ui/components/Button'
 
 export function ButtonDestructive() {
-  return <Button variant="destructive">Save changes</Button>;
+    return <Button variant="destructive">Save changes</Button>
 }

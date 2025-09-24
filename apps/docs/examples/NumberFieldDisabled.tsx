@@ -1,5 +1,5 @@
-import { BsNumberField } from "@workspace/ui/components/Numberfield";
+import { BsNumberField } from '@workspace/ui/components/Numberfield'
 
 export function NumberFieldDisabled() {
-  return <BsNumberField defaultValue={10} isDisabled />;
+    return <BsNumberField defaultValue={10} isDisabled />
 }

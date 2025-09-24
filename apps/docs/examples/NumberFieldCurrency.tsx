@@ -1,13 +1,13 @@
-import { BsNumberField } from "@workspace/ui/components/Numberfield";
+import { BsNumberField } from '@workspace/ui/components/Numberfield'
 
 export function NumberFieldCurrency() {
-  return (
-    <BsNumberField
-      placeholder="Enter a number"
-      formatOptions={{
-        style: "currency",
-        currency: "USD",
-      }}
-    />
-  );
+    return (
+        <BsNumberField
+            placeholder="Enter a number"
+            formatOptions={{
+                style: 'currency',
+                currency: 'USD',
+            }}
+        />
+    )
 }

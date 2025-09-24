@@ -1,5 +1,5 @@
-import { BsDatePicker } from "@workspace/ui/components/DatePicker";
+import { BsDatePicker } from '@workspace/ui/components/DatePicker'
 
 export function DatePickerDemo() {
-  return <BsDatePicker />;
+    return <BsDatePicker />
 }

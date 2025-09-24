@@ -1,5 +1,5 @@
-import { BsTimeField } from "@workspace/ui/components/Datefield";
+import { BsTimeField } from '@workspace/ui/components/Datefield'
 
 export function TimeFieldGranularity() {
-  return <BsTimeField granularity="second" />;
+    return <BsTimeField granularity="second" />
 }

@@ -1,10 +1,10 @@
-import { Time } from "@internationalized/date";
+import { Time } from '@internationalized/date'
 
 export const parseTime = (time: string) => {
-  try {
-    const timeArray = time.split(":").map(Number);
-    return new Time(...timeArray);
-  } catch (error) {
-    return null;
-  }
-};
+    try {
+        const timeArray = time.split(':').map(Number)
+        return new Time(...timeArray)
+    } catch (error) {
+        return null
+    }
+}

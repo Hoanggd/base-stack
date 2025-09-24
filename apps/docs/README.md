@@ -35,22 +35,22 @@ This boilerplate gives you everything you need to start building immediately:
 
 1. **Clone the repository**
 
-   ```bash
-   git clone https://github.com/Hoanggd/base-stack
-   cd base-stack
-   ```
+    ```bash
+    git clone https://github.com/Hoanggd/base-stack
+    cd base-stack
+    ```
 
 2. **Install dependencies**
 
-   ```bash
-   pnpm install
-   ```
+    ```bash
+    pnpm install
+    ```
 
 3. **Start the development server**
 
-   ```bash
-   pnpm dev
-   ```
+    ```bash
+    pnpm dev
+    ```
 
 4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000) to see the result.

@@ -1,5 +1,5 @@
-import { BsDateRangePicker } from "@workspace/ui/components/DatePicker";
+import { BsDateRangePicker } from '@workspace/ui/components/DatePicker'
 
 export function DateRangePickerDemo() {
-  return <BsDateRangePicker />;
+    return <BsDateRangePicker />
 }

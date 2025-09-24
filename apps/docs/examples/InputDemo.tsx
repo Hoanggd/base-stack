@@ -1,5 +1,5 @@
-import { Input } from "@workspace/ui/components/Textfield";
+import { Input } from '@workspace/ui/components/Textfield'
 
 export function InputDemo() {
-  return <Input placeholder="Email" />;
+    return <Input placeholder="Email" />
 }

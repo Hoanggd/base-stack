@@ -1,5 +1,5 @@
-import { TextArea } from "@workspace/ui/components/Textfield";
+import { TextArea } from '@workspace/ui/components/Textfield'
 
 export function TextAreaDisabled() {
-  return <TextArea disabled placeholder="Email" />;
+    return <TextArea disabled placeholder="Email" />
 }

@@ -1,5 +1,5 @@
-import { BsTimeField } from "@workspace/ui/components/Datefield";
+import { BsTimeField } from '@workspace/ui/components/Datefield'
 
 export function TimeFieldDisabled() {
-  return <BsTimeField className="w-[72px]" isDisabled />;
+    return <BsTimeField className="w-[72px]" isDisabled />
 }
