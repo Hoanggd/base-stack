@@ -63,7 +63,7 @@ function Pagination({
   );
 }
 
-interface PaginationPageSelectorProps {
+interface PaginationPageSizeSelectorProps {
   /**
    * The currently selected value (controlled).
    */
@@ -85,12 +85,12 @@ interface PaginationPageSelectorProps {
   options?: number[];
 }
 
-function PaginationPageSelector({
+function PaginationPageSizeSelector({
   value: controlledValue,
   onChange: controlledOnChange,
   defaultValue,
   options = [10, 20, 50, 100],
-}: PaginationPageSelectorProps) {
+}: PaginationPageSizeSelectorProps) {
   const [uncontrolledValue, setUncontrolledValue] = React.useState<
     number | undefined
   >(defaultValue || options[0]);
@@ -119,5 +119,5 @@ function PaginationPageSelector({
   );
 }
 
-export { Pagination, PaginationPageSelector };
-export type { PaginationPageSelectorProps, PaginationProps };
+export { Pagination, PaginationPageSizeSelector };
+export type { PaginationPageSizeSelectorProps, PaginationProps };
