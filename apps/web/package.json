@@ -29,6 +29,7 @@
     "@types/react-dom": "catalog:",
     "@workspace/eslint-config": "workspace:^",
     "@workspace/typescript-config": "workspace:*",
+    "eslint": "catalog:",
     "typescript": "catalog:"
   }
 }

@@ -43,7 +43,7 @@ export const formatDecimal = (value: string, options: { precision?: number } = {
             return round(Number(resultString), options.precision ?? 2) + ''
         }
         return ''
-    } catch (error) {
+    } catch {
         return ''
     }
 }

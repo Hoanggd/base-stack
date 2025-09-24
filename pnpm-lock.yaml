@@ -180,6 +180,15 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.1.7(@types/react@19.1.9)
+      '@workspace/eslint-config':
+        specifier: workspace:^
+        version: link:../../packages/eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      eslint:
+        specifier: 'catalog:'
+        version: 9.36.0(jiti@2.5.1)
       lucide-react:
         specifier: 'catalog:'
         version: 0.475.0(react@19.1.1)
@@ -241,12 +250,18 @@ importers:
       '@workspace/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      eslint:
+        specifier: 'catalog:'
+        version: 9.36.0(jiti@2.5.1)
       typescript:
         specifier: 'catalog:'
         version: 5.9.2
 
   packages/eslint-config:
     devDependencies:
+      '@eslint/js':
+        specifier: ^9.36.0
+        version: 9.36.0
       '@next/eslint-plugin-next':
         specifier: ^15.4.5
         version: 15.4.5
@@ -388,6 +403,9 @@ importers:
       '@workspace/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      eslint:
+        specifier: 'catalog:'
+        version: 9.36.0(jiti@2.5.1)
       tailwindcss:
         specifier: 'catalog:'
         version: 4.1.11
