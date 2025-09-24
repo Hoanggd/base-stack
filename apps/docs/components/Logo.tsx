@@ -10,7 +10,7 @@ export function Logo({
   showName?: boolean;
 }) {
   return (
-    <Link href="/" className={cn("flex items-center gap-2", className)}>
+    <Link href="/" className={cn("flex items-center gap-2 w-fit", className)}>
       <img src="/logo.png" alt="Logo" className="w-7 h-7" />
       {showName && <span className="font-semibold">{PROJECT_NAME}</span>}
     </Link>

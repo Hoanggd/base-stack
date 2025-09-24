@@ -76,7 +76,7 @@ base-stack/
 
 ## 📖 Documentation
 
-- **Introduction**: [Getting Started Guide](/docs/ui/introduction)
+- **Introduction**: [Getting Started Guide](/docs/getting-started/introduction)
 - **Components**: [UI Component Library](/docs/ui)
 - **Examples**: [Form Management](/docs/form-examples), [Data Fetching](/docs)
 

@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import { cva, type VariantProps } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority";
 import {
   Button as AriaButton,
   composeRenderProps,
   type ButtonProps as AriaButtonProps,
-} from "react-aria-components"
+} from "react-aria-components";
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from "@workspace/ui/lib/utils";
 
 const buttonVariants = cva(
   [
-    "cursor-pointer inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all no-underline",
+    "cursor-pointer font-medium inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-sm text-sm ring-offset-background transition-all no-underline",
     "data-[hovered]:opacity-90 data-[pressed]:opacity-100",
     /* SVGs */
-    '[&_svg]:pointer-events-none [&_svg]:size-[16px] [&_svg]:shrink-0 [&_svg]:stroke-[2]',
+    "[&_svg]:pointer-events-none [&_svg]:size-[14px] [&_svg]:shrink-0 [&_svg]:stroke-2",
     /* Disabled */
-    "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 ",
+    "data-[disabled]:pointer-events-none data-[disabled]:opacity-80",
     /* Focus Visible */
-    "data-[focus-visible]:outline-none data-[focus-visible]:ring-sky-500/40 data-[focus-visible]:ring-2 data-[focus-visible]:ring-offset-2",
+    "data-[focus-visible]:outline-none data-[focus-visible]:ring-primary/40 data-[focus-visible]:ring-2 data-[focus-visible]:ring-offset-2",
     /* Resets */
     "focus-visible:outline-none",
   ],
@@ -30,18 +30,19 @@ const buttonVariants = cva(
         destructive:
           "bg-linear-to-b from-destructive/90 to-destructive text-white button-3d",
         outline:
-          "bg-linear-to-b from-background to-background-secondary shadow-sm border border-input text-foreground",
+          "bg-background-secondary shadow-sm border border-input text-foreground",
         secondary:
-          "bg-secondary data-[hovered]:bg-secondary/80",
-        ghost: "data-[hovered]:bg-accent data-[hovered]:text-accent-foreground data-[pressed]:bg-accent/50",
+          "border-transparent bg-neutral-500/15 text-secondary-foreground",
+        ghost:
+          "data-[hovered]:bg-accent data-[hovered]:text-accent-foreground data-[pressed]:bg-accent/50",
         link: "text-primary underline-offset-4 data-[hovered]:underline px-0! py-0! h-auto! underline",
         unstyled: "",
       },
       size: {
         default: "h-8 px-3 py-2",
         sm: "h-7 px-2",
-        lg: "h-9 px-6 rounded-lg",
-        xl: "h-10 px-6 text-base rounded-lg",
+        lg: "h-9 px-4 rounded-md",
+        xl: "h-11 px-4 text-base rounded-md",
         icon: "size-8",
       },
     },
@@ -50,10 +51,11 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-)
+);
 
 interface ButtonProps
   extends AriaButtonProps,
+    React.RefAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {}
 
 const Button = ({ className, variant, size, ...props }: ButtonProps) => {
@@ -70,8 +72,8 @@ const Button = ({ className, variant, size, ...props }: ButtonProps) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Button, buttonVariants }
-export type { ButtonProps }
+export { Button, buttonVariants };
+export type { ButtonProps };

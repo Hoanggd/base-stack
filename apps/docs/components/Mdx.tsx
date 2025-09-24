@@ -1,5 +1,5 @@
 import { ComponentPreview } from "@/components/ComponentPreview";
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import { cn } from "@workspace/ui/lib/utils";
 import { useMDXComponent } from "next-contentlayer2/hooks";
 import { MdxSnippet } from "./MdxSnippet";
@@ -11,9 +11,6 @@ type MdxProps = {
 const components = {
   ComponentPreview,
   Button,
-  h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 className={cn(className)} {...props} />
-  ),
   pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
     let lang = "";
 
@@ -29,13 +26,16 @@ const components = {
       </MdxSnippet>
     );
   },
+  blockquote: ({ ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
+    <blockquote style={{ quotes: "none" }} {...props} />
+  ),
 };
 
 export function Mdx({ code }: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (
-    <div className="mdx [&>*]:px-10">
+    <div className="mdx [&>*]:px-5 lg:[&>*]:px-10">
       <Component components={components} />
     </div>
   );

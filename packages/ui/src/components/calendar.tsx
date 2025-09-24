@@ -1,8 +1,8 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { getLocalTimeZone, today } from "@internationalized/date"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import React from 'react';
+import { getLocalTimeZone, parseDate, today } from '@internationalized/date';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   Button as AriaButton,
   Calendar as AriaCalendar,
@@ -16,7 +16,6 @@ import {
   CalendarGridProps as AriaCalendarGridProps,
   CalendarHeaderCell as AriaCalendarHeaderCell,
   CalendarHeaderCellProps as AriaCalendarHeaderCellProps,
-  CalendarProps as AriaCalendarProps,
   DateValue as AriaDateValue,
   Heading as AriaHeading,
   RangeCalendar as AriaRangeCalendar,
@@ -25,69 +24,72 @@ import {
   composeRenderProps,
   Text,
   useLocale,
-} from "react-aria-components"
+} from 'react-aria-components';
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from '@workspace/ui/lib/utils';
 
-import { buttonVariants } from "@workspace/ui/components/button"
+import { buttonVariants } from '@workspace/ui/components/Button';
+import { RangeCalendarCell } from '@workspace/ui/components/Calendar.helper';
+import { useIsMobile } from '@workspace/ui/hooks/use-mobile';
 
-const Calendar = AriaCalendar
+const Calendar = AriaCalendar;
 
-const RangeCalendar = AriaRangeCalendar
+const RangeCalendar = AriaRangeCalendar;
 
 const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
-  let { direction } = useLocale()
+  let { direction } = useLocale();
 
   return (
-    <header className="flex w-full items-center gap-1 px-1 pb-4" {...props}>
+    <header className='flex w-full items-center gap-0.5 pb-1' {...props}>
+      <AriaHeading className='pl-2.5 grow text-sm font-medium' />
+
       <AriaButton
-        slot="previous"
+        slot='previous'
         className={cn(
-          buttonVariants({ variant: "outline" }),
-          "size-7 bg-transparent p-0 opacity-50",
+          buttonVariants({ variant: 'ghost' }),
+          'size-8 rounded-full bg-transparent p-0 text-primary',
           /* Hover */
-          "data-[hovered]:opacity-100"
+          'data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10 data-[hovered]:text-primary'
         )}
       >
-        {direction === "rtl" ? (
-          <ChevronRight aria-hidden className="size-4" />
+        {direction === 'rtl' ? (
+          <ChevronRight aria-hidden className='size-4' />
         ) : (
-          <ChevronLeft aria-hidden className="size-4" />
+          <ChevronLeft aria-hidden className='size-4' />
         )}
       </AriaButton>
-      <AriaHeading className="grow text-center text-sm font-medium" />
       <AriaButton
-        slot="next"
+        slot='next'
         className={cn(
-          buttonVariants({ variant: "outline" }),
-          "size-7 bg-transparent p-0 opacity-50",
+          buttonVariants({ variant: 'ghost' }),
+          'size-8 rounded-full bg-transparent p-0 text-primary',
           /* Hover */
-          "data-[hovered]:opacity-100"
+          'data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10 data-[hovered]:text-primary'
         )}
       >
-        {direction === "rtl" ? (
-          <ChevronLeft aria-hidden className="size-4" />
+        {direction === 'rtl' ? (
+          <ChevronLeft aria-hidden className='size-4' />
         ) : (
-          <ChevronRight aria-hidden className="size-4" />
+          <ChevronRight aria-hidden className='size-4' />
         )}
       </AriaButton>
     </header>
-  )
-}
+  );
+};
 
 const CalendarGrid = ({ className, ...props }: AriaCalendarGridProps) => (
   <AriaCalendarGrid
     className={cn(
-      " border-separate border-spacing-x-0 border-spacing-y-1 ",
+      'border-separate border-spacing-x-0 border-spacing-y-0.5',
       className
     )}
     {...props}
   />
-)
+);
 
 const CalendarGridHeader = ({ ...props }: AriaCalendarGridHeaderProps) => (
   <AriaCalendarGridHeader {...props} />
-)
+);
 
 const CalendarHeaderCell = ({
   className,
@@ -95,81 +97,102 @@ const CalendarHeaderCell = ({
 }: AriaCalendarHeaderCellProps) => (
   <AriaCalendarHeaderCell
     className={cn(
-      "w-9 rounded-md text-[0.8rem] font-normal text-muted-foreground",
+      'w-8 rounded-md text-[0.8rem] font-normal text-muted-foreground',
       className
     )}
     {...props}
   />
-)
+);
 
 const CalendarGridBody = ({
   className,
   ...props
 }: AriaCalendarGridBodyProps) => (
-  <AriaCalendarGridBody className={cn("[&>tr>td]:p-0", className)} {...props} />
-)
+  <AriaCalendarGridBody className={cn('[&>tr>td]:p-0', className)} {...props} />
+);
 
-const CalendarCell = ({ className, ...props }: AriaCalendarCellProps) => {
-  const isRange = Boolean(React.useContext(AriaRangeCalendarStateContext))
+const CalendarCell = ({
+  className,
+  type = 'single',
+  ...props
+}: AriaCalendarCellProps & { type?: 'single' | 'range' }) => {
+  if (type === 'range') {
+    return <RangeCalendarCell date={props.date} />;
+  }
+
   return (
     <AriaCalendarCell
       className={composeRenderProps(className, (className, renderProps) =>
         cn(
-          buttonVariants({ variant: "ghost" }),
-          "relative flex size-9 items-center justify-center p-0 text-sm font-normal",
+          buttonVariants({ variant: 'unstyled' }),
+          'transition-none relative flex size-8 rounded-full items-center justify-center p-0 text-sm font-normal',
           /* Disabled */
-          renderProps.isDisabled && "text-muted-foreground opacity-50",
+          renderProps.isDisabled && 'text-muted-foreground opacity-50',
           /* Selected */
           renderProps.isSelected &&
-            "bg-primary text-primary-foreground data-[focused]:bg-primary  data-[focused]:text-primary-foreground",
-          /* Hover */
-          renderProps.isHovered &&
-            renderProps.isSelected &&
-            (renderProps.isSelectionStart ||
-              renderProps.isSelectionEnd ||
-              !isRange) &&
-            "data-[hovered]:bg-primary data-[hovered]:text-primary-foreground",
-          /* Selection Start/End */
-          renderProps.isSelected &&
-            isRange &&
-            !renderProps.isSelectionStart &&
-            !renderProps.isSelectionEnd &&
-            "rounded-none bg-accent text-accent-foreground",
-          /* Outside Month */
-          renderProps.isOutsideMonth &&
-            "text-muted-foreground opacity-50 data-[selected]:bg-accent/50 data-[selected]:text-muted-foreground data-[selected]:opacity-30",
+            'bg-primary text-white data-[focused]:bg-primary',
           /* Current Date */
           renderProps.date.compare(today(getLocalTimeZone())) === 0 &&
             !renderProps.isSelected &&
-            "bg-accent text-accent-foreground",
+            'bg-neutral-400/10 text-accent-foreground',
+          /* Hovered */
+          renderProps.isHovered && 'bg-neutral-400/20',
+          /* Outside Month */
+          renderProps.isOutsideMonth && 'hidden',
           /* Unavailable Date */
-          renderProps.isUnavailable && "cursor-default text-destructive ",
+          renderProps.isUnavailable && 'cursor-default text-destructive ',
           renderProps.isInvalid &&
-            "bg-destructive text-destructive-foreground data-[focused]:bg-destructive data-[hovered]:bg-destructive data-[focused]:text-destructive-foreground data-[hovered]:text-destructive-foreground",
+            'bg-destructive text-destructive-foreground data-[focused]:bg-destructive data-[hovered]:bg-destructive data-[focused]:text-destructive-foreground data-[hovered]:text-destructive-foreground',
           className
         )
       )}
       {...props}
     />
-  )
+  );
+};
+
+/** Accepts values in the format YYYY-MM-DD */
+interface BsCalendarProps {
+  value?: string;
+  onChange?: (date: string) => void;
+  defaultValue?: string;
+  minValue?: string;
+  maxValue?: string;
+  variant?: 'default' | 'unstyled';
+  className?: string;
 }
 
-interface JollyCalendarProps<T extends AriaDateValue>
-  extends AriaCalendarProps<T> {
-  errorMessage?: string
-}
-
-function JollyCalendar<T extends AriaDateValue>({
-  errorMessage,
+function BsCalendar({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
-  ...props
-}: JollyCalendarProps<T>) {
+  variant = 'default',
+}: BsCalendarProps) {
+  const [uncontrolledValue, setUncontrolledValue] = React.useState<
+    string | undefined
+  >(defaultValue);
+
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? setUncontrolledValue;
+
   return (
     <Calendar
+      value={value ? parseDate(value) : null}
+      onChange={(value) => onChange(value?.toString())}
       className={composeRenderProps(className, (className) =>
-        cn("w-fit", className)
+        cn(
+          'w-fit',
+          variant === 'default'
+            ? 'border rounded-lg p-1 bg-background-secondary/40'
+            : '',
+          className
+        )
       )}
-      {...props}
+      minValue={minValue ? parseDate(minValue) : null}
+      maxValue={maxValue ? parseDate(maxValue) : null}
     >
       <CalendarHeading />
       <CalendarGrid>
@@ -180,48 +203,85 @@ function JollyCalendar<T extends AriaDateValue>({
           {(date) => <CalendarCell date={date} />}
         </CalendarGridBody>
       </CalendarGrid>
-      {errorMessage && (
-        <Text className="text-sm text-destructive" slot="errorMessage">
-          {errorMessage}
-        </Text>
-      )}
     </Calendar>
-  )
+  );
 }
 
-interface JollyRangeCalendarProps<T extends AriaDateValue>
-  extends AriaRangeCalendarProps<T> {
-  errorMessage?: string
+interface RangeCalendarValue {
+  start: string;
+  end: string;
 }
 
-function JollyRangeCalendar<T extends AriaDateValue>({
-  errorMessage,
+/** Accepts values in the format YYYY-MM-DD */
+interface BsRangeCalendarProps {
+  value?: RangeCalendarValue;
+  onChange?: (value: RangeCalendarValue) => void;
+  defaultValue?: RangeCalendarValue;
+  className?: string;
+  variant?: 'default' | 'unstyled';
+  minValue?: string;
+  maxValue?: string;
+}
+
+function BsRangeCalendar({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
-  ...props
-}: JollyRangeCalendarProps<T>) {
+  variant = 'default',
+}: BsRangeCalendarProps) {
+  const [uncontrolledValue, uncontrolledOnChange] = React.useState<
+    RangeCalendarValue | undefined
+  >(defaultValue);
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? uncontrolledOnChange;
+
+  const isMobile = useIsMobile();
+  const months = isMobile ? 1 : 2;
+
   return (
     <RangeCalendar
+      visibleDuration={{ months }}
+      value={
+        value?.start && value?.end
+          ? { start: parseDate(value.start), end: parseDate(value.end) }
+          : null
+      }
+      onChange={(value) =>
+        onChange?.({
+          start: value?.start?.toString(),
+          end: value?.end?.toString(),
+        })
+      }
+      minValue={minValue ? parseDate(minValue) : null}
+      maxValue={maxValue ? parseDate(maxValue) : null}
       className={composeRenderProps(className, (className) =>
-        cn("w-fit", className)
+        cn(
+          'w-fit',
+          variant === 'default'
+            ? 'border rounded-lg p-1 bg-background-secondary/40'
+            : '',
+          className
+        )
       )}
-      {...props}
     >
       <CalendarHeading />
-      <CalendarGrid>
-        <CalendarGridHeader>
-          {(day) => <CalendarHeaderCell>{day}</CalendarHeaderCell>}
-        </CalendarGridHeader>
-        <CalendarGridBody>
-          {(date) => <CalendarCell date={date} />}
-        </CalendarGridBody>
-      </CalendarGrid>
-      {errorMessage && (
-        <Text slot="errorMessage" className="text-sm text-destructive">
-          {errorMessage}
-        </Text>
-      )}
+      <div className='flex gap-3 items-start'>
+        {Array.from({ length: months }).map((_, index) => (
+          <CalendarGrid key={index} offset={{ months: index }}>
+            <CalendarGridHeader>
+              {(day) => <CalendarHeaderCell>{day}</CalendarHeaderCell>}
+            </CalendarGridHeader>
+            <CalendarGridBody>
+              {(date) => <CalendarCell date={date} type='range' />}
+            </CalendarGridBody>
+          </CalendarGrid>
+        ))}
+      </div>
     </RangeCalendar>
-  )
+  );
 }
 
 export {
@@ -233,7 +293,7 @@ export {
   CalendarHeaderCell,
   CalendarHeading,
   RangeCalendar,
-  JollyCalendar,
-  JollyRangeCalendar,
-}
-export type { JollyCalendarProps, JollyRangeCalendarProps }
+  BsCalendar,
+  BsRangeCalendar,
+};
+export type { BsCalendarProps, BsRangeCalendarProps, RangeCalendarValue };

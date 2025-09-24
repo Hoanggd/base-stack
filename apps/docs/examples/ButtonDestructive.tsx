@@ -1,5 +1,5 @@
-import { Button } from '@workspace/ui/components/button'
+import { Button } from '@workspace/ui/components/Button'
 
-export const ButtonDestructive = () => {
-  return <Button variant="destructive">Save changes</Button>
+export function ButtonDestructive() {
+  return <Button variant="destructive">Save changes</Button>;
 }

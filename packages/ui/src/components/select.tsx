@@ -1,98 +1,476 @@
-import type { ListBoxItemProps } from "react-aria-components";
+'use client';
+
+import { CheckIcon, ChevronsUpDownIcon, XIcon } from 'lucide-react';
+import React from 'react';
+import type { ListBoxItemProps } from 'react-aria-components';
 import {
+  Select as AriaSelect,
   Autocomplete,
-  Input,
   ListBox,
   ListBoxItem,
-  Popover,
-  SearchField,
-  Select as AriaSelect,
   SelectValue,
   useFilter,
-} from "react-aria-components";
-import { CheckIcon, ChevronsUpDownIcon, SearchIcon, XIcon } from "lucide-react";
-import { Button } from "./button";
+} from 'react-aria-components';
+import { cn } from '@workspace/ui/lib/utils';
+import { Button } from '@workspace/ui/components/Button';
+import { Popover, PopoverTrigger } from '@workspace/ui/components/Popover';
+import { BsSearchField } from '@workspace/ui/components/Searchfield';
+import { Badge } from '@workspace/ui/components/Badge';
 
-const languages = [
-  { id: 1, name: "English" },
-  { id: 2, name: "Spanish" },
-  { id: 3, name: "French" },
-  { id: 4, name: "German" },
-  { id: 5, name: "Italian" },
-  { id: 6, name: "Portuguese" },
-  { id: 7, name: "Russian" },
-  { id: 8, name: "Turkish" },
-  { id: 9, name: "Arabic" },
-  { id: 10, name: "Japanese" },
-  { id: 11, name: "Korean" },
-  { id: 12, name: "Chinese" },
-];
+interface BsSelectOption {
+  id: string | number;
+  name: string;
+}
 
-export function Select() {
-  let { contains } = useFilter({ sensitivity: "base" });
+interface BsSelectProps<S extends BsSelectOption> {
+  /**
+   * The array of options to display in the select dropdown.
+   */
+  options: Array<S>;
+
+  /**
+   * The currently selected value (option id).
+   */
+  value?: S['id'];
+
+  /**
+   * Callback fired when the selected value changes.
+   */
+  onChange?: (value?: S['id']) => void;
+
+  /**
+   * Callback fired when the select is blurred.
+   */
+  onBlur?: () => void;
+
+  /**
+   * The default selected value (option id).
+   */
+  defaultValue?: S['id'];
+
+  /**
+   * If true, enables a search field for filtering options.
+   */
+  isSearchable?: boolean;
+
+  /**
+   * Custom render function for the selected value display.
+   */
+  renderValue?: (value: S) => React.ReactNode;
+
+  /**
+   * Custom render function for each option in the dropdown.
+   */
+  renderOption?: (item: S) => React.ReactNode;
+
+  /**
+   * If true, the select is disabled.
+   */
+  isDisabled?: boolean;
+
+  /**
+   * If true, the clear button will be shown.
+   */
+  isClearable?: boolean;
+
+  /**
+   * The class name of the select.
+   */
+  className?: string;
+
+  /**
+   * The class name of the popover.
+   */
+  popoverClassName?: string;
+
+  /**
+   * The placeholder of the select. Default is "Select".
+   */
+  placeholder?: string;
+}
+
+function BsSelect<S extends BsSelectOption>({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  isSearchable = false,
+  options,
+  renderOption,
+  renderValue,
+  isDisabled,
+  isClearable,
+  onBlur,
+  className,
+  popoverClassName,
+  placeholder = 'Select',
+  ...props
+}: BsSelectProps<S>) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const [uncontrolledValue, uncontrolledOnChange] = React.useState<
+    S['id'] | undefined
+  >(defaultValue);
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? uncontrolledOnChange;
+
+  const handleClear = () => {
+    onChange(undefined);
+  };
 
   return (
-    <AriaSelect className="w-full">
-      <Button variant="outline" className="justify-between w-full font-normal data-[hovered]:bg-background">
-        <SelectValue>
-          {({ defaultChildren, isPlaceholder }) => {
-            return isPlaceholder ? (
-              <div className="flex-1 w-full text-muted-foreground">Select</div>
-            ) : (
-              defaultChildren
-            );
+    <AriaSelect
+      isOpen={isOpen}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          setIsOpen(false);
+          onBlur?.();
+        }
+      }}
+      aria-label='Select'
+      isDisabled={isDisabled}
+      className={cn('group w-full', className)}
+      selectedKey={value || null}
+      onSelectionChange={(value) => onChange(value || undefined)}
+      isInvalid={(props as any)['aria-invalid']}
+    >
+      <Button
+        variant='outline'
+        className={cn(
+          'justify-between w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative',
+          'group-data-[invalid]:border-destructive group-data-[disabled]:opacity-80'
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <SelectValue className='truncate'>
+          {({ isPlaceholder, selectedItem }) => {
+            if (isPlaceholder) {
+              // If placeholder is not set, return an empty div
+              if (!placeholder) {
+                return (
+                  <div className='opacity-0' aria-hidden='true'>
+                    &nbsp;
+                  </div>
+                );
+              }
+
+              return <div className='text-muted-foreground'>{placeholder}</div>;
+            }
+
+            return renderValue
+              ? renderValue(selectedItem as S)
+              : (selectedItem as S)?.name;
           }}
         </SelectValue>
-        <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
+        {isClearable && !!value && (
+          <div
+            role='button'
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClear();
+            }}
+            className={cn(
+              'size-6! flex items-center justify-center z-10 rounded bg-background-secondary text-muted-foreground hover:bg-background-tertiary',
+              'absolute right-1 top-1/2 -translate-y-1/2',
+              'transition-opacity opacity-0 group-hover:opacity-100'
+            )}
+          >
+            <XIcon className='w-4 h-4' />
+          </div>
+        )}
+
+        <ChevronsUpDownIcon className='w-4 h-4 text-muted-foreground' />
       </Button>
-      <Popover className="!max-h-80 w-(--trigger-width) flex flex-col rounded-md bg-white text-base shadow-lg ring-1 ring-black/5 entering:animate-in entering:fade-in exiting:animate-out exiting:fade-out">
-        <Autocomplete filter={contains}>
-          <SearchField
-            aria-label="Search"
-            autoFocus
-            className="group flex items-center bg-white border-2 border-neutral-300 has-focus:border-sky-600 rounded-full m-1"
-          >
-            <SearchIcon
-              aria-hidden
-              className="w-4 h-4 ml-2 text-neutral-600 forced-colors:text-[ButtonText]"
-            />
-            <Input
-              placeholder="Search"
-              className="px-2 py-1 flex-1 min-w-0 border-none outline outline-0 bg-white text-base text-neutral-800 placeholder-neutral-500 font-[inherit] [&::-webkit-search-cancel-button]:hidden"
-            />
-            <Button className="text-sm text-center transition rounded-full border-0 p-1 flex items-center justify-center text-neutral-600 bg-transparent hover:bg-black/[5%] pressed:bg-black/10 mr-1 w-6 group-empty:invisible">
-              <XIcon aria-hidden className="w-4 h-4" />
-            </Button>
-          </SearchField>
+      <Popover
+        isAnimated={false}
+        className={cn(
+          '!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1',
+          popoverClassName
+        )}
+      >
+        <ItemsWrapper isSearchable={isSearchable}>
           <ListBox
-            items={languages}
-            className="outline-hidden p-1 overflow-auto flex-1 scroll-pb-1"
+            items={options}
+            className='outline-hidden overflow-auto flex-1 scroll-pb-1'
           >
-            {(item) => <SelectItem>{item.name}</SelectItem>}
+            {(item) => (
+              <BsSelectItem renderOption={renderOption}>
+                {item.name}
+              </BsSelectItem>
+            )}
           </ListBox>
-        </Autocomplete>
+        </ItemsWrapper>
       </Popover>
     </AriaSelect>
   );
 }
 
-function SelectItem(props: ListBoxItemProps & { children: string }) {
+interface BsMultipleSelectProps<S extends BsSelectOption> {
+  /**
+   * The array of options to display in the select dropdown.
+   */
+  options: Array<S>;
+
+  /**
+   * The currently selected value (option id).
+   */
+  value?: Array<S['id']>;
+
+  /**
+   * Callback fired when the selected value changes.
+   */
+  onChange?: (value?: Array<S['id']>) => void;
+
+  /**
+   * Callback fired when the select is blurred.
+   */
+  onBlur?: () => void;
+
+  /**
+   * The default selected value (option id).
+   */
+  defaultValue?: Array<S['id']>;
+
+  /**
+   * If true, enables a search field for filtering options.
+   */
+  isSearchable?: boolean;
+
+  /**
+   * Custom render function for the selected value display.
+   */
+  renderValue?: (value: S) => React.ReactNode;
+
+  /**
+   * Custom render function for each option in the dropdown.
+   */
+  renderOption?: (item: S) => React.ReactNode;
+
+  /**
+   * If true, the select is disabled.
+   */
+  isDisabled?: boolean;
+
+  /**
+   * The maximum number of badges to display. To show all badges, set to Infinity.
+   */
+  maxVisibleBadges?: number;
+
+  /**
+   * If true, the clear button will be shown.
+   */
+  isClearable?: boolean;
+
+  /**
+   * The class name of the select.
+   */
+  className?: string;
+
+  /**
+   * The class name of the popover.
+   */
+  popoverClassName?: string;
+
+  /**
+   * The placeholder of the select. Default is "Select".
+   */
+  placeholder?: string;
+}
+
+function BsMultipleSelect<S extends BsSelectOption>({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  isSearchable = false,
+  options,
+  renderOption,
+  renderValue,
+  isDisabled,
+  maxVisibleBadges = 2,
+  isClearable = true,
+  onBlur,
+  className,
+  popoverClassName,
+  placeholder = 'Select',
+  ...props
+}: BsMultipleSelectProps<S>) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [uncontrolledValue, uncontrolledOnChange] = React.useState<
+    Array<S['id']> | undefined
+  >(defaultValue);
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? uncontrolledOnChange;
+
+  const isInvalid = (props as any)['aria-invalid'];
+  const isPlaceholder = !value || value.length === 0;
+
+  const handleClear = () => {
+    onChange([]);
+    setIsOpen(false);
+  };
+
+  return (
+    <PopoverTrigger
+      aria-label='Select'
+      isOpen={isOpen}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          setIsOpen(false);
+          onBlur?.();
+        }
+      }}
+    >
+      <Button
+        variant='outline'
+        isDisabled={isDisabled}
+        className={cn(
+          'group w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative',
+          isInvalid && 'border-destructive',
+          className
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className='flex-1 flex gap-1 flex-wrap'>
+          {isPlaceholder && placeholder && (
+            <div className='text-muted-foreground'>{placeholder}</div>
+          )}
+
+          {/* Visible badges */}
+          {value?.slice(0, maxVisibleBadges).map((v) => {
+            const option = options.find((o) => o.id === v);
+
+            if (!option) return null;
+
+            return (
+              <Badge
+                key={v}
+                variant='secondary'
+                className='pr-0.5 grid grid-cols-[1fr_16px]'
+              >
+                <div className='truncate'>
+                  {renderValue ? renderValue(option) : option.name}
+                </div>
+                <div
+                  role='button'
+                  tabIndex={0}
+                  className='size-4! flex items-center justify-center z-10 rounded bg-transparent hover:bg-neutral-400/15'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onChange(value.filter((c) => c !== v));
+                  }}
+                >
+                  <XIcon className='size-2.5!' />
+                </div>
+              </Badge>
+            );
+          })}
+
+          {/* Remaining badges count */}
+          {!!value?.length && value.length > maxVisibleBadges && (
+            <Badge variant='secondary'>
+              <span>{`+${value?.length - maxVisibleBadges}`}</span>
+            </Badge>
+          )}
+        </div>
+
+        {isClearable && !!value?.length && (
+          <div
+            role='button'
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClear();
+            }}
+            className={cn(
+              'size-6! flex items-center justify-center z-10 rounded bg-background-secondary text-muted-foreground hover:bg-background-tertiary',
+              'absolute right-1 top-1/2 -translate-y-1/2',
+              'transition-opacity opacity-0 group-hover:opacity-100'
+            )}
+          >
+            <XIcon className='w-4 h-4' />
+          </div>
+        )}
+
+        <ChevronsUpDownIcon className='w-4 h-4 text-muted-foreground' />
+      </Button>
+      <Popover
+        isAnimated={false}
+        className={cn(
+          '!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1',
+          popoverClassName
+        )}
+      >
+        <ItemsWrapper isSearchable={isSearchable}>
+          <ListBox
+            items={options}
+            aria-label='Select'
+            selectionMode='multiple'
+            selectedKeys={value}
+            onSelectionChange={(v) => onChange(Array.from(v))}
+            className='outline-hidden overflow-auto flex-1 scroll-pb-1'
+          >
+            {(item) => (
+              <BsSelectItem renderOption={renderOption}>
+                {item.name}
+              </BsSelectItem>
+            )}
+          </ListBox>
+        </ItemsWrapper>
+      </Popover>
+    </PopoverTrigger>
+  );
+}
+
+interface ItemsWrapperProps {
+  children: React.ReactNode;
+  isSearchable: boolean;
+}
+
+function ItemsWrapper({ children, isSearchable }: ItemsWrapperProps) {
+  let { contains } = useFilter({ sensitivity: 'base' });
+
+  return isSearchable ? (
+    <Autocomplete filter={contains}>
+      <BsSearchField autoFocus className='ring-0! border border-input' />{' '}
+      {children}
+    </Autocomplete>
+  ) : (
+    children
+  );
+}
+
+function BsSelectItem<S extends BsSelectOption>(
+  props: ListBoxItemProps & {
+    children: string;
+    renderOption?: (item: S) => React.ReactNode;
+  }
+) {
   return (
     <ListBoxItem
       {...props}
       textValue={props.children}
-      className="group flex items-center gap-2 select-none py-2 px-4 outline-hidden rounded-sm text-neutral-900 data-focused:bg-sky-600 data-focused:text-white"
+      className={cn(
+        'cursor-pointer group flex items-center select-none gap-2 py-1.5 px-2 outline-hidden rounded-sm text-popover-foreground',
+        'data-[focus-visible]:bg-neutral-500/15 data-hovered:bg-primary! data-hovered:text-white!'
+      )}
     >
       {({ isSelected }) => (
         <>
-          <span className="flex-1 flex items-center gap-2 truncate font-normal group-selected:font-medium">
-            {props.children}
-          </span>
-          <span className="w-5 flex items-center text-sky-600 group-data-focused:text-white">
-            {isSelected && <CheckIcon size="S" />}
-          </span>
+          <div className='text-sm flex-1 font-normal group-selected:font-medium overflow-hidden'>
+            <div className='truncate'>
+              {props.renderOption
+                ? props.renderOption(props.value as S)
+                : props.children}
+            </div>
+          </div>
+          <div className='w-5 flex items-center justify-center'>
+            {isSelected && <CheckIcon size={16} />}
+          </div>
         </>
       )}
     </ListBoxItem>
   );
 }
+
+export { BsMultipleSelect, BsSelect };
+export type { BsSelectOption, BsSelectProps, BsMultipleSelectProps };

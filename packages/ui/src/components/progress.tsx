@@ -1,20 +1,17 @@
-"use client"
+'use client';
 
-import * as React from "react"
 import {
   ProgressBar as AriaProgressBar,
   ProgressBarProps as AriaProgressBarProps,
   composeRenderProps,
-} from "react-aria-components"
+} from 'react-aria-components';
+import { Label, labelVariants } from '@workspace/ui/components/Field';
 
-import { cn } from "@workspace/ui/lib/utils"
-
-
-import { Label, labelVariants } from "./field"
+import { cn } from '@workspace/ui/lib/utils';
 
 interface ProgressProps extends AriaProgressBarProps {
-  barClassName?: string
-  fillClassName?: string
+  barClassName?: string;
+  fillClassName?: string;
 }
 
 const Progress = ({
@@ -26,7 +23,7 @@ const Progress = ({
 }: ProgressProps) => (
   <AriaProgressBar
     className={composeRenderProps(className, (className) =>
-      cn("w-full", className)
+      cn('w-full', className)
     )}
     {...props}
   >
@@ -35,13 +32,13 @@ const Progress = ({
         {children}
         <div
           className={cn(
-            "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
+            'relative h-4 w-full overflow-hidden rounded-full bg-secondary',
             barClassName
           )}
         >
           <div
             className={cn(
-              "size-full flex-1 bg-primary transition-all",
+              'size-full flex-1 bg-primary transition-all',
               fillClassName
             )}
             style={{
@@ -52,35 +49,35 @@ const Progress = ({
       </>
     ))}
   </AriaProgressBar>
-)
+);
 
-interface JollyProgressBarProps extends ProgressProps {
-  label?: string
-  showValue?: boolean
+interface BsProgressBarProps extends ProgressProps {
+  label?: string;
+  showValue?: boolean;
 }
 
-function JollyProgressBar({
+function BsProgressBar({
   label,
   className,
   showValue = true,
   ...props
-}: JollyProgressBarProps) {
+}: BsProgressBarProps) {
   return (
     <Progress
       className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
+        cn('group flex flex-col gap-2', className)
       )}
       {...props}
     >
       {({ valueText }) => (
-        <div className="flex w-full justify-between">
+        <div className='flex w-full justify-between'>
           <Label>{label}</Label>
           {showValue && <span className={labelVariants()}>{valueText}</span>}
         </div>
       )}
     </Progress>
-  )
+  );
 }
 
-export { Progress, JollyProgressBar }
-export type { ProgressProps, JollyProgressBarProps }
+export { Progress, BsProgressBar };
+export type { ProgressProps, BsProgressBarProps };

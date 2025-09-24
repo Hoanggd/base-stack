@@ -1,51 +1,44 @@
-"use client"
+"use client";
 
-import { VariantProps } from "class-variance-authority"
+import React from "react";
+import { parseTime } from "@internationalized/date";
+import { cn } from "@workspace/ui/lib/utils";
+import { VariantProps } from "class-variance-authority";
 import {
   DateField as AriaDateField,
-  DateFieldProps as AriaDateFieldProps,
   DateInput as AriaDateInput,
   DateInputProps as AriaDateInputProps,
   DateSegment as AriaDateSegment,
   DateSegmentProps as AriaDateSegmentProps,
-  DateValue as AriaDateValue,
   TimeField as AriaTimeField,
-  TimeFieldProps as AriaTimeFieldProps,
-  TimeValue as AriaTimeValue,
-  ValidationResult as AriaValidationResult,
   composeRenderProps,
-  Text,
-} from "react-aria-components"
+} from "react-aria-components";
 
-import { cn } from "@workspace/ui/lib/utils"
+import { parseDate } from "@internationalized/date";
+import { fieldGroupVariants } from "@workspace/ui/components/Field";
 
+const DateField = AriaDateField;
 
-import { FieldError, fieldGroupVariants, Label } from "./field"
-
-const DateField = AriaDateField
-
-const TimeField = AriaTimeField
+const TimeField = AriaTimeField;
 
 function DateSegment({ className, ...props }: AriaDateSegmentProps) {
   return (
     <AriaDateSegment
       className={composeRenderProps(className, (className) =>
         cn(
-          "type-literal:px-0 inline rounded p-0.5 caret-transparent outline outline-0",
+          "type-literal:px-0 inline rounded px-[1px] caret-transparent outline outline-0",
           /* Placeholder */
           "data-[placeholder]:text-muted-foreground",
           /* Disabled */
           "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
           /* Focused */
-          "data-[focused]:bg-accent data-[focused]:text-accent-foreground",
-          /* Invalid */
-          "data-[invalid]:data-[focused]:bg-destructive data-[invalid]:data-[focused]:data-[placeholder]:text-destructive-foreground data-[invalid]:data-[focused]:text-destructive-foreground data-[invalid]:data-[placeholder]:text-destructive data-[invalid]:text-destructive",
+          "data-[focused]:bg-primary data-[focused]:text-white data-[focused]:data-[placeholder]:text-white",
           className
         )
       )}
       {...props}
     />
-  )
+  );
 }
 
 interface DateInputProps
@@ -66,77 +59,111 @@ function DateInput({
     >
       {(segment) => <DateSegment segment={segment} />}
     </AriaDateInput>
-  )
+  );
 }
 
-interface JollyDateFieldProps<T extends AriaDateValue>
-  extends AriaDateFieldProps<T> {
-  label?: string
-  description?: string
-  errorMessage?: string | ((validation: AriaValidationResult) => string)
+/** Accepts values in the format YYYY-MM-DD */
+interface BsDateFieldProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  defaultValue?: string;
+  className?: string;
+  variant?: "default" | "unstyled";
+  minValue?: string;
+  maxValue?: string;
+  isDisabled?: boolean;
 }
 
-function JollyDateField<T extends AriaDateValue>({
-  label,
-  description,
+function BsDateField({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
-  errorMessage,
+  isDisabled,
   ...props
-}: JollyDateFieldProps<T>) {
+}: BsDateFieldProps) {
+  const [uncontrolledValue, setUncontrolledValue] = React.useState<
+    string | undefined
+  >(defaultValue);
+
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? setUncontrolledValue;
+
   return (
     <DateField
-      className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
-      )}
+      aria-label="Date Field"
+      isInvalid={(props as any)["aria-invalid"]}
+      className={cn("w-full", className)}
+      value={value ? parseDate(value) : null}
+      onChange={(value) => onChange(value?.toString() ?? "")}
+      minValue={minValue ? parseDate(minValue) : null}
+      maxValue={maxValue ? parseDate(maxValue) : null}
+      isDisabled={isDisabled}
       {...props}
     >
-      <Label>{label}</Label>
       <DateInput />
-      {description && (
-        <Text className="text-sm text-muted-foreground" slot="description">
-          {description}
-        </Text>
-      )}
-      <FieldError>{errorMessage}</FieldError>
     </DateField>
-  )
+  );
 }
 
-interface JollyTimeFieldProps<T extends AriaTimeValue>
-  extends AriaTimeFieldProps<T> {
-  label?: string
-  description?: string
-  errorMessage?: string | ((validation: AriaValidationResult) => string)
+/** Accepts values in the format HH:mm:ss or HH:mm */
+interface BsTimeFieldProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  defaultValue?: string;
+  className?: string;
+  variant?: "default" | "unstyled";
+  minValue?: string;
+  maxValue?: string;
+  isDisabled?: boolean;
+  granularity?: "hour" | "minute" | "second";
 }
 
-function JollyTimeField<T extends AriaTimeValue>({
-  label,
-  description,
-  errorMessage,
+function BsTimeField({
+  value: controlledValue,
+  onChange: controlledOnChange,
+  defaultValue,
+  minValue,
+  maxValue,
   className,
+  isDisabled,
+  granularity = "minute",
   ...props
-}: JollyTimeFieldProps<T>) {
+}: BsTimeFieldProps) {
+  const [uncontrolledValue, setUncontrolledValue] = React.useState<
+    string | undefined
+  >(defaultValue);
+
+  const value = controlledValue ?? uncontrolledValue;
+  const onChange = controlledOnChange ?? setUncontrolledValue;
+
   return (
     <TimeField
-      className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
-      )}
+      aria-label="Date Field"
+      isInvalid={(props as any)["aria-invalid"]}
+      granularity={granularity}
+      className={cn("w-max", className)}
+      value={value ? parseTime(value) : undefined}
+      onChange={(value) => onChange(value?.toString() ?? "")}
+      minValue={minValue ? parseTime(minValue) : null}
+      maxValue={maxValue ? parseTime(maxValue) : null}
+      isDisabled={isDisabled}
       {...props}
     >
-      <Label>{label}</Label>
-      <DateInput />
-      {description && <Text slot="description">{description}</Text>}
-      <FieldError>{errorMessage}</FieldError>
+      <DateInput className="justify-center" />
     </TimeField>
-  )
+  );
 }
 
 export {
+  BsDateField,
+  BsTimeField,
   DateField,
-  DateSegment,
   DateInput,
-  TimeField,
-  JollyDateField,
-  JollyTimeField,
-}
-export type { DateInputProps, JollyDateFieldProps, JollyTimeFieldProps }
+  DateSegment,
+  TimeField
+};
+export type { BsDateFieldProps, BsTimeFieldProps, DateInputProps };
+

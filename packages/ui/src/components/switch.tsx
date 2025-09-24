@@ -1,6 +1,5 @@
 "use client"
 
-import * as React from "react"
 import {
   Switch as AriaSwitch,
   SwitchProps as AriaSwitchProps,
@@ -8,7 +7,6 @@ import {
 } from "react-aria-components"
 
 import { cn } from "@workspace/ui/lib/utils"
-
 
 const Switch = ({ children, className, ...props }: AriaSwitchProps) => (
   <AriaSwitch
@@ -24,9 +22,9 @@ const Switch = ({ children, className, ...props }: AriaSwitchProps) => (
       <>
         <div
           className={cn(
-            "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors",
+            "peer inline-flex h-5 w-8 shrink-0 cursor-pointer items-center rounded-full border-3 border-transparent transition-colors",
             /* Focus Visible */
-            "group-data-[focus-visible]:outline-none group-data-[focus-visible]:ring-2 group-data-[focus-visible]:ring-ring group-data-[focus-visible]:ring-offset-2 group-data-[focus-visible]:ring-offset-background",
+            "group-data-[focus-visible]:outline-none group-data-[focus-visible]:ring-2 group-data-[focus-visible]:ring-primary/40 group-data-[focus-visible]:ring-offset-2 group-data-[focus-visible]:ring-offset-background",
             /* Disabled */
             "group-data-[disabled]:cursor-not-allowed group-data-[disabled]:opacity-50",
             /* Selected */
@@ -39,9 +37,9 @@ const Switch = ({ children, className, ...props }: AriaSwitchProps) => (
         >
           <div
             className={cn(
-              "pointer-events-none block size-5 rounded-full bg-background shadow-lg ring-0 transition-transform",
+              "pointer-events-none block size-[14px] rounded-full bg-white shadow-lg ring-0 transition-transform",
               /* Selected */
-              "translate-x-0 group-data-[selected]:translate-x-5"
+              "translate-x-0 group-data-[selected]:translate-x-[12px]"
             )}
           />
         </div>

@@ -9,8 +9,8 @@ import {
   Popover,
   PopoverDialog,
   PopoverTrigger,
-} from "@workspace/ui/components/popover";
-import { Button } from "@workspace/ui/components/button";
+} from "@workspace/ui/components/Popover";
+import { Button } from "@workspace/ui/components/Button";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

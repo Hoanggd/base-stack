@@ -1,139 +1,167 @@
-"use client"
+'use client';
 
-import { ArrowUpDown } from "lucide-react"
-import {
-  Cell as AriaCell,
-  Column as AriaColumn,
-  ColumnProps as AriaColumnProps,
-  ResizableTableContainer as AriaResizableTableContainer,
-  Row as AriaRow,
-  Table as AriaTable,
-  TableBody as AriaTableBody,
-  TableHeader as AriaTableHeader,
-  CellProps,
-  ColumnResizer,
-  composeRenderProps,
-  Group,
-  ResizableTableContainerProps,
-  RowProps,
-  TableBodyProps,
-  TableHeaderProps,
-  TableProps,
-} from "react-aria-components"
+import * as React from 'react';
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from '@workspace/ui/lib/utils';
 
+interface TableProps extends React.ComponentProps<'table'> {
+  /**
+   * The class name for the container of the table. This is useful for setting height or width.
+   */
+  containerClassName?: string;
 
-import { buttonVariants } from "./button"
-
-const ResizableTableContainer = AriaResizableTableContainer
-
-const Table = ({ className, ...props }: TableProps) => (
-  <AriaTable
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "w-full caption-bottom text-sm -outline-offset-2 data-[focus-visible]:outline-ring",
-        className
-      )
-    )}
-    {...props}
-  />
-)
-
-const TableHeader = <T extends object>({
-  className,
-  ...props
-}: TableHeaderProps<T>) => (
-  <AriaTableHeader
-    className={composeRenderProps(className, (className) =>
-      cn("[&_tr]:border-b", className)
-    )}
-    {...props}
-  />
-)
-
-export interface ColumnProps extends AriaColumnProps {
-  isResizable?: boolean
+  /**
+   * The slot for the progress bar.
+   */
+  progressBarSlot?: React.ReactNode;
 }
 
-const Column = ({ className, children, ...props }: ColumnProps) => (
-  <AriaColumn
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "h-12 text-left align-middle font-medium text-muted-foreground -outline-offset-2 data-[focus-visible]:outline-ring",
-        className
-      )
-    )}
-    {...props}
-  >
-    {composeRenderProps(children, (children, { allowsSorting }) => (
-      <div className="flex items-center">
-        <Group
-          role="presentation"
-          tabIndex={-1}
-          className={cn(
-            "flex h-10 flex-1 items-center gap-1 overflow-hidden rounded-md px-4",
-            allowsSorting &&
-              "p-2 data-[hovered]:bg-accent data-[hovered]:text-accent-foreground",
-            "focus-visible:outline-none  data-[focus-visible]:-outline-offset-2 data-[focus-visible]:outline-ring [&:has([slot=selection])]:pr-0"
-          )}
-        >
-          <span className="truncate">{children}</span>
-          {allowsSorting && <ArrowUpDown className="ml-2 size-4" />}
-        </Group>
-        {props.isResizable && (
-          <ColumnResizer className="data-[focus-visible]:ring-rin box-content h-5 w-px translate-x-[8px] cursor-col-resize rounded bg-muted-foreground bg-clip-content px-[8px]  py-1 focus-visible:outline-none data-[resizing]:w-[2px] data-[resizing]:bg-primary data-[resizing]:pl-[7px] data-[focus-visible]:ring-1  data-[focus-visible]:ring-ring" />
-        )}
-      </div>
-    ))}
-  </AriaColumn>
-)
+function Table({
+  className,
+  containerClassName,
+  progressBarSlot,
+  ...props
+}: TableProps) {
+  const tableContainerRef = React.useRef<HTMLDivElement>(null);
+  const tableRef = React.useRef<HTMLTableElement>(null);
 
-const TableBody = <T extends object>({
+  const calculateScrollPosition = () => {
+    const container = tableContainerRef.current;
+    const table = tableRef.current;
+
+    if (!container) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    const isAtHorizontalStart = scrollLeft === 0;
+    const isAtHorizontalEnd =
+      Math.abs(scrollLeft + clientWidth - scrollWidth) < 1;
+
+    if (!table) return;
+
+    table.setAttribute('data-at-start', isAtHorizontalStart.toString());
+    table.setAttribute('data-at-end', isAtHorizontalEnd.toString());
+  };
+
+  React.useEffect(() => {
+    calculateScrollPosition();
+  }, []);
+
+  return (
+    <div className='relative grid bg-background-secondary rounded-md overflow-hidden border'>
+      {progressBarSlot}
+      <div
+        ref={tableContainerRef}
+        data-slot='table-container'
+        className={cn('w-full overflow-x-auto', containerClassName)}
+        onScroll={calculateScrollPosition}
+      >
+        <table
+          ref={tableRef}
+          data-slot='table'
+          className={cn('group w-full caption-bottom text-sm', className)}
+          {...props}
+        />
+      </div>
+    </div>
+  );
+}
+
+function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
+  return (
+    <thead
+      data-slot='table-header'
+      className={cn('sticky top-0 z-[2] bg-background-secondary', className)}
+      {...props}
+    />
+  );
+}
+
+function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
+  return (
+    <tbody
+      data-slot='table-body'
+      className={cn(
+        '[&_tr:nth-child(odd)]:bg-background-secondary [&_tr:nth-child(even)]:bg-background-tertiary',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
+  return (
+    <tfoot
+      data-slot='table-footer'
+      className={cn(
+        'bg-neutral-400/10 border-t font-medium sticky bottom-0',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
+  return (
+    <tr
+      data-slot='table-row'
+      className={cn(
+        'data-[state=selected]:bg-blue-200! dark:data-[state=selected]:bg-blue-900!',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
+  return (
+    <th
+      data-slot='table-head'
+      className={cn(
+        'px-3 text-foreground h-10 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] bg-background-secondary',
+        "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-border",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
+  return (
+    <td
+      data-slot='table-cell'
+      className={cn(
+        'p-3 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] truncate bg-inherit',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function TableCaption({
   className,
   ...props
-}: TableBodyProps<T>) => (
-  <AriaTableBody
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "-outline-offset-2 data-[empty]:h-24 data-[empty]:text-center data-[focus-visible]:outline-ring [&_tr:last-child]:border-0",
-        className
-      )
-    )}
-    {...props}
-  />
-)
-
-const Row = <T extends object>({ className, ...props }: RowProps<T>) => (
-  <AriaRow
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "border-b -outline-offset-2 transition-colors data-[hovered]:bg-muted/50 data-[selected]:bg-muted data-[focus-visible]:outline-ring",
-        className
-      )
-    )}
-    {...props}
-  />
-)
-
-const Cell = ({ className, ...props }: CellProps) => (
-  <AriaCell
-    className={composeRenderProps(className, (className) =>
-      cn(
-        "p-4 align-middle -outline-offset-2 data-[focus-visible]:outline-ring [&:has([role=checkbox])]:pr-0",
-        className
-      )
-    )}
-    {...props}
-  />
-)
+}: React.ComponentProps<'caption'>) {
+  return (
+    <caption
+      data-slot='table-caption'
+      className={cn('text-muted-foreground my-4 text-sm', className)}
+      {...props}
+    />
+  );
+}
 
 export {
   Table,
-  TableHeader,
-  Column,
   TableBody,
-  Row,
-  Cell,
-  ResizableTableContainer,
-}
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow
+};

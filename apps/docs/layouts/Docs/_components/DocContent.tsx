@@ -2,7 +2,7 @@
 
 import { DashboardTableOfContents } from '@/components/Toc'
 import { TableOfContents } from '@/lib/toc'
-import { ScrollArea } from '@workspace/ui/components/scroll-area'
+import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 
 export function DocContent({ children, toc }: { children: React.ReactNode; toc: TableOfContents }) {
   return (

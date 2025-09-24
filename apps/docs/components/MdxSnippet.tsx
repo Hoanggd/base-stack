@@ -1,6 +1,6 @@
 import { CopyToClipboard } from "@/components/CopyToClipboard";
 import { highlightCode } from "@/lib/highlight-code";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { ScrollArea } from "@workspace/ui/components/ScrollArea";
 import { cn } from "@workspace/ui/lib/utils";
 import { CodeIcon, SquareDashedBottomCode, SquareTerminal } from "lucide-react";
 
@@ -29,10 +29,10 @@ export async function MdxSnippet({
 
   return (
     <div>
-      <div className="p-2 space-y-1.5 border rounded-xl bg-background">
+      <div className="p-1.5 space-y-1.5 border rounded-lg bg-background">
         <div
           className={cn(
-            "pl-1 flex items-center gap-1 not-prose text-sm",
+            "pl-1 flex items-center gap-1 not-prose text-[13px]",
             className
           )}
         >
@@ -41,10 +41,10 @@ export async function MdxSnippet({
           ) : (
             <CodeIcon size={16} strokeWidth={1.5} />
           )}
-          <div className="pb-px">{lang}</div>
+          <div>{lang}</div>
         </div>
 
-        <div className="relative border rounded-md overflow-hidden ">
+        <div className="relative border rounded-sm overflow-hidden ">
           <CopyToClipboard
             text={code}
             className="absolute right-2 top-2 z-[1]"

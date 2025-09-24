@@ -2,8 +2,8 @@ import { TocPortal } from "@/app/docs/[[...slug]]/_components/TocPortal";
 import { Mdx } from "@/components/Mdx";
 import { DashboardTableOfContents } from "@/components/Toc";
 import { getTableOfContents } from "@/lib/toc";
-import { Link } from "@workspace/ui/components/link";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { Link } from "@workspace/ui/components/Link";
+import { ScrollArea } from "@workspace/ui/components/ScrollArea";
 import { cn } from "@workspace/ui/lib/utils";
 import { allDocs } from "contentlayer/generated";
 import { ArrowUpRight } from "lucide-react";
@@ -61,13 +61,13 @@ export default async function DocPage({ params }: DocPageProps) {
     <>
       <article
         className={cn(
-          "prose dark:prose-invert prose-neutral prose:prose-h2:mt-10 mb-6 max-w-full min-w-0 w-full py-10",
+          "prose dark:prose-invert prose-neutral mb-6 max-w-full min-w-0 w-full py-10",
           "prose-headings:font-semibold prose-h1:tracking-tight prose-h1:font-bold prose-headings:scroll-mt-20",
-          "prose-blockquote:font-normal prose-blockquote:mx-10 prose-blockquote:px-4!",
+          "prose-blockquote:font-normal prose-blockquote:mx-5 prose-blockquote:px-4! lg:prose-blockquote:mx-10",
           "prose-ul:list-inside prose-ol:list-inside",
         )}
       >
-        <div className="mb-10 px-10 border-b pb-10">
+        <div className="mb-10 px-5 lg:px-10 border-b pb-10">
           <h1 className="mb-0 font-mono text-[40px]">{doc.title}</h1>
           <p className="text-muted-foreground not-prose mt-2 mb-2">
             {doc.description}

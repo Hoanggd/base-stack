@@ -1,7 +1,7 @@
-import { Button } from '@workspace/ui/components/button'
+import { Button } from '@workspace/ui/components/Button'
 import { Trash } from 'lucide-react'
 
-export const ButtonIcon = () => {
+export function ButtonIcon() {
   return (
     <Button size="icon" variant="ghost">
       <Trash />
