@@ -1,4 +1,4 @@
-import { CheckboxGroup, Checkbox } from "@workspace/ui/components/checkbox";
+import { CheckboxGroup, Checkbox } from "@workspace/ui/components/Checkbox";
 import { Label } from "@workspace/ui/components/field";
 
 export function CheckboxGroupDemo() {

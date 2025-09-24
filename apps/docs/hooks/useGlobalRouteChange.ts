@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React from 'react';
 import { usePathname } from 'next/navigation';
 
 type RouteChangeListener = (currentPath: string, previousPath: string | null) => void;
@@ -33,9 +33,9 @@ export const routeChangeManager = new RouteChangeManager();
 
 export function useGlobalRouteChange(listener: RouteChangeListener) {
   const pathname = usePathname();
-  const previousPathRef = useRef<string | null>(null);
+  const previousPathRef = React.useRef<string | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const currentPath = pathname;
     const previousPath = previousPathRef.current;
 
@@ -46,7 +46,7 @@ export function useGlobalRouteChange(listener: RouteChangeListener) {
     previousPathRef.current = currentPath;
   }, [pathname]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Subscribe to global route changes
     return routeChangeManager.subscribe(listener);
   }, [listener]);
@@ -54,7 +54,7 @@ export function useGlobalRouteChange(listener: RouteChangeListener) {
 
 // Hook for components that just want to listen without being a source
 export function useRouteChangeListener(listener: RouteChangeListener) {
-  useEffect(() => {
+  React.useEffect(() => {
     return routeChangeManager.subscribe(listener);
   }, [listener]);
 }

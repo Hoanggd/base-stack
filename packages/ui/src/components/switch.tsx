@@ -1,6 +1,5 @@
 "use client"
 
-import * as React from "react"
 import {
   Switch as AriaSwitch,
   SwitchProps as AriaSwitchProps,
@@ -8,7 +7,6 @@ import {
 } from "react-aria-components"
 
 import { cn } from "@workspace/ui/lib/utils"
-
 
 const Switch = ({ children, className, ...props }: AriaSwitchProps) => (
   <AriaSwitch

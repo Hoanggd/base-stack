@@ -3,8 +3,8 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import { cn } from '../lib/utils';
-import { BsSelect } from './select';
+import { cn } from '@workspace/ui/lib/utils';
+import { BsSelect } from '@workspace/ui/components/Select';
 
 const baseClass =
   'cursor-pointer select-none text-[13px] font-medium flex w-8 h-8 items-center justify-center rounded-sm hover:bg-background-secondary';

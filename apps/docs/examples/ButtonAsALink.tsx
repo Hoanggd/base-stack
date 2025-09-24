@@ -1,4 +1,4 @@
-import { Link } from "@workspace/ui/components/link";
+import { Link } from "@workspace/ui/components/Link";
 import { SquareArrowOutUpRight } from "lucide-react";
 
 export function ButtonAsALink() {

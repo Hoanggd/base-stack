@@ -17,18 +17,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@workspace/ui/components/table';
+} from '@workspace/ui/components/Table';
 import { cn } from '@workspace/ui/lib/utils';
 import { ArrowDownIcon, ArrowUpIcon, FileSearch } from 'lucide-react';
 import * as NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import React, { useEffect, useId } from 'react';
+import React from 'react';
 import {
   DataTableSorting,
   DataTableSortingSchema,
   getCheckboxColumnDef,
   getCommonPinningStyles,
-} from './DataTable.utils';
+} from '@workspace/ui/components/DataTable.utils';
 
 interface Identifiable {
   id: string | number;
@@ -281,9 +281,9 @@ interface ProgressBarProps {
 }
 
 function ProgressBar({ isFetching }: ProgressBarProps) {
-  const progressBarId = useId();
+  const progressBarId = React.useId();
 
-  useEffect(() => {
+  React.useEffect(() => {
     NProgress.configure({
       parent: `#${progressBarId}`,
       showSpinner: false,

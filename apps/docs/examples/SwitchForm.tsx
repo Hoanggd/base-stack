@@ -4,16 +4,16 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "@workspace/ui/lib/zod";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from "@workspace/ui/components/form";
-import { Switch } from "@workspace/ui/components/switch";
-import { Separator } from "@workspace/ui/components/separator";
+} from "@workspace/ui/components/Form";
+import { Switch } from "@workspace/ui/components/Switch";
+import { Separator } from "@workspace/ui/components/Separator";
 
 interface FormData {
   airplaneMode: boolean;

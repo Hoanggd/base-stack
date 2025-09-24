@@ -1,6 +1,6 @@
 "use client";
 
-import { BsCalendar } from "@workspace/ui/components/calendar";
+import { BsCalendar } from "@workspace/ui/components/Calendar";
 import { useState } from "react";
 
 export function CalendarControlled() {

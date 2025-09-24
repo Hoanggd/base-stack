@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import {
   Form,
   FormControl,
@@ -11,10 +11,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@workspace/ui/components/form";
-import { Checkbox } from "@workspace/ui/components/checkbox";
-import { CheckboxGroup } from "@workspace/ui/components/checkbox";
-import { TextArea } from "@workspace/ui/components/textfield";
+} from "@workspace/ui/components/Form";
+import { Checkbox } from "@workspace/ui/components/Checkbox";
+import { CheckboxGroup } from "@workspace/ui/components/Checkbox";
+import { TextArea } from "@workspace/ui/components/Textfield";
 
 interface FormData {
   interest: Array<string>;

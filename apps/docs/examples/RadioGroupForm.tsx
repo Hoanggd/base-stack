@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import {
   Form,
   FormControl,
@@ -11,9 +11,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@workspace/ui/components/form";
-import { RadioGroup, Radio } from "@workspace/ui/components/radio-group";
-import { Separator } from "@workspace/ui/components/separator";
+} from "@workspace/ui/components/Form";
+import { RadioGroup, Radio } from "@workspace/ui/components/RadioGroup";
+import { Separator } from "@workspace/ui/components/Separator";
 import { z } from "@workspace/ui/lib/zod";
 
 interface FormData {

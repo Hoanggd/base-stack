@@ -1,6 +1,6 @@
 import { CopyToClipboard } from "@/components/CopyToClipboard";
 import { highlightCode } from "@/lib/highlight-code";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { ScrollArea } from "@workspace/ui/components/ScrollArea";
 import { cn } from "@workspace/ui/lib/utils";
 import { CodeIcon, SquareDashedBottomCode, SquareTerminal } from "lucide-react";
 

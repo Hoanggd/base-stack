@@ -3,7 +3,7 @@
 import {
   BsRangeCalendar,
   DateRangeValues,
-} from "@workspace/ui/components/calendar";
+} from "@workspace/ui/components/Calendar";
 import { useState } from "react";
 
 export function RangeCalendarControlled() {

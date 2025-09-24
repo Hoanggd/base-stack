@@ -1,5 +1,5 @@
-import { Button } from "@workspace/ui/components/button";
-import { Input } from "@workspace/ui/components/textfield";
+import { Button } from "@workspace/ui/components/Button";
+import { Input } from "@workspace/ui/components/Textfield";
 
 export function InputWithButton() {
   return (

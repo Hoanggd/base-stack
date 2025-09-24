@@ -1,6 +1,6 @@
 "use client";
 
-import { BsDatePicker } from "@workspace/ui/components/date-picker";
+import { BsDatePicker } from "@workspace/ui/components/DatePicker";
 import { Label } from "@workspace/ui/components/field";
 
 export function DatePickerWithLabel() {

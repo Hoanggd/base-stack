@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import {
   Form,
   FormControl,
@@ -11,8 +11,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@workspace/ui/components/form";
-import { BsDatePicker } from "@workspace/ui/components/date-picker";
+} from "@workspace/ui/components/Form";
+import { BsDatePicker } from "@workspace/ui/components/DatePicker";
 
 interface FormData {
   startDate: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Pagination } from "@workspace/ui/components/pagination";
+import { Pagination } from "@workspace/ui/components/Pagination";
 import { useQueryState, parseAsInteger } from "nuqs";
 
 export function PaginationWithQueryParams() {

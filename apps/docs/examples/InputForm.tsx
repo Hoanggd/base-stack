@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "@workspace/ui/lib/zod";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import {
   Form,
   FormControl,
@@ -12,8 +12,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@workspace/ui/components/form";
-import { Input } from "@workspace/ui/components/textfield";
+} from "@workspace/ui/components/Form";
+import { Input } from "@workspace/ui/components/Textfield";
 
 interface FormData {
   username: string;

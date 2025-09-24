@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import {
   Form,
   FormControl,
@@ -11,8 +11,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@workspace/ui/components/form";
-import { BsSelect, BsMultipleSelect } from "@workspace/ui/components/select";
+} from "@workspace/ui/components/Form";
+import { BsSelect, BsMultipleSelect } from "@workspace/ui/components/Select";
 import { z } from "@workspace/ui/lib/zod";
 
 interface FormData {

@@ -3,7 +3,7 @@
 import {
   Pagination,
   PaginationPageSizeSelector,
-} from "@workspace/ui/components/pagination";
+} from "@workspace/ui/components/Pagination";
 
 export function PaginationWithPageSelector() {
   return (

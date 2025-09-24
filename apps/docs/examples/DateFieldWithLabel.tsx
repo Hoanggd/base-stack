@@ -1,4 +1,4 @@
-import { BsDateField } from "@workspace/ui/components/datefield";
+import { BsDateField } from "@workspace/ui/components/Datefield";
 import { Label } from "@workspace/ui/components/field";
 
 export function DateFieldWithLabel() {

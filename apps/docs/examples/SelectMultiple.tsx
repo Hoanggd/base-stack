@@ -1,6 +1,6 @@
 "use client";
 
-import { BsMultipleSelect } from "@workspace/ui/components/select";
+import { BsMultipleSelect } from "@workspace/ui/components/Select";
 
 const languages = [
   { id: 1, name: "English" },

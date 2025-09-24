@@ -1,4 +1,4 @@
-import { BsSearchField } from "@workspace/ui/components/searchfield";
+import { BsSearchField } from "@workspace/ui/components/Searchfield";
 import { cn } from "@workspace/ui/lib/utils";
 
 export function DocsSearch({ className }: { className?: string }) {

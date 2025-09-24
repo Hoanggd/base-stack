@@ -1,28 +1,21 @@
 'use client';
 
+import React from 'react';
 import { getPayments, Payment } from '@/actions/examples/payments';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
-import { Button } from '@workspace/ui/components/button';
+import { Button } from '@workspace/ui/components/Button';
 import {
   DataTable,
   DataTableSorting,
-  DataTableSortingSchema,
 } from '@workspace/ui/components/DataTable';
 import {
   Pagination,
   PaginationPageSizeSelector,
-} from '@workspace/ui/components/pagination';
-import { BsSearchField } from '@workspace/ui/components/searchfield';
-import { BsSelect } from '@workspace/ui/components/select';
+} from '@workspace/ui/components/Pagination';
+import { BsSearchField } from '@workspace/ui/components/Searchfield';
+import { BsSelect } from '@workspace/ui/components/Select';
 import { XIcon } from 'lucide-react';
-import {
-  parseAsInteger,
-  parseAsJson,
-  parseAsString,
-  useQueryState,
-} from 'nuqs';
-import { useState } from 'react';
 
 export const columns: ColumnDef<Payment>[] = [
   {
@@ -56,11 +49,11 @@ export const columns: ColumnDef<Payment>[] = [
 ];
 
 export function DataTableDemo() {
-  const [search, setSearch] = useState('');
-  const [sorting, setSorting] = useState<DataTableSorting | null>(null);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [paymentMethod, setPaymentMethod] = useState('');
+  const [search, setSearch] = React.useState('');
+  const [sorting, setSorting] = React.useState<DataTableSorting | null>(null);
+  const [page, setPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(10);
+  const [paymentMethod, setPaymentMethod] = React.useState('');
   const isFiltering = search || paymentMethod;
 
   const payments = useQuery({

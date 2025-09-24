@@ -1,4 +1,4 @@
-import { Checkbox } from '@workspace/ui/components/checkbox'
+import { Checkbox } from '@workspace/ui/components/Checkbox'
 
 export function CheckboxDisabled() {
   return (

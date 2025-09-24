@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   Dialog as AriaDialog,
   DialogProps as AriaDialogProps,
@@ -45,4 +44,5 @@ function PopoverDialog({ className, ...props }: AriaDialogProps) {
   );
 }
 
-export { Popover, PopoverTrigger, PopoverDialog };
+export { Popover, PopoverDialog, PopoverTrigger };
+

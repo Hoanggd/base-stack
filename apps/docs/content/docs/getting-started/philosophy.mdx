@@ -76,8 +76,8 @@ Following the **AHA Programming** principle (Avoid Hasty Abstractions), we belie
 #### Derived state
 ```tsx
 // ❌ useEffect for derived state
-const [fullName, setFullName] = useState('');
-useEffect(() => {
+const [fullName, setFullName] = React.useState('');
+React.useEffect(() => {
   setFullName(`${firstName} ${lastName}`);
 }, [firstName, lastName]);
 
@@ -88,8 +88,8 @@ const fullName = `${firstName} ${lastName}`;
 #### Data fetching
 ```tsx
 // ❌ useEffect for API calls on mount
-const [user, setUser] = useState(null);
-useEffect(() => {
+const [user, setUser] = React.useState(null);
+React.useEffect(() => {
   fetchUserData().then(user => setUser(user));
 }, []);
 

@@ -1,6 +1,5 @@
 "use client"
 
-import * as React from "react"
 import {
   Tab as AriaTab,
   TabList as AriaTabList,
@@ -14,7 +13,6 @@ import {
 } from "react-aria-components"
 
 import { cn } from "@workspace/ui/lib/utils"
-
 
 function Tabs({ className, ...props }: AriaTabsProps) {
   return (

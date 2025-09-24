@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import {
   Popover,
   PopoverDialog,
   PopoverTrigger,
-} from "@workspace/ui/components/popover";
-import { Switch } from "@workspace/ui/components/switch";
+} from "@workspace/ui/components/Popover";
+import { Switch } from "@workspace/ui/components/Switch";
 
 export function PopoverBottomRight() {
   return (

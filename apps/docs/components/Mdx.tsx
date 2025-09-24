@@ -1,5 +1,5 @@
 import { ComponentPreview } from "@/components/ComponentPreview";
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import { cn } from "@workspace/ui/lib/utils";
 import { useMDXComponent } from "next-contentlayer2/hooks";
 import { MdxSnippet } from "./MdxSnippet";

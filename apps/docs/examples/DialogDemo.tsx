@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import {
   DialogContent,
   DialogFooter,
@@ -9,9 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogDescription,
-} from "@workspace/ui/components/dialog";
+} from "@workspace/ui/components/Dialog";
 import { Label } from "@workspace/ui/components/field";
-import { Input } from "@workspace/ui/components/textfield";
+import { Input } from "@workspace/ui/components/Textfield";
 
 export function DialogDemo() {
   return (

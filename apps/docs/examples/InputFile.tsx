@@ -1,4 +1,4 @@
-import { Input } from "@workspace/ui/components/textfield";
+import { Input } from "@workspace/ui/components/Textfield";
 
 export function InputFile() {
   return <Input type="file" />;

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { parseTime } from "@internationalized/date";
 import { cn } from "@workspace/ui/lib/utils";
 import { VariantProps } from "class-variance-authority";
@@ -14,8 +15,7 @@ import {
 } from "react-aria-components";
 
 import { parseDate } from "@internationalized/date";
-import React from "react";
-import { fieldGroupVariants } from "./field";
+import { fieldGroupVariants } from "@workspace/ui/components/Field";
 
 const DateField = AriaDateField;
 
@@ -163,6 +163,7 @@ export {
   DateField,
   DateInput,
   DateSegment,
-  TimeField,
+  TimeField
 };
 export type { BsDateFieldProps, BsTimeFieldProps, DateInputProps };
+

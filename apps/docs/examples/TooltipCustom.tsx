@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "@workspace/ui/components/button"
-import { Tooltip, TooltipTrigger } from "@workspace/ui/components/tooltip"
+import { Button } from "@workspace/ui/components/Button"
+import { Tooltip, TooltipTrigger } from "@workspace/ui/components/Tooltip"
 
 export function TooltipCustom() {
   return (

@@ -1,4 +1,4 @@
-import { BsSelect } from "@workspace/ui/components/select";
+import { BsSelect } from "@workspace/ui/components/Select";
 
 export function SelectDisabled() {
   return <BsSelect isDisabled options={[]} />;

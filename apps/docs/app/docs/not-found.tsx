@@ -1,4 +1,4 @@
-import { Link } from "@workspace/ui/components/link";
+import { Link } from "@workspace/ui/components/Link";
 
 export default function NotFound() {
   return (

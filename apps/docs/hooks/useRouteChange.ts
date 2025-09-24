@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React from 'react';
 import { usePathname } from 'next/navigation';
 
 interface UseRouteChangeOptions {
@@ -10,15 +10,15 @@ interface UseRouteChangeOptions {
 
 export function useRouteChange(options: UseRouteChangeOptions = {}) {
   const pathname = usePathname();
-  const previousPathRef = useRef<string | null>(null);
+  const previousPathRef = React.useRef<string | null>(null);
   const {
     onRouteChange,
     onRouteEnter,
     onRouteLeave,
-    logChanges = false
+    logChanges = false,
   } = options;
 
-  useEffect(() => {
+  React.useEffect(() => {
     const currentPath = pathname;
     const previousPath = previousPathRef.current;
 
@@ -27,7 +27,7 @@ export function useRouteChange(options: UseRouteChangeOptions = {}) {
       console.log('Route changed:', {
         from: previousPath,
         to: currentPath,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     }
 
@@ -53,6 +53,7 @@ export function useRouteChange(options: UseRouteChangeOptions = {}) {
   return {
     currentPath: pathname,
     previousPath: previousPathRef.current,
-    hasChanged: previousPathRef.current !== null && previousPathRef.current !== pathname
+    hasChanged:
+      previousPathRef.current !== null && previousPathRef.current !== pathname,
   };
 }

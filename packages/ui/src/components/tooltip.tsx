@@ -1,6 +1,5 @@
 "use client"
 
-import * as React from "react"
 import {
   Tooltip as AriaTooltip,
   TooltipTrigger as AriaTooltipTrigger,
@@ -9,7 +8,6 @@ import {
 } from "react-aria-components"
 
 import { cn } from "@workspace/ui/lib/utils"
-
 
 const TooltipTrigger = AriaTooltipTrigger
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { Avatar, AvatarFallback } from "@workspace/ui/components/avatar";
-import { BsSelect } from "@workspace/ui/components/select";
+import { Avatar, AvatarFallback } from "@workspace/ui/components/Avatar";
+import { BsSelect } from "@workspace/ui/components/Select";
 
 const users = [
   {

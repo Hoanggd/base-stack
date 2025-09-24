@@ -1,4 +1,4 @@
-import { BsNumberField } from "@workspace/ui/components/numberfield";
+import { BsNumberField } from "@workspace/ui/components/Numberfield";
 
 export function NumberFieldCurrency() {
   return (

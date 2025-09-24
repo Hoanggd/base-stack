@@ -1,28 +1,27 @@
-"use client"
+'use client';
 
 import {
   Separator as AriaSeparator,
   SeparatorProps as AriaSeparatorProps,
-} from "react-aria-components"
+} from 'react-aria-components';
 
-import { cn } from "@workspace/ui/lib/utils"
-
+import { cn } from '@workspace/ui/lib/utils';
 
 const Separator = ({
   className,
-  orientation = "horizontal",
+  orientation = 'horizontal',
   ...props
 }: AriaSeparatorProps) => (
   <AriaSeparator
     orientation={orientation}
     className={cn(
-      "bg-border",
+      'bg-border',
       /* Orientation */
-      orientation === "horizontal" ? "h-px w-full" : "w-px",
+      orientation === 'horizontal' ? 'h-px w-full' : 'w-px',
       className
     )}
     {...props}
   />
-)
+);
 
-export { Separator }
+export { Separator };

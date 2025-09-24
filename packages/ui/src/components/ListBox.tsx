@@ -14,7 +14,6 @@ import {
 
 import { cn } from "@workspace/ui/lib/utils"
 
-
 const ListBoxSection = AriaListBoxSection
 
 const ListBoxCollection = AriaCollection
@@ -91,9 +90,6 @@ function ListBoxHeader({
 }
 
 export {
-  ListBox,
-  ListBoxItem,
-  ListBoxHeader,
-  ListBoxSection,
-  ListBoxCollection,
+  ListBox, ListBoxCollection, ListBoxHeader, ListBoxItem, ListBoxSection
 }
+

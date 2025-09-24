@@ -1,40 +1,40 @@
-import { Button } from "@workspace/ui/components/button";
+import { GithubIcon } from '@/components/icons/GithubIcon';
+import { Logo } from '@/components/Logo';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { GITHUB_URL } from '@/constants/common';
+import { Button } from '@workspace/ui/components/Button';
 import {
   DialogContent,
   DialogOverlay,
   DialogTrigger,
-} from "@workspace/ui/components/dialog";
-import { MenuIcon } from "lucide-react";
-import { SidebarMenu } from "./SidebarMenu";
-import { Logo } from "@/components/Logo";
-import { Link } from "@workspace/ui/components/link";
-import { GITHUB_URL } from "@/constants/common";
-import { GithubIcon } from "@/components/icons/GithubIcon";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+} from '@workspace/ui/components/Dialog';
+import { Link } from '@workspace/ui/components/Link';
+import { MenuIcon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import React from 'react';
+import { SidebarMenu } from './SidebarMenu';
 
 export function HamburgerMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
   const pathname = usePathname();
-  
-  useEffect(() => {
+
+  React.useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
   return (
-    <div className="w-full flex items-center gap-1">
+    <div className='w-full flex items-center gap-1'>
       <DialogTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
-        <Button variant="ghost" size="icon" className="size-10 [&>svg]:size-6">
+        <Button variant='ghost' size='icon' className='size-10 [&>svg]:size-6'>
           <MenuIcon />
         </Button>
         <DialogOverlay>
-          <DialogContent className="pl-0">
+          <DialogContent className='pl-0'>
             <div>
-              <div className="px-6">
+              <div className='px-6'>
                 <Logo showName={false} />
               </div>
-              <div className="h-[500px]">
+              <div className='h-[500px]'>
                 <SidebarMenu />
               </div>
             </div>
@@ -42,8 +42,8 @@ export function HamburgerMenu() {
         </DialogOverlay>
       </DialogTrigger>
 
-      <div className="flex items-center gap-1 ml-auto">
-        <Link href={GITHUB_URL} target="_blank" variant="ghost" size="icon">
+      <div className='flex items-center gap-1 ml-auto'>
+        <Link href={GITHUB_URL} target='_blank' variant='ghost' size='icon'>
           <GithubIcon />
         </Link>
         <ThemeSwitcher />

@@ -3,7 +3,7 @@ import {
   ModuleValue,
   useModulePicker,
 } from "@/layouts/Docs/_components/ModulePicker";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { ScrollArea } from "@workspace/ui/components/ScrollArea";
 import { cn } from "@workspace/ui/lib/utils";
 import { BoltIcon, BookOpen, BrainIcon } from "lucide-react";
 import Link from "next/link";

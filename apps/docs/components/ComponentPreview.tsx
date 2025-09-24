@@ -1,7 +1,7 @@
 import { CopyToClipboard } from "@/components/CopyToClipboard";
 import { readExampleFile } from "@/lib/composition";
 import { highlightCode } from "@/lib/highlight-code";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
+import { ScrollArea } from "@workspace/ui/components/ScrollArea";
 import { cn } from "@workspace/ui/lib/utils";
 import dynamic from "next/dynamic";
 

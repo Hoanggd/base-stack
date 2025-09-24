@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { CheckIcon, ChevronsUpDownIcon, XIcon } from "lucide-react";
-import React from "react";
-import type { ListBoxItemProps } from "react-aria-components";
+import { CheckIcon, ChevronsUpDownIcon, XIcon } from 'lucide-react';
+import React from 'react';
+import type { ListBoxItemProps } from 'react-aria-components';
 import {
   Select as AriaSelect,
   Autocomplete,
@@ -10,23 +10,12 @@ import {
   ListBoxItem,
   SelectValue,
   useFilter,
-} from "react-aria-components";
-import { cn } from "../lib/utils";
-import { Button } from "./button";
-import { Popover, PopoverTrigger } from "./popover";
-import { BsSearchField } from "./searchfield";
-import { Badge } from "./badge";
-
-const languages = [
-  { id: 1, name: "English" },
-  { id: 2, name: "Spanish" },
-  { id: 3, name: "French" },
-  { id: 4, name: "German" },
-  { id: 5, name: "Italian" },
-  { id: 6, name: "Portuguese" },
-  { id: 7, name: "Russian" },
-  { id: 8, name: "Turkish" },
-];
+} from 'react-aria-components';
+import { cn } from '@workspace/ui/lib/utils';
+import { Button } from '@workspace/ui/components/Button';
+import { Popover, PopoverTrigger } from '@workspace/ui/components/Popover';
+import { BsSearchField } from '@workspace/ui/components/Searchfield';
+import { Badge } from '@workspace/ui/components/Badge';
 
 interface BsSelectOption {
   id: string | number;
@@ -42,12 +31,12 @@ interface BsSelectProps<S extends BsSelectOption> {
   /**
    * The currently selected value (option id).
    */
-  value?: S["id"];
+  value?: S['id'];
 
   /**
    * Callback fired when the selected value changes.
    */
-  onChange?: (value?: S["id"]) => void;
+  onChange?: (value?: S['id']) => void;
 
   /**
    * Callback fired when the select is blurred.
@@ -57,7 +46,7 @@ interface BsSelectProps<S extends BsSelectOption> {
   /**
    * The default selected value (option id).
    */
-  defaultValue?: S["id"];
+  defaultValue?: S['id'];
 
   /**
    * If true, enables a search field for filtering options.
@@ -113,13 +102,13 @@ function BsSelect<S extends BsSelectOption>({
   onBlur,
   className,
   popoverClassName,
-  placeholder = "Select",
+  placeholder = 'Select',
   ...props
 }: BsSelectProps<S>) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const [uncontrolledValue, uncontrolledOnChange] = React.useState<
-    S["id"] | undefined
+    S['id'] | undefined
   >(defaultValue);
   const value = controlledValue ?? uncontrolledValue;
   const onChange = controlledOnChange ?? uncontrolledOnChange;
@@ -137,35 +126,34 @@ function BsSelect<S extends BsSelectOption>({
           onBlur?.();
         }
       }}
-      aria-label="Select"
+      aria-label='Select'
       isDisabled={isDisabled}
-      className={cn("group w-full", className)}
+      className={cn('group w-full', className)}
       selectedKey={value || null}
       onSelectionChange={(value) => onChange(value || undefined)}
-      isInvalid={(props as any)["aria-invalid"]}
+      isInvalid={(props as any)['aria-invalid']}
     >
       <Button
-        variant="outline"
+        variant='outline'
         className={cn(
-          "justify-between w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative",
-          "group-data-[invalid]:border-destructive group-data-[disabled]:opacity-80"
+          'justify-between w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative',
+          'group-data-[invalid]:border-destructive group-data-[disabled]:opacity-80'
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <SelectValue className="truncate">
+        <SelectValue className='truncate'>
           {({ isPlaceholder, selectedItem }) => {
             if (isPlaceholder) {
-
               // If placeholder is not set, return an empty div
               if (!placeholder) {
                 return (
-                  <div className="opacity-0" aria-hidden="true">
+                  <div className='opacity-0' aria-hidden='true'>
                     &nbsp;
                   </div>
                 );
               }
-              
-              return <div className="text-muted-foreground">{placeholder}</div>;
+
+              return <div className='text-muted-foreground'>{placeholder}</div>;
             }
 
             return renderValue
@@ -175,35 +163,35 @@ function BsSelect<S extends BsSelectOption>({
         </SelectValue>
         {isClearable && !!value && (
           <div
-            role="button"
+            role='button'
             tabIndex={0}
             onClick={(e) => {
               e.stopPropagation();
               handleClear();
             }}
             className={cn(
-              "size-6! flex items-center justify-center z-10 rounded bg-background-secondary text-muted-foreground hover:bg-background-tertiary",
-              "absolute right-1 top-1/2 -translate-y-1/2",
-              "transition-opacity opacity-0 group-hover:opacity-100"
+              'size-6! flex items-center justify-center z-10 rounded bg-background-secondary text-muted-foreground hover:bg-background-tertiary',
+              'absolute right-1 top-1/2 -translate-y-1/2',
+              'transition-opacity opacity-0 group-hover:opacity-100'
             )}
           >
-            <XIcon className="w-4 h-4" />
+            <XIcon className='w-4 h-4' />
           </div>
         )}
 
-        <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
+        <ChevronsUpDownIcon className='w-4 h-4 text-muted-foreground' />
       </Button>
       <Popover
         isAnimated={false}
         className={cn(
-          "!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1",
+          '!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1',
           popoverClassName
         )}
       >
         <ItemsWrapper isSearchable={isSearchable}>
           <ListBox
             items={options}
-            className="outline-hidden overflow-auto flex-1 scroll-pb-1"
+            className='outline-hidden overflow-auto flex-1 scroll-pb-1'
           >
             {(item) => (
               <BsSelectItem renderOption={renderOption}>
@@ -226,12 +214,12 @@ interface BsMultipleSelectProps<S extends BsSelectOption> {
   /**
    * The currently selected value (option id).
    */
-  value?: Array<S["id"]>;
+  value?: Array<S['id']>;
 
   /**
    * Callback fired when the selected value changes.
    */
-  onChange?: (value?: Array<S["id"]>) => void;
+  onChange?: (value?: Array<S['id']>) => void;
 
   /**
    * Callback fired when the select is blurred.
@@ -241,7 +229,7 @@ interface BsMultipleSelectProps<S extends BsSelectOption> {
   /**
    * The default selected value (option id).
    */
-  defaultValue?: Array<S["id"]>;
+  defaultValue?: Array<S['id']>;
 
   /**
    * If true, enables a search field for filtering options.
@@ -303,17 +291,17 @@ function BsMultipleSelect<S extends BsSelectOption>({
   onBlur,
   className,
   popoverClassName,
-  placeholder = "Select",
+  placeholder = 'Select',
   ...props
 }: BsMultipleSelectProps<S>) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [uncontrolledValue, uncontrolledOnChange] = React.useState<
-    Array<S["id"]> | undefined
+    Array<S['id']> | undefined
   >(defaultValue);
   const value = controlledValue ?? uncontrolledValue;
   const onChange = controlledOnChange ?? uncontrolledOnChange;
 
-  const isInvalid = (props as any)["aria-invalid"];
+  const isInvalid = (props as any)['aria-invalid'];
   const isPlaceholder = !value || value.length === 0;
 
   const handleClear = () => {
@@ -323,7 +311,7 @@ function BsMultipleSelect<S extends BsSelectOption>({
 
   return (
     <PopoverTrigger
-      aria-label="Select"
+      aria-label='Select'
       isOpen={isOpen}
       onOpenChange={(isOpen) => {
         if (!isOpen) {
@@ -333,18 +321,18 @@ function BsMultipleSelect<S extends BsSelectOption>({
       }}
     >
       <Button
-        variant="outline"
+        variant='outline'
         isDisabled={isDisabled}
         className={cn(
-          "group w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative",
-          isInvalid && "border-destructive",
+          'group w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start relative',
+          isInvalid && 'border-destructive',
           className
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex-1 flex gap-1 flex-wrap">
+        <div className='flex-1 flex gap-1 flex-wrap'>
           {isPlaceholder && placeholder && (
-            <div className="text-muted-foreground">{placeholder}</div>
+            <div className='text-muted-foreground'>{placeholder}</div>
           )}
 
           {/* Visible badges */}
@@ -356,22 +344,22 @@ function BsMultipleSelect<S extends BsSelectOption>({
             return (
               <Badge
                 key={v}
-                variant="secondary"
-                className="pr-0.5 grid grid-cols-[1fr_16px]"
+                variant='secondary'
+                className='pr-0.5 grid grid-cols-[1fr_16px]'
               >
-                <div className="truncate">
+                <div className='truncate'>
                   {renderValue ? renderValue(option) : option.name}
                 </div>
                 <div
-                  role="button"
+                  role='button'
                   tabIndex={0}
-                  className="size-4! flex items-center justify-center z-10 rounded bg-transparent hover:bg-neutral-400/15"
+                  className='size-4! flex items-center justify-center z-10 rounded bg-transparent hover:bg-neutral-400/15'
                   onClick={(e) => {
                     e.stopPropagation();
                     onChange(value.filter((c) => c !== v));
                   }}
                 >
-                  <XIcon className="size-2.5!" />
+                  <XIcon className='size-2.5!' />
                 </div>
               </Badge>
             );
@@ -379,7 +367,7 @@ function BsMultipleSelect<S extends BsSelectOption>({
 
           {/* Remaining badges count */}
           {!!value?.length && value.length > maxVisibleBadges && (
-            <Badge variant="secondary">
+            <Badge variant='secondary'>
               <span>{`+${value?.length - maxVisibleBadges}`}</span>
             </Badge>
           )}
@@ -387,39 +375,39 @@ function BsMultipleSelect<S extends BsSelectOption>({
 
         {isClearable && !!value?.length && (
           <div
-            role="button"
+            role='button'
             tabIndex={0}
             onClick={(e) => {
               e.stopPropagation();
               handleClear();
             }}
             className={cn(
-              "size-6! flex items-center justify-center z-10 rounded bg-background-secondary text-muted-foreground hover:bg-background-tertiary",
-              "absolute right-1 top-1/2 -translate-y-1/2",
-              "transition-opacity opacity-0 group-hover:opacity-100"
+              'size-6! flex items-center justify-center z-10 rounded bg-background-secondary text-muted-foreground hover:bg-background-tertiary',
+              'absolute right-1 top-1/2 -translate-y-1/2',
+              'transition-opacity opacity-0 group-hover:opacity-100'
             )}
           >
-            <XIcon className="w-4 h-4" />
+            <XIcon className='w-4 h-4' />
           </div>
         )}
 
-        <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
+        <ChevronsUpDownIcon className='w-4 h-4 text-muted-foreground' />
       </Button>
       <Popover
         isAnimated={false}
         className={cn(
-          "!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1",
+          '!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1',
           popoverClassName
         )}
       >
         <ItemsWrapper isSearchable={isSearchable}>
           <ListBox
             items={options}
-            aria-label="Select"
-            selectionMode="multiple"
+            aria-label='Select'
+            selectionMode='multiple'
             selectedKeys={value}
             onSelectionChange={(v) => onChange(Array.from(v))}
-            className="outline-hidden overflow-auto flex-1 scroll-pb-1"
+            className='outline-hidden overflow-auto flex-1 scroll-pb-1'
           >
             {(item) => (
               <BsSelectItem renderOption={renderOption}>
@@ -439,11 +427,11 @@ interface ItemsWrapperProps {
 }
 
 function ItemsWrapper({ children, isSearchable }: ItemsWrapperProps) {
-  let { contains } = useFilter({ sensitivity: "base" });
+  let { contains } = useFilter({ sensitivity: 'base' });
 
   return isSearchable ? (
     <Autocomplete filter={contains}>
-      <BsSearchField autoFocus className="ring-0! border border-input" />{" "}
+      <BsSearchField autoFocus className='ring-0! border border-input' />{' '}
       {children}
     </Autocomplete>
   ) : (
@@ -462,20 +450,20 @@ function BsSelectItem<S extends BsSelectOption>(
       {...props}
       textValue={props.children}
       className={cn(
-        "cursor-pointer group flex items-center select-none gap-2 py-1.5 px-2 outline-hidden rounded-sm text-popover-foreground",
-        "data-[focus-visible]:bg-neutral-500/15 data-hovered:bg-primary! data-hovered:text-white!"
+        'cursor-pointer group flex items-center select-none gap-2 py-1.5 px-2 outline-hidden rounded-sm text-popover-foreground',
+        'data-[focus-visible]:bg-neutral-500/15 data-hovered:bg-primary! data-hovered:text-white!'
       )}
     >
       {({ isSelected }) => (
         <>
-          <div className="text-sm flex-1 font-normal group-selected:font-medium overflow-hidden">
-            <div className="truncate">
+          <div className='text-sm flex-1 font-normal group-selected:font-medium overflow-hidden'>
+            <div className='truncate'>
               {props.renderOption
                 ? props.renderOption(props.value as S)
                 : props.children}
             </div>
           </div>
-          <div className="w-5 flex items-center justify-center">
+          <div className='w-5 flex items-center justify-center'>
             {isSelected && <CheckIcon size={16} />}
           </div>
         </>

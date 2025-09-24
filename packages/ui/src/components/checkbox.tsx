@@ -11,7 +11,7 @@ import {
 
 import { cn } from "@workspace/ui/lib/utils";
 
-import { labelVariants } from "./field";
+import { labelVariants } from "@workspace/ui/components/Field";
 
 const CheckboxGroup = ({ className, ...props }: AriaCheckboxGroupProps) => {
   return (

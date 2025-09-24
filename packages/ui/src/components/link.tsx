@@ -1,23 +1,19 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { type VariantProps } from "class-variance-authority"
+import { type VariantProps } from 'class-variance-authority';
 import {
   Link as AriaLink,
   LinkProps as AriaLinkProps,
   composeRenderProps,
-} from "react-aria-components"
-
-import { cn } from "@workspace/ui/lib/utils"
-
-
-import { buttonVariants } from "./button"
+} from 'react-aria-components';
+import { cn } from '@workspace/ui/lib/utils';
+import { buttonVariants } from './Button';
 
 interface LinkProps
   extends AriaLinkProps,
     VariantProps<typeof buttonVariants> {}
 
-const Link = ({ className, variant = "link", size, ...props }: LinkProps) => {
+const Link = ({ className, variant = 'link', size, ...props }: LinkProps) => {
   return (
     <AriaLink
       className={composeRenderProps(className, (className) =>
@@ -32,8 +28,8 @@ const Link = ({ className, variant = "link", size, ...props }: LinkProps) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Link }
-export type { LinkProps }
+export { Link };
+export type { LinkProps };

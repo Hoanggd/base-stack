@@ -1,4 +1,4 @@
-import { BsRangeCalendar } from "@workspace/ui/components/calendar";
+import { BsRangeCalendar } from "@workspace/ui/components/Calendar";
 import dayjs from "dayjs";
 
 export function RangeCalendarMinMax() {

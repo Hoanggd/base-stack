@@ -2,7 +2,7 @@ import { GithubIcon } from "@/components/icons/GithubIcon";
 import { Logo } from "@/components/Logo";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { GITHUB_URL } from "@/constants/common";
-import { Link } from "@workspace/ui/components/link";
+import { Link } from "@workspace/ui/components/Link";
 
 const navLinks = [
   {

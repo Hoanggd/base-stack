@@ -1,4 +1,4 @@
-import { BsSelect } from "@workspace/ui/components/select";
+import { BsSelect } from "@workspace/ui/components/Select";
 
 const languages = [
   { id: 1, name: "English" },

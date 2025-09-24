@@ -1,4 +1,4 @@
-import { BsDateRangePicker } from "@workspace/ui/components/date-picker";
+import { BsDateRangePicker } from "@workspace/ui/components/DatePicker";
 
 export function DateRangePickerDisabled() {
   return <BsDateRangePicker isDisabled />;

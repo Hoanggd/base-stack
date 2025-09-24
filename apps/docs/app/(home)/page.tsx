@@ -4,8 +4,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@workspace/ui/components/card";
-import { Link } from "@workspace/ui/components/link";
+} from "@workspace/ui/components/Card";
+import { Link } from "@workspace/ui/components/Link";
 import {
   ArrowRightIcon,
   Database,

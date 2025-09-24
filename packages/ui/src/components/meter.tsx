@@ -1,20 +1,18 @@
-"use client"
+'use client';
 
-import * as React from "react"
 import {
   Meter as AriaMeter,
   MeterProps as AriaMeterProps,
   composeRenderProps,
-} from "react-aria-components"
+} from 'react-aria-components';
 
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from '@workspace/ui/lib/utils';
 
-
-import { Label, labelVariants } from "./field"
+import { Label, labelVariants } from '@workspace/ui/components/Field';
 
 interface MeterProps extends AriaMeterProps {
-  barClassName?: string
-  fillClassName?: string
+  barClassName?: string;
+  fillClassName?: string;
 }
 
 const Meter = ({
@@ -26,7 +24,7 @@ const Meter = ({
 }: MeterProps) => (
   <AriaMeter
     className={composeRenderProps(className, (className) =>
-      cn("w-full", className)
+      cn('w-full', className)
     )}
     {...props}
   >
@@ -35,13 +33,13 @@ const Meter = ({
         {children}
         <div
           className={cn(
-            "relative h-4 w-full overflow-hidden rounded-full bg-secondary",
+            'relative h-4 w-full overflow-hidden rounded-full bg-secondary',
             barClassName
           )}
         >
           <div
             className={cn(
-              "size-full flex-1 bg-primary transition-all",
+              'size-full flex-1 bg-primary transition-all',
               fillClassName
             )}
             style={{
@@ -52,11 +50,11 @@ const Meter = ({
       </>
     ))}
   </AriaMeter>
-)
+);
 
 interface BsMeterProps extends MeterProps {
-  label?: string
-  showValue?: boolean
+  label?: string;
+  showValue?: boolean;
 }
 
 function BsMeter({
@@ -68,19 +66,19 @@ function BsMeter({
   return (
     <Meter
       className={composeRenderProps(className, (className) =>
-        cn("group flex flex-col gap-2", className)
+        cn('group flex flex-col gap-2', className)
       )}
       {...props}
     >
       {({ valueText }) => (
-        <div className="flex w-full justify-between">
+        <div className='flex w-full justify-between'>
           <Label>{label}</Label>
           {showValue && <span className={labelVariants()}>{valueText}</span>}
         </div>
       )}
     </Meter>
-  )
+  );
 }
 
-export { Meter, BsMeter }
-export type { MeterProps, BsMeterProps }
+export { Meter, BsMeter };
+export type { MeterProps, BsMeterProps };

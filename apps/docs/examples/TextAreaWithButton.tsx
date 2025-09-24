@@ -1,5 +1,5 @@
-import { Button } from "@workspace/ui/components/button";
-import { TextArea } from "@workspace/ui/components/textfield";
+import { Button } from "@workspace/ui/components/Button";
+import { TextArea } from "@workspace/ui/components/Textfield";
 
 export function TextAreaWithButton() {
   return (

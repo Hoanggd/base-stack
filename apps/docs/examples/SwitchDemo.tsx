@@ -1,4 +1,4 @@
-import { Switch } from '@workspace/ui/components/switch'
+import { Switch } from '@workspace/ui/components/Switch'
 
 export function SwitchDemo() {
   return (

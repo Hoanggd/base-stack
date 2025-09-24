@@ -1,7 +1,7 @@
 "use client";
 
 import { Label } from "@workspace/ui/components/field";
-import { RadioGroup, Radio } from "@workspace/ui/components/radio-group";
+import { RadioGroup, Radio } from "@workspace/ui/components/RadioGroup";
 
 export function RadioGroupHorizontal() {
   return (

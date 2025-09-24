@@ -1,4 +1,4 @@
-import { BsCalendar } from "@workspace/ui/components/calendar";
+import { BsCalendar } from "@workspace/ui/components/Calendar";
 
 export function CalendarDemo() {
   return <BsCalendar />;

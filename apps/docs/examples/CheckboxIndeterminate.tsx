@@ -1,10 +1,10 @@
 "use client";
 
-import { Checkbox } from "@workspace/ui/components/checkbox";
-import { useState } from "react";
+import { Checkbox } from "@workspace/ui/components/Checkbox";
+import React from "react";
 
 export function CheckboxIndeterminate() {
-  const [checkedItems, setCheckedItems] = useState([false, false, false]);
+  const [checkedItems, setCheckedItems] = React.useState([false, false, false]);
 
   const allChecked = checkedItems.every(Boolean);
   const isIndeterminate = checkedItems.some(Boolean) && !allChecked;

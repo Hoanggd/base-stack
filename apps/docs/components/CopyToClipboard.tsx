@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui/components/Button";
 import { cn } from "@workspace/ui/lib/utils";
 import { useMachine } from "@xstate/react";
 import { Check, Copy } from "lucide-react";

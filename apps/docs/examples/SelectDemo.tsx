@@ -1,6 +1,6 @@
 "use client";
 
-import { BsSelect } from "@workspace/ui/components/select";
+import { BsSelect } from "@workspace/ui/components/Select";
 import React from "react";
 
 const languages = [
