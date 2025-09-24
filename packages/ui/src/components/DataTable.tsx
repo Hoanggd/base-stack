@@ -175,9 +175,11 @@ function DataTable<TData extends Identifiable, TValue>({
   });
 
   return (
-    <Table containerClassName={cn('relative', containerClassName)}>
+    <Table
+      containerClassName={cn('relative', containerClassName)}
+      progressBarSlot={<ProgressBar isFetching={!!isFetching && !isLoading} />}
+    >
       <TableHeader>
-        <ProgressBar isFetching={!!isFetching && !isLoading} />
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
@@ -298,9 +300,9 @@ function ProgressBar({ isFetching }: ProgressBarProps) {
   }, [isFetching]);
 
   return (
-    <tr className='w-full absolute -bottom-0.5 left-0'>
-      <th className='h-1 block' id={progressBarId} />
-    </tr>
+    <div className='w-full absolute top-0 left-0'>
+      <div className='h-1 block' id={progressBarId} />
+    </div>
   );
 }
 

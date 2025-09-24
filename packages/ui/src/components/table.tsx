@@ -9,9 +9,19 @@ interface TableProps extends React.ComponentProps<'table'> {
    * The class name for the container of the table. This is useful for setting height or width.
    */
   containerClassName?: string;
+
+  /**
+   * The slot for the progress bar.
+   */
+  progressBarSlot?: React.ReactNode;
 }
 
-function Table({ className, containerClassName, ...props }: TableProps) {
+function Table({
+  className,
+  containerClassName,
+  progressBarSlot,
+  ...props
+}: TableProps) {
   const tableContainerRef = React.useRef<HTMLDivElement>(null);
   const tableRef = React.useRef<HTMLTableElement>(null);
 
@@ -28,14 +38,8 @@ function Table({ className, containerClassName, ...props }: TableProps) {
 
     if (!table) return;
 
-    table.setAttribute(
-      'data-at-start',
-      isAtHorizontalStart.toString()
-    );
-    table.setAttribute(
-      'data-at-end',
-      isAtHorizontalEnd.toString()
-    );
+    table.setAttribute('data-at-start', isAtHorizontalStart.toString());
+    table.setAttribute('data-at-end', isAtHorizontalEnd.toString());
   };
 
   React.useEffect(() => {
@@ -43,7 +47,8 @@ function Table({ className, containerClassName, ...props }: TableProps) {
   }, []);
 
   return (
-    <div className='grid bg-background-secondary rounded-md overflow-hidden border'>
+    <div className='relative grid bg-background-secondary rounded-md overflow-hidden border'>
+      {progressBarSlot}
       <div
         ref={tableContainerRef}
         data-slot='table-container'
@@ -102,7 +107,7 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
     <tr
       data-slot='table-row'
       className={cn(
-        'data-[state=selected]:bg-blue-200! dark:data-[state=selected]:bg-blue-900! transition-colors',
+        'data-[state=selected]:bg-blue-200! dark:data-[state=selected]:bg-blue-900!',
         className
       )}
       {...props}
