@@ -1,0 +1,184 @@
+---
+title: Philosophy
+description: Our guiding principles for building maintainable, performant, and beautiful user interfaces
+---
+
+Our approach to building user interfaces is guided by a simple principle: **simplicity over complexity**. We believe that the best code is the code that's easiest to understand, maintain, and modify. This philosophy influences every decision we make, from component architecture to state management.
+
+## 1. Write Simple Code
+
+> The best code isn't the most elegant or sophisticated - it's the code that future developers (including yourself) can understand quickly. - [Cognitive Load Theory](https://github.com/zakirullin/cognitive-load)
+
+We prioritize **cognitive load reduction** above all else. Every line of code should be immediately understandable to any developer on the team. This means:
+
+- **Avoid clever solutions** - If you need to explain your code to someone, it's probably too complex
+- **Favor explicit over implicit** - Magic is great in fantasy novels, terrible in codebases
+- **Prefer obvious over elegant** - Code that reads like plain English is better than code that's "clever"
+
+### Example: Simple vs. Complex
+
+```js
+// ❌ Complex
+if (val > someConstant // 🧠+
+    && (condition2 || condition3) // 🧠+++, prev cond should be true, one of c2 or c3 has be true
+    && (condition4 && !condition5)) { // 🤯, we are messed up by this point
+    ...
+}
+
+// ✅ Simple
+let isValid = val > someConstant
+let isAllowed = condition2 || condition3
+let isSecure = condition4 && !condition5 
+// 🧠, we don't need to remember the conditions, there are descriptive variables
+if (isValid && isAllowed && isSecure) {
+    ...
+}
+```
+
+### Example: "Clever" vs. "Stupid"
+```js
+// ❌ "Clever" - looks like magic
+let isEven = n => !(n & 1);
+
+// ✅ "Stupid" - obvious
+function isEven(n) {
+  return n % 2 === 0;
+}
+```
+
+## 2. Avoid Hasty Abstractions
+
+> Prefer duplication over the wrong abstraction - [Sandi Metz](https://kentcdodds.com/blog/aha-programming)
+
+Following the **AHA Programming** principle (Avoid Hasty Abstractions), we believe that code duplication is often preferable to premature abstraction. Here's why:
+
+- **Duplication is obvious** - You can see exactly what's happening
+- **Wrong abstractions are expensive** - They create complexity that's hard to unwind
+- **Patterns emerge naturally** - After you've written similar code 2-3 times, the right abstraction becomes clear
+- **Change is easier** - Modifying duplicated code is straightforward; modifying wrong abstractions requires understanding the entire system
+
+### When to Abstract
+
+- ✅ **After 2-3 instances** of similar code
+- ✅ **When the pattern is stable** and unlikely to change
+- ✅ **When the abstraction is obvious** to the entire team
+- ❌ **Before you understand** the full scope of use cases
+- ❌ **To satisfy DRY dogma** without clear benefits
+
+## 3. Limit useEffect Usage
+
+> Effects are an escape hatch from React's paradigm. - [React Documentation](https://react.dev/learn/you-might-not-need-an-effect)
+
+`useEffect` is powerful but dangerous. It's often a sign that you're fighting React's declarative nature. We prefer alternatives:
+
+### Prefer These Over useEffect
+
+#### Derived state
+```tsx
+// ❌ useEffect for derived state
+const [fullName, setFullName] = React.useState('');
+React.useEffect(() => {
+  setFullName(`${firstName} ${lastName}`);
+}, [firstName, lastName]);
+
+// ✅ Derived state
+const fullName = `${firstName} ${lastName}`;
+```
+
+#### Data fetching
+```tsx
+// ❌ useEffect for API calls on mount
+const [user, setUser] = React.useState(null);
+React.useEffect(() => {
+  fetchUserData().then(user => setUser(user));
+}, []);
+
+// ✅ Server components or data fetching libraries (Tanstack Query)
+const user = useQuery({
+  queryKey: ['user'],
+  queryFn: fetchUserData
+})
+```
+
+### When useEffect is Acceptable
+
+- **Synchronizing with external systems** (browser APIs, third-party libraries)
+- **Cleanup operations** (subscriptions, timers, event listeners)
+- **Logging and analytics** that can't be handled declaratively
+
+## 4. Prefer URL State Over Global State
+
+Global state management libraries (Zustand, Redux, Context) create invisible dependencies that make code harder to understand and test. Instead, we prefer:
+
+### URL as State Container
+
+```tsx
+// ❌ Global state
+const { searchQuery } = useSearchStore();
+const { currentPage } = usePaginationStore();
+
+// ✅ URL state with nuqs
+import { useQueryState, parseAsInteger } from 'nuqs';
+
+const [searchQuery, setSearchQuery] = useQueryState('q', { defaultValue: '' });
+const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
+```
+
+### Benefits of URL State
+
+- **Shareable** - Users can bookmark and share specific states
+- **Debuggable** - You can see the app app state in the browser
+- **Testable** - Easy to test different states by changing URLs
+- **Predictable** - State changes are visible and trackable
+- **SEO friendly** - Search engines can understand your app state
+- **Simple API** - React.useState-like syntax that syncs with the URL automatically
+
+### When Global State is Acceptable
+
+- **UI-only state** that shouldn't be in the URL (modals, dropdowns)
+- **Theme preferences** (light/dark mode, color schemes)
+- **Layout configuration** (sidebar collapsed state, panel sizes, view preferences)
+
+
+## 5. Obsess Over User Experience
+
+That 2px difference you think nobody will notice? Users feel it. They may not know exactly what's wrong, but something feels off, and they leave.
+
+### Perfect Pixel UI
+
+- **Match designs exactly**: Use dev tools to measure spacing, font sizes, line heights, and radii
+- **Cross-browser and device testing**: Verify on Safari, Chrome, Firefox, and real iOS/Android hardware
+- **Interactive polish**: Implement hover states, focus rings, pressed/disabled styles, and micro-interactions
+- **Design tokens**: Centralize spacing, colors, and typography tokens to enforce consistency
+
+### Always Provide Feedback
+
+#### Loading States
+
+- **Skeletons**: Prefer skeleton screens over blank spaces to reduce perceived wait time
+- **Loading indicators**: Display a loading indicator during any mutation (such as create, update, or delete actions)
+
+#### Error Handling
+
+- **Human-friendly**: Say what happened and how to fix it, avoid jargon
+- **Inline validation**: Validate as users type, place messages near the field with clear guidance
+
+#### Success States
+- **Affirmation**: Confirm actions with toasts or visual cues without interrupting flow
+
+### Prevent Layout Shift
+
+- **Explicit dimensions**: Always set width/height for images and videos
+- **Skeleton sizing**: Match skeleton dimensions to final content to avoid jumps
+- **Font performance**: Use next/font to optimize loading and reduce layout shift.
+- **Performant animations**: Animate with transforms/opacity, avoid layout-affecting properties
+
+## Summary
+
+Our philosophy can be distilled into these core principles:
+
+1. **Simplicity first** - Reduce cognitive load at every opportunity
+2. **Embrace duplication** - Wait for patterns to emerge naturally
+3. **Minimize side effects** - Prefer declarative over imperative
+4. **URL as state** - Make app state visible and shareable with [nuqs](https://nuqs.47ng.com/)
+5. **Obsess Over User Experience** - Attention to detail builds trust
