@@ -133,6 +133,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/dialog',
                     },
                     {
+                        title: 'Menu',
+                        href: '/docs/ui/menu',
+                    },
+                    {
                         title: 'Popover',
                         href: '/docs/ui/popover',
                     },
