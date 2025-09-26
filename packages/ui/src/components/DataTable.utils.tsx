@@ -9,7 +9,7 @@ function getCheckboxColumnDef<T>(): ColumnDef<T> {
         header: ({ table }) => (
             <Checkbox
                 isSelected={table.getIsAllRowsSelected()}
-                isIndeterminate={table.getIsSomeRowsSelected()}
+                isIndeterminate={table.getIsSomePageRowsSelected()}
                 onChange={isSelected => {
                     table.toggleAllRowsSelected(isSelected)
                 }}
