@@ -40,7 +40,7 @@ function MenuPopover({ className, ...props }: PopoverProps) {
 const Menu = <T extends object>({ className, ...props }: AriaMenuProps<T>) => (
     <AriaMenu
         className={cn(
-            'max-h-[inherit] overflow-auto rounded-md p-1 outline outline-0 [clip-path:inset(0_0_0_0_round_calc(var(--radius)-2px))]',
+            'max-h-[inherit] overflow-auto rounded-md p-1.5 outline outline-0 [clip-path:inset(0_0_0_0_round_calc(var(--radius)-2px))]',
             className,
         )}
         {...props}
@@ -52,11 +52,11 @@ const MenuItem = ({ children, className, ...props }: AriaMenuItemProps) => (
         textValue={props.textValue || (typeof children === 'string' ? children : undefined)}
         className={composeRenderProps(className, className =>
             cn(
-                'relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors',
+                'relative flex cursor-default select-none items-center gap-2.5 rounded-sm py-1.5 px-2 text-sm outline-none',
                 /* Disabled */
                 'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
                 /* Focused */
-                'data-[focused]:bg-accent data-[focused]:text-accent-foreground ',
+                'data-[focused]:bg-primary data-[focused]:text-white',
                 /* Selection Mode */
                 'data-[selection-mode]:pl-8',
                 className,
@@ -107,24 +107,6 @@ const MenuSeparator = ({ className, ...props }: AriaSeparatorProps) => (
 const MenuKeyboard = ({ className, ...props }: React.ComponentProps<typeof AriaKeyboard>) => {
     return <AriaKeyboard className={cn('ml-auto text-xs tracking-widest opacity-60', className)} {...props} />
 }
-interface BsMenuProps<T>
-    extends AriaMenuProps<T>,
-        VariantProps<typeof buttonVariants>,
-        Omit<AriaMenuTriggerProps, 'children'> {
-    label?: string
-}
-function BsMenu<T extends object>({ label, children, variant, size, ...props }: BsMenuProps<T>) {
-    return (
-        <MenuTrigger {...props}>
-            <Button variant={variant} size={size}>
-                {label}
-            </Button>
-            <MenuPopover className="min-w-[--trigger-width]">
-                <Menu {...props}>{children}</Menu>
-            </MenuPopover>
-        </MenuTrigger>
-    )
-}
 
 export {
     MenuTrigger,
@@ -137,6 +119,5 @@ export {
     MenuSection,
     MenuSubTrigger,
     MenuCollection,
-    BsMenu,
 }
-export type { MenuHeaderProps, BsMenuProps }
+export type { MenuHeaderProps }

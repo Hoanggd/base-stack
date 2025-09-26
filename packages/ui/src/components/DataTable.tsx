@@ -2,8 +2,10 @@
 
 import {
     ColumnDef,
+    ColumnPinningState,
     flexRender,
     getCoreRowModel,
+    RowData,
     TableOptions,
     TableState,
     SortingState as TanstackSortingState,
@@ -23,6 +25,12 @@ import {
     getCommonPinningStyles,
 } from '@workspace/ui/components/DataTable.utils'
 
+declare module '@tanstack/react-table' {
+    interface ColumnMeta<TData extends RowData, TValue> {
+        className?: string
+    }
+}
+
 interface Identifiable {
     id: string | number
 }
@@ -31,7 +39,7 @@ interface DataTableProps<TData extends Identifiable, TValue> {
     /**
      * The columns to display in the table.
      */
-    columns: ColumnDef<TData, TValue>[]
+    columns: ColumnDef<TData, any>[]
 
     /**
      * The data to display in the table.
@@ -82,6 +90,11 @@ interface DataTableProps<TData extends Identifiable, TValue> {
      * Indicates if the table is being updated with new data after the initial load.
      */
     isFetching?: boolean
+
+    /**
+     * The column pinning state to display in the table.
+     */
+    columnPinning?: ColumnPinningState
 }
 
 function DataTable<TData extends Identifiable, TValue>({
@@ -96,6 +109,7 @@ function DataTable<TData extends Identifiable, TValue>({
     setRowSelection,
     isLoading,
     isFetching,
+    columnPinning,
 }: DataTableProps<TData, TValue>) {
     // sorting
     const [uncontrolledSorting, setUncontrolledSorting] = React.useState<DataTableSorting | null>(null)
@@ -156,7 +170,7 @@ function DataTable<TData extends Identifiable, TValue>({
             size: 180,
         },
         initialState: {
-            columnPinning: {
+            columnPinning: columnPinning || {
                 left: ['select'],
                 right: ['actions'],
             },
@@ -179,7 +193,10 @@ function DataTable<TData extends Identifiable, TValue>({
                                         minWidth: header.column.columnDef.size,
                                         maxWidth: header.column.columnDef.size,
                                     }}
-                                    className={getCommonPinningStyles(header.column)}
+                                    className={cn(
+                                        getCommonPinningStyles(header.column),
+                                        header.column.columnDef.meta?.className,
+                                    )}
                                 >
                                     {header.isPlaceholder ? null : (
                                         <div
@@ -225,7 +242,10 @@ function DataTable<TData extends Identifiable, TValue>({
                                         minWidth: cell.column.columnDef.size,
                                         maxWidth: cell.column.columnDef.size,
                                     }}
-                                    className={getCommonPinningStyles(cell.column)}
+                                    className={cn(
+                                        getCommonPinningStyles(cell.column),
+                                        cell.column.columnDef.meta?.className,
+                                    )}
                                     title={String(cell.getValue() || '')}
                                 >
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -234,8 +254,8 @@ function DataTable<TData extends Identifiable, TValue>({
                         </TableRow>
                     ))
                 ) : (
-                    <tr>
-                        <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 text-muted-foreground">
+                    <tr className="h-20">
+                        <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 top-10 text-muted-foreground">
                             {isLoading && <Spinner />}
                             {!isLoading && (
                                 <>
