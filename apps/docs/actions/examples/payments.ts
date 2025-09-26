@@ -7,7 +7,7 @@ export interface Payment {
     amount: string
     status: string
     email: string
-    paymentMethod: string
+    paymentMethod: 'credit_card' | 'debit_card' | 'bank_transfer' | 'paypal'
     transactionDate: string
     paymentReference: string
 }
@@ -29,7 +29,7 @@ export async function getPayments(params?: GetPaymentsParams | null): Promise<{
         totalPages: number
     }
 }> {
-    await new Promise(resolve => setTimeout(resolve, 500))
+    await new Promise(resolve => setTimeout(resolve, 200))
 
     let items = sortByString(paymentData, params?.sortBy || '', params?.sortDirection) as Array<Payment>
 

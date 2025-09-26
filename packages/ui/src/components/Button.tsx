@@ -12,7 +12,7 @@ const buttonVariants = cva(
         /* SVGs */
         '[&_svg]:pointer-events-none [&_svg]:size-[14px] [&_svg]:shrink-0 [&_svg]:stroke-2',
         /* Disabled */
-        'data-[disabled]:pointer-events-none data-[disabled]:opacity-80',
+        'data-[disabled]:pointer-events-none data-[disabled]:opacity-60',
         /* Focus Visible */
         'data-[focus-visible]:outline-none data-[focus-visible]:ring-primary/40 data-[focus-visible]:ring-2 data-[focus-visible]:ring-offset-2',
         /* Resets */

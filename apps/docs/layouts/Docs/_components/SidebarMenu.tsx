@@ -58,7 +58,7 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/table',
                     },
                     {
-                        title: 'Data Table',
+                        title: 'DataTable',
                         href: '/docs/ui/data-table',
                     },
                     {
