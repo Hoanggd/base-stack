@@ -3,7 +3,7 @@
 import React from 'react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { matchQuery, MutationCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Toaster } from '@workspace/ui/components/sonner'
+import { Toaster } from '@workspace/ui/components/Sonner'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient({
