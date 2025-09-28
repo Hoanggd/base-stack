@@ -10,9 +10,10 @@ import {
     composeRenderProps,
 } from 'react-aria-components'
 import { FieldGroup } from '@workspace/ui/components/Field'
-import { Button } from './Button'
+import { Button } from '@workspace/ui/components/Button'
 
 import { cn } from '@workspace/ui/lib/utils'
+import { Separator } from '@workspace/ui/components/Separator'
 
 const NumberField = AriaNumberField
 
@@ -32,13 +33,16 @@ function NumberFieldInput({ className, ...props }: AriaInputProps) {
 
 function NumberFieldSteppers({ className, ...props }: React.ComponentProps<'div'>) {
     return (
-        <div className={cn('absolute right-1.5 flex h-full flex-col', className)} {...props}>
-            <NumberFieldStepper slot="increment" className="translate-y-0.5">
-                <ChevronUp aria-hidden className="size-[14px]!" />
-            </NumberFieldStepper>
-            <NumberFieldStepper slot="decrement">
-                <ChevronDown aria-hidden className="size-[14px]! -translate-y-0.5" />
-            </NumberFieldStepper>
+        <div className={cn('absolute right-0 flex items-center', className)} {...props}>
+            <Separator orientation="vertical" className="h-5" />
+            <div className="flex flex-col px-1.5">
+                <NumberFieldStepper slot="increment" className="translate-y-0.5">
+                    <ChevronUp aria-hidden className="size-[14px]!" />
+                </NumberFieldStepper>
+                <NumberFieldStepper slot="decrement">
+                    <ChevronDown aria-hidden className="size-[14px]! -translate-y-0.5" />
+                </NumberFieldStepper>
+            </div>
         </div>
     )
 }

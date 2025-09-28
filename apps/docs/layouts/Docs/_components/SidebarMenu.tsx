@@ -144,6 +144,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Tooltip',
                         href: '/docs/ui/tooltip',
                     },
+                    {
+                        title: 'Sonner',
+                        href: '/docs/ui/sonner',
+                    },
                 ],
             },
             {

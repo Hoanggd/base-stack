@@ -1,10 +1,10 @@
 'use client'
 
-import { BsRangeCalendar, DateRangeValues } from '@workspace/ui/components/Calendar'
+import { BsRangeCalendar, BsRangeCalendarValue } from '@workspace/ui/components/Calendar'
 import { useState } from 'react'
 
 export function RangeCalendarControlled() {
-    const [value, setValue] = useState<DateRangeValues>()
+    const [value, setValue] = useState<BsRangeCalendarValue>()
 
     return (
         <div className="flex flex-col gap-2">

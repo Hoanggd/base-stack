@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckIcon, ChevronsUpDownIcon, XIcon } from 'lucide-react'
+import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
 import React from 'react'
 import type { ListBoxItemProps } from 'react-aria-components'
 import { Select as AriaSelect, Autocomplete, ListBox, ListBoxItem, SelectValue, useFilter } from 'react-aria-components'
@@ -168,7 +168,7 @@ function BsSelect<S extends BsSelectOption>({
                     </div>
                 )}
 
-                <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
+                <ChevronDownIcon className="w-4 h-4 text-muted-foreground" />
             </Button>
             <Popover
                 isAnimated={false}
@@ -266,7 +266,7 @@ function BsMultipleSelect<S extends BsSelectOption>({
     renderValue,
     isDisabled,
     maxVisibleBadges = 2,
-    isClearable = true,
+    isClearable,
     onBlur,
     className,
     popoverClassName,
@@ -360,7 +360,7 @@ function BsMultipleSelect<S extends BsSelectOption>({
                     </div>
                 )}
 
-                <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
+                <ChevronDownIcon className="w-4 h-4 text-muted-foreground" />
             </Button>
             <Popover
                 isAnimated={false}
