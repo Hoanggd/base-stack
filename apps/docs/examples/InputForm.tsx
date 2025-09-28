@@ -20,9 +20,9 @@ export function InputForm() {
     })
 
     function onSubmit(data: FormData) {
-        toast('You submitted the following values', {
+        toast.success('You submitted the following values', {
             description: (
-                <pre className="mt-2 w-[320px] rounded-md bg-background-tertiary p-4">
+                <pre className="mt-2 w-full rounded-md bg-background-tertiary p-4">
                     <code className="text-foreground">{JSON.stringify(data, null, 2)}</code>
                 </pre>
             ),

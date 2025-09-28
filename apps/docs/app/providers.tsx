@@ -22,12 +22,13 @@ const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
+            staleTime: 1000 * 60,
         },
     },
 })
 
 export function Providers({ children }: { children: React.ReactNode }) {
-    let router = useRouter()
+    const router = useRouter()
 
     return (
         <RouterProvider navigate={router.push}>
