@@ -1,7 +1,7 @@
 'use client'
 
 import { BsDateRangePicker } from '@workspace/ui/components/DatePicker'
-import { Label } from '@workspace/ui/components/field'
+import { Label } from '@workspace/ui/components/Field'
 
 export function DateRangePickerWithLabel() {
     return (

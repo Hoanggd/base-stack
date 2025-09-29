@@ -9,6 +9,7 @@ import { I18nProvider as ReactAriaI18nProvider } from 'react-aria-components'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ConfirmDialog } from '@workspace/ui/components/ConfirmDialog'
 
 dayjs.extend(isoWeek)
 
@@ -41,6 +42,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                         </QueryClientProvider>
                     </NuqsAdapter>
                     <Toaster />
+                    <ConfirmDialog />
                 </ThemeProvider>
             </ReactAriaI18nProvider>
         </RouterProvider>

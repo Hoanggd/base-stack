@@ -10,7 +10,7 @@ import {
     DialogTrigger,
     DialogDescription,
 } from '@workspace/ui/components/Dialog'
-import { Label } from '@workspace/ui/components/field'
+import { Label } from '@workspace/ui/components/Field'
 import { Input } from '@workspace/ui/components/Textfield'
 
 export function DialogDemo() {
@@ -36,10 +36,10 @@ export function DialogDemo() {
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button variant="ghost" onPress={close}>
+                                <Button variant="ghost" onClick={close}>
                                     Cancel
                                 </Button>
-                                <Button onPress={close} type="submit">
+                                <Button onClick={close} type="submit">
                                     Save changes
                                 </Button>
                             </DialogFooter>

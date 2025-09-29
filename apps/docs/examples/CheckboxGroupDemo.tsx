@@ -1,5 +1,5 @@
 import { CheckboxGroup, Checkbox } from '@workspace/ui/components/Checkbox'
-import { Label } from '@workspace/ui/components/field'
+import { Label } from '@workspace/ui/components/Field'
 
 export function CheckboxGroupDemo() {
     return (

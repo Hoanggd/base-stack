@@ -4,9 +4,9 @@ import React from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { DataTable } from '@workspace/ui/components/DataTable'
 import { Button } from '@workspace/ui/components/Button'
-import { EditIcon, TrashIcon, EyeIcon } from 'lucide-react'
+import { EditIcon, TrashIcon } from 'lucide-react'
 
-type Order = {
+interface Order {
     id: string
     orderNumber: string
     customer: string

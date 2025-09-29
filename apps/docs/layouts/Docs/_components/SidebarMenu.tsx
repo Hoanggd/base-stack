@@ -133,6 +133,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/dialog',
                     },
                     {
+                        title: 'ConfirmDialog',
+                        href: '/docs/ui/confirm-dialog',
+                    },
+                    {
                         title: 'Menu',
                         href: '/docs/ui/menu',
                     },

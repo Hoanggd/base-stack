@@ -3,7 +3,6 @@
 import React from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { DataTable } from '@workspace/ui/components/DataTable'
-import { cn } from '@workspace/ui/lib/utils'
 
 interface User {
     id: string

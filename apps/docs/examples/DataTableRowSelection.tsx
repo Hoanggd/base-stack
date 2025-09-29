@@ -5,7 +5,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { DataTable } from '@workspace/ui/components/DataTable'
 import { Button } from '@workspace/ui/components/Button'
 
-type User = {
+interface User {
     id: string
     name: string
     email: string
