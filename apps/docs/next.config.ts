@@ -5,6 +5,20 @@ const nextConfig: NextConfig = withContentlayer({
     images: {
         domains: ['images.unsplash.com'],
     },
+    async redirects() {
+        return [
+            {
+                source: '/docs/ui',
+                destination: '/docs/ui/introduction',
+                permanent: false,
+            },
+            {
+                source: '/docs/recipes',
+                destination: '/docs/recipes/architecture',
+                permanent: false,
+            },
+        ]
+    },
 })
 
 export default nextConfig

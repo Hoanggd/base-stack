@@ -19,7 +19,7 @@ export default function Home() {
                             TanStack Query, and everything you need to start building immediately.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link variant="default" size="lg" href="/docs/getting-started/installation">
+                            <Link variant="default" size="lg" href="/docs/ui/installation">
                                 Get Started
                                 <ArrowRightIcon />
                             </Link>
