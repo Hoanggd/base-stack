@@ -265,7 +265,7 @@ function BsMultipleSelect<S extends BsSelectOption>({
     renderOption,
     renderValue,
     isDisabled,
-    maxVisibleBadges = 2,
+    maxVisibleBadges = 3,
     isClearable,
     onBlur,
     className,

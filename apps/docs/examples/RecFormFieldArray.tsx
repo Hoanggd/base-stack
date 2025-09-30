@@ -39,7 +39,7 @@ export function RecFormFieldArray() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-[500px]">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-[600px]">
                 <h2 className="text-xl font-semibold">Add Users</h2>
                 {/* FormField is used here just to display validation errors for the entire users array */}
                 <FormField
@@ -106,8 +106,7 @@ function UserFields() {
                     {fields.length > 1 && (
                         <Button
                             size="icon"
-                            variant="outline"
-                            className="text-destructive"
+                            variant="outlineDestructive"
                             onClick={() => remove(index)}
                         >
                             <Trash />
@@ -116,8 +115,9 @@ function UserFields() {
                 </div>
             ))}
             <div>
-                <Button size="icon" variant="outline" onClick={() => append({ email: '', name: '' })}>
+                <Button variant="outline" size="sm" onClick={() => append({ email: '', name: '' })}>
                     <PlusCircleIcon />
+                    Add
                 </Button>
             </div>
         </div>

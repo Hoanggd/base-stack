@@ -24,6 +24,7 @@ const buttonVariants = cva(
                 default: 'bg-linear-to-b from-primary/90 to-primary text-white button-3d',
                 destructive: 'bg-linear-to-b from-destructive/90 to-destructive text-white button-3d',
                 outline: 'bg-background-secondary shadow-sm border border-input text-foreground',
+                outlineDestructive: 'bg-background-secondary shadow-sm border border-input text-destructive',
                 secondary: 'border-transparent bg-neutral-500/15 text-secondary-foreground',
                 ghost: 'data-[hovered]:bg-accent data-[hovered]:text-accent-foreground data-[pressed]:bg-accent/50',
                 link: 'text-primary underline-offset-4 data-[hovered]:underline px-0! py-0! h-auto! underline',

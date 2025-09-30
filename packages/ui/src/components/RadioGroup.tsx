@@ -70,4 +70,26 @@ const Radio = ({ className, children, ...props }: AriaRadioProps) => {
     )
 }
 
-export { Radio, RadioGroup }
+interface BsRadioGroupOption {
+    id: string
+    name: string
+}
+
+interface BsRadioGroupProps extends AriaRadioGroupProps {
+    options: Array<BsRadioGroupOption>
+}
+
+function BsRadioGroup({ options, className, ...props }: BsRadioGroupProps) {
+    return (
+        <RadioGroup {...props}>
+            {options.map(option => (
+                <Radio key={option.id} value={option.id}>
+                    {option.name}
+                </Radio>
+            ))}
+        </RadioGroup>
+    )
+}
+
+export { Radio, RadioGroup, BsRadioGroup }
+export type { BsRadioGroupProps, BsRadioGroupOption }

@@ -79,8 +79,10 @@ export function CheckboxForm() {
                     }}
                     render={({ field }) => (
                         <FormItem>
-                            <FormControl {...field}>
-                                <Checkbox>I accept the terms and conditions</Checkbox>
+                            <FormControl>
+                                <Checkbox isSelected={field.value} onChange={field.onChange}>
+                                    I accept the terms and conditions
+                                </Checkbox>
                             </FormControl>
                             <FormMessage />
                         </FormItem>

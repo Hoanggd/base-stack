@@ -1,11 +1,10 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
 import { toast } from '@workspace/ui/components/Sonner'
-
+import { useForm } from 'react-hook-form'
 import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
-import { RadioGroup, Radio } from '@workspace/ui/components/RadioGroup'
+import { BsRadioGroup } from '@workspace/ui/components/RadioGroup'
 import { Separator } from '@workspace/ui/components/Separator'
 import { z } from '@workspace/ui/lib/zod'
 
@@ -42,13 +41,16 @@ export function RadioGroupForm() {
                     rules={{ validate: z.string().min(1).validateFn() }}
                     render={({ field }) => (
                         <FormItem>
+                            <FormLabel>Shipping Method</FormLabel>
                             <FormControl>
-                                <RadioGroup {...field}>
-                                    <FormLabel>Shipping Method</FormLabel>
-                                    <Radio value="standard">Standard Shipping (3-5 days)</Radio>
-                                    <Radio value="express">Express Shipping (1-2 days)</Radio>
-                                    <Radio value="overnight">Overnight Shipping</Radio>
-                                </RadioGroup>
+                                <BsRadioGroup
+                                    {...field}
+                                    options={[
+                                        { id: 'standard', name: 'Standard Shipping (3-5 days)' },
+                                        { id: 'express', name: 'Express Shipping (1-2 days)' },
+                                        { id: 'overnight', name: 'Overnight Shipping' },
+                                    ]}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -61,13 +63,16 @@ export function RadioGroupForm() {
                     rules={{ validate: z.string().min(1).validateFn() }}
                     render={({ field }) => (
                         <FormItem>
+                            <FormLabel>Payment Method</FormLabel>
                             <FormControl>
-                                <RadioGroup {...field}>
-                                    <FormLabel>Payment Method</FormLabel>
-                                    <Radio value="credit">Credit Card</Radio>
-                                    <Radio value="debit">Debit Card</Radio>
-                                    <Radio value="paypal">PayPal</Radio>
-                                </RadioGroup>
+                                <BsRadioGroup
+                                    {...field}
+                                    options={[
+                                        { id: 'credit', name: 'Credit Card' },
+                                        { id: 'debit', name: 'Debit Card' },
+                                        { id: 'paypal', name: 'PayPal' },
+                                    ]}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

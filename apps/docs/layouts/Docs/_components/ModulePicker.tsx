@@ -41,7 +41,7 @@ export function ModulePicker() {
     const selectedModule = useModulePicker()
 
     return (
-        <div className="pt-6 px-6 z-[2] relative">
+        <div className="pt-6 pb-2 px-6 z-[2] relative">
             <PopoverTrigger>
                 <Button variant="unstyled" className="text-start w-full transition-colors flex items-center gap-2 p-0">
                     <ModuleItem module={selectedModule} />

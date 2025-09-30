@@ -167,20 +167,24 @@ function getMenuGroups(module: string): MenuGroup[] {
                 title: 'Getting Started',
                 items: [
                     {
-                        title: 'Philosophy',
-                        href: '/docs/recipes/philosophy',
-                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
-                    },
-                    {
                         title: 'Architecture',
                         href: '/docs/recipes/architecture',
                         icon: <CuboidIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
+                        title: 'Philosophy',
+                        href: '/docs/recipes/philosophy',
+                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
             {
                 title: 'Form Management',
                 items: [
+                    {
+                        title: 'Overview',
+                        href: '/docs/recipes/form-overview',
+                    },
                     {
                         title: 'Basic Form',
                         href: '/docs/recipes/form-basic',
@@ -212,11 +216,11 @@ function getMenuGroups(module: string): MenuGroup[] {
                 ],
             },
             {
-                title: 'Data Fetching',
+                title: 'State Management',
                 items: [
                     {
-                        title: 'Data Fetching',
-                        href: '/docs/recipes/data-fetching',
+                        title: 'Overview',
+                        href: '/docs/recipes/data-fetching-overview',
                     },
                 ],
             },
@@ -232,12 +236,12 @@ export function SidebarMenu() {
 
     return (
         <div className="relative h-full z-[1]">
-            <div className="absolute z-[1] top-0 left-0 right-6 h-5 bg-gradient-to-b from-background to-transparent pointer-events-none"></div>
+            <div className="absolute z-[1] top-0 left-0 right-6 h-8 bg-gradient-to-b from-background to-transparent pointer-events-none"></div>
             <div className="absolute inset-0">
-                <ScrollArea className="h-full  -translate-x-px">
+                <ScrollArea className="h-full -translate-x-px">
                     <div className="">
                         <div className="pb-24">
-                            <div className="h-8" />
+                            <div className="h-6" />
                             {groups.map(group => (
                                 <div className="mb-6 space-y-1" key={group.title}>
                                     {group.title && (
