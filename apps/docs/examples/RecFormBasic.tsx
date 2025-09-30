@@ -6,20 +6,20 @@ import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
 import { Input } from '@workspace/ui/components/Textfield'
 
-interface FormInputs {
+interface FormValues {
     email: string
     name: string
 }
 
 export function RecFormBasic() {
-    const form = useForm<FormInputs>({
+    const form = useForm<FormValues>({
         defaultValues: {
             email: '',
             name: '',
         },
     })
 
-    const onSubmit = (data: FormInputs) => {
+    const onSubmit = (data: FormValues) => {
         toast.neutral({
             title: 'You submitted the following values',
             description: <code>{JSON.stringify(data)}</code>,

@@ -7,14 +7,14 @@ import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
 import { BsDateRangePicker, BsDateRangePickerValue } from '@workspace/ui/components/DatePicker'
 
-interface FormData {
+interface FormValues {
     dateRange?: BsDateRangePickerValue
 }
 
 export function DateRangePickerForm() {
-    const form = useForm<FormData>()
+    const form = useForm<FormValues>()
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: (

@@ -8,14 +8,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from '@workspace/ui
 import { Switch } from '@workspace/ui/components/Switch'
 import { Separator } from '@workspace/ui/components/Separator'
 
-interface FormData {
+interface FormValues {
     airplaneMode: boolean
     wifi: boolean
     bluetooth: boolean
 }
 
 export function SwitchForm() {
-    const form = useForm<FormData>({
+    const form = useForm<FormValues>({
         defaultValues: {
             airplaneMode: false,
             wifi: true,
@@ -23,7 +23,7 @@ export function SwitchForm() {
         },
     })
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: (

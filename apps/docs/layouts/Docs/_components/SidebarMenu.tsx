@@ -185,6 +185,30 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Basic Form',
                         href: '/docs/recipes/form-basic',
                     },
+                    {
+                        title: 'Validation Form',
+                        href: '/docs/recipes/form-validation',
+                    },
+                    {
+                        title: 'Conditional Fields',
+                        href: '/docs/recipes/form-conditional-fields',
+                    },
+                    {
+                        title: 'Field Array',
+                        href: '/docs/recipes/form-field-array',
+                    },
+                    {
+                        title: 'Large Form',
+                        href: '/docs/recipes/form-large',
+                    },
+                    {
+                        title: 'Submission Errors',
+                        href: '/docs/recipes/form-submission-errors',
+                    },
+                    {
+                        title: 'Dependent Validation',
+                        href: '/docs/recipes/form-dependant-validation',
+                    },
                 ],
             },
             {

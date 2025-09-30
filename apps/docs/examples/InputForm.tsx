@@ -8,18 +8,18 @@ import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
 import { Input } from '@workspace/ui/components/Textfield'
 
-interface FormData {
+interface FormValues {
     username: string
 }
 
 export function InputForm() {
-    const form = useForm<FormData>({
+    const form = useForm<FormValues>({
         defaultValues: {
             username: '',
         },
     })
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: <code>{JSON.stringify(data)}</code>,

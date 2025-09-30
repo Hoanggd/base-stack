@@ -7,18 +7,18 @@ import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
 import { BsDatePicker } from '@workspace/ui/components/DatePicker'
 
-interface FormData {
+interface FormValues {
     startDate: string
 }
 
 export function DatePickerForm() {
-    const form = useForm<FormData>({
+    const form = useForm<FormValues>({
         defaultValues: {
             startDate: '',
         },
     })
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: (

@@ -8,15 +8,15 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { BsTimeField } from '@workspace/ui/components/Datefield'
 import { BsDatePicker } from '@workspace/ui/components/DatePicker'
 
-interface FormData {
+interface FormValues {
     appointmentTime: string
     appointmentDate: string
 }
 
 export function TimeFieldForm() {
-    const form = useForm<FormData>()
+    const form = useForm<FormValues>()
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: (

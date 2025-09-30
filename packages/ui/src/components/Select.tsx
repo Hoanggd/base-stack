@@ -422,7 +422,9 @@ function BsSelectItem<S extends BsSelectOption>(
                             {props.renderOption ? props.renderOption(props.value as S) : props.children}
                         </div>
                     </div>
-                    <div className="w-5 flex items-center justify-center">{isSelected && <CheckIcon size={16} />}</div>
+                    <div className="w-5 flex items-center justify-center text-green-500 dark:text-green-400 group-data-hovered:text-white">
+                        {isSelected && <CheckIcon size={16} />}
+                    </div>
                 </>
             )}
         </ListBoxItem>

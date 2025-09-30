@@ -9,20 +9,20 @@ import { RadioGroup, Radio } from '@workspace/ui/components/RadioGroup'
 import { Separator } from '@workspace/ui/components/Separator'
 import { z } from '@workspace/ui/lib/zod'
 
-interface FormData {
+interface FormValues {
     shippingMethod: string
     paymentMethod: string
 }
 
 export function RadioGroupForm() {
-    const form = useForm<FormData>({
+    const form = useForm<FormValues>({
         defaultValues: {
             shippingMethod: '',
             paymentMethod: '',
         },
     })
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: (

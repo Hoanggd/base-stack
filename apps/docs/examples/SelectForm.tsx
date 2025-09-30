@@ -8,7 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { BsSelect, BsMultipleSelect } from '@workspace/ui/components/Select'
 import { z } from '@workspace/ui/lib/zod'
 
-interface FormData {
+interface FormValues {
     languages: Array<string>
     role: string
 }
@@ -27,9 +27,9 @@ const roleOptions = [
 ]
 
 export function SelectForm() {
-    const form = useForm<FormData>()
+    const form = useForm<FormValues>()
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: (

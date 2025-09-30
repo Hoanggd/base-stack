@@ -8,14 +8,14 @@ import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
 import { BsNumberField } from '@workspace/ui/components/Numberfield'
 
-interface FormData {
+interface FormValues {
     age: number
 }
 
 export function NumberFieldForm() {
-    const form = useForm<FormData>()
+    const form = useForm<FormValues>()
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: (

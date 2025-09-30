@@ -5,18 +5,18 @@ import { toast } from '@workspace/ui/components/Sonner'
 
 import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
-import { Checkbox } from '@workspace/ui/components/Checkbox'
+import { BsCheckbox, BsCheckboxGroup, Checkbox } from '@workspace/ui/components/Checkbox'
 import { CheckboxGroup } from '@workspace/ui/components/Checkbox'
 import { TextArea } from '@workspace/ui/components/Textfield'
 
-interface FormData {
+interface FormValues {
     interest: Array<string>
     bio: string
     acceptTerm: boolean
 }
 
 export function CheckboxForm() {
-    const form = useForm<FormData>({
+    const form = useForm<FormValues>({
         defaultValues: {
             interest: [],
             bio: '',
@@ -24,7 +24,7 @@ export function CheckboxForm() {
         },
     })
 
-    function onSubmit(data: FormData) {
+    function onSubmit(data: FormValues) {
         toast.neutral({
             title: 'You submitted the following values',
             description: (
@@ -43,15 +43,16 @@ export function CheckboxForm() {
                     name="interest"
                     render={({ field }) => (
                         <FormItem>
+                            <FormLabel>Select your interests</FormLabel>
                             <FormControl>
-                                <CheckboxGroup {...field}>
-                                    <FormLabel>Select your interests</FormLabel>
-                                    <div className="grid grid-cols-3 gap-4">
-                                        <Checkbox value="reading">Reading</Checkbox>
-                                        <Checkbox value="writing">Writing</Checkbox>
-                                        <Checkbox value="coding">Coding</Checkbox>
-                                    </div>
-                                </CheckboxGroup>
+                                <BsCheckboxGroup
+                                    {...field}
+                                    options={[
+                                        { id: 'reading', name: 'Reading' },
+                                        { id: 'writing', name: 'Writing' },
+                                        { id: 'coding', name: 'Coding' },
+                                    ]}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
