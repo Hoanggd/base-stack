@@ -62,4 +62,28 @@ const Checkbox = ({ className, children, ...props }: AriaCheckboxProps) => (
     </AriaCheckbox>
 )
 
-export { Checkbox, CheckboxGroup }
+interface BsCheckboxGroupOption {
+    id: string
+    name: string
+}
+
+interface BsCheckboxProps extends AriaCheckboxGroupProps {
+    options: Array<BsCheckboxGroupOption>
+}
+
+function BsCheckboxGroup({ options, className, ...props }: BsCheckboxProps) {
+    return (
+        <CheckboxGroup {...props}>
+            <div className={cn('grid grid-cols-3 gap-4', className)}>
+                {options.map(option => (
+                    <Checkbox key={option.id} value={option.id}>
+                        {option.name}
+                    </Checkbox>
+                ))}
+            </div>
+        </CheckboxGroup>
+    )
+}
+
+export { Checkbox, CheckboxGroup, BsCheckboxGroup }
+export type { BsCheckboxProps, BsCheckboxGroupOption }

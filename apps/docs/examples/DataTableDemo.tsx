@@ -44,18 +44,6 @@ const payments: Array<Payment> = [
         transactionDate: '2021-01-03',
         paymentReference: 'PAY-00789',
     },
-    {
-        id: '4',
-        email: 'david@wilson.com',
-        transactionDate: '2021-01-04',
-        paymentReference: 'PAY-00234',
-    },
-    {
-        id: '5',
-        email: 'eva@brown.com',
-        transactionDate: '2021-01-05',
-        paymentReference: 'PAY-00567',
-    },
 ]
 
 export function DataTableDemo() {

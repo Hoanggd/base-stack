@@ -9,5 +9,5 @@ const languages = [
 ]
 
 export function SelectMultipleSearchable() {
-    return <BsMultipleSelect options={languages} isSearchable isClearable />
+    return <BsMultipleSelect options={languages} isSearchable />
 }

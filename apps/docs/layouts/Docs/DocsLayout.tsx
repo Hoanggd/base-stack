@@ -4,9 +4,10 @@ import { CrossIcon } from '@/layouts/Docs/_components/Icons'
 import { ModulePicker } from '@/layouts/Docs/_components/ModulePicker'
 import { SidebarHeader } from '@/layouts/Docs/_components/SidebarHeader'
 import { SidebarMenu } from '@/layouts/Docs/_components/SidebarMenu'
-import { DocsSearch } from '@/layouts/_shared/DocsSearch'
 import React from 'react'
-import { HamburgerMenu } from './_components/HamburgerMenu'
+import { HamburgerMenu } from '@/layouts/Docs/_components/HamburgerMenu'
+import { TopNavLinks } from '@/layouts/_shared/TopNavLinks'
+import { HeaderIconButtons } from '@/layouts/_shared/HeaderIconButtons'
 
 export function DocsLayout({ children, tocs }: { children: React.ReactNode; tocs: React.ReactNode }) {
     return (
@@ -22,8 +23,10 @@ export function DocsLayout({ children, tocs }: { children: React.ReactNode; tocs
                         <div className="border-l h-full">
                             <SidebarHeader />
                         </div>
-                        <div className="flex items-center px-4 border-x">
-                            <DocsSearch />
+                        <div className="flex items-center border-x px-10">
+                            <TopNavLinks />
+                            <div className="flex-1" />
+                            <HeaderIconButtons />
                         </div>
                         <div className="border-r h-full max-xl:hidden"></div>
                     </div>
@@ -40,7 +43,7 @@ export function DocsLayout({ children, tocs }: { children: React.ReactNode; tocs
                 <div className="min-h-screen grid lg:grid-cols-[260px_1fr] xl:grid-cols-[260px_1fr_260px]">
                     <div className="h-full max-lg:hidden">
                         <div className="w-[260px] h-full fixed border-l pt-16">
-                            {/* <ModulePicker /> */}
+                            <ModulePicker />
                             <SidebarMenu />
                         </div>
                     </div>

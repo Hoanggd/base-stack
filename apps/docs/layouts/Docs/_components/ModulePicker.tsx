@@ -1,43 +1,39 @@
 'use client'
 
-import { PhasorFormIcon, PhasorTemplateIcon, PhasorUiIcon } from '@/layouts/Docs/_components/Icons'
-import { Popover, PopoverDialog, PopoverTrigger } from '@workspace/ui/components/Popover'
 import { Button } from '@workspace/ui/components/Button'
-import { ChevronDown } from 'lucide-react'
+import { Popover, PopoverDialog, PopoverTrigger } from '@workspace/ui/components/Popover'
+import { cn } from '@workspace/ui/lib/utils'
+import { BookIcon, ChevronDown, Layers2Icon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export enum ModuleValue {
     UI = 'ui',
-    Form = 'form',
-    Template = 'template',
+    Recipe = 'recipes',
 }
 
-type Module = {
+interface Module {
     value: ModuleValue
     label: string
     icon: React.ReactNode
     description: string
+    className?: string
 }
 
 const modules: Module[] = [
     {
         value: ModuleValue.UI,
-        label: 'phasor/ui',
-        icon: <PhasorUiIcon />,
+        label: 'Components',
+        icon: <Layers2Icon className="size-4!" />,
         description: 'Re-usable components',
+        className: 'text-sky-500 bg-sky-500/10 border-sky-500/20',
     },
     {
-        value: ModuleValue.Form,
-        label: 'phasor/form',
-        icon: <PhasorFormIcon />,
-        description: 'Manage form state',
-    },
-    {
-        value: ModuleValue.Template,
-        label: 'phasor/template',
-        icon: <PhasorTemplateIcon />,
-        description: 'Official Phasor templates',
+        value: ModuleValue.Recipe,
+        label: 'Recipes',
+        icon: <BookIcon className="size-4!" />,
+        description: 'Recipes and patterns',
+        className: 'text-green-500 bg-green-600/10 border-green-500/20',
     },
 ]
 
@@ -45,27 +41,35 @@ export function ModulePicker() {
     const selectedModule = useModulePicker()
 
     return (
-        <div className="p-2 py-2 z-[2] relative">
+        <div className="pt-6 pb-2 px-6 z-[2] relative">
             <PopoverTrigger>
-                <Button
-                    variant="unstyled"
-                    className="text-start w-full rounded-lg transition-colors flex items-center gap-3 p-1.5 hover:bg-neutral-100 data-[state=open]:bg-neutral-100"
-                >
+                <Button variant="unstyled" className="text-start w-full transition-colors flex items-center gap-2 p-0">
                     <ModuleItem module={selectedModule} />
                     <ChevronDown className="ml-auto w-4 h-4 text-neutral-500" />
                 </Button>
-                <Popover>
-                    <PopoverDialog className="w-[242px] p-2">
-                        <div className="flex flex-col gap-1">
-                            {modules.map(item => (
-                                <Link
-                                    href={`/${item.value}`}
-                                    className="text-start w-full rounded-md flex items-center gap-3 p-1.5 hover:bg-neutral-400/10"
-                                >
-                                    <ModuleItem module={item} />
-                                </Link>
-                            ))}
-                        </div>
+                <Popover offset={8} className="rounded-[12px]">
+                    <PopoverDialog className="p-1 w-(--trigger-width)">
+                        {({ close }) => (
+                            <div className="flex flex-col gap-1">
+                                {modules.map(item => {
+                                    const isSelected = item.value === selectedModule.value
+
+                                    return (
+                                        <Link
+                                            onClick={close}
+                                            key={item.value}
+                                            href={`/docs/${item.value}`}
+                                            className={cn(
+                                                'text-start w-full flex items-center gap-2 p-1 hover:bg-neutral-400/5 rounded-md',
+                                                isSelected && 'bg-neutral-400/10!',
+                                            )}
+                                        >
+                                            <ModuleItem module={item} />
+                                        </Link>
+                                    )
+                                })}
+                            </div>
+                        )}
                     </PopoverDialog>
                 </Popover>
             </PopoverTrigger>
@@ -76,10 +80,12 @@ export function ModulePicker() {
 function ModuleItem({ module }: { module: Module }) {
     return (
         <>
-            <div className="grid place-items-center w-10 h-10 rounded-lg bg-neutral-50">{module.icon}</div>
+            <div className={cn('grid place-items-center w-9 h-9 rounded-sm bg-neutral-400/10', module.className)}>
+                {module.icon}
+            </div>
             <div>
                 <p className="text-sm font-semibold">{module.label}</p>
-                <p className="text-xs text-neutral-500 whitespace-nowrap">{module.description}</p>
+                <p className="text-xs text-muted-foreground whitespace-nowrap">{module.description}</p>
             </div>
         </>
     )
@@ -87,7 +93,7 @@ function ModuleItem({ module }: { module: Module }) {
 
 export function useModulePicker() {
     const pathname = usePathname()
-    const selectedModule = modules.find(item => pathname.startsWith(`/${item.value}`)) || modules[0]
+    const selectedModule = modules.find(item => pathname.startsWith(`/docs/${item.value}`)) || modules[0]
 
     return selectedModule
 }

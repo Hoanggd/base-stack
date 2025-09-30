@@ -1,29 +1,30 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
+import { toast } from '@workspace/ui/components/Sonner'
 import { z } from '@workspace/ui/lib/zod'
 
 import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
 import { TextArea } from '@workspace/ui/components/Textfield'
 
-interface FormData {
+interface FormValues {
     bio: string
 }
 
 export function TextAreaForm() {
-    const form = useForm<FormData>({
+    const form = useForm<FormValues>({
         defaultValues: {
             bio: '',
         },
     })
 
-    function onSubmit(data: FormData) {
-        toast('You submitted the following values', {
+    function onSubmit(data: FormValues) {
+        toast.neutral({
+            title: 'You submitted the following values',
             description: (
-                <pre className="mt-2 w-[320px] rounded-md bg-background-tertiary p-4">
-                    <code className="text-foreground">{JSON.stringify(data, null, 2)}</code>
+                <pre>
+                    <code>{JSON.stringify(data, null, 2)}</code>
                 </pre>
             ),
         })

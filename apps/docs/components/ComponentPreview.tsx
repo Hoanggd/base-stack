@@ -4,6 +4,7 @@ import { highlightCode } from '@/lib/highlight-code'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
 import dynamic from 'next/dynamic'
+import { ComponentPreviewCollapsible } from './ComponentPreviewCollapsible'
 
 export type ComponentPreviewProps = {
     name: string
@@ -25,11 +26,8 @@ export async function ComponentPreview({ name, className }: ComponentPreviewProp
                 <div className="relative border rounded-sm overflow-hidden ">
                     <CopyToClipboard text={code} className="absolute right-2 top-2 z-[1]" />
                     <div className="">
-                        <ScrollArea className="grid">
-                            <div
-                                dangerouslySetInnerHTML={{ __html: out }}
-                                className="max-h-[400px] [&>pre]:my-0 [&>pre]:rounded-none"
-                            ></div>
+                        <ScrollArea className="grid" showVerticalScrollbar={false}>
+                            <ComponentPreviewCollapsible html={out} />
                         </ScrollArea>
                     </div>
                 </div>

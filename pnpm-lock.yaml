@@ -324,6 +324,9 @@ importers:
       '@tanstack/react-table':
         specifier: 'catalog:'
         version: 8.21.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@xstate/store':
+        specifier: ^3.9.2
+        version: 3.9.2(react@19.1.1)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -2211,6 +2214,17 @@ packages:
       xstate: ^5.19.4
     peerDependenciesMeta:
       xstate:
+        optional: true
+
+  '@xstate/store@3.9.2':
+    resolution: {integrity: sha512-wOMS4WNrDA3STbO8JtGnOvFdXlIG4rCRsWas7MNljFm87lQUIL3dj7yQ2Smb5WQq/M88gYLd9Ju2d+cyLBRt1Q==}
+    peerDependencies:
+      react: ^18.2.0 || ^19.0.0
+      solid-js: ^1.7.6
+    peerDependenciesMeta:
+      react:
+        optional: true
+      solid-js:
         optional: true
 
   acorn-jsx@5.3.2:
@@ -6908,6 +6922,10 @@ snapshots:
       xstate: 5.20.2
     transitivePeerDependencies:
       - '@types/react'
+
+  '@xstate/store@3.9.2(react@19.1.1)':
+    optionalDependencies:
+      react: 19.1.1
 
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:

@@ -1,12 +1,12 @@
 'use client'
 
 import * as React from 'react'
-import * as LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
 import {
     Controller,
     FormProvider,
     useFormContext,
+    UseFormReturn,
     useFormState,
     type ControllerProps,
     type FieldPath,
@@ -15,6 +15,7 @@ import {
 
 import { cn } from '@workspace/ui/lib/utils'
 import { Label } from '@workspace/ui/components/Field'
+import { LabelProps } from 'react-aria-components'
 
 const Form = FormProvider
 
@@ -88,7 +89,7 @@ function FormItem({ className, flow = 'column', ...props }: React.ComponentProps
     )
 }
 
-function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>) {
+function FormLabel({ className, ...props }: LabelProps) {
     const { error, formItemId } = useFormField()
 
     return (
@@ -144,4 +145,27 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
     )
 }
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField }
+function setSubmitErrors(form: UseFormReturn<any>, error: Record<string, string>) {
+    try {
+        Object.entries(error).forEach(([key, value]) => {
+            form.setError(key, { message: value })
+        })
+        
+        // focus the first error
+        form.setFocus(Object.keys(error)[0] as string)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export {
+    useFormField,
+    Form,
+    FormItem,
+    FormLabel,
+    FormControl,
+    FormDescription,
+    FormMessage,
+    FormField,
+    setSubmitErrors,
+}

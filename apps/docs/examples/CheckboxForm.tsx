@@ -1,22 +1,22 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
+import { toast } from '@workspace/ui/components/Sonner'
 
 import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
-import { Checkbox } from '@workspace/ui/components/Checkbox'
+import { BsCheckbox, BsCheckboxGroup, Checkbox } from '@workspace/ui/components/Checkbox'
 import { CheckboxGroup } from '@workspace/ui/components/Checkbox'
 import { TextArea } from '@workspace/ui/components/Textfield'
 
-interface FormData {
+interface FormValues {
     interest: Array<string>
     bio: string
     acceptTerm: boolean
 }
 
 export function CheckboxForm() {
-    const form = useForm<FormData>({
+    const form = useForm<FormValues>({
         defaultValues: {
             interest: [],
             bio: '',
@@ -24,11 +24,12 @@ export function CheckboxForm() {
         },
     })
 
-    function onSubmit(data: FormData) {
-        toast('You submitted the following values', {
+    function onSubmit(data: FormValues) {
+        toast.neutral({
+            title: 'You submitted the following values',
             description: (
-                <pre className="mt-2 w-[320px] rounded-md bg-background-tertiary p-4">
-                    <code className="text-foreground">{JSON.stringify(data, null, 2)}</code>
+                <pre>
+                    <code>{JSON.stringify(data, null, 2)}</code>
                 </pre>
             ),
         })
@@ -42,15 +43,16 @@ export function CheckboxForm() {
                     name="interest"
                     render={({ field }) => (
                         <FormItem>
+                            <FormLabel>Select your interests</FormLabel>
                             <FormControl>
-                                <CheckboxGroup {...field}>
-                                    <FormLabel>Select your interests</FormLabel>
-                                    <div className="grid grid-cols-3 gap-4">
-                                        <Checkbox value="reading">Reading</Checkbox>
-                                        <Checkbox value="writing">Writing</Checkbox>
-                                        <Checkbox value="coding">Coding</Checkbox>
-                                    </div>
-                                </CheckboxGroup>
+                                <BsCheckboxGroup
+                                    {...field}
+                                    options={[
+                                        { id: 'reading', name: 'Reading' },
+                                        { id: 'writing', name: 'Writing' },
+                                        { id: 'coding', name: 'Coding' },
+                                    ]}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -77,8 +79,10 @@ export function CheckboxForm() {
                     }}
                     render={({ field }) => (
                         <FormItem>
-                            <FormControl {...field}>
-                                <Checkbox>I accept the terms and conditions</Checkbox>
+                            <FormControl>
+                                <Checkbox isSelected={field.value} onChange={field.onChange}>
+                                    I accept the terms and conditions
+                                </Checkbox>
                             </FormControl>
                             <FormMessage />
                         </FormItem>

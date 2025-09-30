@@ -1,4 +1,4 @@
-import { Label } from '@workspace/ui/components/field'
+import { Label } from '@workspace/ui/components/Field'
 import { BsNumberField } from '@workspace/ui/components/Numberfield'
 
 export function NumberFieldWithLabel() {

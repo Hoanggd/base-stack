@@ -5,7 +5,7 @@ import { createColumnHelper } from '@tanstack/react-table'
 import { DataTable } from '@workspace/ui/components/DataTable'
 import { Button } from '@workspace/ui/components/Button'
 
-type User = {
+interface User {
     id: string
     name: string
     email: string
@@ -86,7 +86,7 @@ export function DataTableRowSelection() {
                         <Button variant="destructive" onClick={() => handleBulkAction('Delete')}>
                             Delete Selected
                         </Button>
-                        <Button variant="secondary" onClick={() => handleBulkAction('Export')}>
+                        <Button variant="outline" onClick={() => handleBulkAction('Export')}>
                             Export Selected
                         </Button>
                     </div>

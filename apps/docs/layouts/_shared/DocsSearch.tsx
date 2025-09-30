@@ -1,6 +1,10 @@
-import { BsSearchField } from '@workspace/ui/components/Searchfield'
-import { cn } from '@workspace/ui/lib/utils'
+import { Button } from '@workspace/ui/components/Button'
+import { SearchIcon } from 'lucide-react'
 
-export function DocsSearch({ className }: { className?: string }) {
-    return <BsSearchField placeholder="Search docs" className={cn('w-[260px] bg-transparent', className)} />
+export function DocsSearch() {
+    return (
+        <Button size="icon" variant="ghost">
+            <SearchIcon />
+        </Button>
+    )
 }

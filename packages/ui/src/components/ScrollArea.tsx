@@ -5,7 +5,18 @@ import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 
 import { cn } from '@workspace/ui/lib/utils'
 
-function ScrollArea({ className, children, ...props }: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {
+interface ScrollAreaProps extends React.ComponentProps<typeof ScrollAreaPrimitive.Root> {
+    showHorizontalScrollbar?: boolean
+    showVerticalScrollbar?: boolean
+}
+
+function ScrollArea({
+    className,
+    children,
+    showHorizontalScrollbar = true,
+    showVerticalScrollbar = true,
+    ...props
+}: ScrollAreaProps) {
     return (
         <ScrollAreaPrimitive.Root data-slot="scroll-area" className={cn('relative', className)} {...props}>
             <ScrollAreaPrimitive.Viewport
@@ -14,8 +25,8 @@ function ScrollArea({ className, children, ...props }: React.ComponentProps<type
             >
                 {children}
             </ScrollAreaPrimitive.Viewport>
-            <ScrollBar orientation="horizontal" />
-            <ScrollBar orientation="vertical" />
+            {showHorizontalScrollbar && <ScrollBar orientation="horizontal" />}
+            {showVerticalScrollbar && <ScrollBar orientation="vertical" />}
             <ScrollAreaPrimitive.Corner />
         </ScrollAreaPrimitive.Root>
     )

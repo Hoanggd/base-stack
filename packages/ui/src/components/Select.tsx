@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckIcon, ChevronsUpDownIcon, XIcon } from 'lucide-react'
+import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
 import React from 'react'
 import type { ListBoxItemProps } from 'react-aria-components'
 import { Select as AriaSelect, Autocomplete, ListBox, ListBoxItem, SelectValue, useFilter } from 'react-aria-components'
@@ -168,7 +168,7 @@ function BsSelect<S extends BsSelectOption>({
                     </div>
                 )}
 
-                <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
+                <ChevronDownIcon className="w-4 h-4 text-muted-foreground" />
             </Button>
             <Popover
                 isAnimated={false}
@@ -265,8 +265,8 @@ function BsMultipleSelect<S extends BsSelectOption>({
     renderOption,
     renderValue,
     isDisabled,
-    maxVisibleBadges = 2,
-    isClearable = true,
+    maxVisibleBadges = 3,
+    isClearable,
     onBlur,
     className,
     popoverClassName,
@@ -360,7 +360,7 @@ function BsMultipleSelect<S extends BsSelectOption>({
                     </div>
                 )}
 
-                <ChevronsUpDownIcon className="w-4 h-4 text-muted-foreground" />
+                <ChevronDownIcon className="w-4 h-4 text-muted-foreground" />
             </Button>
             <Popover
                 isAnimated={false}
@@ -422,7 +422,9 @@ function BsSelectItem<S extends BsSelectOption>(
                             {props.renderOption ? props.renderOption(props.value as S) : props.children}
                         </div>
                     </div>
-                    <div className="w-5 flex items-center justify-center">{isSelected && <CheckIcon size={16} />}</div>
+                    <div className="w-5 flex items-center justify-center text-green-500 dark:text-green-400 group-data-hovered:text-white">
+                        {isSelected && <CheckIcon size={16} />}
+                    </div>
                 </>
             )}
         </ListBoxItem>

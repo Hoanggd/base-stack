@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
 import { getLocalTimeZone, parseDate, today } from '@internationalized/date'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import React from 'react'
 import {
     Button as AriaButton,
     Calendar as AriaCalendar,
@@ -16,14 +16,10 @@ import {
     CalendarGridProps as AriaCalendarGridProps,
     CalendarHeaderCell as AriaCalendarHeaderCell,
     CalendarHeaderCellProps as AriaCalendarHeaderCellProps,
-    DateValue as AriaDateValue,
     Heading as AriaHeading,
     RangeCalendar as AriaRangeCalendar,
-    RangeCalendarProps as AriaRangeCalendarProps,
-    RangeCalendarStateContext as AriaRangeCalendarStateContext,
     composeRenderProps,
-    Text,
-    useLocale,
+    useLocale
 } from 'react-aria-components'
 
 import { cn } from '@workspace/ui/lib/utils'
@@ -37,7 +33,7 @@ const Calendar = AriaCalendar
 const RangeCalendar = AriaRangeCalendar
 
 const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
-    let { direction } = useLocale()
+    const { direction } = useLocale()
 
     return (
         <header className="flex w-full items-center gap-0.5 pb-1" {...props}>
@@ -177,16 +173,16 @@ function BsCalendar({
     )
 }
 
-interface RangeCalendarValue {
+interface BsRangeCalendarValue {
     start: string
     end: string
 }
 
 /** Accepts values in the format YYYY-MM-DD */
 interface BsRangeCalendarProps {
-    value?: RangeCalendarValue
-    onChange?: (value: RangeCalendarValue) => void
-    defaultValue?: RangeCalendarValue
+    value?: BsRangeCalendarValue
+    onChange?: (value: BsRangeCalendarValue) => void
+    defaultValue?: BsRangeCalendarValue
     className?: string
     variant?: 'default' | 'unstyled'
     minValue?: string
@@ -202,7 +198,7 @@ function BsRangeCalendar({
     className,
     variant = 'default',
 }: BsRangeCalendarProps) {
-    const [uncontrolledValue, uncontrolledOnChange] = React.useState<RangeCalendarValue | undefined>(defaultValue)
+    const [uncontrolledValue, uncontrolledOnChange] = React.useState<BsRangeCalendarValue | undefined>(defaultValue)
     const value = controlledValue ?? uncontrolledValue
     const onChange = controlledOnChange ?? uncontrolledOnChange
 
@@ -239,15 +235,14 @@ function BsRangeCalendar({
 }
 
 export {
-    Calendar,
+    BsCalendar,
+    BsRangeCalendar, Calendar,
     CalendarCell,
     CalendarGrid,
     CalendarGridBody,
     CalendarGridHeader,
     CalendarHeaderCell,
     CalendarHeading,
-    RangeCalendar,
-    BsCalendar,
-    BsRangeCalendar,
+    RangeCalendar
 }
-export type { BsCalendarProps, BsRangeCalendarProps, RangeCalendarValue }
+export type { BsCalendarProps, BsRangeCalendarProps, BsRangeCalendarValue }

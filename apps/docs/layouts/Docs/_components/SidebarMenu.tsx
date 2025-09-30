@@ -2,7 +2,7 @@
 import { ModuleValue, useModulePicker } from '@/layouts/Docs/_components/ModulePicker'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
-import { BoltIcon, BookOpen, BrainIcon } from 'lucide-react'
+import { BoltIcon, BookOpen, BrainIcon, CuboidIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -26,18 +26,13 @@ function getMenuGroups(module: string): MenuGroup[] {
                 items: [
                     {
                         title: 'Introduction',
-                        href: '/docs/getting-started/introduction',
+                        href: '/docs/ui/introduction',
                         icon: <BookOpen size={16} strokeWidth={1.5} />,
                     },
                     {
                         title: 'Installation',
-                        href: '/docs/getting-started/installation',
+                        href: '/docs/ui/installation',
                         icon: <BoltIcon size={16} strokeWidth={1.5} />,
-                    },
-                    {
-                        title: 'Philosophy',
-                        href: '/docs/getting-started/philosophy',
-                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
@@ -133,6 +128,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/dialog',
                     },
                     {
+                        title: 'ConfirmDialog',
+                        href: '/docs/ui/confirm-dialog',
+                    },
+                    {
                         title: 'Menu',
                         href: '/docs/ui/menu',
                     },
@@ -143,6 +142,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Tooltip',
                         href: '/docs/ui/tooltip',
+                    },
+                    {
+                        title: 'Sonner',
+                        href: '/docs/ui/sonner',
                     },
                 ],
             },
@@ -158,21 +161,73 @@ function getMenuGroups(module: string): MenuGroup[] {
         ]
     }
 
-    if (module === ModuleValue.Form) {
+    if (module === ModuleValue.Recipe) {
         return [
             {
-                title: 'Forms',
-                items: [],
+                title: 'Getting Started',
+                items: [
+                    {
+                        title: 'Architecture',
+                        href: '/docs/recipes/architecture',
+                        icon: <CuboidIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
+                        title: 'Philosophy',
+                        href: '/docs/recipes/philosophy',
+                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
+                    },
+                ],
+            },
+            {
+                title: 'Form Management',
+                items: [
+                    {
+                        title: 'Overview',
+                        href: '/docs/recipes/form-overview',
+                    },
+                    {
+                        title: 'Basic Form',
+                        href: '/docs/recipes/form-basic',
+                    },
+                    {
+                        title: 'Validation Form',
+                        href: '/docs/recipes/form-validation',
+                    },
+                    {
+                        title: 'Dependent Validation',
+                        href: '/docs/recipes/form-dependant-validation',
+                    },
+                    {
+                        title: 'Conditional Fields',
+                        href: '/docs/recipes/form-conditional-fields',
+                    },
+                    {
+                        title: 'Field Array',
+                        href: '/docs/recipes/form-field-array',
+                    },
+                    {
+                        title: 'Large Form',
+                        href: '/docs/recipes/form-large',
+                    },
+                    {
+                        title: 'Submission Errors',
+                        href: '/docs/recipes/form-submission-errors',
+                    },
+                ],
+            },
+            {
+                title: 'State Management',
+                items: [
+                    {
+                        title: 'Overview',
+                        href: '/docs/recipes/data-fetching-overview',
+                    },
+                ],
             },
         ]
     }
 
-    return [
-        {
-            title: 'Templates',
-            items: [],
-        },
-    ]
+    return []
 }
 
 export function SidebarMenu() {
@@ -181,19 +236,21 @@ export function SidebarMenu() {
 
     return (
         <div className="relative h-full z-[1]">
-            <div className="absolute z-[1] top-0 left-0 right-6 h-5 bg-gradient-to-b from-background to-transparent pointer-events-none"></div>
+            <div className="absolute z-[1] top-0 left-0 right-6 h-8 bg-gradient-to-b from-background to-transparent pointer-events-none"></div>
             <div className="absolute inset-0">
-                <ScrollArea className="h-full  -translate-x-px">
+                <ScrollArea className="h-full -translate-x-px">
                     <div className="">
                         <div className="pb-24">
-                            <div className="h-10" />
+                            <div className="h-6" />
                             {groups.map(group => (
-                                <div className="mb-7 space-y-1" key={group.title}>
-                                    <div>
-                                        <h3 className="px-6 flex items-center text-xs uppercase tracking-wide text-muted-foreground/70">
-                                            {group.title}
-                                        </h3>
-                                    </div>
+                                <div className="mb-6 space-y-1" key={group.title}>
+                                    {group.title && (
+                                        <div>
+                                            <h3 className="px-6 flex items-center text-xs uppercase tracking-wide text-muted-foreground/70">
+                                                {group.title}
+                                            </h3>
+                                        </div>
+                                    )}
                                     {group.items.map(item => (
                                         <MenuItem {...item} key={item.title} />
                                     ))}
