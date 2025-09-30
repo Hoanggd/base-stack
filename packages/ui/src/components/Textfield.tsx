@@ -1,14 +1,20 @@
 'use client'
 
+import React from 'react'
 import {
     Input as AriaInput,
     InputProps as AriaInputProps,
     TextArea as AriaTextArea,
     TextAreaProps as AriaTextAreaProps,
     composeRenderProps,
+    TextField as AriaTextField,
+    TextFieldProps as AriaTextFieldProps,
 } from 'react-aria-components'
 
 import { cn } from '@workspace/ui/lib/utils'
+import { FieldGroup } from '@workspace/ui/components/Field'
+import { Button } from './Button'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
 
 const Input = ({ className, ...props }: AriaInputProps) => {
     return (
@@ -29,6 +35,28 @@ const Input = ({ className, ...props }: AriaInputProps) => {
             )}
             {...props}
         />
+    )
+}
+
+interface PasswordInputProps extends AriaTextFieldProps {
+    placeholder?: string
+}
+
+const PasswordInput = ({ className, ...props }: PasswordInputProps) => {
+    const [isVisible, setIsVisible] = React.useState(false)
+
+    return (
+        <AriaTextField {...props} isInvalid={(props as any)['aria-invalid']}>
+            <FieldGroup className={cn('pl-3 pr-1 py-0', className)}>
+                <AriaInput
+                    type={isVisible ? 'text' : 'password'}
+                    className="h-full focus-visible:outline-none flex-1"
+                />
+                <Button variant="ghost" size="iconSm" onClick={() => setIsVisible(!isVisible)}>
+                    {isVisible ? <EyeIcon /> : <EyeOffIcon />}
+                </Button>
+            </FieldGroup>
+        </AriaTextField>
     )
 }
 
@@ -53,4 +81,4 @@ const TextArea = ({ className, ...props }: AriaTextAreaProps) => {
     )
 }
 
-export { Input, TextArea }
+export { Input, TextArea, PasswordInput }

@@ -81,15 +81,11 @@ function SearchFieldClear({ className, ...props }: AriaButtonProps) {
 }
 
 interface BsSearchFieldProps extends AriaSearchFieldProps {
-    description?: string
-    errorMessage?: string | ((validation: AriaValidationResult) => string)
     placeholder?: string
 }
 
 function BsSearchField({
-    description,
     className,
-    errorMessage,
     placeholder = 'Search...',
     ...props
 }: BsSearchFieldProps) {

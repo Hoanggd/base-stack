@@ -190,6 +190,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/recipes/form-validation',
                     },
                     {
+                        title: 'Dependent Validation',
+                        href: '/docs/recipes/form-dependant-validation',
+                    },
+                    {
                         title: 'Conditional Fields',
                         href: '/docs/recipes/form-conditional-fields',
                     },
@@ -204,10 +208,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Submission Errors',
                         href: '/docs/recipes/form-submission-errors',
-                    },
-                    {
-                        title: 'Dependent Validation',
-                        href: '/docs/recipes/form-dependant-validation',
                     },
                 ],
             },
