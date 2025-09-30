@@ -64,7 +64,7 @@ export function RecFormConditionalFields() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 container max-w-[500px]">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
                 <h2 className="text-xl font-semibold">Create User</h2>
                 <FormField
                     control={form.control}

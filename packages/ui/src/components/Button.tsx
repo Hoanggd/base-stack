@@ -7,7 +7,7 @@ import { cn } from '@workspace/ui/lib/utils'
 
 const buttonVariants = cva(
     [
-        'cursor-pointer font-medium inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-sm text-sm ring-offset-background transition-all no-underline',
+        'cursor-pointer font-medium inline-flex items-center gap-1.5 justify-center whitespace-nowrap rounded-sm text-sm ring-offset-background transition-all no-underline',
         'data-[hovered]:opacity-90 data-[pressed]:opacity-100',
         /* SVGs */
         '[&_svg]:pointer-events-none [&_svg]:size-[14px] [&_svg]:shrink-0 [&_svg]:stroke-2',
@@ -31,7 +31,7 @@ const buttonVariants = cva(
             },
             size: {
                 default: 'h-8 px-3 py-2',
-                sm: 'h-7 px-2',
+                sm: 'h-7 px-2 text-[13px]',
                 lg: 'h-9 px-4 rounded-md',
                 xl: 'h-11 px-4 text-base rounded-md',
                 icon: 'size-8',
