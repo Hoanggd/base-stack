@@ -4,6 +4,9 @@ description: Handle server-side submission errors and map them to fields.
 ---
 
 ## Usage
-<ComponentPreview name="RecFormSubmissionErrors" className="max-w-[500px] mx-auto" />
+Submission errors generally fall into two categories: field-specific errors and general form errors. Here’s a common approach to display both types:
+- For field-specific errors, use `setSubmitErrors`.
+- For general form errors, simply display a toast message.
+<ComponentPreview name="RecFormSubmissionErrors" className="max-w-[350px] mx-auto" />
 
 

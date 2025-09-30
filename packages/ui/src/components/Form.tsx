@@ -6,6 +6,7 @@ import {
     Controller,
     FormProvider,
     useFormContext,
+    UseFormReturn,
     useFormState,
     type ControllerProps,
     type FieldPath,
@@ -144,4 +145,27 @@ function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
     )
 }
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField }
+function setSubmitErrors(form: UseFormReturn<any>, error: Record<string, string>) {
+    try {
+        Object.entries(error).forEach(([key, value]) => {
+            form.setError(key, { message: value })
+        })
+        
+        // focus the first error
+        form.setFocus(Object.keys(error)[0] as string)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export {
+    useFormField,
+    Form,
+    FormItem,
+    FormLabel,
+    FormControl,
+    FormDescription,
+    FormMessage,
+    FormField,
+    setSubmitErrors,
+}
