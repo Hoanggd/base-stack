@@ -167,14 +167,14 @@ function getMenuGroups(module: string): MenuGroup[] {
                 title: 'Getting Started',
                 items: [
                     {
-                        title: 'Architecture',
-                        href: '/docs/recipes/architecture',
-                        icon: <CuboidIcon size={16} strokeWidth={1.5} />,
-                    },
-                    {
                         title: 'Philosophy',
                         href: '/docs/recipes/philosophy',
                         icon: <BrainIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
+                        title: 'Architecture',
+                        href: '/docs/recipes/architecture',
+                        icon: <CuboidIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
@@ -182,8 +182,8 @@ function getMenuGroups(module: string): MenuGroup[] {
                 title: 'Form Management',
                 items: [
                     {
-                        title: 'Form',
-                        href: '/docs/recipes/form',
+                        title: 'Basic Form',
+                        href: '/docs/recipes/form-basic',
                     },
                 ],
             },

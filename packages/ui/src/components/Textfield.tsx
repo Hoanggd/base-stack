@@ -13,6 +13,7 @@ import { cn } from '@workspace/ui/lib/utils'
 const Input = ({ className, ...props }: AriaInputProps) => {
     return (
         <AriaInput
+            autoComplete="off"
             className={composeRenderProps(className, className =>
                 cn(
                     'shadow-sm flex h-8 w-full rounded-sm bg-background-secondary px-3 py-1.5 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground',
