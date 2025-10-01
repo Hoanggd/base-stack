@@ -11,12 +11,12 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 interface DocPageProps {
-    params: {
+    params: Promise<{
         slug: string[]
-    }
+    }>
 }
 
-export async function generateStaticParams(): Promise<DocPageProps['params'][]> {
+export async function generateStaticParams(): Promise<Awaited<DocPageProps['params']>[]> {
     return allDocs.map(doc => ({
         slug: doc._raw.flattenedPath.split('/'),
     }))

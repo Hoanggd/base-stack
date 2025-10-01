@@ -1,12 +1,10 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
 import { toast } from '@workspace/ui/components/Sonner'
-
+import { useForm } from 'react-hook-form'
 import { Button } from '@workspace/ui/components/Button'
+import { BsCheckboxGroup, Checkbox } from '@workspace/ui/components/Checkbox'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
-import { BsCheckbox, BsCheckboxGroup, Checkbox } from '@workspace/ui/components/Checkbox'
-import { CheckboxGroup } from '@workspace/ui/components/Checkbox'
 import { TextArea } from '@workspace/ui/components/Textfield'
 
 interface FormValues {

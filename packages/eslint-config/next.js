@@ -35,6 +35,7 @@ export const nextJsConfig = [
             ...pluginNext.configs.recommended.rules,
             ...pluginNext.configs['core-web-vitals'].rules,
             '@typescript-eslint/no-explicit-any': 'off',
+            '@next/next/no-img-element': 'off',
         },
     },
     {

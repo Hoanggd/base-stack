@@ -1,6 +1,5 @@
 import { ComponentPreview } from '@/components/ComponentPreview'
 import { Button } from '@workspace/ui/components/Button'
-import { cn } from '@workspace/ui/lib/utils'
 import { useMDXComponent } from 'next-contentlayer2/hooks'
 import { MdxSnippet } from './MdxSnippet'
 
@@ -16,7 +15,7 @@ const components = {
 
         try {
             lang = (children as any).props.className?.split('language-')[1]
-        } catch (error) {
+        } catch {
             lang = 'bash'
         }
 
