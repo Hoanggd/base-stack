@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Get started with the UI package by cloning the repository and installing dependencies
+description: Get started with Base Stack using the CLI tool to create a new project
 ---
 
 ## Prerequisites
@@ -8,40 +8,46 @@ description: Get started with the UI package by cloning the repository and insta
 - [Node.js](https://nodejs.org/) (version 18 or higher)
 - [pnpm](https://pnpm.io/) package manager
 
-## Clone the Repository
+## Quick Start
 
+Create a new Base Stack application using the CLI tool:
+
+### npm
 ```bash
-git clone https://github.com/Hoanggd/base-stack
-cd base-stack
+npm create base-stack@latest
 ```
 
-## Install Dependencies
-
-Install all workspace dependencies using pnpm:
-
+### pnpm
 ```bash
-pnpm install
+pnpm create base-stack@latest
 ```
 
-This will install dependencies for all packages in the monorepo.
+### Available Options
+
+- `--stack <stack>`: Choose the stack (must be "next" or "vite")
+- `--docs`: Include documentation setup
+
+## Project Structure
+
+After running the CLI, you'll get a project with:
+
+- **Components**: Pre-built UI components from the Base Stack UI package
+- **Configuration**: Pre-configured TypeScript, ESLint, and build tools
+- **Documentation** (if included): Setup for component documentation
 
 ## Development
 
-To start the development servers for both projects:
+Navigate to your new project and start development:
 
 ```bash
+cd my-app
+pnpm install
 pnpm dev
 ```
 
-This will start two development servers:
-- **docs**: Documentation site at `http://localhost:9009`
-- **web**: Web application at `http://localhost:3000`
-
-The docs app showcases the UI components and documentation, while the web app is the main application.
-
 ## Building
 
-To build the project for production:
+To build your project for production:
 
 ```bash
 pnpm build

@@ -53,8 +53,14 @@ export async function main() {
         throw new InvalidArgumentError(`Invalid stack "${options.stack}". Allowed values are: ${STACKS.join(', ')}`)
     }
 
+    // Check if directory already exists
+    const targetPath = path.join(process.cwd(), projectDirectory)
+    if (fs.existsSync(targetPath)) {
+        throw new Error(`Directory "${projectDirectory}" already exists in the current directory. Please choose a different name or remove the existing directory.`)
+    }
+
     // copy template
-    fs.cpSync(path.join(__dirname, '..', 'templates', 'base'), path.join(process.cwd(), projectDirectory || APP_NAME), {
+    fs.cpSync(path.join(__dirname, '..', 'templates', 'base'), path.join(process.cwd(), projectDirectory), {
         recursive: true,
     })
 }

@@ -3,6 +3,7 @@ import { ArrowRightIcon, Database, FormInput, PackageIcon, ShieldCheck, SwatchBo
 import { Logo } from '@/components/Logo'
 import Link from 'next/link'
 import { Button } from '@workspace/ui/components/Button'
+import { CopyToClipboard } from '@/components/CopyToClipboard'
 
 export default function Home() {
     return (
@@ -15,17 +16,29 @@ export default function Home() {
                             Build Production Apps
                             <div>Faster Than Ever</div>
                         </h1>
-                        <p className="text-xl text-muted-foreground max-w-4xl mx-auto mb-8 leading-relaxed mt-6">
-                            A modern Next.js boilerplate with opinionated project structure, React Aria components,
-                            TanStack Query, and everything you need to start building immediately.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button variant="default" size="lg" asChild>
-                                <Link href="/docs/ui/installation">
-                                    Get Started
-                                    <ArrowRightIcon />
-                                </Link>
-                            </Button>
+                        <div>
+                            <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mt-6">
+                                A modern Next.js boilerplate with opinionated project structure, React Aria components,
+                                TanStack Query, and everything you need to start building immediately.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+                                <Button variant="default" size="xl" asChild>
+                                    <Link href="/docs/ui/installation">
+                                        Get Started
+                                    </Link>
+                                </Button>
+                                <Button variant="outline" size="xl" asChild>
+                                    <Link href="/docs/recipes">
+                                        Learn
+                                    </Link>
+                                </Button>
+                            </div>
+                            <div className="flex justify-center">
+                                <div className="flex items-center gap-1 font-mono text-sm text-muted-foreground pl-3 pr-1.5 py-1.5 bg-background-secondary rounded-md mt-6">
+                                    <span>npm create base-stack@latest</span>
+                                    <CopyToClipboard text="npm create base-stack@latest" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
