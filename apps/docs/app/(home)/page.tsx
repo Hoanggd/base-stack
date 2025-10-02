@@ -1,7 +1,8 @@
 import { Card, CardDescription, CardHeader, CardTitle } from '@workspace/ui/components/Card'
-import { Link } from '@workspace/ui/components/Link'
 import { ArrowRightIcon, Database, FormInput, PackageIcon, ShieldCheck, SwatchBook, Zap } from 'lucide-react'
-import { Logo } from '../../components/Logo'
+import { Logo } from '@/components/Logo'
+import Link from 'next/link'
+import { Button } from '@workspace/ui/components/Button'
 
 export default function Home() {
     return (
@@ -19,10 +20,12 @@ export default function Home() {
                             TanStack Query, and everything you need to start building immediately.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link variant="default" size="lg" href="/docs/ui/installation">
-                                Get Started
-                                <ArrowRightIcon />
-                            </Link>
+                            <Button variant="default" size="lg" asChild>
+                                <Link href="/docs/ui/installation">
+                                    Get Started
+                                    <ArrowRightIcon />
+                                </Link>
+                            </Button>
                         </div>
                     </div>
                 </div>

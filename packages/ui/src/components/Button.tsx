@@ -1,20 +1,20 @@
 'use client'
 
 import { cva, type VariantProps } from 'class-variance-authority'
-import { Button as AriaButton, composeRenderProps, type ButtonProps as AriaButtonProps } from 'react-aria-components'
-
 import { cn } from '@workspace/ui/lib/utils'
+import { Slot } from '@radix-ui/react-slot'
+import { Button as AriaButton, type ButtonProps as AriaButtonProps } from 'react-aria-components'
 
 const buttonVariants = cva(
     [
         'cursor-pointer font-medium inline-flex items-center gap-1.5 justify-center whitespace-nowrap rounded-sm text-sm ring-offset-background transition-all no-underline',
-        'data-[hovered]:opacity-90 data-[pressed]:opacity-100',
+        'hover:opacity-90 active:opacity-100',
         /* SVGs */
         '[&_svg]:pointer-events-none [&_svg]:size-[14px] [&_svg]:shrink-0 [&_svg]:stroke-2',
         /* Disabled */
-        'data-[disabled]:pointer-events-none data-[disabled]:opacity-60',
+        'disabled:pointer-events-none disabled:opacity-60',
         /* Focus Visible */
-        'data-[focus-visible]:outline-none data-[focus-visible]:ring-primary/40 data-[focus-visible]:ring-2 data-[focus-visible]:ring-offset-2',
+        'focus-visible:outline-none focus-visible:ring-primary/40 focus-visible:ring-2 focus-visible:ring-offset-2',
         /* Resets */
         'focus-visible:outline-none',
     ],
@@ -26,8 +26,8 @@ const buttonVariants = cva(
                 outline: 'bg-background-secondary shadow-sm border border-input text-foreground',
                 outlineDestructive: 'bg-background-secondary shadow-sm border border-input text-destructive',
                 secondary: 'border-transparent bg-neutral-500/15 text-secondary-foreground',
-                ghost: 'data-[hovered]:bg-accent data-[hovered]:text-accent-foreground data-[pressed]:bg-accent/50',
-                link: 'text-primary underline-offset-4 data-[hovered]:underline px-0! py-0! h-auto! underline',
+                ghost: 'hover:bg-accent hover:text-accent-foreground active:bg-accent/50',
+                link: 'text-primary underline-offset-4 hover:underline px-0! py-0! h-auto! underline',
                 unstyled: '',
             },
             size: {
@@ -49,23 +49,14 @@ const buttonVariants = cva(
 interface ButtonProps
     extends AriaButtonProps,
         React.RefAttributes<HTMLButtonElement>,
-        VariantProps<typeof buttonVariants> {}
+        VariantProps<typeof buttonVariants> {
+    asChild?: boolean
+}
 
-const Button = ({ className, variant, size, ...props }: ButtonProps) => {
-    return (
-        <AriaButton
-            className={composeRenderProps(className, className =>
-                cn(
-                    buttonVariants({
-                        variant,
-                        size,
-                        className,
-                    }),
-                ),
-            )}
-            {...props}
-        />
-    )
+function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
+    const Comp = (asChild ? Slot : AriaButton) as typeof AriaButton
+
+    return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />
 }
 
 export { Button, buttonVariants }

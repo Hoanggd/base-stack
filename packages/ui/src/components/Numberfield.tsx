@@ -2,6 +2,7 @@
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import {
+    Button as AriaButton,
     ButtonProps as AriaButtonProps,
     Input as AriaInput,
     InputProps as AriaInputProps,
@@ -10,7 +11,6 @@ import {
     composeRenderProps,
 } from 'react-aria-components'
 import { FieldGroup } from '@workspace/ui/components/Field'
-import { Button } from '@workspace/ui/components/Button'
 
 import { cn } from '@workspace/ui/lib/utils'
 import { Separator } from '@workspace/ui/components/Separator'
@@ -36,10 +36,10 @@ function NumberFieldSteppers({ className, ...props }: React.ComponentProps<'div'
         <div className={cn('absolute right-0 flex items-center', className)} {...props}>
             <Separator orientation="vertical" className="h-5" />
             <div className="flex flex-col px-1.5">
-                <NumberFieldStepper slot="increment" className="translate-y-0.5">
+                <NumberFieldStepper slot="increment" className="translate-y-0.5" aria-label="Increment">
                     <ChevronUp aria-hidden className="size-[14px]!" />
                 </NumberFieldStepper>
-                <NumberFieldStepper slot="decrement">
+                <NumberFieldStepper slot="decrement" aria-label="Decrement">
                     <ChevronDown aria-hidden className="size-[14px]! -translate-y-0.5" />
                 </NumberFieldStepper>
             </div>
@@ -49,14 +49,14 @@ function NumberFieldSteppers({ className, ...props }: React.ComponentProps<'div'
 
 function NumberFieldStepper({ className, ...props }: AriaButtonProps) {
     return (
-        <Button
+        <AriaButton
             className={composeRenderProps(className, className =>
                 cn(
-                    'w-auto grow rounded-none px-0.5 text-muted-foreground size-[14px] data-[hovered]:text-foreground cursor-pointer',
+                    'flex items-center justify-center',
+                    'w-auto grow rounded-none px-0.5 text-muted-foreground size-4 data-[hovered]:text-foreground cursor-pointer',
                     className,
                 ),
             )}
-            variant={'unstyled'}
             {...props}
         />
     )
@@ -71,6 +71,7 @@ interface BsNumberFieldProps extends AriaNumberFieldProps {
 function BsNumberField({ className, showStepper = true, placeholder, ...props }: BsNumberFieldProps) {
     return (
         <NumberField
+            aria-label="Number Field"
             className={composeRenderProps(className, className => cn('group flex flex-col gap-2', className))}
             isInvalid={props['aria-invalid']}
             {...props}

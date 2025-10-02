@@ -50,7 +50,7 @@ const DialogContent = ({
     children,
     role,
     closeButton = true,
-    isFullscreenOnMobile = true,
+    isFullscreenOnMobile = false,
     ...props
 }: DialogContentProps) => (
     <AriaModal

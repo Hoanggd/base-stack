@@ -2,12 +2,13 @@ import { TocPortal } from '@/app/docs/[[...slug]]/_components/TocPortal'
 import { Mdx } from '@/components/Mdx'
 import { DashboardTableOfContents } from '@/components/Toc'
 import { getTableOfContents } from '@/lib/toc'
-import { Link } from '@workspace/ui/components/Link'
+import { Button } from '@workspace/ui/components/Button'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
 import { allDocs } from 'contentlayer/generated'
 import { ArrowUpRight } from 'lucide-react'
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 interface DocPageProps {
@@ -67,9 +68,11 @@ export default async function DocPage({ params }: DocPageProps) {
                     <h1 className="mb-0 font-mono text-[40px]">{doc.title}</h1>
                     <p className="text-muted-foreground not-prose mt-2 mb-2">{doc.description}</p>
                     {doc.originalDocs && (
-                        <Link href={doc.originalDocs} target="_blank" variant="outline" size="sm">
-                            Docs <ArrowUpRight />
-                        </Link>
+                        <Button variant="outline" size="sm" asChild>
+                            <Link href={doc.originalDocs} target="_blank">
+                                Docs <ArrowUpRight />
+                            </Link>
+                        </Button>
                     )}
                 </div>
                 <Mdx code={doc.body.code} />
