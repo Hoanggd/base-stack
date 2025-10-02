@@ -4,11 +4,11 @@ import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 import { GITHUB_URL } from '@/constants/common'
 import { Button } from '@workspace/ui/components/Button'
 import { DialogContent, DialogOverlay, DialogTrigger } from '@workspace/ui/components/Dialog'
-import { Link } from '@workspace/ui/components/Link'
 import { MenuIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 import { SidebarMenu } from './SidebarMenu'
+import Link from 'next/link'
 
 export function HamburgerMenu() {
     const [isOpen, setIsOpen] = React.useState(false)
@@ -39,9 +39,11 @@ export function HamburgerMenu() {
             </DialogTrigger>
 
             <div className="flex items-center gap-1 ml-auto">
-                <Link href={GITHUB_URL} target="_blank" variant="ghost" size="icon">
-                    <GithubIcon />
-                </Link>
+                <Button variant="ghost" size="icon" asChild>
+                    <Link href={GITHUB_URL}>
+                        <GithubIcon />
+                    </Link>
+                </Button>
                 <ThemeSwitcher />
             </div>
         </div>

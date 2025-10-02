@@ -1,8 +1,9 @@
 'use client'
 
-import { Link } from '@workspace/ui/components/Link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@workspace/ui/lib/utils'
+import { Button } from '@workspace/ui/components/Button'
+import Link from 'next/link'
 
 const navLinks = [
     {
@@ -24,14 +25,14 @@ export function TopNavLinks() {
                 const isActive = pathname.includes(link.href)
 
                 return (
-                    <Link
-                        variant={'unstyled'}
-                        href={link.href}
+                    <Button
+                        asChild
                         key={link.href}
+                        variant={'unstyled'}
                         className={cn('px-0 text-muted-foreground', isActive && 'text-foreground')}
                     >
-                        {link.label}
-                    </Link>
+                        <Link href={link.href}>{link.label}</Link>
+                    </Button>
                 )
             })}
         </div>
