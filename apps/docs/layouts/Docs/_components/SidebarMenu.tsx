@@ -206,12 +206,12 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/recipes/form-field-array',
                     },
                     {
-                        title: 'Large Form',
-                        href: '/docs/recipes/form-large',
-                    },
-                    {
                         title: 'Submission Errors',
                         href: '/docs/recipes/form-submission-errors',
+                    },
+                    {
+                        title: 'Large Form',
+                        href: '/docs/recipes/form-large',
                     },
                 ],
             },

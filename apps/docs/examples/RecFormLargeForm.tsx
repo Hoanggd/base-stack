@@ -93,7 +93,9 @@ export function RecFormLargeForm() {
                 <Profile />
                 <WorkHistory />
                 <NotifyType />
-                <Button type="submit">Submit</Button>
+                <div className="py-6">
+                    <Button type="submit">Submit</Button>
+                </div>
             </form>
         </Form>
     )
