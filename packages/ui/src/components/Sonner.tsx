@@ -41,7 +41,7 @@ function ToastIcon({ variant }: { variant: ToastProps['variant'] }) {
     if (variant === 'neutral') {
         return null
     }
-    
+
     return (
         <div
             className={cn(

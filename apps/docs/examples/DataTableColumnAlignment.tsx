@@ -45,7 +45,7 @@ const columns = [
         header: 'Balance',
         meta: {
             className: 'text-right',
-        }
+        },
     }),
 ]
 

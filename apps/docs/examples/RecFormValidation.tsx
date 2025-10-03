@@ -60,7 +60,9 @@ export function RecFormValidation() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full">Sign up</Button>
+                <Button type="submit" className="w-full">
+                    Sign up
+                </Button>
             </form>
         </Form>
     )

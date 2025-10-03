@@ -19,7 +19,7 @@ import {
     Heading as AriaHeading,
     RangeCalendar as AriaRangeCalendar,
     composeRenderProps,
-    useLocale
+    useLocale,
 } from 'react-aria-components'
 
 import { cn } from '@workspace/ui/lib/utils'
@@ -236,13 +236,14 @@ function BsRangeCalendar({
 
 export {
     BsCalendar,
-    BsRangeCalendar, Calendar,
+    BsRangeCalendar,
+    Calendar,
     CalendarCell,
     CalendarGrid,
     CalendarGridBody,
     CalendarGridHeader,
     CalendarHeaderCell,
     CalendarHeading,
-    RangeCalendar
+    RangeCalendar,
 }
 export type { BsCalendarProps, BsRangeCalendarProps, BsRangeCalendarValue }

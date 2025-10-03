@@ -12,24 +12,24 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tanstack/react-query": "catalog:",
-    "@tanstack/react-query-devtools": "catalog:",
+    "@tanstack/react-query": "^5.87.1",
+    "@tanstack/react-query-devtools": "^5.87.1",
     "@workspace/ui": "workspace:*",
-    "lucide-react": "catalog:",
-    "next": "catalog:",
-    "next-themes": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "react-hook-form": "catalog:",
-    "zod": "catalog:"
+    "lucide-react": "^0.475.0",
+    "next": "^15.4.5",
+    "next-themes": "^0.4.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-hook-form": "^7.62.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/node": "^20.19.9",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
     "@workspace/eslint-config": "workspace:^",
     "@workspace/typescript-config": "workspace:*",
-    "eslint": "catalog:",
-    "typescript": "catalog:"
+    "eslint": "^9.35.0",
+    "typescript": "^5.9.2"
   }
 }

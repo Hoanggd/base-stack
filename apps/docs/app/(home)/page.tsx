@@ -23,14 +23,10 @@ export default function Home() {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                                 <Button variant="default" size="xl" asChild>
-                                    <Link href="/docs/ui/installation">
-                                        Get Started
-                                    </Link>
+                                    <Link href="/docs/ui/installation">Get Started</Link>
                                 </Button>
                                 <Button variant="outline" size="xl" asChild>
-                                    <Link href="/docs/recipes">
-                                        Learn
-                                    </Link>
+                                    <Link href="/docs/recipes">Learn</Link>
                                 </Button>
                             </div>
                             <div className="flex justify-center">

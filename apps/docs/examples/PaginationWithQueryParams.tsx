@@ -8,7 +8,7 @@ import { Suspense } from 'react'
  * nuqs uses useSearchParams under the hood, and in Next.js
  * useSearchParams must be used within a <Suspense> boundary.
  * That's why I split this into two components.
-*/
+ */
 
 function Component() {
     const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(0))

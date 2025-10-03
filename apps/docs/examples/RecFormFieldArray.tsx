@@ -104,11 +104,7 @@ function UserFields() {
                         )}
                     />
                     {fields.length > 1 && (
-                        <Button
-                            size="icon"
-                            variant="outlineDestructive"
-                            onClick={() => remove(index)}
-                        >
+                        <Button size="icon" variant="outlineDestructive" onClick={() => remove(index)}>
                             <Trash />
                         </Button>
                     )}

@@ -84,11 +84,7 @@ interface BsSearchFieldProps extends AriaSearchFieldProps {
     placeholder?: string
 }
 
-function BsSearchField({
-    className,
-    placeholder = 'Search...',
-    ...props
-}: BsSearchFieldProps) {
+function BsSearchField({ className, placeholder = 'Search...', ...props }: BsSearchFieldProps) {
     return (
         <SearchField className="group flex flex-col gap-2" {...props}>
             <FieldGroup className={() => cn('px-2', className)}>

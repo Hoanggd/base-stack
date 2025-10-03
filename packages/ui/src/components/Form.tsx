@@ -150,7 +150,7 @@ function setSubmitErrors(form: UseFormReturn<any>, error: Record<string, string>
         Object.entries(error).forEach(([key, value]) => {
             form.setError(key, { message: value })
         })
-        
+
         // focus the first error
         form.setFocus(Object.keys(error)[0] as string)
     } catch (error) {

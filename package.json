@@ -1,5 +1,5 @@
 {
-  "name": "shadcn-ui-monorepo",
+  "name": "base-stack",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,9 +11,9 @@
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "prettier": "catalog:",
+    "prettier": "^3.6.2",
     "turbo": "^2.5.5",
-    "typescript": "catalog:"
+    "typescript": "^5.9.2"
   },
   "packageManager": "pnpm@10.4.1",
   "engines": {
