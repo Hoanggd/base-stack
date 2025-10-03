@@ -23,6 +23,9 @@ const filter = (src: string) => {
 const baseDir = path.join(__dirname, '..', 'tooling', 'cli', 'templates', 'base')
 const extrasDir = path.join(__dirname, '..', 'tooling', 'cli', 'templates', 'extras')
 
+// clean templates folder
+fs.rmSync(path.join(__dirname, '..', 'tooling', 'cli', 'templates'), { recursive: true, force: true })
+
 // copy packages to tooling/cli/templates/base
 const packagesSource = path.join(__dirname, '..', 'packages')
 fs.cpSync(packagesSource, path.join(baseDir, 'packages'), {
@@ -31,9 +34,9 @@ fs.cpSync(packagesSource, path.join(baseDir, 'packages'), {
     filter,
 })
 
-// copy apps to tooling/cli/templates/base
+// copy apps to tooling/cli/templates/extras
 const appsSource = path.join(__dirname, '..', 'apps')
-fs.cpSync(appsSource, path.join(baseDir, 'apps'), {
+fs.cpSync(appsSource, path.join(extrasDir, 'apps'), {
     recursive: true,
     force: true,
     filter,
