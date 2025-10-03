@@ -1,10 +1,10 @@
 import { Command } from 'commander'
-import { STACKS } from '../consts'
+import { Stack, STACK_CHOICES } from '../consts'
 import { input, select } from '@inquirer/prompts'
 
 interface AddCliResult {
     name: string
-    stack: (typeof STACKS)[number]
+    stack: Stack
 }
 
 export const add = new Command()
@@ -23,7 +23,10 @@ export const add = new Command()
         if (!options.stack) {
             options.stack = await select({
                 message: 'What is the stack to use?',
-                choices: STACKS,
+                choices: STACK_CHOICES.map(stack => ({
+                    name: stack.name,
+                    value: stack.id,
+                })),
             })
         }
 
