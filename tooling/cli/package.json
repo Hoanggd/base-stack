@@ -1,8 +1,12 @@
 {
   "name": "base-stack",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "bin": {
     "base-stack": "./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoanggd/base-stack.git"
   },
   "scripts": {
     "build": "tsup",
