@@ -4,39 +4,51 @@ import * as fs from 'fs'
 import path from 'path'
 import { PROJECT_NAME, STACK_CHOICES, Stack } from '../consts'
 import { showError } from '../utils/error-handling'
+import chalk from 'chalk'
 
 interface InitCliResult {
     docs: boolean
     stack: Stack
+    projectDirectory: string
+    appDirectory: string
 }
 
 export const init = new Command()
     .name('init')
     .description('Create a new Base Stack project')
     .argument('[dir]', 'The name of the project, as well as the name of the directory to create')
-    .option('-d, --docs', 'include docs')
-    .option('-s, --stack <stack>', `specify the stack to use (${STACK_CHOICES.map(stack => stack.name).join(', ')}) `)
-    .action(async (projectDirectory, options: InitCliResult) => {
-        // Stage 1: Get CLI options
-        if (!projectDirectory) {
-            projectDirectory = await input({
+    .argument('[app]', 'The name of the application')
+    .option('-s, --stack <stack>', `specify the stack to use (${STACK_CHOICES.map(stack => stack.id).join(', ')}) `)
+    .action(async (projectDirectory, appDirectory, options) => {
+        const cliResult: InitCliResult = {
+            ...options,
+            projectDirectory,
+            appDirectory,
+        }
+
+        // ============================================================================
+        // STAGE 1: COLLECT USER INPUT & CLI OPTIONS
+        // ============================================================================
+        // Gather project name and stack selection either from CLI arguments or
+        // interactive prompts. This stage ensures we have all required information
+        // before proceeding with project creation.
+
+        if (!cliResult.projectDirectory) {
+            cliResult.projectDirectory = await input({
                 message: 'What is the name of the project?',
                 default: PROJECT_NAME,
-                validate: value => {
-                    // Check if directory already exists
-                    const targetPath = path.join(process.cwd(), value)
-                    if (fs.existsSync(targetPath)) {
-                        return 'Directory already exists. Please choose a different name or remove the existing directory.'
+                validate: input => {
+                    if (fs.existsSync(path.join(process.cwd(), input))) {
+                        return 'Project directory already exists. Please choose a different name or remove the existing directory.'
                     }
-
                     return true
                 },
             })
         }
 
-        if (!options.stack) {
-            options.stack = await select({
-                message: 'What is the stack to use?',
+        if (!cliResult.stack) {
+            cliResult.stack = await select({
+                message: 'Which stack would you like to use for your first application?',
                 choices: STACK_CHOICES.map(stack => ({
                     name: stack.name,
                     value: stack.id,
@@ -45,44 +57,97 @@ export const init = new Command()
             })
         }
 
-        if (!options.docs) {
-            options.docs = await confirm({
-                message: 'Do you want to include UI docs? (you can add this later)',
-                default: true,
+        if (!cliResult.appDirectory) {
+            cliResult.appDirectory = await input({
+                message: 'What is the name of the first application?',
+                default: cliResult.stack,
+                validate: input => {
+                    if (fs.existsSync(path.join(process.cwd(), cliResult.projectDirectory, 'apps', input))) {
+                        return 'Application directory already exists. Please choose a different name or remove the existing directory.'
+                    }
+                    return true
+                },
             })
         }
 
-        if (!STACK_CHOICES.some(stack => stack.id === options.stack)) {
+        // ============================================================================
+        // STAGE 2: VALIDATE INPUTS & CHECK PREREQUISITES
+        // ============================================================================
+        // Verify that the provided stack is valid and check if the target directory
+        // already exists. This prevents errors during the template copying phase.
+
+        if (!STACK_CHOICES.some(stack => stack.id === cliResult.stack)) {
             showError(
-                `Invalid stack "${options.stack}". Allowed values are: ${STACK_CHOICES.map(stack => stack.name).join(', ')}`,
+                `Invalid stack "${cliResult.stack}". Allowed values are: ${STACK_CHOICES.map(stack => stack.id).join(', ')}`,
             )
         }
 
-        // Stage 2: Copy template
-        const currentStack = STACK_CHOICES.find(stack => stack.id === options.stack) ?? STACK_CHOICES[0]
+        const targetPath = path.join(process.cwd(), cliResult.projectDirectory)
+        if (fs.existsSync(targetPath)) {
+            showError(
+                'Project directory already exists. Please choose a different name or remove the existing directory.',
+            )
+        }
 
-        // Copy base template
-        fs.cpSync(path.join(__dirname, '..', 'templates', 'base'), path.join(process.cwd(), projectDirectory), {
-            recursive: true,
-        })
+        const appTargetPath = path.join(process.cwd(), cliResult.projectDirectory, 'apps', cliResult.appDirectory)
+        if (fs.existsSync(appTargetPath)) {
+            showError(
+                'Application directory already exists. Please choose a different name or remove the existing directory.',
+            )
+        }
 
-        // Copy app
+        // ============================================================================
+        // STAGE 3: CREATE PROJECT FROM TEMPLATES
+        // ============================================================================
+        // Copy the base template and selected stack-specific templates to create
+        // the new project structure. This is the final step that generates the
+        // complete project files.
+
+        // Copy base template (common project structure)
         fs.cpSync(
-            path.join(__dirname, '..', 'templates', 'extras', 'apps', currentStack.id),
-            path.join(process.cwd(), projectDirectory, 'apps', currentStack.id),
+            path.join(__dirname, '..', 'templates', 'base'),
+            path.join(process.cwd(), cliResult.projectDirectory),
             {
                 recursive: true,
             },
         )
 
-        // Copy docs
-        if (options.docs) {
-            fs.cpSync(
-                path.join(__dirname, '..', 'templates', 'extras', 'apps', 'docs'),
-                path.join(process.cwd(), projectDirectory, 'apps', 'docs'),
-                {
-                    recursive: true,
-                },
-            )
-        }
+        // Copy documentation template
+        fs.cpSync(
+            path.join(__dirname, '..', 'templates', 'extras', 'apps', 'docs'),
+            path.join(process.cwd(), cliResult.projectDirectory, 'apps', 'docs'),
+            {
+                recursive: true,
+            },
+        )
+
+        // Copy stack-specific app template
+        fs.cpSync(
+            path.join(__dirname, '..', 'templates', 'extras', 'apps', cliResult.stack),
+            path.join(process.cwd(), cliResult.projectDirectory, 'apps', cliResult.appDirectory),
+            {
+                recursive: true,
+            },
+        )
+
+        // Change the "name" field in package.json so it matches the application's directory name
+        const packageJsonPath = path.join(
+            process.cwd(),
+            cliResult.projectDirectory,
+            'apps',
+            cliResult.appDirectory,
+            'package.json',
+        )
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
+        packageJson.name = cliResult.appDirectory
+        fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
+
+        // Show a success message
+        console.log(chalk.green.bold('\n🎉 Project created successfully!'))
+        console.log('Enter your project directory using:', chalk.cyan(`cd ./${cliResult.projectDirectory}`))
+        console.log('')
+        console.log('Install dependencies:', chalk.cyan('pnpm install'))
+        console.log('Start development:', chalk.cyan('pnpm dev'))
+        console.log('')
+        console.log('Happy hacking!')
     })

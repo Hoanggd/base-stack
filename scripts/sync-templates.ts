@@ -43,7 +43,15 @@ fs.cpSync(appsSource, path.join(extrasDir, 'apps'), {
 })
 
 // copy other files to tooling/cli/templates/base
-const files = ['.gitignore', '.prettierrc', 'package.json', 'README.md', 'tsconfig.json', 'turbo.json']
+const files = [
+    '.gitignore',
+    '.prettierrc',
+    'package.json',
+    'pnpm-workspace.yaml',
+    'README.md',
+    'tsconfig.json',
+    'turbo.json',
+]
 files.forEach(file => {
     fs.cpSync(path.join(__dirname, '..', file), path.join(baseDir, file), {
         force: true,
