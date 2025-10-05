@@ -40,6 +40,7 @@ export const init = new Command()
                 choices: STACK_CHOICES.map(stack => ({
                     name: stack.name,
                     value: stack.id,
+                    description: stack.description,
                 })),
             })
         }
@@ -65,7 +66,7 @@ export const init = new Command()
             recursive: true,
         })
 
-        // Copy app template
+        // Copy app
         fs.cpSync(
             path.join(__dirname, '..', 'templates', 'extras', 'apps', currentStack.id),
             path.join(process.cwd(), projectDirectory, 'apps', currentStack.id),
@@ -74,7 +75,7 @@ export const init = new Command()
             },
         )
 
-        // Copy docs template
+        // Copy docs
         if (options.docs) {
             fs.cpSync(
                 path.join(__dirname, '..', 'templates', 'extras', 'apps', 'docs'),
