@@ -7,7 +7,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "sync-templates": "npx tsx scripts/sync-templates.ts"
+    "sync-templates": "npx tsx scripts/sync-templates.ts",
+    "cli:release": "pnpm -F base-stack pub:release"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
