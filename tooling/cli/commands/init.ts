@@ -171,7 +171,7 @@ export const init = new Command()
         // Initialize git repository
         if (cliResult.initGit) {
             try {
-                execSync('git init', {
+                execSync('git init && git add . && git commit -m "Initial commit from base-stack"', {
                     cwd: path.join(process.cwd(), cliResult.projectDirectory),
                 })
             } catch (error) {
