@@ -2,18 +2,18 @@
 import { ModuleValue, useModulePicker } from '@/layouts/Docs/_components/ModulePicker'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
-import { BoltIcon, BookOpen, BrainIcon, CuboidIcon, SquareTerminalIcon } from 'lucide-react'
+import { BoltIcon, BookOpen, BrainIcon, CuboidIcon, ListChecksIcon, SquareTerminalIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
-type MenuItem = {
+interface MenuItem {
     title: string
     href: string
     icon?: React.ReactElement
 }
 
-type MenuGroup = {
+interface MenuGroup {
     title: string
     items: MenuItem[]
 }
@@ -33,6 +33,16 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Installation',
                         href: '/docs/ui/installation',
                         icon: <BoltIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
+                        title: 'Philosophy',
+                        href: '/docs/ui/philosophy',
+                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
+                        title: 'Decisions on DX',
+                        href: '/docs/ui/decisions-on-dx',
+                        icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
                     },
                     {
                         title: 'CLI',
@@ -175,11 +185,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Architecture',
                         href: '/docs/recipes/architecture',
                         icon: <CuboidIcon size={16} strokeWidth={1.5} />,
-                    },
-                    {
-                        title: 'Philosophy',
-                        href: '/docs/recipes/philosophy',
-                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
