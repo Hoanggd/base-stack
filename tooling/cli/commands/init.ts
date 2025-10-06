@@ -1,16 +1,18 @@
-import { input, select } from '@inquirer/prompts'
+import { confirm, input, select } from '@inquirer/prompts'
 import chalk from 'chalk'
 import { Command } from 'commander'
 import * as fs from 'fs'
 import path from 'path'
 import { PROJECT_NAME, STACK_CHOICES, Stack } from '../consts'
 import { showError } from '../utils/error-handling'
+import { execSync } from 'child_process'
 
 interface InitCliResult {
     docs: boolean
     stack: Stack
     projectDirectory: string
     appDirectory: string
+    initGit: boolean
 }
 
 export const init = new Command()
@@ -19,6 +21,7 @@ export const init = new Command()
     .argument('[projectDirectory]', 'The name of the project, as well as the name of the directory to create')
     .argument('[firstAppDirectory]', 'The name of the first application')
     .option('-s, --stack <stack>', `specify the stack to use (${STACK_CHOICES.map(stack => stack.id).join(', ')}) `)
+    .option('-g, --init-git', 'initialize git repository')
     .action(async (projectDirectory, appDirectory, options) => {
         const cliResult: InitCliResult = {
             ...options,
@@ -30,10 +33,14 @@ export const init = new Command()
         const projectNameAlreadyExistsError = cliResult.projectDirectory
             ? fs.existsSync(path.join(process.cwd(), cliResult.projectDirectory))
             : false
+
         const stackEmptyError = !cliResult.stack
         const stackInvalidError = cliResult.stack ? !STACK_CHOICES.some(stack => stack.id === cliResult.stack) : false
+
         const appDirectoryEmptyError = !cliResult.appDirectory
         const appDirectoryInvalidError = cliResult.appDirectory ? cliResult.appDirectory === 'docs' : false
+
+        const initGitEmptyError = !cliResult.initGit
 
         // ============================================================================
         // STAGE 1: VALIDATE INPUTS
@@ -102,6 +109,13 @@ export const init = new Command()
             })
         }
 
+        if (initGitEmptyError) {
+            cliResult.initGit = await confirm({
+                message: 'Initialize git repository?',
+                default: true,
+            })
+        }
+
         // ============================================================================
         // STAGE 3: CREATE PROJECT FROM TEMPLATES
         // ============================================================================
@@ -116,6 +130,12 @@ export const init = new Command()
             {
                 recursive: true,
             },
+        )
+
+        // Rename gitignore to .gitignore (use this trick to fix the issue when publishing to npm)
+        fs.renameSync(
+            path.join(process.cwd(), cliResult.projectDirectory, 'gitignore'),
+            path.join(process.cwd(), cliResult.projectDirectory, '.gitignore'),
         )
 
         // Copy documentation template
@@ -148,13 +168,21 @@ export const init = new Command()
         packageJson.name = cliResult.appDirectory
         fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
 
+        // Initialize git repository
+        if (cliResult.initGit) {
+            try {
+                execSync('git init', {
+                    cwd: path.join(process.cwd(), cliResult.projectDirectory),
+                })
+            } catch (error) {
+                console.log(chalk.yellow('Failed to initialize git repository.'))
+            }
+        }
+
         // Show a success message
         console.log(chalk.green.bold('\n🎉 Project created successfully!'))
         console.log('Enter your project directory using:', chalk.cyan(`cd ./${cliResult.projectDirectory}`))
-        console.log('')
-        console.log('Install dependencies:', chalk.cyan('pnpm install'))
+        console.log('\nInstall dependencies:', chalk.cyan('pnpm install'))
         console.log('Start development:', chalk.cyan('pnpm dev'))
-        console.log('')
-        console.log('Happy hacking!')
-        console.log('')
+        console.log('\nHappy hacking!\n')
     })
