@@ -53,8 +53,8 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
                     },
                     {
-                        title: 'Project Structure',
-                        href: '/docs/ui/project-structure',
+                        title: 'Folder Structure',
+                        href: '/docs/ui/folder-structure',
                         icon: <NetworkIcon size={16} strokeWidth={1.5} />,
                     },
                     {

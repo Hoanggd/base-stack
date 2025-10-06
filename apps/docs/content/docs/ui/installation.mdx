@@ -23,14 +23,22 @@ After running the CLI, you'll get a project with:
 ```text
 my-project/
 ├── apps/
-│   ├── docs/           # Documentation site
-│   └── [your-app]/     # Your applications
+│   ├── docs/ 
+│   └── [your-app]/  
 ├── packages/
-│   ├── eslint-config/  # Shared configs
+│   ├── eslint-config/
 │   ├── typescript-config/
-│   └── ui/            # Shared components
-└── pnpm-workspace.yaml
+│   └── ui/           
+├── pnpm-workspace.yaml
+└── turbo.json
 ```
+- `apps` Contains all application projects in the monorepo.
+- `apps/docs` The documentation site for your project.
+- `apps/[your-app]` A placeholder for your main application(s).
+- `packages` Holds shared code and configuration packages.
+- `packages/eslint-config` Custom shared ESLint configuration for code linting.
+- `packages/typescript-config` Shared TypeScript configuration files.
+- `packages/ui` A reusable component library for your applications.
 
 ## Development
 

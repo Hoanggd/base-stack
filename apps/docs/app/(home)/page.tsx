@@ -18,7 +18,7 @@ export default function Home() {
                         </h1>
                         <div>
                             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mt-6">
-                                A modern Next.js starter kit featuring a well-structured project layout, proven best
+                                A modern React starter kit featuring a well-structured project layout, proven best
                                 practices, and all the essentials to help you launch your app quickly.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
@@ -94,7 +94,7 @@ export default function Home() {
                         <Logo />
                     </div>
                     <p className="text-muted-foreground mb-4">
-                        Built with ❤️ using Next.js, React Aria, TanStack Query, and modern web standards.
+                        Built with ❤️ using React, React Aria, TanStack Query, and modern web standards.
                     </p>
                 </div>
             </footer>

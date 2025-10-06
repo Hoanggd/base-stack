@@ -7,15 +7,15 @@ When you start using the base-stack, you might have some of the following questi
 
 > Why use a monorepo?
 
-> If all the docs are accessible online, why is there a `docs` folder within the `apps` directory?
-
 > Why choose shadcn?
 
-> Why do some components, especially form components, seem a bit verbose to use?
+> Why do some components, especially form fields, seem a bit verbose to use?
 
 > If we use shadcn, why are most of its components replaced?
 
 > Why not use Redux, Redux Thunk, or Saga?
+
+> If all the docs are accessible online, why is there a `docs` folder within the `apps` directory?
 
 These are all valid questions that many developers may have when first encountering this project, and this article aims to thoroughly address each one, providing clear explanations and clarifications to help you better understand the reasoning and decisions behind our approach.
 
@@ -25,15 +25,6 @@ These apps often share UI components and utility functions. The best way to mana
 
 Even if your project only has a single app, organizing your code in this way is still beneficial. It allows you to separate your TypeScript configuration, UI component library, and business logic, making your project easier to maintain and ready to scale in the future.
 Additionally, using Turborepo speeds up the build process because it only rebuilds the apps that have changed.
-
-## If all the docs are accessible online, why is there a `docs` folder within the `apps` directory?
-It's true that you can read all the documentation on our website, but you also have the option to access the documentation locally on your own machine, it's entirely up to you.
-Keeping the documentation locally offers several benefits:
-- You can directly edit the docs or add your own internal company materials, such as coding conventions.
-- When you modify or add new components, the documentation will be updated accordingly.
-- You can even create a completely new documentation site for internal use, based on our existing codebase.
-
-If you don't want the documentation on your local machine, just delete the `docs` folder, everything will still work as expected.
 
 ## Why choose shadcn?
 Currently, there are many popular component libraries such as Material UI, Ant Design, Chakra UI, PrimeReact, and NextUI.
@@ -51,7 +42,7 @@ The solution is to use a headless UI library, which provides only the component 
 leaving the visual styling entirely up to you. That’s why we chose shadcn: most of its components are based on headless component libraries, 
 and all the styling lives in your own source code, making customization straightforward and flexible.
 
-## Why do some shadcn components, especially form components, seem a bit verbose to use?
+## Why do some shadcn components, especially form fields, seem a bit verbose to use?
 
 This was a common concern a few years ago when shadcn first appeared.
 The reason is simple: we aim to avoid over-abstraction in the codebase, which can make future changes much more difficult.
@@ -105,6 +96,15 @@ TanStack Query handles this extremely well, so in most cases, Redux or MobX aren
 So when **should** you use a client-state library?
 You should consider it when most of your application’s state lives on the client side.
 For example, if you’re building an email template editor (an email builder), that’s when a lightweight client-state library such as Zustand or @xstate/store would make more sense.
+
+## If all the docs are accessible online, why is there a `docs` folder within the `apps` directory?
+It's true that you can read all the documentation on our website, but you also have the option to access the documentation locally on your own machine, it's entirely up to you.
+Keeping the documentation locally offers several benefits:
+- You can directly edit the docs or add your own internal company materials, such as coding conventions.
+- When you modify or add new components, the documentation will be updated accordingly.
+- You can even create a completely new documentation site for internal use, based on our existing codebase.
+
+If you don't want the documentation on your local machine, just delete the `docs` folder, everything will still work as expected.
 
 ## Recap
 In summary, making thoughtful decisions about your UI and state management libraries is crucial for long-term maintainability and developer happiness. Avoiding premature abstractions in components keeps your codebase flexible and approachable. Select tools that are actively maintained and fit your project's needs, and remember that most applications benefit more from robust server-state management than from complex client-state solutions. By prioritizing clarity and adaptability, you'll set your project up for sustainable growth and easier collaboration.
