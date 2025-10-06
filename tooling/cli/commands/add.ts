@@ -22,28 +22,49 @@ export const add = new Command()
             directory,
         }
 
+        const notInProjectRootError = fs.existsSync(path.join(process.cwd(), 'pnpm-workspace.yaml'))
+        const directoryEmptyError = !cliResult.directory
+        const directoryAlreadyExistsError = cliResult.directory
+            ? fs.existsSync(path.join(process.cwd(), 'apps', cliResult.directory))
+            : false
+        const stackEmptyError = !cliResult.stack
+        const stackInvalidError = cliResult.stack ? !STACK_CHOICES.some(stack => stack.id === cliResult.stack) : false
+
         // ============================================================================
-        // STAGE 1: COLLECT USER INPUT & CLI OPTIONS
+        // STAGE 1: VALIDATE INPUTS
         // ============================================================================
-        // Gather application name and stack selection either from CLI arguments or
-        // interactive prompts. This stage ensures we have all required information
-        // before proceeding with application creation.
-        if (!cliResult.stack) {
-            cliResult.stack = await select({
-                message: 'Which stack would you like to use for this app?',
-                choices: STACK_CHOICES.map(stack => ({
-                    name: stack.name,
-                    value: stack.id,
-                    description: stack.description,
-                })),
-            })
+        // Verify that the provided stack is valid and check if the target directory
+        // already exists. This prevents errors during the template copying phase.
+
+        if (!notInProjectRootError) {
+            showError(
+                'You are not in the root directory of the project. Please run this command from the root directory.',
+            )
         }
 
-        if (!cliResult.directory) {
+        if (directoryAlreadyExistsError) {
+            showError(
+                `Application directory "${cliResult.directory}" already exists. Please choose a different name or remove the existing directory.`,
+            )
+        }
+
+        if (stackInvalidError) {
+            showError(
+                `Invalid stack "${cliResult.stack}". Allowed values are: ${STACK_CHOICES.map(stack => stack.id).join(', ')}`,
+            )
+        }
+
+        // ============================================================================
+        // STAGE 2: COLLECT MISSING USER INPUT USING PROMPTS
+        // ============================================================================
+        // At this stage, we collect any missing information (stack, app name)
+        // that was not provided via CLI arguments or options, prompting the user as needed.
+
+        if (directoryEmptyError) {
             cliResult.directory = await input({
-                message: 'What is the name of the application?',
-                default: cliResult.stack,
-                validate: (input) => {
+                message: 'Enter a name for your application:',
+                default: 'admin',
+                validate: input => {
                     if (fs.existsSync(path.join(process.cwd(), 'apps', input))) {
                         return 'Application directory already exists. Please choose a different name or remove the existing directory.'
                     }
@@ -52,28 +73,15 @@ export const add = new Command()
             })
         }
 
-        // ============================================================================
-        // STAGE 2: VALIDATE INPUTS & CHECK PREREQUISITES
-        // ============================================================================
-        // Verify that the provided stack is valid and check if the target directory
-        // already exists. This prevents errors during the template copying phase.
-
-        // Verify that the current directory is the project root by looking for pnpm-workspace.yaml
-        if (!fs.existsSync(path.join(process.cwd(), 'pnpm-workspace.yaml'))) {
-            showError(
-                'You are not in the root directory of the project. Please run this command from the root directory.',
-            )
-        }
-
-        if (!STACK_CHOICES.some(stack => stack.id === cliResult.stack)) {
-            showError(
-                `Invalid stack "${cliResult.stack}". Allowed values are: ${STACK_CHOICES.map(stack => stack.id).join(', ')}`,
-            )
-        }
-
-        const targetPath = path.join(process.cwd(), cliResult.directory)
-        if (fs.existsSync(targetPath)) {
-            showError('Directory already exists. Please choose a different name or remove the existing directory.')
+        if (stackEmptyError) {
+            cliResult.stack = await select({
+                message: 'Select the framework for your application:',
+                choices: STACK_CHOICES.map(stack => ({
+                    name: stack.name,
+                    value: stack.id,
+                    description: stack.description,
+                })),
+            })
         }
 
         // ============================================================================
@@ -99,9 +107,9 @@ export const add = new Command()
 
         // Show a success message
         console.log(chalk.green.bold('\n🎉 Application created successfully!'))
-        console.log('')
-        console.log('Install dependencies:' , chalk.cyan('pnpm install'))
-        console.log('Start development:' , chalk.cyan('pnpm dev'))
-        console.log('')
-        console.log('That\'s it!')
+        console.log('\nInstall dependencies:', chalk.cyan('pnpm install'))
+        console.log('Install dependencies:', chalk.cyan('pnpm install'))
+        console.log('Start development:', chalk.cyan('pnpm dev'))
+        console.log('\nHappy hacking!\n')
+
     })

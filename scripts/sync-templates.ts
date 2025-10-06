@@ -53,7 +53,13 @@ const files = [
     'turbo.json',
 ]
 files.forEach(file => {
-    fs.cpSync(path.join(__dirname, '..', file), path.join(baseDir, file), {
+    let destFile = file
+
+    if (file === '.gitignore') {
+        destFile = 'gitignore'
+    }
+
+    fs.cpSync(path.join(__dirname, '..', file), path.join(baseDir, destFile), {
         force: true,
     })
 })
