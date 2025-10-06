@@ -18,8 +18,8 @@ interface InitCliResult {
 export const init = new Command()
     .name('init')
     .description('Create a new Base Stack project')
-    .argument('[projectDirectory]', 'The name of the project, as well as the name of the directory to create')
-    .argument('[firstAppDirectory]', 'The name of the first application')
+    .argument('[dir]', 'The name of the project, as well as the name of the directory to create')
+    .argument('[app]', 'The name of the first application')
     .option('-s, --stack <stack>', `specify the stack to use (${STACK_CHOICES.map(stack => stack.id).join(', ')}) `)
     .option('-g, --init-git', 'initialize git repository')
     .action(async (projectDirectory, appDirectory, options) => {

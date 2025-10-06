@@ -20,9 +20,17 @@ npx base-stack@latest init
 
 After running the CLI, you'll get a project with:
 
-- **Components**: Pre-built UI components from the Base Stack UI package
-- **Configuration**: Pre-configured TypeScript, ESLint, and build tools
-- **Documentation**: Setup for component documentation
+```
+my-project/
+├── apps/
+│   ├── docs/           # Documentation site
+│   └── [your-app]/     # Your applications
+├── packages/
+│   ├── eslint-config/  # Shared configs
+│   ├── typescript-config/
+│   └── ui/            # Shared components
+└── pnpm-workspace.yaml
+```
 
 ## Development
 

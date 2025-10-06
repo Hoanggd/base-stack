@@ -60,8 +60,11 @@ export default async function DocPage({ params }: DocPageProps) {
                 className={cn(
                     'prose dark:prose-invert prose-neutral mb-6 max-w-full min-w-0 w-full py-10',
                     'prose-headings:font-semibold prose-h1:tracking-tight prose-h1:font-bold prose-headings:scroll-mt-20',
-                    'prose-blockquote:font-normal prose-blockquote:mx-5 prose-blockquote:px-4! lg:prose-blockquote:mx-10',
-                    'prose-ul:list-inside prose-ol:list-inside',
+                    'prose-h2:mb-0 prose-h3:mt-7! prose-h3:mb-0 prose-h4:mb-0 prose-h4:mt-3 prose-h5:mb-0 prose-h5:mt-3 prose-h6:mb-0 prose-h6:mt-3',
+                    'prose-blockquote:font-normal prose-blockquote:mx-5 prose-blockquote:px-4! lg:prose-blockquote:mx-10 prose-blockquote:mb-0',
+                    'prose-ul:list-inside prose-ol:list-inside prose-ul:mt-1.5 prose-ul:mb-0 prose-ol:mt-3 prose-ol:mb-0',
+                    'prose-li:mt-1 prose-li:mb-0 prose-li:px-0',
+                    'prose-p:mt-3! prose-p:mb-0!',
                 )}
             >
                 <div className="mb-10 px-5 lg:px-10 border-b pb-10">

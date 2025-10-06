@@ -14,7 +14,7 @@ interface AddCliResult {
 export const add = new Command()
     .name('add')
     .description('Add a new application to the project')
-    .argument('[dir]', 'The name of the application')
+    .argument('[app]', 'The name of the application')
     .option('-s, --stack <stack>', `specify the stack to use (${STACK_CHOICES.map(stack => stack.id).join(', ')}) `)
     .action(async (directory, options) => {
         const cliResult: AddCliResult = {

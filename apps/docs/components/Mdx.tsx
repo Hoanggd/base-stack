@@ -28,6 +28,9 @@ const components = {
     blockquote: ({ ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
         <blockquote style={{ quotes: 'none' }} {...props} />
     ),
+    code: ({ ...props }: React.HTMLAttributes<HTMLElement>) => (
+        <code className="before:content-[''] after:content-[''] py-0.5 px-1.5 bg-background-tertiary rounded" {...props} />
+    ),
 }
 
 export function Mdx({ code }: MdxProps) {
