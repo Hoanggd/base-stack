@@ -3,13 +3,7 @@
 Scaffold a Base Stack monorepo and add apps.
 
 - **CLI**: `base-stack`
-- **Node**: >= 20
-
-## Install
-
-```bash
-npx base-stack@latest --help
-```
+- **Node**: >= 18
 
 ## Commands
 

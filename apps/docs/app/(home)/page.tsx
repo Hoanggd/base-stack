@@ -31,8 +31,8 @@ export default function Home() {
                             </div>
                             <div className="flex justify-center">
                                 <div className="flex items-center gap-1 font-mono text-sm text-muted-foreground pl-3 pr-1.5 py-1.5 bg-background-secondary rounded-md mt-6">
-                                    <span>npm create base-stack@latest</span>
-                                    <CopyToClipboard text="npm create base-stack@latest" />
+                                    <span>npx base-stack@latest init</span>
+                                    <CopyToClipboard text="npx base-stack@latest init" />
                                 </div>
                             </div>
                         </div>

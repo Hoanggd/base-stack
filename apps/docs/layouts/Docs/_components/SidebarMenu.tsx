@@ -2,7 +2,7 @@
 import { ModuleValue, useModulePicker } from '@/layouts/Docs/_components/ModulePicker'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
-import { BoltIcon, BookOpen, BrainIcon, CuboidIcon } from 'lucide-react'
+import { BoltIcon, BookOpen, BrainIcon, CuboidIcon, SquareTerminalIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -33,6 +33,11 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Installation',
                         href: '/docs/ui/installation',
                         icon: <BoltIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
+                        title: 'CLI',
+                        href: '/docs/ui/cli',
+                        icon: <SquareTerminalIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
