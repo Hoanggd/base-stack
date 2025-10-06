@@ -7,6 +7,8 @@ When you start using the base-stack, you might have some of the following questi
 
 > Why use a monorepo?
 
+> If all the docs are accessible online, why is there a `docs` folder within the `apps` directory?
+
 > Why choose shadcn?
 
 > Why do some components, especially form components, seem a bit verbose to use?
@@ -23,6 +25,15 @@ These apps often share UI components and utility functions. The best way to mana
 
 Even if your project only has a single app, organizing your code in this way is still beneficial. It allows you to separate your TypeScript configuration, UI component library, and business logic, making your project easier to maintain and ready to scale in the future.
 Additionally, using Turborepo speeds up the build process because it only rebuilds the apps that have changed.
+
+## If all the docs are accessible online, why is there a `docs` folder within the `apps` directory?
+It's true that you can read all the documentation on our website, but you also have the option to access the documentation locally on your own machine, it's entirely up to you.
+Keeping the documentation locally offers several benefits:
+- You can directly edit the docs or add your own internal company materials, such as coding conventions.
+- When you modify or add new components, the documentation will be updated accordingly.
+- You can even create a completely new documentation site for internal use, based on our existing codebase.
+
+If you don't want the documentation on your local machine, just delete the `docs` folder, everything will still work as expected.
 
 ## Why choose shadcn?
 Currently, there are many popular component libraries such as Material UI, Ant Design, Chakra UI, PrimeReact, and NextUI.
@@ -47,7 +58,7 @@ The reason is simple: we aim to avoid over-abstraction in the codebase, which ca
 Now, with LLMs available, writing repetitive code is much faster and less of a burden.
 
 Believe us, if you try to over-simplify or over-abstract your form fields, as your project grows, no one will want to touch those fields anymore.
-You can read more about this [here](http://localhost:9009/docs/ui/philosophy#2-avoid-hasty-abstractions).
+You can read more about this <Link href="/docs/ui/philosophy#2-avoid-hasty-abstractions">here</Link>.
 
 ```tsx
 // ❌ Convenient, but the Input component will quickly become too complex

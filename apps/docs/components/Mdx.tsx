@@ -2,12 +2,14 @@ import { ComponentPreview } from '@/components/ComponentPreview'
 import { Button } from '@workspace/ui/components/Button'
 import { useMDXComponent } from 'next-contentlayer2/hooks'
 import { MdxSnippet } from './MdxSnippet'
+import Link from 'next/link'
 
 type MdxProps = {
     code: string
 }
 
 const components = {
+    Link,
     ComponentPreview,
     Button,
     pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
