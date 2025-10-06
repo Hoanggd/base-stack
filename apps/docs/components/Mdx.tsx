@@ -16,7 +16,7 @@ const components = {
         try {
             lang = (children as any).props.className?.split('language-')[1]
         } catch {
-            lang = 'bash'
+            lang = 'text'
         }
 
         return (
