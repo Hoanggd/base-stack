@@ -46,7 +46,7 @@ function Table({ className, containerClassName, progressBarSlot, ...props }: Tab
             <div
                 ref={tableContainerRef}
                 data-slot="table-container"
-                className={cn('w-full overflow-x-auto', containerClassName)}
+                className={cn('w-full overflow-x-auto overscroll-none', containerClassName)}
                 onScroll={calculateScrollPosition}
             >
                 <table
@@ -64,7 +64,10 @@ function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
     return (
         <thead
             data-slot="table-header"
-            className={cn('sticky top-0 z-[2] bg-background-secondary', className)}
+            className={cn(
+                'sticky top-0 z-[2]',
+                className,
+            )}
             {...props}
         />
     )
@@ -108,8 +111,7 @@ function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
         <th
             data-slot="table-head"
             className={cn(
-                'px-3 text-foreground h-10 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] bg-background-secondary',
-                "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-border",
+                'px-3 text-foreground bg-background-tertiary h-10 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
                 className,
             )}
             {...props}

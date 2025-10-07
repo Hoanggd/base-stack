@@ -20,7 +20,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning className={`${fontSans.className}  overscroll-none`}>
+        <html lang="en" suppressHydrationWarning className={`${fontSans.className}`}>
             <head>
                 <link rel="icon" href="/logo.png" sizes="any" />
             </head>

@@ -80,7 +80,7 @@ export function DataTableRealworld() {
     const [search, setSearch] = React.useState('')
     const [sorting, setSorting] = React.useState<DataTableSorting | null>(null)
     const [page, setPage] = React.useState(1)
-    const [pageSize, setPageSize] = React.useState(10)
+    const [pageSize, setPageSize] = React.useState(5)
     const [paymentMethod, setPaymentMethod] = React.useState('')
     const isFiltering = search || paymentMethod
 
@@ -124,6 +124,7 @@ export function DataTableRealworld() {
                         setSearch(value)
                         setPage(1)
                     }}
+                    containerClassName="max-sm:flex-1"
                 />
                 <BsSelect
                     value={paymentMethod}
@@ -131,19 +132,19 @@ export function DataTableRealworld() {
                         setPaymentMethod(String(value))
                         setPage(1)
                     }}
-                    className="w-[155px]"
+                    className="w-[155px] max-sm:hidden"
                     placeholder="Payment Method"
                     options={methodOptions}
                 />
                 {isFiltering && (
-                    <Button variant="outline" onClick={handleClearFilters}>
+                    <Button className="max-sm:hidden" variant="outline" onClick={handleClearFilters}>
                         <XIcon />
                         Clear
                     </Button>
                 )}
 
                 {!!selectedCount && (
-                    <Button variant="destructive" className="ml-auto" onClick={handleDeleteSelected}>
+                    <Button variant="destructive" className="ml-auto max-sm:hidden" onClick={handleDeleteSelected}>
                         Delete Selected
                     </Button>
                 )}
@@ -153,7 +154,7 @@ export function DataTableRealworld() {
                 enableRowSelection
                 rowSelection={rowSelection}
                 setRowSelection={setRowSelection}
-                containerClassName="h-[450px]"
+                containerClassName="h-[335px]"
                 sorting={sorting}
                 setSorting={setSorting}
                 columns={columns}

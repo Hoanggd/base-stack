@@ -5,6 +5,7 @@ import React from 'react'
 import ReactPaginate from 'react-paginate'
 import { cn } from '@workspace/ui/lib/utils'
 import { BsSelect } from '@workspace/ui/components/Select'
+import { useIsMobile } from '@workspace/ui/hooks/use-mobile'
 
 const baseClass =
     'cursor-pointer select-none text-[13px] font-medium flex w-8 h-8 items-center justify-center rounded-sm hover:bg-background-secondary'
@@ -32,6 +33,8 @@ function Pagination({ value: controlledValue, onChange: controlledOnChange, page
     const value = controlledValue ?? uncontrolledValue
     const onChange = controlledOnChange ?? setUncontrolledValue
 
+    const isMobile = useIsMobile()
+
     return (
         <ReactPaginate
             forcePage={(value || 1) - 1}
@@ -39,8 +42,8 @@ function Pagination({ value: controlledValue, onChange: controlledOnChange, page
             pageCount={pageCount}
             previousLabel={<ChevronLeft className="w-4 h-4" />}
             nextLabel={<ChevronRight className="w-4 h-4" />}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={1}
+            pageRangeDisplayed={isMobile ? 0 : 2}
+            marginPagesDisplayed={isMobile ? 0 : 1}
             containerClassName="flex items-center justify-center gap-1"
             pageLinkClassName={baseClass}
             activeLinkClassName={cn(baseClass, 'bg-background-secondary shadow-sm border  text-foreground')}
@@ -80,7 +83,7 @@ function PaginationPageSizeSelector({
     value: controlledValue,
     onChange: controlledOnChange,
     defaultValue,
-    options = [10, 20, 50, 100],
+    options = [5, 10, 20, 50, 100],
 }: PaginationPageSizeSelectorProps) {
     const [uncontrolledValue, setUncontrolledValue] = React.useState<number | undefined>(defaultValue || options[0])
 

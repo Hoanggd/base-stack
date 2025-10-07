@@ -82,11 +82,12 @@ function SearchFieldClear({ className, ...props }: AriaButtonProps) {
 
 interface BsSearchFieldProps extends AriaSearchFieldProps {
     placeholder?: string
+    containerClassName?: string
 }
 
-function BsSearchField({ className, placeholder = 'Search...', ...props }: BsSearchFieldProps) {
+function BsSearchField({ className, placeholder = 'Search...', containerClassName, ...props }: BsSearchFieldProps) {
     return (
-        <SearchField className="group flex flex-col gap-2" {...props}>
+        <SearchField className={cn('group flex flex-col gap-2', containerClassName)} {...props}>
             <FieldGroup className={() => cn('px-2', className)}>
                 <SearchIcon aria-hidden className="size-4 text-muted-foreground pointer-events-none" />
                 <SearchFieldInput placeholder={placeholder} />

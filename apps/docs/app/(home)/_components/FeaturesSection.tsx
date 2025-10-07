@@ -4,13 +4,13 @@ import { BookIcon, Database, FormInput, PackageIcon, SquareTerminal, SwatchBook 
 export function FeaturesSection() {
     return (
         <section>
-            <div className="container max-w-screen-xl mx-auto py-20 space-y-7">
+            <div className="px-5 container max-w-screen-xl mx-auto py-10 space-y-7 md:py-20 md:px-8">
                 <div className="space-y-2">
                     <h2 className="text-4xl font-bold">Everything You Need</h2>
                     <p className="text-lg">Production-ready boilerplate with best-in-class tools and patterns</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
                     <FeatureCard
                         icon={<PackageIcon strokeWidth={1.5} />}
                         title="Monorepo Structure"
