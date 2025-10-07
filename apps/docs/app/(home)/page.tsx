@@ -2,7 +2,7 @@ import { CopyToClipboard } from '@/components/CopyToClipboard'
 import { Logo } from '@/components/Logo'
 import { Button } from '@workspace/ui/components/Button'
 import { Card, CardDescription, CardHeader, CardTitle } from '@workspace/ui/components/Card'
-import { Database, FormInput, PackageIcon, ShieldCheck, SwatchBook, Zap } from 'lucide-react'
+import { BookIcon, Database, FormInput, PackageIcon, SquareTerminal, SwatchBook } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Home() {
@@ -12,27 +12,27 @@ export default function Home() {
             <section className="relative overflow-hidden">
                 <div className="relative px-4 py-30 mx-auto max-w-7xl">
                     <div className="text-center">
-                        <h1 className="text-6xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground font-mono">
+                        <h1 className="text-6xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground">
                             Build Production Apps
                             <div>Faster Than Ever</div>
                         </h1>
                         <div>
                             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mt-6">
-                                A modern Next.js boilerplate with opinionated project structure, React Aria components,
-                                TanStack Query, and everything you need to start building immediately.
+                                A modern React starter kit featuring a well-structured project layout, proven best
+                                practices, and all the essentials to help you launch your app quickly.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                                 <Button variant="default" size="xl" asChild>
                                     <Link href="/docs/ui/installation">Get Started</Link>
                                 </Button>
                                 <Button variant="outline" size="xl" asChild>
-                                    <Link href="/docs/recipes">Learn</Link>
+                                    <Link href="/docs/recipes">Recipes</Link>
                                 </Button>
                             </div>
                             <div className="flex justify-center">
                                 <div className="flex items-center gap-1 font-mono text-sm text-muted-foreground pl-3 pr-1.5 py-1.5 bg-background-secondary rounded-md mt-6">
-                                    <span>npm create base-stack@latest</span>
-                                    <CopyToClipboard text="npm create base-stack@latest" />
+                                    <span>npx base-stack@latest init</span>
+                                    <CopyToClipboard text="npx base-stack@latest init" />
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,16 @@ export default function Home() {
                             title="Monorepo Structure"
                             description="Scalable monorepo setup with pnpm workspaces and Turborepo for managing multiple apps"
                         />
-
+                        <FeatureCard
+                            title="CLI Tool"
+                            description="Command-line tool for scaffolding and managing Base Stack monorepos and applications"
+                            icon={<SquareTerminal strokeWidth={1.5} />}
+                        />
+                        <FeatureCard
+                            icon={<BookIcon strokeWidth={1.5} />}
+                            title="Best Practices"
+                            description="Best practices for building production-ready applications"
+                        />
                         <FeatureCard
                             title="React Aria Components"
                             description="Accessibility-first components built with React Aria instead of Radix UI for better UX"
@@ -74,18 +83,6 @@ export default function Home() {
                             description="React Hook Form + Zod validation for performant forms with TypeScript integration"
                             icon={<FormInput strokeWidth={1.5} />}
                         />
-
-                        <FeatureCard
-                            title="Production Ready"
-                            description="Opinionated patterns and examples that scale from small to large applications"
-                            icon={<ShieldCheck strokeWidth={1.5} />}
-                        />
-
-                        <FeatureCard
-                            icon={<Zap strokeWidth={1.5} />}
-                            title="Fast Development"
-                            description="Get started immediately with pre-configured tools and comprehensive examples"
-                        />
                     </div>
                 </div>
             </section>
@@ -97,7 +94,7 @@ export default function Home() {
                         <Logo />
                     </div>
                     <p className="text-muted-foreground mb-4">
-                        Built with ❤️ using Next.js, React Aria, TanStack Query, and modern web standards.
+                        Built with ❤️ using React, React Aria, TanStack Query, and modern web standards.
                     </p>
                 </div>
             </footer>

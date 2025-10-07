@@ -1,0 +1,48 @@
+---
+title: "Base Stack CLI"
+description: "Command-line tool for scaffolding and managing Base Stack monorepos and applications"
+---
+
+## Getting Started
+```bash
+npx base-stack@latest
+```
+
+## Create New Project
+Use the `init` command to quickly scaffold a new Base Stack monorepo.
+This sets up the project structure, and gets you ready to start building.
+
+```bash
+npx base-stack@latest init
+```
+
+**Arguments:**
+- `<dir>`: The name of the directory for your new project
+- `<app>`: The name of the initial application to create
+
+**Options:**
+- `-s, --stack <stack>`: Framework stack (`next`, `tanstack-router`)
+- `-g, --init-git`: Initialize git repository (default: true)
+
+**With options:**
+```bash
+npx base-stack@latest init my-project web --stack next
+```
+
+## Add A New Application
+In many cases, your project may require both a client-facing app and an internal app such as an admin. The `add` command allows you to quickly generate an additional application.
+
+```bash
+npx base-stack@latest add
+```
+
+**Arguments:**
+- `<app>`: The name of the application to add
+
+**Options:**
+- `-s, --stack <stack>`: Framework stack
+
+**With Options**
+```bash
+npx base-stack@latest add admin --stack next
+```

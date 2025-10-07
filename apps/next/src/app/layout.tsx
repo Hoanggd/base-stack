@@ -1,5 +1,4 @@
-
-import { Providers } from '@/components/Providers'
+import { Providers } from '@/shared/components/Providers'
 import '@workspace/ui/globals.css'
 
 export default function RootLayout({

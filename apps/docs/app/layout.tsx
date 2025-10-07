@@ -1,14 +1,10 @@
 import '@workspace/ui/globals.css'
 import type { Metadata } from 'next'
-import { Geist_Mono, Inter } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { Providers } from './providers'
 import { PROJECT_DESCRIPTION, PROJECT_NAME } from '@/constants/common'
 
 const fontSans = Inter({ subsets: ['latin'] })
-const fontMono = Geist_Mono({
-    subsets: ['latin'],
-    variable: '--font-mono',
-})
 
 export const metadata: Metadata = {
     title: {
@@ -24,11 +20,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html
-            lang="en"
-            suppressHydrationWarning
-            className={`${fontSans.className} ${fontMono.variable} overscroll-none`}
-        >
+        <html lang="en" suppressHydrationWarning className={`${fontSans.className}  overscroll-none`}>
             <head>
                 <link rel="icon" href="/logo.png" sizes="any" />
             </head>

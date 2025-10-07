@@ -11,6 +11,8 @@
   "dependencies": {
     "@tanstack/react-router": "^1.132.37",
     "@tanstack/react-router-devtools": "^1.132.37",
+    "@tanstack/react-query": "^5.87.1",
+    "@tanstack/react-query-devtools": "^5.87.1",
     "@tanstack/router-plugin": "^1.132.37",
     "@workspace/ui": "workspace:*",
     "lucide-react": "^0.475.0",

@@ -12,35 +12,40 @@ description: Get started with Base Stack using the CLI tool to create a new proj
 
 Create a new Base Stack application using the CLI tool:
 
-### npm
 ```bash
-npm create base-stack@latest
+npx base-stack@latest init
 ```
-
-### pnpm
-```bash
-pnpm create base-stack@latest
-```
-
-### Available Options
-
-- `--stack <stack>`: Choose the stack (must be "next" or "vite")
-- `--docs`: Include documentation setup
 
 ## Project Structure
 
 After running the CLI, you'll get a project with:
 
-- **Components**: Pre-built UI components from the Base Stack UI package
-- **Configuration**: Pre-configured TypeScript, ESLint, and build tools
-- **Documentation** (if included): Setup for component documentation
+```text
+my-project/
+├── apps/
+│   ├── docs/ 
+│   └── [your-app]/  
+├── packages/
+│   ├── eslint-config/
+│   ├── typescript-config/
+│   └── ui/           
+├── pnpm-workspace.yaml
+└── turbo.json
+```
+- `apps` Contains all application projects in the monorepo.
+- `apps/docs` The documentation site for your project.
+- `apps/[your-app]` A placeholder for your main application(s).
+- `packages` Holds shared code and configuration packages.
+- `packages/eslint-config` Custom shared ESLint configuration for code linting.
+- `packages/typescript-config` Shared TypeScript configuration files.
+- `packages/ui` A reusable component library for your applications.
 
 ## Development
 
 Navigate to your new project and start development:
 
 ```bash
-cd my-app
+cd ./my-project
 pnpm install
 pnpm dev
 ```
@@ -52,3 +57,5 @@ To build your project for production:
 ```bash
 pnpm build
 ```
+
+For more information on how to use the CLI, you can visit the <Link href="/docs/ui/cli">CLI documentation</Link>.

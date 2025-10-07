@@ -2,7 +2,7 @@
 
 import { Button } from '@workspace/ui/components/Button'
 import { toast } from '@workspace/ui/components/Sonner'
-import { ThemeSwitcher } from '@/components/ThemeSwitcher'
+import { ThemeSwitcher } from '@/shared/components/ThemeSwitcher'
 
 export default function Page() {
     return (
