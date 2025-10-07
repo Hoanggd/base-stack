@@ -91,7 +91,7 @@ function PaginationPageSizeSelector({
         <div className="flex items-center gap-2">
             <BsSelect
                 value={value}
-                onChange={value => onChange?.(value || 0)}
+                onChange={value => onChange?.(Number(value || 0))}
                 options={options.map(option => ({
                     id: option,
                     name: option.toString(),

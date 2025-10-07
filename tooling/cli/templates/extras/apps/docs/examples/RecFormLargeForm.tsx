@@ -15,7 +15,7 @@ import {
     FormMessage,
 } from '@workspace/ui/components/Form'
 import { BsRadioGroup } from '@workspace/ui/components/RadioGroup'
-import { BsMultipleSelect, BsSelect } from '@workspace/ui/components/Select'
+import { BsSelect } from '@workspace/ui/components/Select'
 import { Switch } from '@workspace/ui/components/Switch'
 import { Input, TextArea } from '@workspace/ui/components/Textfield'
 import { PlusIcon, TrashIcon } from 'lucide-react'
@@ -148,8 +148,9 @@ function Profile() {
                     <FormItem>
                         <FormLabel>Languages</FormLabel>
                         <FormControl>
-                            <BsMultipleSelect
+                            <BsSelect
                                 {...field}
+                                selectionMode="multiple"
                                 isClearable
                                 isSearchable
                                 options={languages}

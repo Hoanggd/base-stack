@@ -1,7 +1,6 @@
 'use client'
 
-import { Avatar, AvatarFallback } from '@workspace/ui/components/Avatar'
-import { BsMultipleSelect } from '@workspace/ui/components/Select'
+import { BsSelect } from '@workspace/ui/components/Select'
 
 const languages = [
     {
@@ -23,7 +22,8 @@ const languages = [
 
 export function SelectMultipleCustomization() {
     return (
-        <BsMultipleSelect
+        <BsSelect
+            selectionMode="multiple"
             options={languages}
             renderValue={value => (
                 <div className="flex items-center gap-2">

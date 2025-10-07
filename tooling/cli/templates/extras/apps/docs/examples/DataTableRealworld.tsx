@@ -109,7 +109,7 @@ export function DataTableRealworld() {
                 <BsSelect
                     value={paymentMethod}
                     onChange={value => {
-                        setPaymentMethod(value || '')
+                        setPaymentMethod(String(value))
                         setPage(1)
                     }}
                     className="w-[155px]"
