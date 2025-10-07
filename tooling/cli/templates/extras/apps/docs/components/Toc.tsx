@@ -93,7 +93,9 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
                             )}
                             style={{ paddingLeft: `${level * 16}px` }}
                         >
-                            {item.title}
+                            <div className="grid pr-4">
+                                <div className="truncate">{item.title}</div>
+                            </div>
                         </a>
                         {item.items?.length ? <Tree tree={item} level={level + 1} activeItem={activeItem} /> : null}
                     </li>

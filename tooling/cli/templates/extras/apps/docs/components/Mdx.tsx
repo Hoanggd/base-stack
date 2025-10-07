@@ -2,12 +2,14 @@ import { ComponentPreview } from '@/components/ComponentPreview'
 import { Button } from '@workspace/ui/components/Button'
 import { useMDXComponent } from 'next-contentlayer2/hooks'
 import { MdxSnippet } from './MdxSnippet'
+import Link from 'next/link'
 
 type MdxProps = {
     code: string
 }
 
 const components = {
+    Link,
     ComponentPreview,
     Button,
     pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
@@ -16,7 +18,7 @@ const components = {
         try {
             lang = (children as any).props.className?.split('language-')[1]
         } catch {
-            lang = 'bash'
+            lang = 'text'
         }
 
         return (
@@ -27,6 +29,9 @@ const components = {
     },
     blockquote: ({ ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
         <blockquote style={{ quotes: 'none' }} {...props} />
+    ),
+    code: ({ ...props }: React.HTMLAttributes<HTMLElement>) => (
+        <code className="before:content-[''] after:content-[''] py-0.5 px-1.5 bg-background-tertiary rounded" {...props} />
     ),
 }
 

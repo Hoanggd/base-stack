@@ -1,0 +1,118 @@
+---
+title: Folder Structure
+description: An overview of the recommended folder structure for scalable React applications.
+---
+
+## Keeping Project Structure Simple
+
+When organizing code, simplicity should guide every decision.
+While countless architectural patterns exist, from flat structures to atomic design,
+layered architectures to micro-frontends, the feature-based (modular) approach strikes the best balance for most teams.
+
+## Why Feature-Based Structure Wins
+
+The beauty of organizing code by features is that it mirrors how we think about products.
+Instead of scattering user authentication logic across `/containers`, `/app` and `/utils`,
+everything lives together in an `/auth` module. This co-location means developers spend less time hunting for files and more time building.
+
+Feature-based organization also scales naturally.
+Small projects stay manageable with just a few modules, while larger applications can nest
+features or split them into separate packages. When growth demands it, extracting a feature into its own microservice
+becomes straightforward, the boundaries already exist in your codebase.
+
+## A Balanced Approach
+
+Other patterns have their place. Flat structures work for tiny projects. Atomic design excels for component libraries.
+Layered architecture suits traditional enterprise applications. But feature-based organization adapts to most
+scenarios without the overhead of complex rules or rigid hierarchies.
+
+The goal isn't architectural purity, it's building software that teams can understand and maintain.
+When your folder structure reflects the features users care about, everyone can navigate the codebase intuitively.
+
+Keep it simple. Group by feature. Let your structure grow with your product.
+
+## Examples
+
+Both Next.js and TanStack Router support file-based routing and allow colocation of logic within route directories.
+This aligns perfectly with the modular architecture philosophy of encapsulating nearly everything in the same folder.
+However, these two frameworks have slight differences in their naming conventions.
+
+### Next.js
+
+```text
+next/
+├── src/
+│   ├── shared/
+│   │   ├── components/
+│   │   │   └── ChatBox.tsx
+│   │   ├── config/
+│   │   │   └── axios.ts
+│   │   ├── entities/
+│   │   │   ├── common/
+│   │   │   │   ├── common.service.ts
+│   │   │   │   └── common.model.ts
+│   │   │   └── post/
+│   │   │       ├── post.service.ts
+│   │   │       ├── post.model.ts
+│   │   │       └── post.queries.ts
+│   │   ├── lib/
+│   │   └── consts/
+│   └── app/
+│       ├── layout.tsx
+│       └── posts/
+│           ├── _components/
+│           │   ├── PostList.tsx
+│           │   ├── PostItem.tsx
+│           │   └── PostForm.tsx
+│           ├── _lib/
+│           ├── page.tsx
+│           ├── new/page.tsx
+│           └── [postId]/page.tsx
+├── package.json
+└── tsconfig
+```
+
+Read more [here](https://nextjs.org/docs/app/getting-started/project-structure#folder-and-file-conventions)
+
+### Tanstack Router
+
+```text
+tanstack-router/
+├── src/
+│   ├── shared/
+│   │   ├── components/
+│   │   │   └── ChatBox.tsx
+│   │   ├── config/
+│   │   │   └── axios.ts
+│   │   ├── entities/
+│   │   │   ├── common/
+│   │   │   │   ├── common.service.ts
+│   │   │   │   └── common.model.ts
+│   │   │   └── post/
+│   │   │       ├── post.service.ts
+│   │   │       ├── post.model.ts
+│   │   │       └── post.queries.ts
+│   │   ├── lib/
+│   │   └── consts/
+│   └── routes/
+│       ├── __root.tsx
+│       └── posts/
+│           ├── -components/
+│           │   ├── PostList.tsx
+│           │   ├── PostItem.tsx
+│           │   └── PostForm.tsx
+│           ├── -lib/
+│           ├── index.tsx
+│           ├── new.tsx
+│           └── $postId.tsx
+├── package.json
+└── tsconfig
+```
+
+Read more [here](https://tanstack.com/router/latest/docs/framework/react/routing/routing-concepts)
+
+### Brief overview of key files
+
+- `post.service.ts`: handles API requests related to posts
+- `post.model.ts`: defines TypeScript types and interfaces for posts
+- `post.queries.ts`: contains TanStack Query hooks, such as `usePosts`

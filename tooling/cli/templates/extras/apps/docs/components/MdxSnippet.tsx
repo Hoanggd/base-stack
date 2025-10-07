@@ -25,7 +25,7 @@ export async function MdxSnippet({ children, className, lang = 'bash' }: MdxSnip
 
     return (
         <div>
-            <div className="p-1.5 space-y-1.5 border rounded-lg bg-background">
+            <div className="p-1.5 space-y-1.5 border rounded-lg bg-background mt-4">
                 <div className={cn('pl-1 flex items-center gap-1 not-prose text-[13px]', className)}>
                     {lang === 'bash' ? (
                         <SquareTerminal size={16} strokeWidth={1.5} />

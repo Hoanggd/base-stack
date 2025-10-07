@@ -1,6 +1,6 @@
 {
   "name": "base-stack",
-  "version": "1.0.11",
+  "version": "1.1.0",
   "bin": {
     "base-stack": "./dist/index.js"
   },
