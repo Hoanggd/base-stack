@@ -118,9 +118,9 @@ const CalendarCell = ({
                     /* Outside Month */
                     renderProps.isOutsideMonth && 'hidden',
                     /* Unavailable Date */
-                    renderProps.isUnavailable && 'cursor-default text-destructive ',
+                    renderProps.isUnavailable && 'cursor-default text-destructive-foreground ',
                     renderProps.isInvalid &&
-                        'bg-destructive text-destructive-foreground data-[focused]:bg-destructive data-[hovered]:bg-destructive data-[focused]:text-destructive-foreground data-[hovered]:text-destructive-foreground',
+                        'bg-destructive text-destructive-foreground-foreground data-[focused]:bg-destructive data-[hovered]:bg-destructive data-[focused]:text-destructive-foreground-foreground data-[hovered]:text-destructive-foreground-foreground',
                     className,
                 ),
             )}

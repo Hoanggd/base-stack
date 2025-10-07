@@ -57,7 +57,7 @@ export const columns = [
                     <EditIcon className="text-primary" />
                 </Button>
                 <Button variant="ghost" size="icon">
-                    <TrashIcon className="text-destructive" />
+                    <TrashIcon className="text-destructive-foreground" />
                 </Button>
             </div>
         ),

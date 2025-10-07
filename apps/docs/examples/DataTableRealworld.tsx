@@ -12,6 +12,8 @@ import { BsSelect } from '@workspace/ui/components/Select'
 import { CreditCardIcon, EditIcon, TrashIcon, XIcon } from 'lucide-react'
 
 import { cn } from '@workspace/ui/lib/utils'
+import { toast } from '@workspace/ui/components/Sonner'
+import { confirm } from '@workspace/ui/components/ConfirmDialog'
 
 const columnHelper = createColumnHelper<Payment>()
 
@@ -57,7 +59,7 @@ export const columns = [
                     <EditIcon className="text-primary" />
                 </Button>
                 <Button variant="ghost" size="icon">
-                    <TrashIcon className="text-destructive" />
+                    <TrashIcon className="text-destructive-foreground" />
                 </Button>
             </div>
         ),
@@ -70,7 +72,9 @@ export const columns = [
 ]
 
 export function DataTableRealworld() {
-    const [rowSelection, setRowSelection] = React.useState<Record<string, boolean>>({})
+    const [rowSelection, setRowSelection] = React.useState<Record<string, boolean>>({
+        '34caaea9-44ee-4519-a6e8-4061f916d4fe': true,
+    })
     const selectedCount = Object.keys(rowSelection).length
 
     const [search, setSearch] = React.useState('')
@@ -93,7 +97,22 @@ export function DataTableRealworld() {
     }
 
     const handleDeleteSelected = () => {
-        alert(`Deleted ${selectedCount} selected users`)
+        confirm({
+            title: 'Delete Users',
+            description: 'Are you sure you want to delete these users?',
+            action: {
+                label: 'Delete',
+                onClick: () => {
+                    toast.success({
+                        title: `Users Deleted Successfully`,
+                        description: `Deleted ${selectedCount} selected users`,
+                    })
+                },
+                buttonProps: {
+                    variant: 'destructive',
+                },
+            },
+        })
     }
 
     return (

@@ -28,7 +28,7 @@ export function HamburgerMenu() {
                     <DialogContent className="pl-0">
                         <div>
                             <div className="px-6">
-                                <Logo showName={false} />
+                                <Logo withName={false} />
                             </div>
                             <div className="h-[500px]">
                                 <SidebarMenu />

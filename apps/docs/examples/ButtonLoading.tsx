@@ -1,10 +1,10 @@
 import { Button } from '@workspace/ui/components/Button'
-import { Loader2Icon } from 'lucide-react'
+import { Spinner } from '@workspace/ui/components/Spinner'
 
 export function ButtonLoading() {
     return (
         <Button isDisabled>
-            <Loader2Icon className="animate-spin" />
+            <Spinner />
             Please wait
         </Button>
     )

@@ -1,12 +1,12 @@
-import { PROJECT_NAME_SLUG } from '@/constants/common'
+import { PROJECT_NAME } from '@/constants/common'
 import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 
-export function Logo({ className, showName = true }: { className?: string; showName?: boolean }) {
+export function Logo({ className, withName = true }: { className?: string; withName?: boolean }) {
     return (
         <Link href="/" className={cn('flex items-center gap-2 w-fit', className)}>
-            <img src="/logo.png" alt="Logo" className="w-7 h-7" />
-            {showName && <span className="font-semibold">{PROJECT_NAME_SLUG}</span>}
+            <img src="/logo.png" alt="Logo" className="w-6 h-6" />
+            {withName && <span className="font-semibold text-lg">{PROJECT_NAME}</span>}
         </Link>
     )
 }

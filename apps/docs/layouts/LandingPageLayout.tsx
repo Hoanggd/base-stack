@@ -4,10 +4,10 @@ import { HeaderIconButtons } from './_shared/HeaderIconButtons'
 
 export function LandingPageLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="bg-white dark:bg-neutral-950">
-            <nav className="bg-white/70 dark:bg-neutral-950/70 backdrop-blur-md sticky top-0 z-50">
+        <div className="bg-background-secondary">
+            <nav className="bg-background-secondary/70 backdrop-blur-md sticky top-0 z-50">
                 <div className="h-16 container max-w-screen-xl mx-auto flex items-center gap-7">
-                    <Logo />
+                    <Logo withName={false} />
                     <TopNavLinks />
                     <div className="flex-1" />
                     <HeaderIconButtons />

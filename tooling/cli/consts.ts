@@ -1,4 +1,4 @@
-export const CLI_NAME = 'create-bs-app'
+export const CLI_NAME = 'base-stack'
 export const PROJECT_NAME = 'my-project-turbo'
 
 export enum Stack {
@@ -18,6 +18,7 @@ export const STACK_CHOICES = [
         name: 'Vite (Tanstack Router)',
         description: "Vite-powered React app using TanStack Router for flexible, type-safe client-side routing."
     },
+    // TODO: Add React Router
     // {
     //     id: Stack.ViteReactRouter,
     //     name: 'Vite (React Router)',

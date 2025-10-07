@@ -255,14 +255,9 @@ function DataTable<TData extends Identifiable, TValue>({
                     ))
                 ) : (
                     <tr className="h-20">
-                        <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 top-10 text-muted-foreground">
-                            {isLoading && <Spinner />}
-                            {!isLoading && (
-                                <>
-                                    <FileSearch className="size-10 stroke-1" />
-                                    <span>No results.</span>
-                                </>
-                            )}
+                        <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 top-10">
+                            {isLoading && <Spinner className="text-primary" />}
+                            {!isLoading && <EmptyState />}
                         </td>
                     </tr>
                 )}
@@ -298,6 +293,17 @@ function ProgressBar({ isFetching }: ProgressBarProps) {
         <div className="w-full absolute top-0 left-0">
             <div className="h-1 block" id={progressBarId} />
         </div>
+    )
+}
+
+function EmptyState() {
+    return (
+        <>
+            <div className="bg-background-tertiary rounded-lg p-3">
+                <FileSearch />
+            </div>
+            <span className="text-foreground font-medium text-base">No results</span>
+        </>
     )
 }
 

@@ -46,7 +46,7 @@ function ToastIcon({ variant }: { variant: ToastProps['variant'] }) {
         <div
             className={cn(
                 variant === 'success' && 'text-green-500 dark:text-green-400',
-                variant === 'error' && 'text-destructive',
+                variant === 'error' && 'text-destructive-foreground',
                 variant === 'info' && 'text-blue-500 dark:text-blue-400',
                 variant === 'warning' && 'text-yellow-500 dark:text-yellow-400',
             )}

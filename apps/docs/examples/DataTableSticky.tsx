@@ -114,7 +114,7 @@ const columns = [
                     <EditIcon className="h-4 w-4 text-primary" />
                 </Button>
                 <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <TrashIcon className="h-4 w-4 text-destructive" />
+                    <TrashIcon className="h-4 w-4 text-destructive-foreground" />
                 </Button>
             </div>
         ),
