@@ -1,6 +1,6 @@
 'use client'
 
-import { BsMultipleSelect } from '@workspace/ui/components/Select'
+import { BsSelect } from '@workspace/ui/components/Select'
 
 const languages = [
     { id: 1, name: 'English' },
@@ -11,5 +11,5 @@ const languages = [
 ]
 
 export function SelectMultipleDisabled() {
-    return <BsMultipleSelect options={languages} isDisabled />
+    return <BsSelect selectionMode="multiple" options={languages} isDisabled />
 }

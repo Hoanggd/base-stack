@@ -12,5 +12,9 @@ const languages = [
 ]
 
 export function SelectDemo() {
-    return <BsSelect options={languages} />
+    return (
+        <div className="space-y-4 w-full">
+            <BsSelect options={languages} selectionMode="single" />
+        </div>
+    )
 }

@@ -5,7 +5,7 @@ import { toast } from '@workspace/ui/components/Sonner'
 
 import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
-import { BsSelect, BsMultipleSelect } from '@workspace/ui/components/Select'
+import { BsSelect } from '@workspace/ui/components/Select'
 import { z } from '@workspace/ui/lib/zod'
 
 interface FormValues {
@@ -27,7 +27,11 @@ const roleOptions = [
 ]
 
 export function SelectForm() {
-    const form = useForm<FormValues>()
+    const form = useForm<FormValues>({
+        defaultValues: {
+            role: roleOptions[0].id,
+        },
+    })
 
     function onSubmit(data: FormValues) {
         toast.neutral({
@@ -51,7 +55,7 @@ export function SelectForm() {
                         <FormItem>
                             <FormLabel>Role</FormLabel>
                             <FormControl>
-                                <BsSelect options={roleOptions} {...field} />
+                                <BsSelect isClearable options={roleOptions} {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -64,7 +68,7 @@ export function SelectForm() {
                         <FormItem>
                             <FormLabel>Language</FormLabel>
                             <FormControl>
-                                <BsMultipleSelect options={languageOptions} {...field} />
+                                <BsSelect selectionMode="multiple" options={languageOptions} {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

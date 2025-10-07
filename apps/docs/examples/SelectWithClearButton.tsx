@@ -1,4 +1,5 @@
 import { BsSelect } from '@workspace/ui/components/Select'
+import React from 'react'
 
 const languages = [
     { id: 1, name: 'English' },
@@ -8,6 +9,10 @@ const languages = [
     { id: 5, name: 'Italian' },
 ]
 
-export function SelectMultipleSearchable() {
-    return <BsSelect selectionMode="multiple" options={languages} isSearchable />
+export function SelectWithClearButton() {
+    return (
+        <div className="space-y-4 w-full">
+            <BsSelect options={languages} isClearable />
+        </div>
+    )
 }
