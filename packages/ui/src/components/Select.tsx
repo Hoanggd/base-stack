@@ -184,7 +184,7 @@ function ItemsWrapper({ children, isSearchable }: ItemsWrapperProps) {
 
     return isSearchable ? (
         <Autocomplete filter={contains}>
-            <BsSearchField autoFocus className="ring-0! border border-input" /> {children}
+            <BsSearchField autoFocus className="ring-0! border " /> {children}
         </Autocomplete>
     ) : (
         children

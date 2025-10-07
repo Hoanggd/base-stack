@@ -43,7 +43,7 @@ function Pagination({ value: controlledValue, onChange: controlledOnChange, page
             marginPagesDisplayed={1}
             containerClassName="flex items-center justify-center gap-1"
             pageLinkClassName={baseClass}
-            activeLinkClassName={cn(baseClass, 'bg-background-secondary shadow-sm border border-input text-foreground')}
+            activeLinkClassName={cn(baseClass, 'bg-background-secondary shadow-sm border  text-foreground')}
             previousLinkClassName={baseClass}
             nextLinkClassName={baseClass}
             breakLinkClassName={baseClass}
