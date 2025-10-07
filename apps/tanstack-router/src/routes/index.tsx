@@ -1,4 +1,4 @@
-import { ThemeSwitcher } from '@/components/ThemeSwitcher'
+import { ThemeSwitcher } from '@/shared/components/ThemeSwitcher'
 import { createFileRoute } from '@tanstack/react-router'
 import { Button } from '@workspace/ui/components/Button'
 import { toast } from '@workspace/ui/components/Sonner'

@@ -1,6 +1,6 @@
 'use client'
 
-import { useTheme } from '@/components/ThemeProvider'
+import { useTheme } from '@/shared/components/ThemeProvider'
 import { Button } from '@workspace/ui/components/Button'
 import { MoonStar, SunIcon } from 'lucide-react'
 
