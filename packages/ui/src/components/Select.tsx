@@ -83,7 +83,7 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
     const selectionMode = props.selectionMode ?? 'single'
 
     return (
-        <Select
+        <Select<T, M>
             isOpen={isOpen}
             onOpenChange={isOpen => {
                 if (!isOpen) {
