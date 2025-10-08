@@ -2,15 +2,7 @@
 import { ModuleValue, useModulePicker } from '@/layouts/Docs/_components/ModulePicker'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
-import {
-    BoltIcon,
-    BookOpen,
-    BrainIcon,
-    CuboidIcon,
-    ListChecksIcon,
-    NetworkIcon,
-    SquareTerminalIcon,
-} from 'lucide-react'
+import { BoltIcon, BookOpen, BrainIcon, ListChecksIcon, NetworkIcon, SquareTerminalIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -43,6 +35,11 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <BoltIcon size={16} strokeWidth={1.5} />,
                     },
                     {
+                        title: 'CLI Tool',
+                        href: '/docs/ui/cli',
+                        icon: <SquareTerminalIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
                         title: 'Decisions on DX',
                         href: '/docs/ui/decisions-on-dx',
                         icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
@@ -51,11 +48,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Folder Structure',
                         href: '/docs/ui/folder-structure',
                         icon: <NetworkIcon size={16} strokeWidth={1.5} />,
-                    },
-                    {
-                        title: 'CLI',
-                        href: '/docs/ui/cli',
-                        icon: <SquareTerminalIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
@@ -167,17 +159,25 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/tooltip',
                     },
                     {
-                        title: 'Sonner',
-                        href: '/docs/ui/sonner',
+                        title: 'Select',
+                        href: '/docs/ui/select',
                     },
                 ],
             },
             {
-                title: 'Pickers',
+                title: 'Feedback',
                 items: [
                     {
-                        title: 'Select',
-                        href: '/docs/ui/select',
+                        title: 'Sonner',
+                        href: '/docs/ui/sonner',
+                    },
+                    {
+                        title: 'Spinner',
+                        href: '/docs/ui/spinner',
+                    },
+                    {
+                        title: 'NProgress',
+                        href: '/docs/ui/nprogress',
                     },
                 ],
             },
