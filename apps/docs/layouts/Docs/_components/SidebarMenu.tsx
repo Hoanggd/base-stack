@@ -43,11 +43,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <BoltIcon size={16} strokeWidth={1.5} />,
                     },
                     {
-                        title: 'Philosophy',
-                        href: '/docs/ui/philosophy',
-                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
-                    },
-                    {
                         title: 'Decisions on DX',
                         href: '/docs/ui/decisions-on-dx',
                         icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
@@ -192,12 +187,12 @@ function getMenuGroups(module: string): MenuGroup[] {
     if (module === ModuleValue.Recipe) {
         return [
             {
-                title: 'Getting Started',
+                title: 'Guidelines',
                 items: [
                     {
-                        title: 'Architecture',
-                        href: '/docs/recipes/architecture',
-                        icon: <CuboidIcon size={16} strokeWidth={1.5} />,
+                        title: 'Philosophy',
+                        href: '/docs/recipes/philosophy',
+                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
@@ -259,7 +254,7 @@ export function SidebarMenu() {
 
     return (
         <div className="relative h-full z-[1]">
-            <div className="absolute z-[1] top-0 left-0 right-6 h-8 bg-gradient-to-b from-background to-transparent pointer-events-none"></div>
+            <div className="absolute z-[1] top-0 left-0 right-6 h-7 bg-gradient-to-b from-background to-transparent pointer-events-none"></div>
             <div className="absolute inset-0">
                 <ScrollArea className="h-full -translate-x-px">
                     <div className="">

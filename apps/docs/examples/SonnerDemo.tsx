@@ -6,7 +6,7 @@ import { Button } from '@workspace/ui/components/Button'
 
 export function SonnerDemo() {
     return (
-        <div className="flex gap-2">
+        <div className="grid grid-cols-3 gap-2">
             <Button
                 variant="outline"
                 onClick={() =>

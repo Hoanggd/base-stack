@@ -22,7 +22,7 @@ const Input = ({ className, ...props }: AriaInputProps) => {
             autoComplete="off"
             className={composeRenderProps(className, className =>
                 cn(
-                    'shadow-sm flex h-8 w-full rounded-sm bg-background-secondary px-3 py-1.5 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground',
+                    'shadow-sm flex h-8 w-full rounded-sm bg-background-secondary px-3 py-1.5 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground md:text-sm',
                     'ring-inset ring ring-input',
                     /* Focus Within */
                     'transition-all data-[focused]:ring-primary data-[focused]:ring-2 aria-invalid:ring-destructive',
@@ -65,7 +65,7 @@ const TextArea = ({ className, ...props }: AriaTextAreaProps) => {
         <AriaTextArea
             className={composeRenderProps(className, className =>
                 cn(
-                    'shadow-sm flex min-h-[80px] w-full rounded-sm bg-background-secondary px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground',
+                    'shadow-sm flex min-h-[80px] w-full rounded-sm bg-background-secondary px-3 py-2 ring-offset-background placeholder:text-muted-foreground md:text-sm',
                     'ring-inset ring ring-input',
                     /* Focus Within */
                     'transition-all data-[focused]:ring-primary data-[focused]:ring-2 aria-invalid:ring-destructive',

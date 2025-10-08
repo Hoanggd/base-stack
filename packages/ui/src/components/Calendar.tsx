@@ -43,9 +43,9 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
                 slot="previous"
                 className={cn(
                     buttonVariants({ variant: 'ghost' }),
-                    'size-8 rounded-full bg-transparent p-0 text-primary',
+                    'size-8 rounded-full bg-transparent p-0 text-primary-foreground',
                     /* Hover */
-                    'data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10 data-[hovered]:text-primary',
+                    'data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10 data-[hovered]:text-primary-foreground',
                 )}
             >
                 {direction === 'rtl' ? (
@@ -58,9 +58,9 @@ const CalendarHeading = (props: React.HTMLAttributes<HTMLElement>) => {
                 slot="next"
                 className={cn(
                     buttonVariants({ variant: 'ghost' }),
-                    'size-8 rounded-full bg-transparent p-0 text-primary',
+                    'size-8 rounded-full bg-transparent p-0 text-primary-foreground',
                     /* Hover */
-                    'data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10 data-[hovered]:text-primary',
+                    'data-[hovered]:opacity-100 data-[hovered]:bg-muted-foreground/10 data-[hovered]:text-primary-foreground',
                 )}
             >
                 {direction === 'rtl' ? (

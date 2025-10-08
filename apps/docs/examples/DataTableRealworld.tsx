@@ -14,6 +14,7 @@ import { CreditCardIcon, EditIcon, TrashIcon, XIcon } from 'lucide-react'
 import { cn } from '@workspace/ui/lib/utils'
 import { toast } from '@workspace/ui/components/Sonner'
 import { confirm } from '@workspace/ui/components/ConfirmDialog'
+import { useNProgress } from '@workspace/ui/components/NProgress'
 
 const columnHelper = createColumnHelper<Payment>()
 
@@ -56,7 +57,7 @@ export const columns = [
         cell: () => (
             <div className="space-x-1">
                 <Button variant="ghost" size="icon">
-                    <EditIcon className="text-primary" />
+                    <EditIcon className="text-primary-foreground" />
                 </Button>
                 <Button variant="ghost" size="icon">
                     <TrashIcon className="text-destructive-foreground" />
@@ -115,6 +116,8 @@ export function DataTableRealworld() {
         })
     }
 
+    useNProgress({ isFetching: payments.isFetching })
+
     return (
         <div className="w-full space-y-3">
             <div className="flex gap-2">
@@ -160,7 +163,6 @@ export function DataTableRealworld() {
                 columns={columns}
                 data={payments.data?.items ?? []}
                 isLoading={payments.isLoading}
-                isFetching={payments.isFetching}
             />
             <div className="flex gap-4 justify-between">
                 <PaginationPageSizeSelector

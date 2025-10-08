@@ -111,7 +111,7 @@ const columns = [
         cell: () => (
             <div className="space-x-1">
                 <Button variant="ghost" size="icon" className="h-8 w-8">
-                    <EditIcon className="h-4 w-4 text-primary" />
+                    <EditIcon className="h-4 w-4 text-primary-foreground" />
                 </Button>
                 <Button variant="ghost" size="icon" className="h-8 w-8">
                     <TrashIcon className="h-4 w-4 text-destructive-foreground" />

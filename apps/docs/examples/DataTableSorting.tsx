@@ -4,6 +4,7 @@ import { getPayments, Payment } from '@/actions/examples/payments'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { createColumnHelper } from '@tanstack/react-table'
 import { DataTable, type DataTableSorting } from '@workspace/ui/components/DataTable'
+import { useNProgress } from '@workspace/ui/components/NProgress'
 import React from 'react'
 
 const columnHelper = createColumnHelper<Payment>()
@@ -30,6 +31,10 @@ export function DataTableSorting() {
         placeholderData: keepPreviousData,
     })
 
+    useNProgress({
+        isFetching: payments.isFetching,
+    })
+
     return (
         <div className="w-full space-y-3">
             <DataTable
@@ -39,7 +44,6 @@ export function DataTableSorting() {
                 columns={columns}
                 data={payments.data?.items ?? []}
                 isLoading={payments.isLoading}
-                isFetching={payments.isFetching}
                 containerClassName="h-[310px]"
             />
         </div>

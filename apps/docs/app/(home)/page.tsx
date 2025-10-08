@@ -7,9 +7,9 @@ export default function Home() {
     return (
         <>
             <HeroSection />
-            <Separator />
+            <Separator className="opacity-50" />
             <FeaturesSection />
-            <Separator />
+            <Separator className="opacity-50" />
             <FooterSection />
         </>
     )

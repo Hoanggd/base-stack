@@ -21,8 +21,8 @@ function TitleAndCTA() {
     return (
         <div className="space-y-5 py-0 md:py-5 xl:py-20">
             <div className="flex">
-                <div className="flex items-center gap-1 font-mono text-xs text-muted-foreground pl-2.5 pr-0.5 py-0.5 bg-background-tertiary border rounded-md">
-                    <span>npx base-stack@latest init</span>
+                <div className="flex items-center gap-1 font-mono text-xs text-muted-foreground pl-2.5 pr-0.5 py-0.5 bg-background-tertiary/50 border rounded-md">
+                    <span>$ npx base-stack@latest init</span>
                     <CopyToClipboard text="npx base-stack@latest init" />
                 </div>
             </div>

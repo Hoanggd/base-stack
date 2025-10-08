@@ -161,7 +161,6 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
             </Button>
             {isClearable && <SelectClearButton />}
             <Popover
-                isAnimated={false}
                 className={cn('!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1', popoverClassName)}
             >
                 <ItemsWrapper isSearchable={isSearchable}>
@@ -213,7 +212,7 @@ function BsSelectItem<T extends BsSelectOption>(
                             {props.renderOption ? props.renderOption(props.value as T) : props.children}
                         </div>
                     </div>
-                    <div className="w-5 flex items-center justify-center text-primary group-data-focused:text-white">
+                    <div className="w-5 flex items-center justify-center text-primary-foreground group-data-focused:text-white">
                         {isSelected && <CheckIcon size={16} />}
                     </div>
                 </>
