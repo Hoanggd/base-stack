@@ -44,6 +44,7 @@ fs.cpSync(appsSource, path.join(extrasDir, 'apps'), {
 
 // copy other files to tooling/cli/templates/base
 const files = [
+    '.vscode',
     '.gitignore',
     '.prettierrc',
     'package.json',

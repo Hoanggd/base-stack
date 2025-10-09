@@ -87,11 +87,6 @@ interface DataTableProps<TData extends Identifiable, TValue> {
     isLoading?: boolean
 
     /**
-     * Indicates if the table is being updated with new data after the initial load.
-     */
-    isFetching?: boolean
-
-    /**
      * The column pinning state to display in the table.
      */
     columnPinning?: ColumnPinningState
@@ -108,7 +103,6 @@ function DataTable<TData extends Identifiable, TValue>({
     rowSelection,
     setRowSelection,
     isLoading,
-    isFetching,
     columnPinning,
 }: DataTableProps<TData, TValue>) {
     // sorting
@@ -178,10 +172,7 @@ function DataTable<TData extends Identifiable, TValue>({
     })
 
     return (
-        <Table
-            containerClassName={cn('relative', containerClassName)}
-            progressBarSlot={<ProgressBar isFetching={!!isFetching && !isLoading} />}
-        >
+        <Table containerClassName={cn('relative', containerClassName)}>
             <TableHeader>
                 {table.getHeaderGroups().map(headerGroup => (
                     <TableRow key={headerGroup.id}>
@@ -255,14 +246,9 @@ function DataTable<TData extends Identifiable, TValue>({
                     ))
                 ) : (
                     <tr className="h-20">
-                        <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 top-10 text-muted-foreground">
-                            {isLoading && <Spinner />}
-                            {!isLoading && (
-                                <>
-                                    <FileSearch className="size-10 stroke-1" />
-                                    <span>No results.</span>
-                                </>
-                            )}
+                        <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 top-10">
+                            {isLoading && <Spinner className="text-primary-foreground" />}
+                            {!isLoading && <EmptyState />}
                         </td>
                     </tr>
                 )}
@@ -271,33 +257,14 @@ function DataTable<TData extends Identifiable, TValue>({
     )
 }
 
-interface ProgressBarProps {
-    isFetching: boolean
-}
-
-function ProgressBar({ isFetching }: ProgressBarProps) {
-    const progressBarId = React.useId()
-
-    React.useEffect(() => {
-        NProgress.configure({
-            parent: `#${progressBarId}`,
-            showSpinner: false,
-            trickleSpeed: 150,
-            template:
-                '<div class="bar bg-primary!" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>',
-        })
-
-        if (isFetching) {
-            NProgress.start()
-        } else {
-            NProgress.done()
-        }
-    }, [isFetching])
-
+function EmptyState() {
     return (
-        <div className="w-full absolute top-0 left-0">
-            <div className="h-1 block" id={progressBarId} />
-        </div>
+        <>
+            <div className="bg-background-tertiary rounded-lg p-3">
+                <FileSearch />
+            </div>
+            <span className="text-foreground font-medium text-base">No results</span>
+        </>
     )
 }
 

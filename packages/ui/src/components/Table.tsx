@@ -9,14 +9,9 @@ interface TableProps extends React.ComponentProps<'table'> {
      * The class name for the container of the table. This is useful for setting height or width.
      */
     containerClassName?: string
-
-    /**
-     * The slot for the progress bar.
-     */
-    progressBarSlot?: React.ReactNode
 }
 
-function Table({ className, containerClassName, progressBarSlot, ...props }: TableProps) {
+function Table({ className, containerClassName, ...props }: TableProps) {
     const tableContainerRef = React.useRef<HTMLDivElement>(null)
     const tableRef = React.useRef<HTMLTableElement>(null)
 
@@ -42,7 +37,6 @@ function Table({ className, containerClassName, progressBarSlot, ...props }: Tab
 
     return (
         <div className="relative grid bg-background-secondary rounded-md overflow-hidden border">
-            {progressBarSlot}
             <div
                 ref={tableContainerRef}
                 data-slot="table-container"
@@ -61,13 +55,7 @@ function Table({ className, containerClassName, progressBarSlot, ...props }: Tab
 }
 
 function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
-    return (
-        <thead
-            data-slot="table-header"
-            className={cn('sticky top-0 z-[2] bg-background-secondary', className)}
-            {...props}
-        />
-    )
+    return <thead data-slot="table-header" className={cn('sticky top-0 z-[2]', className)} {...props} />
 }
 
 function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
@@ -108,8 +96,7 @@ function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
         <th
             data-slot="table-head"
             className={cn(
-                'px-3 text-foreground h-10 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] bg-background-secondary',
-                "after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-border",
+                'px-3 text-foreground bg-background-tertiary h-10 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
                 className,
             )}
             {...props}

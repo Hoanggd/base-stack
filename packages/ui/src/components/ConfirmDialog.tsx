@@ -88,7 +88,7 @@ function ConfirmDialog() {
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
-                        <Button variant="ghost" onClick={handleCancel} {...data?.cancel?.buttonProps}>
+                        <Button variant="outline" onClick={handleCancel} {...data?.cancel?.buttonProps}>
                             {data?.cancel?.label || 'Cancel'}
                         </Button>
                         <Button onClick={handleAction} {...data?.action?.buttonProps}>

@@ -36,7 +36,7 @@ export function DialogDemo() {
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button variant="ghost" onClick={close}>
+                                <Button variant="outline" onClick={close}>
                                     Cancel
                                 </Button>
                                 <Button onClick={close} type="submit">

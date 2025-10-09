@@ -50,17 +50,15 @@ const DialogContent = ({
     children,
     role,
     closeButton = true,
-    isFullscreenOnMobile = false,
     ...props
 }: DialogContentProps) => (
     <AriaModal
         className={composeRenderProps(className, className =>
             cn(
-                'fixed left-[50vw] top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 bg-background p-5 shadow-2xl max-w-lg w-full rounded-xl dark:border',
-                isFullscreenOnMobile && 'max-md:max-w-svw max-md:w-svw max-md:h-svh max-md:rounded-none',
+                'fixed left-[50vw] top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 bg-background p-5 shadow-2xl w-full max-w-[calc(100vw-40px)] rounded-xl md:max-w-lg dark:border',
                 'data-[entering]:animate-in data-[exiting]:animate-out data-[entering]:fade-in-0 data-[exiting]:fade-out-0',
                 'md:data-[entering]:zoom-in-97 md:data-[exiting]:zoom-out-97',
-                'max-md:data-[entering]:duration-300 max-md:data-[exiting]:duration-300 max-md:data-[entering]:slide-in-from-bottom-1/2 max-md:data-[exiting]:slide-out-to-bottom-1/2',
+                'max-md:data-[exiting]:duration-300 max-md:data-[entering]:slide-in-from-bottom-5 max-md:data-[exiting]:slide-out-to-bottom-5',
                 className,
             ),
         )}
@@ -92,7 +90,7 @@ const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
 )
 
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-    <div className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)} {...props} />
+    <div className={cn('flex flex-col-reverse sm:flex-row sm:justify-end gap-2', className)} {...props} />
 )
 
 const DialogTitle = ({ className, ...props }: AriaHeadingProps) => (

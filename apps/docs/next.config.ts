@@ -14,7 +14,7 @@ const nextConfig: NextConfig = withContentlayer({
             },
             {
                 source: '/docs/recipes',
-                destination: '/docs/recipes/architecture',
+                destination: '/docs/recipes/philosophy',
                 permanent: false,
             },
         ]

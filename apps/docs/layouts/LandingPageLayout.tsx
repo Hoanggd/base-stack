@@ -4,16 +4,21 @@ import { HeaderIconButtons } from './_shared/HeaderIconButtons'
 
 export function LandingPageLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="bg-white dark:bg-neutral-950">
-            <nav className="bg-white/70 dark:bg-neutral-950/70 backdrop-blur-md sticky top-0 z-50">
-                <div className="h-16 container max-w-screen-xl mx-auto flex items-center gap-7">
-                    <Logo />
+        <main className="bg-background-secondary relative">
+            <img
+                src="/hero-background.webp"
+                alt="Hero Section"
+                className="absolute top-0 left-0 w-full h-[800px] blur-3xl opacity-30 dark:invert dark:hue-rotate-180 pointer-events-none"
+            />
+            <nav className="relative top-0 z-10">
+                <div className="px-5 h-16 container max-w-screen-xl mx-auto flex items-center gap-7 md:px-8">
+                    <Logo withName={false} />
                     <TopNavLinks />
                     <div className="flex-1" />
                     <HeaderIconButtons />
                 </div>
             </nav>
-            {children}
-        </div>
+            <div className="z-10 relative">{children}</div>
+        </main>
     )
 }

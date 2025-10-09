@@ -12,6 +12,9 @@ import { BsSelect } from '@workspace/ui/components/Select'
 import { CreditCardIcon, EditIcon, TrashIcon, XIcon } from 'lucide-react'
 
 import { cn } from '@workspace/ui/lib/utils'
+import { toast } from '@workspace/ui/components/Sonner'
+import { confirm } from '@workspace/ui/components/ConfirmDialog'
+import { useNProgress } from '@workspace/ui/components/NProgress'
 
 const columnHelper = createColumnHelper<Payment>()
 
@@ -54,10 +57,10 @@ export const columns = [
         cell: () => (
             <div className="space-x-1">
                 <Button variant="ghost" size="icon">
-                    <EditIcon className="text-primary" />
+                    <EditIcon className="text-primary-foreground" />
                 </Button>
                 <Button variant="ghost" size="icon">
-                    <TrashIcon className="text-destructive" />
+                    <TrashIcon className="text-destructive-foreground" />
                 </Button>
             </div>
         ),
@@ -70,13 +73,15 @@ export const columns = [
 ]
 
 export function DataTableRealworld() {
-    const [rowSelection, setRowSelection] = React.useState<Record<string, boolean>>({})
+    const [rowSelection, setRowSelection] = React.useState<Record<string, boolean>>({
+        '34caaea9-44ee-4519-a6e8-4061f916d4fe': true,
+    })
     const selectedCount = Object.keys(rowSelection).length
 
     const [search, setSearch] = React.useState('')
     const [sorting, setSorting] = React.useState<DataTableSorting | null>(null)
     const [page, setPage] = React.useState(1)
-    const [pageSize, setPageSize] = React.useState(10)
+    const [pageSize, setPageSize] = React.useState(5)
     const [paymentMethod, setPaymentMethod] = React.useState('')
     const isFiltering = search || paymentMethod
 
@@ -93,8 +98,25 @@ export function DataTableRealworld() {
     }
 
     const handleDeleteSelected = () => {
-        alert(`Deleted ${selectedCount} selected users`)
+        confirm({
+            title: 'Delete Users',
+            description: 'Are you sure you want to delete these users?',
+            action: {
+                label: 'Delete',
+                onClick: () => {
+                    toast.success({
+                        title: `Users Deleted Successfully`,
+                        description: `Deleted ${selectedCount} selected users`,
+                    })
+                },
+                buttonProps: {
+                    variant: 'destructive',
+                },
+            },
+        })
     }
+
+    useNProgress({ isFetching: payments.isFetching })
 
     return (
         <div className="w-full space-y-3">
@@ -105,6 +127,7 @@ export function DataTableRealworld() {
                         setSearch(value)
                         setPage(1)
                     }}
+                    containerClassName="max-sm:flex-1"
                 />
                 <BsSelect
                     value={paymentMethod}
@@ -112,19 +135,19 @@ export function DataTableRealworld() {
                         setPaymentMethod(String(value))
                         setPage(1)
                     }}
-                    className="w-[155px]"
+                    className="w-[155px] max-sm:hidden"
                     placeholder="Payment Method"
                     options={methodOptions}
                 />
                 {isFiltering && (
-                    <Button variant="outline" onClick={handleClearFilters}>
+                    <Button className="max-sm:hidden" variant="outline" onClick={handleClearFilters}>
                         <XIcon />
                         Clear
                     </Button>
                 )}
 
                 {!!selectedCount && (
-                    <Button variant="destructive" className="ml-auto" onClick={handleDeleteSelected}>
+                    <Button variant="destructive" className="ml-auto max-sm:hidden" onClick={handleDeleteSelected}>
                         Delete Selected
                     </Button>
                 )}
@@ -134,13 +157,12 @@ export function DataTableRealworld() {
                 enableRowSelection
                 rowSelection={rowSelection}
                 setRowSelection={setRowSelection}
-                containerClassName="h-[450px]"
+                containerClassName="h-[335px]"
                 sorting={sorting}
                 setSorting={setSorting}
                 columns={columns}
                 data={payments.data?.items ?? []}
                 isLoading={payments.isLoading}
-                isFetching={payments.isFetching}
             />
             <div className="flex gap-4 justify-between">
                 <PaginationPageSizeSelector

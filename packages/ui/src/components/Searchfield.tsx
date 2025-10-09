@@ -47,7 +47,7 @@ function SearchFieldGroup({ className, ...props }: AriaGroupProps) {
         <AriaGroup
             className={composeRenderProps(className, className =>
                 cn(
-                    'flex h-10 w-full items-center overflow-hidden rounded-md border border-input px-3 py-2 text-sm ring-offset-background',
+                    'flex h-10 w-full items-center overflow-hidden rounded-md border  px-3 py-2 text-sm ring-offset-background',
                     /* Focus Within */
                     'data-[focus-within]:outline-none data-[focus-within]:ring-2 data-[focus-within]:ring-ring data-[focus-within]:ring-offset-2',
                     /* Disabled */
@@ -82,11 +82,12 @@ function SearchFieldClear({ className, ...props }: AriaButtonProps) {
 
 interface BsSearchFieldProps extends AriaSearchFieldProps {
     placeholder?: string
+    containerClassName?: string
 }
 
-function BsSearchField({ className, placeholder = 'Search...', ...props }: BsSearchFieldProps) {
+function BsSearchField({ className, placeholder = 'Search...', containerClassName, ...props }: BsSearchFieldProps) {
     return (
-        <SearchField className="group flex flex-col gap-2" {...props}>
+        <SearchField className={cn('group flex flex-col gap-2', containerClassName)} {...props}>
             <FieldGroup className={() => cn('px-2', className)}>
                 <SearchIcon aria-hidden className="size-4 text-muted-foreground pointer-events-none" />
                 <SearchFieldInput placeholder={placeholder} />
