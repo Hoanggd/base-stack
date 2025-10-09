@@ -2,26 +2,23 @@
 title: Folder Structure
 description: An overview of the recommended folder structure for scalable React applications.
 ---
+
+## Feature-Based
 > Separation of concerns isn't about splitting up tech layers, it's about focusing on what matters most: **user outcomes**.
 
-## Keeping Project Structure Simple
+### Keeping Project Structure Simple?
 
 When organizing code, simplicity should guide every decision.
 While countless architectural patterns exist, from flat structures to atomic design,
 feature-sliced architectures to micro-frontends, the feature-based (modular) approach strikes the best balance for most teams.
 
-## Why Feature-Based Structure
+### Why Feature-Based Structure
 
 The beauty of organizing code by features is that it mirrors how we think about products.
 Instead of spreading authentication logic across folders such as `/pages`, `/widgets`, and `/features`, or debating which layer a file belongs to, nearly all authentication-related code is grouped together in an `/auth` module.
 This co-location makes it easier for developers to find what they need and focus on building features.
 
-Feature-based organization also scales naturally.
-Small projects stay manageable with just a few modules, while larger applications can nest
-features or split them into separate packages. When growth demands it, extracting a feature into its own microservice
-becomes straightforward, the boundaries already exist in your codebase.
-
-## A Balanced Approach
+### A Balanced Approach
 
 Other patterns have their place. Flat structures work for tiny projects. Atomic design excels for component libraries.
 Feature-sliced architecture suits enterprise applications. But feature-based organization adapts to most
@@ -30,86 +27,88 @@ scenarios without the overhead of complex rules or rigid hierarchies.
 The goal isn't architectural purity, it's building software that teams can understand and maintain.
 When your folder structure reflects the features users care about, everyone can navigate the codebase intuitively.
 
-Keep it simple. Group by feature. Let your structure grow with your product.
+---
 
-## Examples
+## Implementing Feature-Based Structure in Next.js
+> This guide focuses on the application architecture, using Next.js as an example.
+If you're interested in learning more about monorepo structures in general,
+you can refer to the Turborepo documentation <Link href="https://turborepo.com/docs/crafting-your-repository/structuring-a-repository" target="_blank">here</Link>
 
-### Next.js
+Here’s how you can adopt a feature-oriented architecture in a Next.js project, but the core ideas can be applied to any framework. 
+Most feature-based structures divide the codebase into three main layers:
+- Routing (handled by the `app` directory in this example)
+- Shared
+- Features
 
-```text
-next/
-├── src/
-│   ├── shared/
-│   │   ├── components/
-│   │   │   └── ChatBox.tsx
-│   │   ├── config/
-│   │   │   └── axios.ts
-│   │   ├── entities/
-│   │   │   ├── common/
-│   │   │   │   ├── common.service.ts
-│   │   │   │   └── common.model.ts
-│   │   │   └── post/
-│   │   │       ├── post.service.ts
-│   │   │       ├── post.model.ts
-│   │   │       └── post.queries.ts
-│   │   ├── lib/
-│   │   └── consts/
-│   └── app/
-│       ├── layout.tsx
-│       └── posts/
-│           ├── _components/
-│           │   ├── PostList.tsx
-│           │   ├── PostItem.tsx
-│           │   └── PostForm.tsx
-│           ├── _lib/
-│           ├── page.tsx
-│           ├── new/page.tsx
-│           └── [postId]/page.tsx
-├── package.json
-└── tsconfig
-```
+<MdxImage src="/images/folder-overview.avif" alt="Folder structure overview" />
 
-Read more [here](https://nextjs.org/docs/app/getting-started/project-structure#folder-and-file-conventions)
+### 1. Routing - Understanding the Routing Layer
+The routing layer sits at the top level of your Next.js application and directly maps to your application's URL structure. 
+In this architecture, the routing folders contain only the essential files needed for Next.js routing to function.
 
-### Tanstack Router
+<MdxImage src="/images/folder-routing.avif" alt="Folder structure routing" />
 
-```text
-tanstack-router/
-├── src/
-│   ├── shared/
-│   │   ├── components/
-│   │   │   └── ChatBox.tsx
-│   │   ├── config/
-│   │   │   └── axios.ts
-│   │   ├── entities/
-│   │   │   ├── common/
-│   │   │   │   ├── common.service.ts
-│   │   │   │   └── common.model.ts
-│   │   │   └── post/
-│   │   │       ├── post.service.ts
-│   │   │       ├── post.model.ts
-│   │   │       └── post.queries.ts
-│   │   ├── lib/
-│   │   └── consts/
-│   └── routes/
-│       ├── __root.tsx
-│       └── posts/
-│           ├── -components/
-│           │   ├── PostList.tsx
-│           │   ├── PostItem.tsx
-│           │   └── PostForm.tsx
-│           ├── -lib/
-│           ├── index.tsx
-│           ├── new.tsx
-│           └── $postId.tsx
-├── package.json
-└── tsconfig
-```
+Key Components:
+- `posts/` - Handles all post-related routes
+- `page.tsx` - The main posts page component
+- `[postId]/` - Dynamic route for individual post pages
+- `users/` - Manages user-related routes
 
-Read more [here](https://tanstack.com/router/latest/docs/framework/react/routing/routing-concepts)
+The routing layer is intentionally thin. Each folder contains minimal code, primarily serving as an entry point that connects the URL 
+structure to your feature modules. The page.tsx files act as route handlers that orchestrate data fetching and component rendering, 
+but they don't contain business logic or reusable components themselves.
 
-### Brief overview of key files
+### 2. Shared - Your Application's Foundation
+The shared folder contains all the common code that's used across multiple features throughout your application.
+<MdxImage src="/images/folder-shared.avif" alt="Folder structure shared" />
 
-- `post.service.ts`: handles API requests related to posts
-- `post.model.ts`: defines TypeScript types and interfaces for posts
-- `post.queries.ts`: contains TanStack Query hooks, such as `usePosts`
+Structure Breakdown:
+
+- `config/` - Application-wide configuration files (API endpoints, feature flags)
+- `consts/` - Global constants (enums, status codes, default values, magic numbers)
+- `components/` - Reusable UI components used across different features (modals, cards)
+- `lib/` - Utility functions and third-party library configurations (API clients, formatters)
+- `hooks/` - Custom React hooks that provide common functionality (useDebounce, useLocalStorage)
+
+### 3. Features - Vertical Slices of Functionality
+The features folder is where the magic happens. Each feature represents a complete vertical slice of your application, 
+containing everything needed to deliver a specific piece of business functionality.
+
+<MdxImage src="/images/folder-features.avif" alt="Folder structure features" />
+
+**Feature Structure:**
+Each feature (users, posts, comments) maintains its own internal organization:
+- `consts/` - Feature-specific constants
+- `components/` - UI components that are only used within this feature
+- `lib/` - Utility functions specific to this feature's domain logic
+- `hooks/` - Custom hooks that encapsulate this feature's stateful logic (usePosts, useCreatePost)
+
+### 4. Putting It All Together
+Let's review everything we've covered so far to get a comprehensive overview of the entire project structure.
+<MdxImage src="/images/folder-feature-based.avif" alt="Folder structure feature-based" />
+Traditional approaches organize by technical concern (all components together, all utilities together). Feature-based architecture organizes by business domain. This means:
+- **Locality of Behavior** - Everything related to "posts" lives in the posts feature. Need to understand how posts work? Look in one place.
+- **Independent Development** - Teams can work on different features with minimal conflicts and coordination overhead.
+- **Easier Deletion** - When a feature is deprecated, you can delete one folder instead of hunting through dozens of technical folders.
+- **Scalability** - As your app grows to dozens or hundreds of features, the structure remains navigable because each feature is self-contained.
+
+### 5. Import Flow and Best Practices
+Understanding the import flow is crucial for maintaining a clean architecture over time.
+<MdxImage src="/images/folder-import-flow.avif" alt="Folder import flow" />
+**Dependency Rules:**
+- **Routing depends on Features** - Route handlers import and compose feature components
+- **Features depend on Shared** - Features use common components and utilities
+- **Shared depends on nothing** - Shared code is foundational and has no INTERNAL dependencies
+- **Features NEVER depend on other Features** - This prevents tight coupling
+- **Features NEVER depend on Routing** - Features shouldn't know about URLs or routing logic
+
+## When to Break the Rules
+Architecture is just a tool, and it's not perfect. You might break these rules when:
+- Building a proof of concept where speed matters more than structure
+- Dealing with Next.js-specific requirements (like layouts that span features)
+
+## Conclusion
+A well-structured folder organization is the backbone of a scalable, maintainable codebase. By adopting a feature-based approach, you empower your team to work independently, reduce cognitive overhead, and make onboarding new developers much easier. Remember, the goal is to make your codebase intuitive, so that anyone can quickly find, understand, and modify the code they need.
+
+Happy coding!
+
