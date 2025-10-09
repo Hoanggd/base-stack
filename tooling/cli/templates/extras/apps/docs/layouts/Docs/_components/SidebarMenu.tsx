@@ -2,7 +2,7 @@
 import { ModuleValue, useModulePicker } from '@/layouts/Docs/_components/ModulePicker'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
-import { BoltIcon, BookOpen, BrainIcon, ListChecksIcon, NetworkIcon, SquareTerminalIcon } from 'lucide-react'
+import { BookOpenIcon, BrainIcon, ListChecksIcon, NetworkIcon, SettingsIcon, SquareTerminalIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -19,38 +19,94 @@ interface MenuGroup {
 }
 
 function getMenuGroups(module: string): MenuGroup[] {
-    if (module === ModuleValue.UI) {
+    if (module === ModuleValue.Overview) {
         return [
             {
                 title: 'Getting Started',
                 items: [
                     {
                         title: 'Introduction',
-                        href: '/docs/ui/introduction',
-                        icon: <BookOpen size={16} strokeWidth={1.5} />,
+                        href: '/docs/guide/introduction',
+                        icon: <BookOpenIcon size={16} strokeWidth={1.5} />,
                     },
                     {
                         title: 'Installation',
-                        href: '/docs/ui/installation',
-                        icon: <BoltIcon size={16} strokeWidth={1.5} />,
+                        href: '/docs/guide/installation',
+                        icon: <SettingsIcon size={16} strokeWidth={1.5} />,
                     },
                     {
                         title: 'CLI Tool',
-                        href: '/docs/ui/cli',
+                        href: '/docs/guide/cli',
                         icon: <SquareTerminalIcon size={16} strokeWidth={1.5} />,
                     },
                     {
+                        title: 'Philosophy',
+                        href: '/docs/guide/philosophy',
+                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
                         title: 'Decisions on DX',
-                        href: '/docs/ui/decisions-on-dx',
+                        href: '/docs/guide/decisions-on-dx',
                         icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
                     },
                     {
                         title: 'Folder Structure',
-                        href: '/docs/ui/folder-structure',
+                        href: '/docs/guide/folder-structure',
                         icon: <NetworkIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
+            {
+                title: 'Form Management',
+                items: [
+                    {
+                        title: 'Overview',
+                        href: '/docs/guide/form-overview',
+                    },
+                    {
+                        title: 'Basic Form',
+                        href: '/docs/guide/form-basic',
+                    },
+                    {
+                        title: 'Validation Form',
+                        href: '/docs/guide/form-validation',
+                    },
+                    {
+                        title: 'Dependent Validation',
+                        href: '/docs/guide/form-dependant-validation',
+                    },
+                    {
+                        title: 'Conditional Fields',
+                        href: '/docs/guide/form-conditional-fields',
+                    },
+                    {
+                        title: 'Field Array',
+                        href: '/docs/guide/form-field-array',
+                    },
+                    {
+                        title: 'Submission Errors',
+                        href: '/docs/guide/form-submission-errors',
+                    },
+                    {
+                        title: 'Large Form',
+                        href: '/docs/guide/form-large',
+                    },
+                ],
+            },
+            {
+                title: 'State Management',
+                items: [
+                    {
+                        title: 'Overview',
+                        href: '/docs/guide/data-fetching-overview',
+                    },
+                ],
+            },
+        ]
+    }
+
+    if (module === ModuleValue.UI) {
+        return [
             {
                 title: 'Buttons',
                 items: [
@@ -178,67 +234,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'NProgress',
                         href: '/docs/ui/nprogress',
-                    },
-                ],
-            },
-        ]
-    }
-
-    if (module === ModuleValue.Recipe) {
-        return [
-            {
-                title: 'Guidelines',
-                items: [
-                    {
-                        title: 'Philosophy',
-                        href: '/docs/recipes/philosophy',
-                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
-                    },
-                ],
-            },
-            {
-                title: 'Form Management',
-                items: [
-                    {
-                        title: 'Overview',
-                        href: '/docs/recipes/form-overview',
-                    },
-                    {
-                        title: 'Basic Form',
-                        href: '/docs/recipes/form-basic',
-                    },
-                    {
-                        title: 'Validation Form',
-                        href: '/docs/recipes/form-validation',
-                    },
-                    {
-                        title: 'Dependent Validation',
-                        href: '/docs/recipes/form-dependant-validation',
-                    },
-                    {
-                        title: 'Conditional Fields',
-                        href: '/docs/recipes/form-conditional-fields',
-                    },
-                    {
-                        title: 'Field Array',
-                        href: '/docs/recipes/form-field-array',
-                    },
-                    {
-                        title: 'Submission Errors',
-                        href: '/docs/recipes/form-submission-errors',
-                    },
-                    {
-                        title: 'Large Form',
-                        href: '/docs/recipes/form-large',
-                    },
-                ],
-            },
-            {
-                title: 'State Management',
-                items: [
-                    {
-                        title: 'Overview',
-                        href: '/docs/recipes/data-fetching-overview',
                     },
                 ],
             },

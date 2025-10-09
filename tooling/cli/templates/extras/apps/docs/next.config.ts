@@ -8,13 +8,13 @@ const nextConfig: NextConfig = withContentlayer({
     async redirects() {
         return [
             {
-                source: '/docs/ui',
-                destination: '/docs/ui/introduction',
+                source: '/docs/guide',
+                destination: '/docs/guide/introduction',
                 permanent: false,
             },
             {
-                source: '/docs/recipes',
-                destination: '/docs/recipes/philosophy',
+                source: '/docs/ui',
+                destination: '/docs/ui/button',
                 permanent: false,
             },
         ]
