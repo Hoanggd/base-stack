@@ -8,8 +8,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export enum ModuleValue {
+    Overview = 'overview',
     UI = 'ui',
-    Recipe = 'recipes',
 }
 
 interface Module {
@@ -22,18 +22,18 @@ interface Module {
 
 const modules: Module[] = [
     {
+        value: ModuleValue.Overview,
+        label: 'Guide',
+        icon: <BookIcon className="size-4!" />,
+        description: 'Overview and guide',
+        className: 'text-blue-500 bg-blue-500/10 border-blue-500/20',
+    },
+    {
         value: ModuleValue.UI,
         label: 'Components',
         icon: <Layers2Icon className="size-4!" />,
         description: 'Re-usable components',
-        className: 'text-sky-500 bg-sky-500/10 border-sky-500/20',
-    },
-    {
-        value: ModuleValue.Recipe,
-        label: 'Recipes',
-        icon: <BookIcon className="size-4!" />,
-        description: 'Recipes and patterns',
-        className: 'text-green-500 bg-green-600/10 border-green-500/20',
+        className: 'text-green-500 bg-green-500/10 border-green-500/20',
     },
 ]
 

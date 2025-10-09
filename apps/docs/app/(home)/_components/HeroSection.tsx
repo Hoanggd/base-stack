@@ -43,9 +43,9 @@ function TitleAndCTA() {
                     </Link>
                 </Button>
                 <Button variant="outline" size="xl" asChild>
-                    <Link href="/docs/recipes">
+                    <Link href="/docs/guide">
                         <BookIcon />
-                        Recipes
+                        guide
                     </Link>
                 </Button>
             </div>
