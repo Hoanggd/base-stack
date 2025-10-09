@@ -8,8 +8,11 @@ import React from 'react'
 import { HamburgerMenu } from '@/layouts/Docs/_components/HamburgerMenu'
 import { TopNavLinks } from '@/layouts/_shared/TopNavLinks'
 import { HeaderIconButtons } from '@/layouts/_shared/HeaderIconButtons'
+import { useIsMobile } from '@workspace/ui/hooks/use-mobile'
 
 export function DocsLayout({ children, tocs }: { children: React.ReactNode; tocs: React.ReactNode }) {
+    const isMobile = useIsMobile({ breakpoint: 1024 })
+
     return (
         <>
             <div className="container w-full max-w-[1400px] mx-auto">
@@ -19,22 +22,29 @@ export function DocsLayout({ children, tocs }: { children: React.ReactNode; tocs
                     <CrossIcon className="max-xl:hidden absolute top-16 right-[0.5px] translate-x-1/2 -translate-y-1/2" />
 
                     {/* desktop header  */}
-                    <div className="max-lg:hidden grid grid-cols-[260px_1fr] xl:grid-cols-[260px_1fr_260px] h-full">
-                        <div className="border-l h-full">
-                            <SidebarHeader />
+                    {!isMobile && (
+                        <div className="max-lg:hidden grid grid-cols-[260px_1fr] xl:grid-cols-[260px_1fr_260px] h-full">
+                            <div className="border-l h-full">
+                                <SidebarHeader />
+                            </div>
+                            <div className="flex items-center border-x px-10">
+                                <TopNavLinks />
+                                <div className="flex-1" />
+                                <HeaderIconButtons />
+                            </div>
+                            <div className="border-r h-full max-xl:hidden"></div>
                         </div>
-                        <div className="flex items-center border-x px-10">
+                    )}
+
+                    {/* mobile header  */}
+                    {isMobile && (
+                        <div className="lg:hidden h-full flex items-center gap-4 pr-5 pl-3">
+                            <HamburgerMenu />
                             <TopNavLinks />
                             <div className="flex-1" />
                             <HeaderIconButtons />
                         </div>
-                        <div className="border-r h-full max-xl:hidden"></div>
-                    </div>
-
-                    {/* mobile header  */}
-                    <div className="lg:hidden h-full flex items-center px-4">
-                        <HamburgerMenu />
-                    </div>
+                    )}
                 </div>
                 {/* header background */}
                 <div className="fixed h-16 left-0 w-full border-b z-[19] bg-background"></div>

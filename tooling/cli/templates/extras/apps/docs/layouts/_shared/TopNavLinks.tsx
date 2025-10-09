@@ -29,7 +29,7 @@ export function TopNavLinks() {
                         asChild
                         key={link.href}
                         variant={'unstyled'}
-                        className={cn('px-0 text-muted-foreground', isActive && 'text-foreground')}
+                        className={cn('px-0 opacity-75', isActive && 'opacity-100')}
                     >
                         <Link href={link.href}>{link.label}</Link>
                     </Button>

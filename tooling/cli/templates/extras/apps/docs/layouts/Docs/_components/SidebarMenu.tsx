@@ -2,15 +2,7 @@
 import { ModuleValue, useModulePicker } from '@/layouts/Docs/_components/ModulePicker'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
-import {
-    BoltIcon,
-    BookOpen,
-    BrainIcon,
-    CuboidIcon,
-    ListChecksIcon,
-    NetworkIcon,
-    SquareTerminalIcon,
-} from 'lucide-react'
+import { BoltIcon, BookOpen, BrainIcon, ListChecksIcon, NetworkIcon, SquareTerminalIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -43,9 +35,9 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <BoltIcon size={16} strokeWidth={1.5} />,
                     },
                     {
-                        title: 'Philosophy',
-                        href: '/docs/ui/philosophy',
-                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
+                        title: 'CLI Tool',
+                        href: '/docs/ui/cli',
+                        icon: <SquareTerminalIcon size={16} strokeWidth={1.5} />,
                     },
                     {
                         title: 'Decisions on DX',
@@ -56,11 +48,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Folder Structure',
                         href: '/docs/ui/folder-structure',
                         icon: <NetworkIcon size={16} strokeWidth={1.5} />,
-                    },
-                    {
-                        title: 'CLI',
-                        href: '/docs/ui/cli',
-                        icon: <SquareTerminalIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
@@ -172,17 +159,25 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/tooltip',
                     },
                     {
-                        title: 'Sonner',
-                        href: '/docs/ui/sonner',
+                        title: 'Select',
+                        href: '/docs/ui/select',
                     },
                 ],
             },
             {
-                title: 'Pickers',
+                title: 'Feedback',
                 items: [
                     {
-                        title: 'Select',
-                        href: '/docs/ui/select',
+                        title: 'Sonner',
+                        href: '/docs/ui/sonner',
+                    },
+                    {
+                        title: 'Spinner',
+                        href: '/docs/ui/spinner',
+                    },
+                    {
+                        title: 'NProgress',
+                        href: '/docs/ui/nprogress',
                     },
                 ],
             },
@@ -192,12 +187,12 @@ function getMenuGroups(module: string): MenuGroup[] {
     if (module === ModuleValue.Recipe) {
         return [
             {
-                title: 'Getting Started',
+                title: 'Guidelines',
                 items: [
                     {
-                        title: 'Architecture',
-                        href: '/docs/recipes/architecture',
-                        icon: <CuboidIcon size={16} strokeWidth={1.5} />,
+                        title: 'Philosophy',
+                        href: '/docs/recipes/philosophy',
+                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },
@@ -259,7 +254,7 @@ export function SidebarMenu() {
 
     return (
         <div className="relative h-full z-[1]">
-            <div className="absolute z-[1] top-0 left-0 right-6 h-8 bg-gradient-to-b from-background to-transparent pointer-events-none"></div>
+            <div className="absolute z-[1] top-0 left-0 right-6 h-7 bg-gradient-to-b from-background to-transparent pointer-events-none"></div>
             <div className="absolute inset-0">
                 <ScrollArea className="h-full -translate-x-px">
                     <div className="">

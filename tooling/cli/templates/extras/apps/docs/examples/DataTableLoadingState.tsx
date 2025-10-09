@@ -57,7 +57,6 @@ const columns = [
 
 export function DataTableLoadingState() {
     const [isLoading, setIsLoading] = React.useState(false)
-    const [isFetching, setIsFetching] = React.useState(false)
 
     const handleLoadData = () => {
         setIsLoading(true)
@@ -66,21 +65,11 @@ export function DataTableLoadingState() {
         }, 1000)
     }
 
-    const handleRefreshData = () => {
-        setIsFetching(true)
-        setTimeout(() => {
-            setIsFetching(false)
-        }, 500)
-    }
-
     return (
         <div className="w-full space-y-4">
             <div className="flex gap-2">
                 <Button variant="outline" onClick={handleLoadData} isDisabled={isLoading}>
                     Simulate Initial Load
-                </Button>
-                <Button variant="outline" onClick={handleRefreshData} isDisabled={isFetching}>
-                    Simulate Data Refresh
                 </Button>
             </div>
 
@@ -88,7 +77,6 @@ export function DataTableLoadingState() {
                 columns={columns}
                 data={isLoading ? [] : data}
                 isLoading={isLoading}
-                isFetching={isFetching}
                 containerClassName="h-[180px]"
             />
         </div>

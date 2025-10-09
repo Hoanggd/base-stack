@@ -47,7 +47,7 @@ function DateInput({ className, variant, ...props }: Omit<DateInputProps, 'child
     return (
         <AriaDateInput
             className={composeRenderProps(className, className =>
-                cn(fieldGroupVariants({ variant }), 'text-sm', className),
+                cn(fieldGroupVariants({ variant }), 'md:text-sm', className),
             )}
             {...props}
         >
