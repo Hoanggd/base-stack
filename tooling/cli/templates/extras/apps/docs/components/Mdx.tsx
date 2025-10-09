@@ -1,4 +1,5 @@
 import { ComponentPreview } from '@/components/ComponentPreview'
+import { MdxImage } from '@/components/MdxImage'
 import { Button } from '@workspace/ui/components/Button'
 import { useMDXComponent } from 'next-contentlayer2/hooks'
 import { MdxSnippet } from './MdxSnippet'
@@ -12,6 +13,7 @@ const components = {
     Link,
     ComponentPreview,
     Button,
+    MdxImage,
     pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
         let lang = ''
 
@@ -31,7 +33,10 @@ const components = {
         <blockquote style={{ quotes: 'none' }} {...props} />
     ),
     code: ({ ...props }: React.HTMLAttributes<HTMLElement>) => (
-        <code className="before:content-[''] after:content-[''] py-0.5 px-1.5 bg-background-tertiary rounded" {...props} />
+        <code
+            className="before:content-[''] after:content-[''] py-0.5 px-1.5 bg-background-tertiary rounded"
+            {...props}
+        />
     ),
 }
 

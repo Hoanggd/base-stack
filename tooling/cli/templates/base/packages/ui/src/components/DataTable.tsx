@@ -247,7 +247,7 @@ function DataTable<TData extends Identifiable, TValue>({
                 ) : (
                     <tr className="h-20">
                         <td className="flex flex-col items-center justify-center gap-2 absolute inset-0 top-10">
-                            {isLoading && <Spinner className="text-primary-foreground" />}
+                            {isLoading && <Spinner className="text-primary-foreground size-6" />}
                             {!isLoading && <EmptyState />}
                         </td>
                     </tr>

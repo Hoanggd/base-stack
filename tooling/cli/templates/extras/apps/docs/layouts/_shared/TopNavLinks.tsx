@@ -7,12 +7,12 @@ import Link from 'next/link'
 
 const navLinks = [
     {
-        label: 'Components',
-        href: '/docs/ui',
+        label: 'Guide',
+        href: '/docs/guide',
     },
     {
-        label: 'Recipes',
-        href: '/docs/recipes',
+        label: 'Components',
+        href: '/docs/ui',
     },
 ]
 

@@ -6,7 +6,7 @@ export function FeaturesSection() {
         <section>
             <div className="px-5 container max-w-screen-xl mx-auto py-10 space-y-7 md:py-20 md:px-8">
                 <div className="space-y-2">
-                    <h2 className="text-4xl font-bold">Everything You Need</h2>
+                    <h2 className="text-2xl font-bold sm:text-4xl">Everything You Need</h2>
                     <p className="text-lg">Production-ready boilerplate with best-in-class tools and patterns</p>
                 </div>
 
