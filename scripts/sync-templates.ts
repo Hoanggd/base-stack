@@ -62,5 +62,6 @@ files.forEach(file => {
 
     fs.cpSync(path.join(__dirname, '..', file), path.join(baseDir, destFile), {
         force: true,
+        recursive: true,
     })
 })

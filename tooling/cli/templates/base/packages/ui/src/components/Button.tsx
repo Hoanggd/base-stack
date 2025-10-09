@@ -21,22 +21,22 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                default: 'bg-linear-to-b from-primary/90 to-primary text-white button-3d',
-                destructive: 'bg-linear-to-b from-destructive/90 to-destructive text-white button-3d',
+                default: 'bg-primary text-white button-3d',
+                destructive: 'bg-destructive text-white button-3d',
                 outline:
-                    'hover:bg-background-tertiary/70 bg-background-secondary shadow-sm border border-input text-foreground',
+                    'hover:bg-background-tertiary/70 bg-background-secondary shadow-sm border  text-foreground',
                 outlineDestructive:
-                    'hover:bg-background-tertiary/70 bg-background-secondary shadow-sm border border-input text-destructive-foreground',
+                    'hover:bg-background-tertiary/70 bg-background-secondary shadow-sm border  text-destructive-foreground',
                 secondary: 'hover:opacity-80 border-transparent bg-neutral-500/15 text-secondary-foreground',
                 ghost: 'hover:bg-accent hover:text-accent-foreground active:bg-accent/50',
-                link: 'text-primary underline-offset-4 hover:underline px-0! py-0! h-auto! underline',
+                link: 'text-primary-foreground underline-offset-4 hover:underline px-0! py-0! h-auto! underline',
                 unstyled: '',
             },
             size: {
                 default: 'h-8 px-3 py-2',
                 sm: 'h-7 px-2 text-[13px]',
-                lg: 'h-9 px-4 rounded-md',
-                xl: 'h-11 px-4 text-base rounded-md',
+                lg: 'h-9 px-4 rounded-md gap-2',
+                xl: 'h-11 px-5 text-base rounded-md gap-2',
                 icon: 'size-8',
                 iconSm: 'size-6',
             },
