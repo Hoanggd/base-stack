@@ -55,7 +55,7 @@ function TitleAndCTA() {
 
 function ComponentDemo() {
     return (
-        <div className="border border-border/70 rounded-2xl bg-background overflow-hidden xl:w-[160%] xl:max-w-[calc(50vw-40px)]">
+        <div className="border border-border/70 rounded-2xl bg-background/85 overflow-hidden xl:w-[160%] xl:max-w-[calc(50vw-40px)]">
             <div className="flex justify-center px-4 py-2 items-center relative">
                 <div className="flex items-center space-x-2 absolute left-4 top-4">
                     <span className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
