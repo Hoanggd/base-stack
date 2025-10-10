@@ -3,19 +3,15 @@ title: Folder Structure
 description: An overview of the recommended folder structure for scalable React applications.
 ---
 
-## Feature-Based
 > Separation of concerns isn't about splitting up tech layers, it's about focusing on what matters most: **user outcomes**.
-
-### Keeping Project Structure Simple?
+## Why Feature-Based Structure
 
 When organizing code, simplicity should guide every decision.
 While countless architectural patterns exist, from flat structures to atomic design,
 feature-sliced architectures to micro-frontends, the feature-based (modular) approach strikes the best balance for most teams.
 
-### Why Feature-Based Structure
-
 The beauty of organizing code by features is that it mirrors how we think about products.
-Instead of spreading authentication logic across folders such as `/pages`, `/widgets`, and `/features`, or debating which layer a file belongs to, nearly all authentication-related code is grouped together in an `/auth` module.
+Instead of spreading authentication logic across folders such as `/pages`, `/widgets` and `/containers`, or debating which layer a file belongs to, nearly all authentication-related code is grouped together in an `/auth` module.
 This co-location makes it easier for developers to find what they need and focus on building features.
 
 ### A Balanced Approach
@@ -92,20 +88,21 @@ Traditional approaches organize by technical concern (all components together, a
 - **Easier Deletion** - When a feature is deprecated, you can delete one folder instead of hunting through dozens of technical folders.
 - **Scalability** - As your app grows to dozens or hundreds of features, the structure remains navigable because each feature is self-contained.
 
-### 5. Import Flow and Best Practices
-Understanding the import flow is crucial for maintaining a clean architecture over time.
+### 5. Dependency Rules and Best Practices
 <MdxImage src="/images/folder-import-flow.avif" alt="Folder import flow" />
 **Dependency Rules:**
-- **Routing depends on Features** - Route handlers import and compose feature components
+- **Routing depends on Features, Shared** - Route handlers import and compose feature components
 - **Features depend on Shared** - Features use common components and utilities
 - **Shared depends on nothing** - Shared code is foundational and has no INTERNAL dependencies
 - **Features NEVER depend on other Features** - This prevents tight coupling
 - **Features NEVER depend on Routing** - Features shouldn't know about URLs or routing logic
 
 ## When to Break the Rules
-Architecture is just a tool, and it's not perfect. You might break these rules when:
+No architecture approach is perfect, they’re all just tools to help you.
+So don’t feel like you must follow these rules strictly. It’s okay to break them when:
 - Building a proof of concept where speed matters more than structure
 - Dealing with Next.js-specific requirements (like layouts that span features)
+- The project is very small and strict organization isn’t needed (like this documentation site)
 
 ## Conclusion
 A well-structured folder organization is the backbone of a scalable, maintainable codebase. By adopting a feature-based approach, you empower your team to work independently, reduce cognitive overhead, and make onboarding new developers much easier. Remember, the goal is to make your codebase intuitive, so that anyone can quickly find, understand, and modify the code they need.
