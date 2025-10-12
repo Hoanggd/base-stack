@@ -117,6 +117,22 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Overview',
                         href: '/docs/guide/data-fetching-overview',
                     },
+                    {
+                        title: 'Build an API Client',
+                        href: '/docs/guide/data-fetching-api-client',
+                    },
+                    {
+                        title: 'Retrieve a List of Items',
+                        href: '/docs/guide/data-fetching-list',
+                    },
+                    {
+                        title: 'Data Invalidation Best Practices',
+                        href: '/docs/guide/data-fetching-invalidation',
+                    },
+                    {
+                        title: 'Enhancing User Experience',
+                        href: '/docs/guide/data-fetching-enhance-ux',
+                    },
                 ],
             },
         ]
