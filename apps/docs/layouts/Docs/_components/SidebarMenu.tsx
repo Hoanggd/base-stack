@@ -2,7 +2,15 @@
 import { ModuleValue, useModulePicker } from '@/layouts/Docs/_components/ModulePicker'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
-import { BookOpenIcon, BrainIcon, ListChecksIcon, NetworkIcon, SettingsIcon, SquareTerminalIcon } from 'lucide-react'
+import {
+    BlocksIcon,
+    BookOpenIcon,
+    BrainIcon,
+    ListChecksIcon,
+    NetworkIcon,
+    SettingsIcon,
+    SquareTerminalIcon,
+} from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -30,6 +38,11 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <BookOpenIcon size={16} strokeWidth={1.5} />,
                     },
                     {
+                        title: 'Tech Stack',
+                        href: '/docs/guide/tech-stack',
+                        icon: <BlocksIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
                         title: 'Installation',
                         href: '/docs/guide/installation',
                         icon: <SettingsIcon size={16} strokeWidth={1.5} />,
@@ -40,11 +53,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <SquareTerminalIcon size={16} strokeWidth={1.5} />,
                     },
                     {
-                        title: 'Philosophy',
-                        href: '/docs/guide/philosophy',
-                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
-                    },
-                    {
                         title: 'Decisions on DX',
                         href: '/docs/guide/decisions-on-dx',
                         icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
@@ -53,6 +61,11 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Folder Structure',
                         href: '/docs/guide/folder-structure',
                         icon: <NetworkIcon size={16} strokeWidth={1.5} />,
+                    },
+                    {
+                        title: 'Philosophy',
+                        href: '/docs/guide/philosophy',
+                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
                     },
                 ],
             },

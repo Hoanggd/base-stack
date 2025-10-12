@@ -4,6 +4,7 @@ import { Button } from '@workspace/ui/components/Button'
 import { useMDXComponent } from 'next-contentlayer2/hooks'
 import { MdxSnippet } from './MdxSnippet'
 import Link from 'next/link'
+import { Features as ProjectFeatures } from '@/app/(home)/_components/FeaturesSection'
 
 type MdxProps = {
     code: string
@@ -12,6 +13,7 @@ type MdxProps = {
 const components = {
     Link,
     ComponentPreview,
+    ProjectFeatures,
     Button,
     MdxImage,
     pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
@@ -37,6 +39,11 @@ const components = {
             className="before:content-[''] after:content-[''] py-0.5 px-1.5 bg-background-tertiary rounded"
             {...props}
         />
+    ),
+    table: ({ ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+        <div>
+            <table {...props} />
+        </div>
     ),
 }
 

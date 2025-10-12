@@ -1,5 +1,10 @@
+import { NextJsIcon } from '@/components/icons/NextJsIcon'
+import { ReactIcon } from '@/components/icons/ReactIcon'
+import { ShadcnIcon } from '@/components/icons/ShadcnIcon'
+import { ViteIcon } from '@/components/icons/ViteIcon'
 import { cn } from '@workspace/ui/lib/utils'
-import { BookIcon, Database, FormInput, PackageIcon, SquareTerminal, SwatchBook } from 'lucide-react'
+import { ArrowUpRightIcon, Database, FormInput, PackageIcon, SquareTerminal, SwatchBook } from 'lucide-react'
+import Link from 'next/link'
 
 export function FeaturesSection() {
     return (
@@ -12,73 +17,148 @@ export function FeaturesSection() {
             </section>
             <div className="px-3">
                 <section className="container max-w-screen-xl mx-auto border-l">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                        <FeatureCard
-                            icon={<PackageIcon strokeWidth={1.5} />}
-                            title="Monorepo Structure"
-                            description="Scalable monorepo setup with pnpm workspaces and Turborepo for managing multiple apps"
-                            iconClassName="text-blue-500 bg-blue-500/10"
-                        />
-                        <FeatureCard
-                            title="CLI Tool"
-                            description="Command-line tool for scaffolding and managing Base Stack monorepos and applications"
-                            icon={<SquareTerminal strokeWidth={1.5} />}
-                            iconClassName="text-cyan-500 bg-cyan-500/10"
-                        />
-                        <FeatureCard
-                            icon={<BookIcon strokeWidth={1.5} />}
-                            title="Best Practices"
-                            description="Best practices for building production-ready applications"
-                            iconClassName="text-green-500 bg-green-500/10"
-                        />
-                        <FeatureCard
-                            title="React Aria Components"
-                            description="Accessibility-first components built with React Aria instead of Radix UI for better UX"
-                            icon={<SwatchBook strokeWidth={1.5} />}
-                            iconClassName="text-purple-500 bg-purple-500/10"
-                        />
-
-                        <FeatureCard
-                            title="TanStack Query"
-                            description="Powerful async state management with caching, background updates, and error handling"
-                            icon={<Database strokeWidth={1.5} />}
-                            iconClassName="text-red-500 bg-red-500/10"
-                        />
-
-                        <FeatureCard
-                            title="Form Management"
-                            description="React Hook Form + Zod validation for performant forms with TypeScript integration"
-                            icon={<FormInput strokeWidth={1.5} />}
-                            iconClassName="text-orange-500 bg-orange-500/10"
-                        />
-                    </div>
+                    <Features />
                 </section>
             </div>
         </>
     )
 }
 
+interface FeaturesProps {
+    className?: string
+    variant?: 'landing' | 'docs'
+}
+
+export function Features({ className, variant = 'landing' }: FeaturesProps) {
+    return (
+        <div
+            className={cn(
+                'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 not-prose',
+                variant === 'docs' && 'gap-4',
+                className,
+            )}
+        >
+            <FeatureCard
+                variant={variant}
+                icons={
+                    <div className="flex gap-1.5">
+                        <FeatureIcon className="bg-blue-500/10">
+                            <ReactIcon className="size-6" />
+                        </FeatureIcon>
+                        <FeatureIcon className="bg-blue-500/10">
+                            <NextJsIcon className="size-6 opacity-90" />
+                        </FeatureIcon>
+                        <FeatureIcon className="bg-blue-500/10">
+                            <ViteIcon className="size-6" />
+                        </FeatureIcon>
+                        <FeatureIcon className="bg-blue-500/10">
+                            <ShadcnIcon className="size-6" />
+                        </FeatureIcon>
+                    </div>
+                }
+                title="Modern Tech Stack"
+                description="Modern technologies for developing high-quality frontend apps"
+                url="/docs/guide/tech-stack"
+            />
+            <FeatureCard
+                variant={variant}
+                icons={
+                    <FeatureIcon className="text-green-500 bg-green-500/10">
+                        <PackageIcon strokeWidth={1.5} />
+                    </FeatureIcon>
+                }
+                title="Opinionated Folder Structure"
+                description="Scalable folder structure for managing multiple apps"
+                url="/docs/guide/installation#project-structure"
+            />
+            <FeatureCard
+                variant={variant}
+                icons={
+                    <FeatureIcon className="text-cyan-500 bg-cyan-500/10">
+                        <SquareTerminal strokeWidth={1.5} />
+                    </FeatureIcon>
+                }
+                title="CLI Tool"
+                description="Command-line tool for scaffolding and managing Base Stack monorepos and applications"
+                url="/docs/guide/cli"
+            />
+            <FeatureCard
+                variant={variant}
+                icons={
+                    <FeatureIcon className="text-purple-500 bg-purple-500/10">
+                        <SwatchBook strokeWidth={1.5} />
+                    </FeatureIcon>
+                }
+                title="Components Library"
+                description="Accessibility-first components built with shadcn/ui for better UX"
+                url="/docs/ui"
+            />
+            <FeatureCard
+                variant={variant}
+                icons={
+                    <FeatureIcon className="text-orange-500 bg-orange-500/10">
+                        <FormInput strokeWidth={1.5} />
+                    </FeatureIcon>
+                }
+                title="Form Handling"
+                description="Recommended patterns for handling forms using React Hook Form and Zod"
+                url="/docs/guide/form-overview"
+            />
+            <FeatureCard
+                variant={variant}
+                icons={
+                    <FeatureIcon className="text-red-500 bg-red-500/10">
+                        <Database strokeWidth={1.5} />
+                    </FeatureIcon>
+                }
+                title="Data Fetching Strategy"
+                description="Suggested methods for handling data requests with TanStack Query"
+                url="/docs/guide/data-fetching-overview"
+            />
+        </div>
+    )
+}
+
 interface FeatureCardProps {
-    icon: React.ReactNode
+    icons: React.ReactNode
     title: string
     description: string
     iconClassName?: string
+    url?: string
+    variant?: 'landing' | 'docs'
 }
 
-function FeatureCard({ icon, title, description, iconClassName }: FeatureCardProps) {
+function FeatureCard({ icons, title, description, url = '#', variant = 'landing' }: FeatureCardProps) {
     return (
-        <div className="flex flex-col border-r border-t bg-background p-4 h-full">
-            <div
-                className={cn(
-                    'w-12 h-12 bg-background-tertiary/90 rounded-lg flex items-center justify-center mb-5',
-                    iconClassName,
-                )}
-            >
-                {icon}
+        <Link
+            href={url}
+            className={cn(
+                'group relative flex flex-col justify-between gap-5 p-3 transition-colors h-full bg-background hover:bg-background-secondary md:p-8',
+                variant === 'landing' && 'border-t border-r',
+                variant === 'docs' && 'border rounded-lg md:p-4',
+            )}
+        >
+            <ArrowUpRightIcon className="transition-transform size-6 stroke-1 absolute top-3 right-3 opacity-0 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100" />
+            <div>
+                <h2 className="font-medium">{title}</h2>
+                <p className="text-muted-foreground text-sm">{description}</p>
             </div>
-            <div className="flex-1" />
-            <h2 className="font-medium">{title}</h2>
-            <p className="text-muted-foreground text-sm">{description}</p>
+            {icons}
+        </Link>
+    )
+}
+
+interface FeatureIconProps {
+    children: React.ReactNode
+    className?: string
+}
+
+function FeatureIcon({ children, className }: FeatureIconProps) {
+    return (
+        <div
+            className={cn('w-11 h-11 bg-background-tertiary/90 rounded-lg flex items-center justify-center', className)}
+        >
+            {children}
         </div>
     )
 }
