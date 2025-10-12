@@ -15,8 +15,6 @@ import { Spinner } from '@workspace/ui/components/Spinner'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@workspace/ui/components/Table'
 import { cn } from '@workspace/ui/lib/utils'
 import { ArrowDownIcon, ArrowUpIcon, FileSearch } from 'lucide-react'
-import * as NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 import React from 'react'
 import {
     DataTableSorting,

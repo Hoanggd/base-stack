@@ -1,14 +1,14 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { z } from '@workspace/lib/validation'
 import { toast } from '@workspace/ui/components/Sonner'
-import { z } from '@workspace/ui/lib/zod'
+import { useForm } from 'react-hook-form'
 
 import { Button } from '@workspace/ui/components/Button'
-import { BsCheckboxGroup, BsCheckboxGroupOption } from '@workspace/ui/components/Checkbox'
+import { BsCheckboxGroup } from '@workspace/ui/components/Checkbox'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
-import { Input } from '@workspace/ui/components/Textfield'
 import { BsSelect } from '@workspace/ui/components/Select'
+import { Input } from '@workspace/ui/components/Textfield'
 
 enum Role {
     User = 'user',

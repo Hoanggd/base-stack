@@ -3,19 +3,15 @@ title: Folder Structure
 description: An overview of the recommended folder structure for scalable React applications.
 ---
 
-## Feature-Based
 > Separation of concerns isn't about splitting up tech layers, it's about focusing on what matters most: **user outcomes**.
-
-### Keeping Project Structure Simple?
+## Why Feature-Based Structure
 
 When organizing code, simplicity should guide every decision.
 While countless architectural patterns exist, from flat structures to atomic design,
 feature-sliced architectures to micro-frontends, the feature-based (modular) approach strikes the best balance for most teams.
 
-### Why Feature-Based Structure
-
 The beauty of organizing code by features is that it mirrors how we think about products.
-Instead of spreading authentication logic across folders such as `/pages`, `/widgets`, and `/features`, or debating which layer a file belongs to, nearly all authentication-related code is grouped together in an `/auth` module.
+Instead of spreading authentication logic across folders such as `/pages`, `/widgets` and `/containers`, or debating which layer a file belongs to, nearly all authentication-related code is grouped together in an `/auth` module.
 This co-location makes it easier for developers to find what they need and focus on building features.
 
 ### A Balanced Approach
@@ -55,8 +51,7 @@ Key Components:
 - `users/` - Manages user-related routes
 
 The routing layer is intentionally thin. Each folder contains minimal code, primarily serving as an entry point that connects the URL 
-structure to your feature modules. The page.tsx files act as route handlers that orchestrate data fetching and component rendering, 
-but they don't contain business logic or reusable components themselves.
+structure to your feature modules.
 
 ### 2. Shared - Your Application's Foundation
 The shared folder contains all the common code that's used across multiple features throughout your application.
@@ -64,7 +59,7 @@ The shared folder contains all the common code that's used across multiple featu
 
 Structure Breakdown:
 
-- `config/` - Application-wide configuration files (API endpoints, feature flags)
+- `config/` - Application-wide configuration files (feature flags)
 - `consts/` - Global constants (enums, status codes, default values, magic numbers)
 - `components/` - Reusable UI components used across different features (modals, cards)
 - `lib/` - Utility functions and third-party library configurations (API clients, formatters)
@@ -81,7 +76,8 @@ Each feature (users, posts, comments) maintains its own internal organization:
 - `consts/` - Feature-specific constants
 - `components/` - UI components that are only used within this feature
 - `lib/` - Utility functions specific to this feature's domain logic
-- `hooks/` - Custom hooks that encapsulate this feature's stateful logic (usePosts, useCreatePost)
+- `hooks/` - Custom hooks that manage the stateful logic for this feature (you may not always need this folder,
+only create custom hooks here if the feature logic starts to become complex)
 
 ### 4. Putting It All Together
 Let's review everything we've covered so far to get a comprehensive overview of the entire project structure.
@@ -92,23 +88,21 @@ Traditional approaches organize by technical concern (all components together, a
 - **Easier Deletion** - When a feature is deprecated, you can delete one folder instead of hunting through dozens of technical folders.
 - **Scalability** - As your app grows to dozens or hundreds of features, the structure remains navigable because each feature is self-contained.
 
-### 5. Import Flow and Best Practices
-Understanding the import flow is crucial for maintaining a clean architecture over time.
+### 5. Dependency Rules and Best Practices
 <MdxImage src="/images/folder-import-flow.avif" alt="Folder import flow" />
 **Dependency Rules:**
-- **Routing depends on Features** - Route handlers import and compose feature components
+- **Routing depends on Features, Shared** - Route handlers import and compose feature components
 - **Features depend on Shared** - Features use common components and utilities
 - **Shared depends on nothing** - Shared code is foundational and has no INTERNAL dependencies
 - **Features NEVER depend on other Features** - This prevents tight coupling
 - **Features NEVER depend on Routing** - Features shouldn't know about URLs or routing logic
 
+Following these rules also makes it easier to decide whether a file belongs in the features or shared folder.
+Since one feature cannot depend on another, if you have a component used by multiple features, it’s best to move it to the shared folder instead of keeping it inside any single feature.
+
 ## When to Break the Rules
-Architecture is just a tool, and it's not perfect. You might break these rules when:
+No architecture approach is perfect, they’re all just tools to help you.
+So don’t feel like you must follow these rules strictly. It’s okay to break them when:
 - Building a proof of concept where speed matters more than structure
 - Dealing with Next.js-specific requirements (like layouts that span features)
-
-## Conclusion
-A well-structured folder organization is the backbone of a scalable, maintainable codebase. By adopting a feature-based approach, you empower your team to work independently, reduce cognitive overhead, and make onboarding new developers much easier. Remember, the goal is to make your codebase intuitive, so that anyone can quickly find, understand, and modify the code they need.
-
-Happy coding!
-
+- The project is very small and strict organization isn’t needed (like this documentation site)
