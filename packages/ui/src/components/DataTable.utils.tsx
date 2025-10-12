@@ -1,6 +1,6 @@
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from './Checkbox'
-import { z } from '@workspace/ui/lib/zod'
+import { z } from 'zod'
 import { cn } from '@workspace/ui/lib/utils'
 
 function getCheckboxColumnDef<T>(): ColumnDef<T> {

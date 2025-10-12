@@ -6,7 +6,7 @@ import { toast } from '@workspace/ui/components/Sonner'
 import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
 import { BsSelect } from '@workspace/ui/components/Select'
-import { z } from '@workspace/ui/lib/zod'
+import { z } from '@workspace/lib/validation'
 
 interface FormValues {
     languages: Array<string>

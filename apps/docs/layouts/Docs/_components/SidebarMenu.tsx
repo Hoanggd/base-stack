@@ -68,6 +68,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/guide/form-basic',
                     },
                     {
+                        title: 'Form with Loading',
+                        href: '/docs/guide/form-with-loading',
+                    },
+                    {
                         title: 'Validation Form',
                         href: '/docs/guide/form-validation',
                     },

@@ -1,10 +1,10 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import { toast } from '@workspace/ui/components/Sonner'
 import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
+import { toast } from '@workspace/ui/components/Sonner'
 import { Input } from '@workspace/ui/components/Textfield'
+import { useForm } from 'react-hook-form'
 
 interface FormValues {
     email: string

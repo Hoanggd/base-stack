@@ -3,7 +3,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { toast } from '@workspace/ui/components/Sonner'
-import { z } from '@workspace/ui/lib/zod'
+import { z } from '@workspace/lib/validation'
 
 import { Button } from '@workspace/ui/components/Button'
 import {

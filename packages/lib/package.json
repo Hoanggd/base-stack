@@ -1,5 +1,5 @@
 {
-  "name": "@workspace/core",
+  "name": "@workspace/lib",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -21,7 +21,6 @@
     "typescript": "^5.9.2"
   },
   "exports": {
-    "./api": "./src/api/index.ts",
-    "./lib/zod": "./src/lib/zod.ts"
+    "./*": "./src/*/index.ts"
   }
 }

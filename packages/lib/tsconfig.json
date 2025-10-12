@@ -3,7 +3,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@workspace/core/*": ["./src/*"]
+            "@workspace/lib/*": ["./src/*"]
         }
     },
     "include": ["."],
