@@ -3,8 +3,8 @@ import { GITHUB_URL, GITHUB_URL_AUTHOR } from '@/constants/common'
 
 export function FooterSection() {
     return (
-        <footer className="py-6 md:py-12">
-            <div className="container max-w-screen-xl mx-auto">
+        <footer className="px-3">
+            <div className="px-3 border-x py-6 container max-w-screen-xl mx-auto md:py-12">
                 <p className="text-center text-muted-foreground text-sm">
                     Built by{' '}
                     <Link href={GITHUB_URL_AUTHOR} className="underline" target="_blank">

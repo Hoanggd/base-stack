@@ -98,7 +98,7 @@ function getMenuGroups(module: string): MenuGroup[] {
                 ],
             },
             {
-                title: 'State Management',
+                title: 'Data Fetching',
                 items: [
                     {
                         title: 'Overview',
