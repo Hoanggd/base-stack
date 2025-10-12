@@ -1,0 +1,26 @@
+{
+  "name": "@workspace/lib",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.87.1",
+    "axios": "^1.12.2",
+    "react-dom": "^19.1.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "eslint": "^9.35.0",
+    "typescript": "^5.9.2"
+  },
+  "exports": {
+    "./*": "./src/*/index.ts"
+  }
+}

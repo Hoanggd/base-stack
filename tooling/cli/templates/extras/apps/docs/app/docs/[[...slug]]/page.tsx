@@ -65,7 +65,7 @@ export default async function DocPage({ params }: DocPageProps) {
                     'prose-ul:list-inside prose-ol:list-inside prose-ul:mt-1.5 prose-ul:mb-0 prose-ol:mt-3 prose-ol:mb-0',
                     'prose-li:mt-1 prose-li:mb-0 prose-li:px-0',
                     'prose-p:mt-3! prose-p:mb-0!',
-                    'prose-img:my-5'
+                    'prose-img:my-5',
                 )}
             >
                 <div className="mb-10 px-5 lg:px-10 border-b pb-10">

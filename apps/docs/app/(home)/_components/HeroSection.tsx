@@ -8,10 +8,12 @@ import Link from 'next/link'
 
 export function HeroSection() {
     return (
-        <section className="px-5 pt-6 pb-10 container max-w-screen-xl mx-auto md:pb-20 md:px-8">
-            <div className="grid gap-10 xl:grid-cols-2 xl:gap-4">
-                <TitleAndCTA />
-                <ComponentDemo />
+        <section className="px-3">
+            <div className="px-3 border-x py-5 container max-w-screen-xl mx-auto md:pb-14 md:px-8">
+                <div className="relative grid gap-10 xl:grid-cols-2 xl:gap-4">
+                    <TitleAndCTA />
+                    <ComponentDemo />
+                </div>
             </div>
         </section>
     )
@@ -55,7 +57,7 @@ function TitleAndCTA() {
 
 function ComponentDemo() {
     return (
-        <div className="border border-border/70 rounded-2xl bg-background/85 overflow-hidden xl:w-[160%] xl:max-w-[calc(50vw-40px)]">
+        <div className="border rounded-2xl bg-background/85 overflow-hidden xl:w-[160%] xl:max-w-[calc(50vw-40px)]">
             <div className="flex justify-center px-4 py-2 items-center relative">
                 <div className="flex items-center space-x-2 absolute left-4 top-4">
                     <span className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />

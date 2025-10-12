@@ -12,8 +12,8 @@ const queryClient = new QueryClient({
         },
     },
     mutationCache: new MutationCache({
-        onSuccess: (_data, _variables, _context, mutation) => {
-            queryClient.invalidateQueries({
+        onSuccess: async (_data, _variables, _context, mutation) => {
+            await queryClient.invalidateQueries({
                 predicate: query =>
                     // invalidate all matching tags at once
                     // or everything if no meta is provided

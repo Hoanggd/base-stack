@@ -2,7 +2,7 @@
 
 import { useFieldArray, useForm, useFormContext } from 'react-hook-form'
 import { toast } from '@workspace/ui/components/Sonner'
-import { z } from '@workspace/ui/lib/zod'
+import { z } from '@workspace/lib/validation'
 import { PlusCircleIcon, Trash } from 'lucide-react'
 
 import { Button } from '@workspace/ui/components/Button'
