@@ -9,7 +9,7 @@ export interface LoadingOverlayProps {
 
 export function LoadingOverlay({ children, isLoading }: LoadingOverlayProps) {
     return (
-        <Slot className={cn('relative', isLoading && 'opacity-50')}>
+        <Slot className={cn('relative', isLoading && 'opacity-60')}>
             <Slottable>{children}</Slottable>
             {isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center">

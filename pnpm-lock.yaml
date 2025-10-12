@@ -153,9 +153,15 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.87.1
         version: 5.90.2(@tanstack/react-query@5.90.2(react@19.1.1))(react@19.1.1)
+      '@workspace/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      axios:
+        specifier: ^1.12.2
+        version: 1.12.2
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@19.1.1)
@@ -217,9 +223,15 @@ importers:
       '@tanstack/router-plugin':
         specifier: ^1.132.37
         version: 1.132.37(@tanstack/react-router@1.132.37(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(vite@7.1.9(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.30.1)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
+      '@workspace/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      axios:
+        specifier: ^1.12.2
+        version: 1.12.2
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@19.1.1)

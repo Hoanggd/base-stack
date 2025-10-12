@@ -236,6 +236,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/spinner',
                     },
                     {
+                        title: 'LoadingOverlay',
+                        href: '/docs/ui/loading-overlay',
+                    },
+                    {
                         title: 'NProgress',
                         href: '/docs/ui/nprogress',
                     },
