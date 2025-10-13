@@ -43,19 +43,12 @@ function ToastIcon({ variant }: { variant: ToastProps['variant'] }) {
     }
 
     return (
-        <div
-            className={cn(
-                variant === 'success' && 'text-green-500 dark:text-green-400',
-                variant === 'error' && 'text-destructive-foreground',
-                variant === 'info' && 'text-blue-500 dark:text-blue-400',
-                variant === 'warning' && 'text-yellow-500 dark:text-yellow-400',
-            )}
-        >
-            {variant === 'success' && <CircleCheckIcon className="size-5 " />}
-            {variant === 'error' && <CircleXIcon className="size-5 " />}
-            {variant === 'info' && <InfoIcon className="size-5 " />}
-            {variant === 'warning' && <AlertTriangleIcon className="size-5 " />}
-        </div>
+        <>
+            {variant === 'success' && <CircleCheckIcon className="size-5 text-green-500 dark:text-green-400" />}
+            {variant === 'error' && <CircleXIcon className="size-5 text-destructive-foreground" />}
+            {variant === 'info' && <InfoIcon className="size-5 text-blue-500 dark:text-blue-400" />}
+            {variant === 'warning' && <AlertTriangleIcon className="size-5 text-yellow-500 dark:text-yellow-400" />}
+        </>
     )
 }
 

@@ -4,6 +4,7 @@ import { Toaster } from '@workspace/ui/components/Sonner'
 import { I18nProvider as ReactAriaI18nProvider } from 'react-aria-components'
 import { ConfirmDialog } from '@workspace/ui/components/ConfirmDialog'
 import '@workspace/ui/components/NProgress'
+import 'nprogress/nprogress.css'
 
 interface BsProviderProps {
     children: React.ReactNode

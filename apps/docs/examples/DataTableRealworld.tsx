@@ -99,6 +99,7 @@ export function DataTableRealworld() {
 
     const handleDeleteSelected = () => {
         confirm({
+            variant: 'destructive',
             title: 'Delete Users',
             description: 'Are you sure you want to delete these users?',
             action: {
@@ -108,9 +109,6 @@ export function DataTableRealworld() {
                         title: `Users Deleted Successfully`,
                         description: `Deleted ${selectedCount} selected users`,
                     })
-                },
-                buttonProps: {
-                    variant: 'destructive',
                 },
             },
         })
