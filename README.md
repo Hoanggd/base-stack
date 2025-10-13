@@ -3,4 +3,4 @@ This is a **React starter kit** that provides an opinionated, production-ready f
 
 ![Project Preview](https://github.com/henry-phm/base-stack/blob/main/images/project-preview.png)
 ## Documentation
-https://base-stack-docs.vercel.app
+https://base-stack.dev
