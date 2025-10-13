@@ -95,7 +95,7 @@ Traditional approaches organize by technical concern (all components together, a
 - **Features depend on Shared** - Features use common components and utilities
 - **Shared depends on nothing** - Shared code is foundational and has no INTERNAL dependencies
 - **Features NEVER depend on other Features** - This prevents tight coupling
-- **Features NEVER depend on Routing** - Features shouldn't know about URLs or routing logic
+- **Features NEVER depend on Routing**
 
 Following these rules also makes it easier to decide whether a file belongs in the features or shared folder.
 Since one feature cannot depend on another, if you have a component used by multiple features, it’s best to move it to the shared folder instead of keeping it inside any single feature.

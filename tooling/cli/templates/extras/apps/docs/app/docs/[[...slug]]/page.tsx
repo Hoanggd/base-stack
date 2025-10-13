@@ -1,4 +1,5 @@
 import { Article } from '@/features/docs/components/Article'
+import { PROJECT_NAME } from '@/shared/consts/common'
 import { getTableOfContents } from '@/shared/lib/toc'
 import { allDocs } from 'contentlayer/generated'
 import { Metadata } from 'next'
@@ -37,6 +38,11 @@ export async function generateMetadata({ params }: DocPageProps): Promise<Metada
 
     return {
         title: doc.title,
+        description: doc.description,
+        openGraph: {
+            title: doc.title,
+            description: doc.description,
+        },
     }
 }
 
