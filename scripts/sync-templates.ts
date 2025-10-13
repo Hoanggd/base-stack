@@ -52,6 +52,7 @@ const files = [
     'README.md',
     'tsconfig.json',
     'turbo.json',
+    'lefthook.yml',
 ]
 files.forEach(file => {
     let destFile = file
