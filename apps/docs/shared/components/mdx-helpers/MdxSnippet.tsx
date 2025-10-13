@@ -41,7 +41,7 @@ export async function MdxSnippet({ children, className, lang = 'bash' }: MdxSnip
                         <ScrollArea className="grid">
                             <div
                                 dangerouslySetInnerHTML={{ __html: out }}
-                                className="max-h-[800px] [&>pre]:my-0 [&>pre]:rounded-none"
+                                className="[&>pre]:my-0 [&>pre]:rounded-none"
                             />
                         </ScrollArea>
                     </div>
