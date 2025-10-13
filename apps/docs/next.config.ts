@@ -19,6 +19,7 @@ const nextConfig: NextConfig = withContentlayer({
             },
         ]
     },
+    productionBrowserSourceMaps: true,
 })
 
 export default nextConfig
