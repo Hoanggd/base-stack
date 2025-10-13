@@ -1,4 +1,62 @@
 ---
 title: Data Invalidation Best Practices
-description: Coming soon
+description: Strategies and examples for properly invalidating and refetching data in your application to keep your UI up to date.
 ---
+
+## What does `invalidate query` mean in TanStack Query?
+
+In TanStack Query, to `invalidate a query` means marking a cached query as stale so that it will be refetched the next time it is used. This helps ensure your application's data stays up to date after a mutation or relevant change.
+
+## Just invalidate everything
+
+Honestly, the easiest approach to ensure your UI reflects server changes is to just invalidate all queries:
+```tsx
+queryClient.invalidateQueries()
+```
+It’s understandable to think this could be inefficient, and in certain situations that’s true, but for most applications, the simplicity and reliability are worth it. 
+You don’t have to micromanage individual `queryKey`s, and your UI will remain accurate and up to date everywhere.
+
+If you try to fine‑grain invalidation, you must know every place a piece of data is used. For example, 
+mutating a category that’s also referenced by posts and filters means you must track 
+and invalidate all relevant query keys. That’s tedious and error‑prone. 
+Invalidating everything is often the pragmatic choice.
+
+Another real-world example is Remix.run, a major React framework, which also invalidates all data after any mutation, 
+and you can't even change this behavior.
+
+## What if I do need fine‑grained invalidation?
+There are cases where you want precision. In our Next.js or Vite apps, look at `shared/components/Providers.tsx`, we set sensible defaults for TanStack Query:
+```tsx
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: 1,
+            refetchOnWindowFocus: false,
+            staleTime: 1000 * 60,
+        },
+    },
+    mutationCache: new MutationCache({
+        onSuccess: async (_data, _variables, _context, mutation) => {
+            await queryClient.invalidateQueries({
+                predicate: query =>
+                    // invalidate all matching tags at once
+                    // or everything if no meta is provided
+                    (mutation.meta?.invalidates as any)?.some((queryKey: any) => matchQuery({ queryKey }, query)) ??
+                    true,
+            })
+        },
+    }),
+})
+```
+By default, we invalidate after every mutation. If you want a mutation to be an exception and manage invalidation yourself, provide a `meta` field with the keys to invalidate, for example:
+```tsx
+useMutation({
+  mutationFn: updateLabel,
+  meta: {
+    invalidates: [['issues'], ['labels']],
+  },
+})
+```
+
+## Summary
+Begin with broad query invalidation for ease and reliability, and introduce fine-grained targeting only when necessary for your app’s requirements.

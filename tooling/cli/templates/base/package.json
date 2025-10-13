@@ -1,23 +1,25 @@
 {
-  "name": "base-stack",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
-  },
-  "devDependencies": {
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
-    "prettier": "^3.6.2",
-    "tsx": "^4.20.6",
-    "turbo": "^2.5.5",
-    "typescript": "^5.9.2"
-  },
-  "packageManager": "pnpm@10.4.1",
-  "engines": {
-    "node": ">=20"
-  }
+    "name": "base-stack",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "build": "turbo build",
+        "dev": "turbo dev",
+        "lint": "turbo lint",
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "prepare": "lefthook install"
+    },
+    "devDependencies": {
+        "@workspace/eslint-config": "workspace:*",
+        "@workspace/typescript-config": "workspace:*",
+        "prettier": "^3.6.2",
+        "tsx": "^4.20.6",
+        "turbo": "^2.5.5",
+        "typescript": "^5.9.2",
+        "lefthook": "^1.11.8"
+    },
+    "packageManager": "pnpm@10.4.1",
+    "engines": {
+        "node": ">=20"
+    }
 }

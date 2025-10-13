@@ -1,28 +1,28 @@
 {
-  "name": "base-stack",
-  "version": "1.7.0",
-  "bin": {
-    "base-stack": "./dist/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hoanggd/base-stack.git"
-  },
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "start": "node dist/index.js",
-    "release": "pnpm build && npm publish"
-  },
-  "dependencies": {
-    "@inquirer/prompts": "^7.8.6",
-    "@types/node": "^20.19.9",
-    "chalk": "^5.6.2",
-    "commander": "^14.0.1",
-    "inquirer": "^9.0.0",
-    "tsup": "^8.5.0"
-  },
-  "devDependencies": {
-    "typescript": "5.9.2"
-  }
+    "name": "base-stack",
+    "version": "1.8.0",
+    "bin": {
+        "base-stack": "./dist/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hoanggd/base-stack.git"
+    },
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "start": "node dist/index.js",
+        "release": "pnpm build && npm publish"
+    },
+    "dependencies": {
+        "@inquirer/prompts": "^7.8.6",
+        "@types/node": "^20.19.9",
+        "chalk": "^5.6.2",
+        "commander": "^14.0.1",
+        "inquirer": "^9.0.0",
+        "tsup": "^8.5.0"
+    },
+    "devDependencies": {
+        "typescript": "5.9.2"
+    }
 }

@@ -1,4 +1,20 @@
 ---
 title: Data Fetching
-description: Coming soon
+description: Building robust data fetching with TanStack Query and structured API clients
 ---
+
+Data fetching is the process of retrieving data from external sources (APIs) and managing that data in your application. In modern React applications, this involves handling loading states, error conditions, caching, synchronization, and keeping your UI in sync with server state.
+
+This guide covers everything you need to know about building robust, performant data fetching using **TanStack Query** and structured API clients.
+
+## Why TanStack Query?
+
+Instead of managing server state manually with `useState` and `useEffect`, TanStack Query provides:
+
+- **Automatic caching** - Data is cached and shared across components
+- **Background updates** - Keeps data fresh automatically
+- **Optimistic updates** - Update UI before server confirmation
+- **Error handling** - Built-in retry logic and error states
+- **Loading states** - Automatic loading, success, and error states
+- **Deduplication** - Prevents duplicate requests
+- **Synchronization** - Keeps multiple components in sync
