@@ -122,10 +122,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/guide/data-fetching-api-client',
                     },
                     {
-                        title: 'Retrieve a List of Items',
-                        href: '/docs/guide/data-fetching-list',
-                    },
-                    {
                         title: 'Data Invalidation Best Practices',
                         href: '/docs/guide/data-fetching-invalidation',
                     },
