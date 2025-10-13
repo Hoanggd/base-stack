@@ -58,8 +58,8 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
                     },
                     {
-                        title: 'Folder Structure',
-                        href: '/docs/guide/folder-structure',
+                        title: 'React Folder Structure',
+                        href: '/docs/guide/react-folder-structure',
                         icon: <NetworkIcon size={16} strokeWidth={1.5} />,
                     },
                     {

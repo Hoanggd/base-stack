@@ -74,10 +74,10 @@ Additionally, when fetching lists, keep in mind:
 - Set `placeholderData: keepPreviousData` in the query options to avoid layout shift.
 - Because list screens often include search and filters, the `queryKey` changes frequently, which can trigger many requests. Pass the abort `signal` so the query can cancel unnecessary requests.
 
-See another real-world example of how `isFetching` is used <Link href="/docs/ui/data-table#real-world-example">here</Link>.
+*Want to see what the isFetching looks like? Take a look <Link href="/docs/ui/data-table#real-world-example">here</Link>.*
 
 ### 3. `isPending`
-`isPending` is `true` when a mutation (like a form submit or data update) is running. 
+`isPending` is `true` when a mutation is running. 
 Use this to provide UI feedback during user-triggered actions, 
 such as disabling submit buttons or showing a loading spinner, so users know something is happening.
 
@@ -92,16 +92,19 @@ const exportMutation = useMutation({ mutationFn })
 <ComponentPreview name="RecFormWithLoading" className="max-w-[350px] mx-auto" />
 
 ## Use Optimistic UI
+Instead of waiting for the server response after a button click, immediately reflect the change in the UI—then update the server in the background. This lets your app feel more responsive, even if the backend is slow.
 
-When a user clicks a button, show a result right away instead of waiting for the server.
-Update the screen first, then sync with the server in the background.
-Even if your API is slow, this makes the app feel fast.
+But keep in mind: only use optimistic updates for actions that almost always succeed, otherwise, failed actions could make the experience worse for users.
 
-## Avoid Layout Shifts
+Tanstack Query offers a clear guide on implementing optimistic UI. Our main recommendation is to use the <Link target="_blank" href="https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates#via-the-ui">"via the UI"</Link> approach, as it's usually simpler than other methods.
 
-Don’t let elements jump around while the page is loading.
-Set image sizes, reserve space for ads, and load fonts properly.
-A stable layout feels smoother and more reliable.
+For optimistic UI example (deleting an item), check out this <Link target="_blank" href="https://github.com/henry-phm/base-stack-example-project/blob/main/apps/web/src/features/posts/components/PostList.tsx">demo</Link>
+
+## Additional techniques
+Here are some additional, less critical techniques you don't strictly need, but they're good to be aware of:
+- Prefetching data in advance - <Link target="_blank" href="https://tanstack.com/query/latest/docs/framework/react/guides/prefetching">source</Link>
+- Running multiple queries in parallel - <Link target="_blank" href="https://tanstack.com/query/latest/docs/framework/react/reference/useQueries">source</Link>
+- Preventing request waterfalls - <Link target="_blank" href="https://tanstack.com/query/latest/docs/framework/react/guides/request-waterfalls">source</Link>
 
 ## Final Thought: Fast Is a Feeling
 
