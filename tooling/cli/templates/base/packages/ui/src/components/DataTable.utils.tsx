@@ -8,6 +8,7 @@ function getCheckboxColumnDef<T>(): ColumnDef<T> {
         id: 'select',
         header: ({ table }) => (
             <Checkbox
+                aria-label="select all"
                 isSelected={table.getIsAllRowsSelected()}
                 isIndeterminate={table.getIsSomePageRowsSelected()}
                 onChange={isSelected => {
@@ -17,6 +18,7 @@ function getCheckboxColumnDef<T>(): ColumnDef<T> {
         ),
         cell: ({ row }) => (
             <Checkbox
+                aria-label="select row"
                 isSelected={row.getIsSelected()}
                 isDisabled={!row.getCanSelect()}
                 isIndeterminate={row.getIsSomeSelected()}

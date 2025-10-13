@@ -1,22 +1,22 @@
 'use client'
 
+import { Button } from '@workspace/ui/components/Button'
 import {
     DialogContent,
+    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogOverlay,
     DialogTitle,
-    DialogDescription,
 } from '@workspace/ui/components/Dialog'
-import { Button, ButtonProps } from '@workspace/ui/components/Button'
 import { createStore } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
+import { CircleXIcon, InfoIcon } from 'lucide-react'
 import React from 'react'
 
 interface Action {
     label: React.ReactNode
     onClick: () => void | Promise<void>
-    buttonProps?: ButtonProps
 }
 
 interface ConfirmDialogContext {
@@ -32,6 +32,8 @@ interface ConfirmDialogContext {
         action?: Action
         /** Optional cancel button configuration */
         cancel?: Action
+        /** Optional variant for the action button */
+        variant?: 'default' | 'destructive'
     }
 }
 
@@ -59,6 +61,7 @@ const confirm = (data: ConfirmDialogContext['data']) => {
 function ConfirmDialog() {
     const isOpen = useSelector(confirmStore, state => state.context.isOpen)
     const data = useSelector(confirmStore, state => state.context.data)
+    const variant = data?.variant || 'default'
 
     const handleCancel = () => {
         data?.cancel?.onClick?.()
@@ -79,19 +82,25 @@ function ConfirmDialog() {
                 }
             }}
         >
-            <DialogContent className="sm:max-w-[425px]" isFullscreenOnMobile={false} closeButton={false}>
+            <DialogContent className="md:max-w-[425px]" isFullscreenOnMobile={false} closeButton={false}>
                 <div className="flex flex-col gap-4">
                     <DialogHeader>
+                        <div className="mb-2">
+                            {variant === 'default' && <InfoIcon className="size-6 text-blue-500 dark:text-blue-400" />}
+                            {variant === 'destructive' && (
+                                <CircleXIcon className="size-6 text-destructive-foreground" />
+                            )}
+                        </div>
                         <DialogTitle>{data?.title || 'Confirm'}</DialogTitle>
                         <DialogDescription>
                             {data?.description || 'Are you sure you want to confirm?'}
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
-                        <Button variant="outline" onClick={handleCancel} {...data?.cancel?.buttonProps}>
+                        <Button variant="outline" onClick={handleCancel}>
                             {data?.cancel?.label || 'Cancel'}
                         </Button>
-                        <Button onClick={handleAction} {...data?.action?.buttonProps}>
+                        <Button onClick={handleAction} variant={variant}>
                             {data?.action?.label || 'Confirm'}
                         </Button>
                     </DialogFooter>
@@ -101,4 +110,4 @@ function ConfirmDialog() {
     )
 }
 
-export { ConfirmDialog, confirm }
+export { confirm, ConfirmDialog }
