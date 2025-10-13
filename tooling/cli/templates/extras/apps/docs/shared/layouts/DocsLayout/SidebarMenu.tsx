@@ -58,8 +58,8 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
                     },
                     {
-                        title: 'Folder Structure',
-                        href: '/docs/guide/folder-structure',
+                        title: 'React Folder Structure',
+                        href: '/docs/guide/react-folder-structure',
                         icon: <NetworkIcon size={16} strokeWidth={1.5} />,
                     },
                     {
@@ -120,10 +120,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Build an API Client',
                         href: '/docs/guide/data-fetching-api-client',
-                    },
-                    {
-                        title: 'Retrieve a List of Items',
-                        href: '/docs/guide/data-fetching-list',
                     },
                     {
                         title: 'Data Invalidation Best Practices',

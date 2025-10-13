@@ -1,4 +1,146 @@
 ---
 title: Build an API Client
-description: Coming soon
+description: Learn how to create and use a type-safe, scalable API client for your applications with TanStack Query integration.
 ---
+
+>This guide explains how to build an API client.
+>If you want to skip the tutorial and view the example directly, you can check it out <Link target="_blank" href="https://github.com/henry-phm/base-stack-example-project/blob/main/packages/lib/src/api/index.ts">here</Link>
+
+## Why Build a Dedicated API Client?
+
+In real-world applications, you often have multiple apps (web, mobile, desktop) that need to communicate with the same backend API. By creating a shared API client library, you can:
+
+- **Share code** across different applications
+- **Ensure type safety** across your entire stack
+- **Centralize** API logic and business rules
+
+## API client Structure
+
+Our API client is organized as a separate library in `packages/lib/src/api`:
+
+```text
+packages/
+└── lib/
+    └── src/
+        ├── api/
+        │   ├── sdk/
+        │   │   ├── example.api.ts
+        │   │   ├── example.type.ts
+        │   │   └── ...           # Add your modules here
+        │   └── index.ts          # Main API class
+        └── validation/
+```
+
+- Organize API methods by domain (users, posts, orders, etc.)
+- Keep types close to their implementations
+
+## Creating API Modules
+
+### Basic Module Structure
+
+Each API module is a class that encapsulates related API calls. Here's an example:
+
+```ts
+// packages/lib/src/api/sdk/post.api.ts
+
+export class PostApi {
+    private readonly BASE_PATH = '/posts'
+
+    constructor(private readonly client: AxiosInstance) {}
+
+    list(params: GetPostListParams) {
+        return queryOptions({
+            queryKey: [this.BASE_PATH, 'list', params],
+            queryFn: ({ signal }) => {
+                return this.client.get<Array<Post>>(this.BASE_PATH, { params, signal })
+            },
+            placeholderData: keepPreviousData,
+        })
+    }
+
+    detail(id: string) {
+        return queryOptions({
+            queryKey: [this.BASE_PATH, 'detail', id],
+            queryFn: () => {
+                return this.client.get<Post>(`${this.BASE_PATH}/${id}`)
+            },
+        })
+    }
+
+    create() {
+        return mutationOptions({
+            mutationFn: (post: CreatePostDto) => {
+                return this.client.post(this.BASE_PATH, post)
+            },
+        })
+    }
+}
+```
+
+### Registering Your Module
+
+Add your new module to the main API class:
+
+```ts
+// packages/lib/src/api/index.ts
+
+import { AxiosInstance } from 'axios'
+import { ExampleApi } from './sdk/example.api'
+import { PostApi } from './sdk/post.api'
+
+export class Api {
+    example: ExampleApi
+    post: PostApi
+
+    constructor(private readonly client: AxiosInstance) {
+        this.example = new ExampleApi(this.client)
+        this.post = new PostApi(this.client)
+    }
+}
+```
+
+## Using the API Client
+
+### Initialization
+
+Initialize your API client within your application:
+
+```ts
+// app/web/lib/api-client.ts
+
+import axios from 'axios'
+import { Api } from '@workspace/lib/api'
+export type * from '@workspace/lib/api'
+
+export const api = new Api(
+    axios.create({
+        baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
+    }),
+)
+```
+
+### Using in Components
+
+```tsx
+// PostDetail.tsx
+
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { api } from '@/lib/api-client'
+
+export function PostDetail({ postId }: { postId: string }) {
+    const postQuery = useQuery(api.post.detail(postId))
+    const data = postQuery.data
+    // render data
+}
+```
+
+## Query vs Mutation: When to Use What?
+
+Using queryOptions or mutationOptions helps us easily reuse queryKeys or queryFunctions. For example, there will be cases where you need to get data from a specific queryKey.
+
+So when should you use query and when should you use mutation?
+
+- `query`: typically used for getting data (read operations)
+- `mutation`: typically used for mutating data (create, update, delete operations). 
+
+There are some exceptions, such as when a user clicks an export data button - in this case, the user isn't actually mutating data, but we should still use mutation. To know when you're dealing with an exception, you can base it on user behavior: if getting data depends on a click event or submit action, use mutation.
