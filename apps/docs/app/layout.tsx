@@ -1,8 +1,8 @@
 import '@workspace/ui/globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Providers } from './providers'
-import { PROJECT_DESCRIPTION, PROJECT_NAME } from '@/constants/common'
+import { PROJECT_DESCRIPTION, PROJECT_NAME } from '@/shared/consts/common'
+import { Providers } from '@/shared/components/Providers'
 
 const fontSans = Inter({ subsets: ['latin'] })
 
