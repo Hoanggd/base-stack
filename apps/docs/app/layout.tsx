@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     },
     description: PROJECT_DESCRIPTION,
     openGraph: {
-        title: PROJECT_NAME,
+        title: PROJECT_DESCRIPTION,
         description: PROJECT_DESCRIPTION,
         images: [{ url: '/images/og-image.jpg' }],
         siteName: PROJECT_NAME,
