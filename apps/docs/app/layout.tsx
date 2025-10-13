@@ -12,6 +12,12 @@ export const metadata: Metadata = {
         template: `%s | ${PROJECT_NAME}`,
     },
     description: PROJECT_DESCRIPTION,
+    openGraph: {
+        title: PROJECT_NAME,
+        description: PROJECT_DESCRIPTION,
+        images: [{ url: '/images/og-image.jpg' }],
+        siteName: PROJECT_NAME,
+    },
 }
 
 export default function RootLayout({
