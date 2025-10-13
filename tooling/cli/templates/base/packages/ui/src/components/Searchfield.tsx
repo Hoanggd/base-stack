@@ -11,7 +11,6 @@ import {
     InputProps as AriaInputProps,
     SearchField as AriaSearchField,
     SearchFieldProps as AriaSearchFieldProps,
-    ValidationResult as AriaValidationResult,
     composeRenderProps,
 } from 'react-aria-components'
 

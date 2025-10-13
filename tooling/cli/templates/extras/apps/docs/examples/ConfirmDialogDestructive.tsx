@@ -7,6 +7,7 @@ import { toast } from '@workspace/ui/components/Sonner'
 export function ConfirmDialogDestructive() {
     const handleClick = () => {
         confirm({
+            variant: 'destructive',
             title: 'Archive Project',
             description: 'You can restore an archived project later from settings.',
             action: {
@@ -16,9 +17,6 @@ export function ConfirmDialogDestructive() {
                         title: 'Project Archived',
                         description: 'Project archived successfully',
                     })
-                },
-                buttonProps: {
-                    variant: 'destructive',
                 },
             },
         })
