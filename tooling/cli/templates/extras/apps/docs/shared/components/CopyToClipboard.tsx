@@ -59,6 +59,7 @@ export function CopyToClipboard({ className, text = '12322' }: { className?: str
 
     return (
         <Button
+            aria-label="Copy to clipboard"
             className={cn('text-neutral-500 backdrop-blur-sm hover:bg-[#343b44]/10', className)}
             variant={'unstyled'}
             size={'icon'}

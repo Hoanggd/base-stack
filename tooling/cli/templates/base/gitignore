@@ -34,3 +34,9 @@ npm-debug.log*
 # Misc
 .DS_Store
 *.pem
+
+# contentlayer
+.contentlayer
+
+# next.js
+next-env.d.ts
