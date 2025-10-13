@@ -20,7 +20,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning className={`${fontSans.className}`}>
+        <html lang="en" suppressHydrationWarning className={`${fontSans.className}`} translate="no">
             <head>
                 <link rel="icon" href="/logo.png" sizes="any" />
             </head>
