@@ -7,7 +7,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" translate="no" suppressHydrationWarning>
             <body className={`font-sans antialiased`}>
                 <Providers>{children}</Providers>
             </body>
