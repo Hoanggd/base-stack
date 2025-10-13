@@ -1,3 +1,5 @@
+'use server'
+
 import { paymentData } from './payments.data'
 
 export interface Payment {
