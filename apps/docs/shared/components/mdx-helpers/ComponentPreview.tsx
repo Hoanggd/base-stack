@@ -18,12 +18,12 @@ export async function ComponentPreview({ name, className }: ComponentPreviewProp
 
     return (
         <div className="border-b p-5! lg:p-10! pt-0! lg:pt-0! w-full mt-4">
-            <div className="p-1.5 space-y-1.5 border rounded-lg bg-background">
-                <div className={cn('py-10 not-prose flex items-center justify-center px-5', className)}>
+            <div className="p-1.5 space-y-1.5 border rounded-xl bg-background">
+                <div className={cn('p-5 min-h-[100px] not-prose flex items-center justify-center', className)}>
                     <Preview name={name} />
                 </div>
 
-                <div className="relative border rounded-sm overflow-hidden ">
+                <div className="relative border rounded-md overflow-hidden ">
                     <CopyToClipboard text={code} className="absolute right-2 top-2 z-[1]" />
                     <div className="">
                         <ScrollArea className="grid" showVerticalScrollbar={false}>

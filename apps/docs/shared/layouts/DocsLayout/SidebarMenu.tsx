@@ -2,6 +2,7 @@
 import { ModuleValue, useModulePicker } from '@/shared/layouts/DocsLayout/ModulePicker'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
+import dayjs from 'dayjs'
 import {
     BlocksIcon,
     BookOpenIcon,
@@ -19,6 +20,8 @@ interface MenuItem {
     title: string
     href: string
     icon?: React.ReactElement
+    /**YYYY-MM-DD */
+    createdAt?: string
 }
 
 interface MenuGroup {
@@ -218,6 +221,11 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Switch',
                         href: '/docs/ui/switch',
                     },
+                    {
+                        title: 'Uploader',
+                        href: '/docs/ui/uploader',
+                        createdAt: '2025-10-15',
+                    },
                 ],
             },
             {
@@ -310,9 +318,11 @@ export function SidebarMenu() {
     )
 }
 
-function MenuItem({ title, href, icon }: MenuItem) {
+function MenuItem({ title, href, icon, createdAt }: MenuItem) {
     const pathname = usePathname()
     const isActive = pathname === href
+
+    const isNew = createdAt ? dayjs(createdAt).isAfter(dayjs().subtract(1, 'week')) : false
 
     return (
         <Link
@@ -326,6 +336,7 @@ function MenuItem({ title, href, icon }: MenuItem) {
         >
             {icon}
             {title}
+            {isNew && <span className="text-xs bg-primary text-white px-1 py-0.5 rounded">new</span>}
         </Link>
     )
 }

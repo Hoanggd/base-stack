@@ -15,13 +15,17 @@ interface ProgressProps extends AriaProgressBarProps {
 }
 
 const Progress = ({ className, barClassName, fillClassName, children, ...props }: ProgressProps) => (
-    <AriaProgressBar className={composeRenderProps(className, className => cn('w-full', className))} {...props}>
+    <AriaProgressBar
+        aria-label="Progress"
+        className={composeRenderProps(className, className => cn('w-full', className))}
+        {...props}
+    >
         {composeRenderProps(children, (children, renderProps) => (
             <>
                 {children}
-                <div className={cn('relative h-4 w-full overflow-hidden rounded-full bg-secondary', barClassName)}>
+                <div className={cn('relative h-4 w-full overflow-hidden rounded-full bg-neutral-500/15', barClassName)}>
                     <div
-                        className={cn('size-full flex-1 bg-primary transition-all', fillClassName)}
+                        className={cn('size-full flex-1 bg-primary-foreground transition-all', fillClassName)}
                         style={{
                             transform: `translateX(-${100 - (renderProps.percentage || 0)}%)`,
                         }}
