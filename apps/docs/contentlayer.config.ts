@@ -10,6 +10,7 @@ export const Doc = defineDocumentType(() => ({
         title: { type: 'string', required: true },
         description: { type: 'string', required: false },
         originalDocs: { type: 'string', required: false },
+        sourceCode: { type: 'string', required: false },
     },
     computedFields: {
         slug: {
