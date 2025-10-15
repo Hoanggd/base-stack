@@ -1,4 +1,4 @@
-export function shortenFilename(filename: string, maxLength = 30) {
+export function shortenFilename(filename: string, maxLength = 25) {
     try {
         const dotIndex = filename.lastIndexOf('.')
         const name = dotIndex !== -1 ? filename.slice(0, dotIndex) : filename
@@ -35,10 +35,20 @@ export function formatFileSize(bytes: number, decimals = 1) {
 }
 
 export const validateFileExtension = (file: File, extensions: Array<string>) => {
-    const extension = file.name.split('.').pop() ?? ''
+    const fileName = file.name.toLowerCase()
+    const extension = fileName.split('.').pop() ?? ''
     return extensions.includes(extension)
 }
 
 export const validateFileSize = (file: File, maxFileSize: number) => {
     return file.size <= maxFileSize
+}
+
+export const downloadFile = (url: string) => {
+    const a = document.createElement('a')
+    a.href = url
+    a.download = url.split('/').pop() ?? ''
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
 }

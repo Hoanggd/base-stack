@@ -1,5 +1,8 @@
+import { cn } from '@workspace/ui/lib/utils'
+
 interface UploaderIconProps {
     extension: string
+    className?: string
 }
 
 const iconColors = {
@@ -24,11 +27,11 @@ const iconColors = {
     other: '#1D4ED8', // deep blue
 } as Record<string, string>
 
-export function UploaderIcon({ extension = 'txt' }: UploaderIconProps) {
+export function UploaderIcon({ extension = 'txt', className }: UploaderIconProps) {
     const fill = iconColors[extension] || '#1D4ED8'
 
     return (
-        <div className="relative w-fit h-fit">
+        <div className={cn('relative w-fit h-fit', className)}>
             <svg
                 className="size-8"
                 xmlns="http://www.w3.org/2000/svg"

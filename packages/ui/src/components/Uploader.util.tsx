@@ -37,6 +37,7 @@ export function useValidateFiles(rules: UploaderRules) {
                 },
                 {
                     position: 'bottom-center',
+                    duration: 8000,
                 },
             )
 
@@ -99,6 +100,7 @@ export function useValidateFiles(rules: UploaderRules) {
                 },
                 {
                     position: 'bottom-center',
+                    duration: 8000,
                 },
             )
         }

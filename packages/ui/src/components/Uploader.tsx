@@ -1,27 +1,65 @@
 'use client'
 
-import axios from 'axios'
-import React from 'react'
+import { toast } from '@workspace/ui/components/Sonner'
 import { UploaderRules, useValidateFiles } from '@workspace/ui/components/Uploader.util'
 import { UploaderFile, UploaderItem } from '@workspace/ui/components/UploaderItem'
-import { UploaderTrigger } from '@workspace/ui/components/UploaderTrigger'
-import { flushSync } from 'react-dom'
+import { UploaderTrigger, UploaderTriggerProps } from '@workspace/ui/components/UploaderTrigger'
+import { cn } from '@workspace/ui/lib/utils'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import omit from 'lodash/omit'
+import pickBy from 'lodash/pickBy'
+import React from 'react'
+
+/** The action to upload the files. You can update or override the methods to suit your API's request and response formats. */
+export class UploaderAction {
+    constructor(private readonly url: string) {}
+
+    /** Build the request to upload the file. */
+    buildRequest(uploaderFile: UploaderFile): Promise<AxiosRequestConfig> | AxiosRequestConfig {
+        const formData = new FormData()
+        formData.append('file', uploaderFile.file!)
+
+        return {
+            url: this.url,
+            method: 'POST',
+            data: formData,
+            headers: { 'Content-Type': 'multipart/form-data' },
+        }
+    }
+
+    /** Format the response from the server. */
+    formatResponse(response: AxiosResponse<any>): Partial<UploaderFile> {
+        return {
+            id: response.data.id,
+            url: response.data.url,
+            name: response.data.name,
+            size: response.data.size,
+            type: response.data.type,
+            extension: response.data.extension,
+        }
+    }
+
+    /** Format the error from the server. */
+    formatResponseError(error: any): UploaderFile['error'] {
+        return error.response?.data?.error || 'Failed to upload file'
+    }
+}
 
 export interface UploaderProps {
-    /** The action to upload the file. eg: https://api.example.com/upload */
-    action: string
+    /** The action to upload the files. */
+    action: UploaderAction
+
+    /** The value of the uploader. */
+    defaultFileList?: Array<UploaderFile>
+
+    /** The onChange handler to update the value of the uploader. */
+    onFileListChange?: (fileList: Array<UploaderFile>) => void
 
     /** The list type to display the files. */
     listType?: 'list' | 'card'
 
     /** The trigger type to display the uploader. */
-    triggerType?: 'button' | 'dropzone'
-
-    /** The value of the uploader. */
-    value: Array<UploaderFile>
-
-    /** The onChange handler to update the value of the uploader. */
-    onChange: (value: Array<UploaderFile>) => void
+    triggerType?: UploaderTriggerProps['triggerType']
 
     /** Array of allowed file extensions.
      * Since MIME type detection can be inconsistent accross platforms, file extension checks are used instead.
@@ -37,18 +75,29 @@ export interface UploaderProps {
 
     /** Whether multiple files can be chosen at once. */
     allowMultiple?: UploaderRules['allowMultiple']
+
+    /** Whether the uploader is disabled. */
+    isDisabled?: boolean
+
+    /** Whether the uploader is invalid. */
+    'aria-invalid'?: boolean
 }
 
 export function Uploader({
     action,
-    value,
-    onChange,
+    defaultFileList,
+    onFileListChange,
+    triggerType = 'dropzone',
+    listType = 'list',
     acceptedFileExtensions = [],
     maxFiles = 20,
     maxFileSize,
     allowMultiple = true,
+    isDisabled = false,
+    ['aria-invalid']: isInvalid = false,
 }: UploaderProps) {
-    const [uploaderFiles, setUploaderFiles] = React.useState<Array<UploaderFile>>([])
+    const [uploaderFiles, setUploaderFiles] = React.useState<Array<UploaderFile>>(defaultFileList || [])
+
     const validateFiles = useValidateFiles({
         maxFileSize,
         acceptedFileExtensions,
@@ -56,54 +105,60 @@ export function Uploader({
         allowMultiple,
     })
 
-    const upload = (uploaderFile: UploaderFile) => {
+    const upload = async (uploaderFile: UploaderFile) => {
         if (!uploaderFile.abortController || !uploaderFile.file) {
             return
         }
 
-        const formData = new FormData()
-        formData.append('file', uploaderFile.file)
+        const requestInfo = await action.buildRequest(uploaderFile)
 
-        axios
-            .post(action, formData, {
-                signal: uploaderFile.abortController.signal,
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                onUploadProgress: progressEvent => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1))
+        axios({
+            ...requestInfo,
+            signal: uploaderFile.abortController.signal,
+            onUploadProgress: progressEvent => {
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1))
 
-                    // update the file percent
-                    setUploaderFiles(old => {
-                        return old.map(file => {
-                            if (file.id === uploaderFile.id) {
-                                return { ...file, percent: percentCompleted }
-                            }
-                            return file
-                        })
-                    })
-                },
-            })
-            .then(response => {
+                // update the file percent
                 setUploaderFiles(old => {
                     return old.map(file => {
                         if (file.id === uploaderFile.id) {
-                            return { ...file, status: 'done', url: response?.data?.url }
+                            return { ...file, percent: percentCompleted }
                         }
                         return file
                     })
                 })
+            },
+        })
+            .then(response => {
+                // update the file status to done
+                setUploaderFiles(old => {
+                    const next = old.map(file => {
+                        if (file.id === uploaderFile.id) {
+                            const newFileUploader = pickBy(action.formatResponse(response))
+
+                            return omit(
+                                { ...file, ...newFileUploader, status: 'done' as const, percent: 0 },
+                                'file',
+                                'abortController',
+                            )
+                        }
+                        return file
+                    })
+                    onFileListChange?.(next)
+
+                    return next
+                })
             })
             .catch(error => {
+                // update the file status to error
                 setUploaderFiles(old => {
                     return old.map(file => {
                         if (file.id === uploaderFile.id) {
                             return {
                                 ...file,
+                                error: action.formatResponseError(error),
                                 status: 'error',
                                 percent: 0,
-                                error:
-                                    error?.response?.data?.message || error?.response?.data || 'Failed to upload file',
                             }
                         }
                         return file
@@ -113,6 +168,11 @@ export function Uploader({
     }
 
     const onDrop = (files: Array<File>) => {
+        if (!action) {
+            toast.error({ title: 'Uploader action is not set' })
+            return
+        }
+
         const acceptedFiles = validateFiles(files)
 
         const newUploaderFiles = acceptedFiles.map(file => ({
@@ -120,6 +180,7 @@ export function Uploader({
             name: file.name,
             size: file.size,
             extension: file.name.split('.').pop() ?? '',
+            type: file.type,
             status: 'uploading' as const,
             percent: 0,
             file,
@@ -135,7 +196,9 @@ export function Uploader({
 
     const onDelete = (uploaderFile: UploaderFile) => {
         uploaderFile.abortController?.abort()
-        setUploaderFiles(uploaderFiles.filter(f => f.id !== uploaderFile.id))
+        const next = uploaderFiles.filter(f => f.id !== uploaderFile.id)
+        onFileListChange?.(next)
+        setUploaderFiles(next)
     }
 
     const onRetry = (uploaderFile: UploaderFile) => {
@@ -154,16 +217,28 @@ export function Uploader({
     }
 
     return (
-        <div className="w-full grid gap-2">
+        <div className="w-full flex flex-col gap-2">
             <UploaderTrigger
                 onDrop={onDrop}
+                triggerType={triggerType}
                 acceptedFileExtensions={acceptedFileExtensions}
                 maxFileSize={maxFileSize}
                 allowMultiple={allowMultiple}
+                isDisabled={isDisabled}
+                isInvalid={isInvalid}
             />
-            {uploaderFiles.map(file => (
-                <UploaderItem key={file.id} file={file} onDelete={onDelete} onRetry={onRetry} />
-            ))}
+            <div className={cn('flex gap-2 flex-wrap', listType === 'list' && 'flex-col')}>
+                {uploaderFiles.map(uploaderFile => (
+                    <UploaderItem
+                        key={uploaderFile.id}
+                        uploaderFile={uploaderFile}
+                        onDelete={onDelete}
+                        onRetry={onRetry}
+                        variant={listType}
+                        isDisabled={isDisabled}
+                    />
+                ))}
+            </div>
         </div>
     )
 }
