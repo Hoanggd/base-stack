@@ -12,7 +12,7 @@ import React from 'react'
 
 /** The action to upload the files. You can update or override the methods to suit your API's request and response formats. */
 export class UploaderAction {
-    constructor(private readonly url: string) {}
+    constructor(protected readonly url: string) {}
 
     /** Build the request to upload the file. */
     buildRequest(uploaderFile: UploaderFile): Promise<AxiosRequestConfig> | AxiosRequestConfig {
@@ -41,7 +41,7 @@ export class UploaderAction {
 
     /** Formats the server error into a format usable by this component. */
     formatResponseError(error: any): UploaderFile['error'] {
-        return String(error.response?.data?.error) || 'Failed to upload file'
+        return error.response?.data?.error || 'Failed to upload file'
     }
 }
 
@@ -116,13 +116,13 @@ export function Uploader({
             ...requestInfo,
             signal: uploaderFile.abortController.signal,
             onUploadProgress: progressEvent => {
-                const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1))
+                const percent = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1))
 
                 // update the file percent
                 setUploaderFiles(old => {
                     return old.map(file => {
                         if (file.id === uploaderFile.id) {
-                            return { ...file, percent: percentCompleted }
+                            return { ...file, percent: percent }
                         }
                         return file
                     })
@@ -156,7 +156,7 @@ export function Uploader({
                         if (file.id === uploaderFile.id) {
                             return {
                                 ...file,
-                                error: action.formatResponseError(error),
+                                error: String(action.formatResponseError(error)),
                                 status: 'error',
                                 percent: 0,
                             }
@@ -227,18 +227,20 @@ export function Uploader({
                 isDisabled={isDisabled}
                 isInvalid={isInvalid}
             />
-            <div className={cn('flex gap-2 flex-wrap', listType === 'list' && 'flex-col')}>
-                {uploaderFiles.map(uploaderFile => (
-                    <UploaderItem
-                        key={uploaderFile.id}
-                        uploaderFile={uploaderFile}
-                        onDelete={onDelete}
-                        onRetry={onRetry}
-                        variant={listType}
-                        isDisabled={isDisabled}
-                    />
-                ))}
-            </div>
+            {uploaderFiles.length > 0 && (
+                <div className={cn('flex gap-2 flex-wrap', listType === 'list' && 'flex-col')}>
+                    {uploaderFiles.map(uploaderFile => (
+                        <UploaderItem
+                            key={uploaderFile.id}
+                            uploaderFile={uploaderFile}
+                            onDelete={onDelete}
+                            onRetry={onRetry}
+                            variant={listType}
+                            isDisabled={isDisabled}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

@@ -172,10 +172,6 @@ export function UploaderItem({
 }
 
 function Actions({ uploaderFile, onDelete, onRetry, isDisabled }: Omit<UploaderItemProps, 'variant'>) {
-    if (isDisabled) {
-        return null
-    }
-
     return (
         <div className="flex">
             {uploaderFile.status === 'done' && (
@@ -215,18 +211,20 @@ function Actions({ uploaderFile, onDelete, onRetry, isDisabled }: Omit<UploaderI
                     <Tooltip>Retry</Tooltip>
                 </TooltipTrigger>
             )}
-            <TooltipTrigger>
-                <Button
-                    aria-label="Delete"
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => onDelete(uploaderFile)}
-                    className="text-muted-foreground rounded-full"
-                >
-                    <Trash2Icon />
-                </Button>
-                <Tooltip>Delete</Tooltip>
-            </TooltipTrigger>
+            {!isDisabled && (
+                <TooltipTrigger>
+                    <Button
+                        aria-label="Delete"
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => onDelete(uploaderFile)}
+                        className="text-muted-foreground rounded-full"
+                    >
+                        <Trash2Icon />
+                    </Button>
+                    <Tooltip>Delete</Tooltip>
+                </TooltipTrigger>
+            )}
         </div>
     )
 }
