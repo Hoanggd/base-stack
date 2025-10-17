@@ -1,7 +1,8 @@
 'use client'
 
-import { Uploader, UploaderAction } from '@workspace/ui/components/Uploader'
+import { Uploader } from '@workspace/ui/components/Uploader'
 import { UploaderFile } from '@workspace/ui/components/UploaderItem'
+import { CustomUploadAction } from './UploaderDemo.utils'
 
 const exampleFileList: Array<UploaderFile> = [
     {
@@ -29,8 +30,8 @@ const exampleFileList: Array<UploaderFile> = [
 export function UploaderVariantTriggerType() {
     return (
         <Uploader
-            action={new UploaderAction('/api/demo-upload')}
-            maxFileSize={1024 * 1024}
+            action={new CustomUploadAction()}
+            maxFileSize={100 * 1024 * 1024}
             defaultFileList={exampleFileList}
             triggerType="button"
         />

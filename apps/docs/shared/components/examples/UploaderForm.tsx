@@ -1,14 +1,15 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-import { toast } from '@workspace/ui/components/Sonner'
 import { z } from '@workspace/lib/validation'
+import { toast } from '@workspace/ui/components/Sonner'
+import { useForm } from 'react-hook-form'
 
 import { Button } from '@workspace/ui/components/Button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@workspace/ui/components/Form'
 import { Input } from '@workspace/ui/components/Textfield'
+import { Uploader } from '@workspace/ui/components/Uploader'
 import { UploaderFile } from '@workspace/ui/components/UploaderItem'
-import { Uploader, UploaderAction } from '@workspace/ui/components/Uploader'
+import { CustomUploadAction } from './UploaderDemo.utils'
 
 interface FormValues {
     name: string
@@ -59,8 +60,8 @@ export function UploaderForm() {
                                 <Uploader
                                     defaultFileList={field.value}
                                     onFileListChange={field.onChange}
-                                    action={new UploaderAction('/api/demo-upload')}
-                                    maxFileSize={1024 * 1024}
+                                    action={new CustomUploadAction()}
+                                    maxFileSize={100 * 1024 * 1024}
                                     acceptedFileExtensions={['pdf', 'docx', 'png', 'csv']}
                                 />
                             </FormControl>
