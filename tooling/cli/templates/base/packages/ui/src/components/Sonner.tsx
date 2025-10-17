@@ -1,9 +1,8 @@
 'use client'
 
 import { Button } from '@workspace/ui/components/Button'
-import { cn } from '@workspace/ui/lib/utils'
 import { AlertTriangleIcon, CircleCheckIcon, CircleXIcon, InfoIcon, XIcon } from 'lucide-react'
-import { toast as sonnerToast, Toaster } from 'sonner'
+import { toast as sonnerToast, Toaster, ToastT } from 'sonner'
 
 interface ToastProps {
     id: string | number
@@ -53,9 +52,10 @@ function ToastIcon({ variant }: { variant: ToastProps['variant'] }) {
 }
 
 function createToast(variant: ToastProps['variant']) {
-    return (props: Omit<ToastProps, 'id' | 'variant'>) => {
+    return (props: Omit<ToastProps, 'id' | 'variant'>, options: Pick<ToastT, 'position' | 'duration'> = {}) => {
         return sonnerToast.custom(id => <Toast id={id} variant={variant} {...props} />, {
             position: 'top-right',
+            ...options,
         })
     }
 }

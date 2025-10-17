@@ -1,5 +1,4 @@
 import { Article } from '@/features/docs/components/Article'
-import { PROJECT_NAME } from '@/shared/consts/common'
 import { getTableOfContents } from '@/shared/lib/toc'
 import { allDocs } from 'contentlayer/generated'
 import { Metadata } from 'next'

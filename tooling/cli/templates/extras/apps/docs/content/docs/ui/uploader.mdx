@@ -1,0 +1,42 @@
+---
+title: Uploader
+description: A file uploader component for uploading files.
+sourceCode: https://github.com/henry-phm/base-stack/blob/main/packages/ui/src/components/Uploader.tsx
+---
+
+## Usage
+<MdxTip>For demonstration purposes, we will limit the file size to under **1MB** for all the examples below. In real-world usage, you can increase this limit as needed.</MdxTip>
+
+<ComponentPreview name="UploaderDemo" className="max-w-[500px] mx-auto" />
+
+## Custom Upload Action
+There are situations where you may need to customize the Uploader's action:
+- You might want to add headers to the request or handle the backend response.
+- You need to perform some operations before uploading, such as obtaining a presigned URL.
+
+To customize the upload action, you can extend and override the methods of the `UploaderAction` class. Alternatively, 
+you can directly edit the `UploaderAction` class as it's part of your own codebase.
+<ComponentPreview name="UploaderCustomAction" className="max-w-[500px] mx-auto" />
+
+## Retry on Upload Failure
+This is a demo to show how the retry button looks and works. We've used an endpoint that always returns an error,
+try uploading a file to see the retry feature in action.
+<ComponentPreview name="UploaderRetry" className="max-w-[500px] mx-auto" />
+
+## Disabled
+<ComponentPreview name="UploaderDisabled" className="max-w-[500px] mx-auto" />
+
+## Uploader Variants
+Choose different styles for the trigger and the file list
+
+### Card Style List
+<ComponentPreview name="UploaderVariantListType" className="max-w-[500px] mx-auto" />
+
+### Button as Trigger
+<ComponentPreview name="UploaderVariantTriggerType" className="max-w-[500px] mx-auto" />
+
+## Validation
+<ComponentPreview name="UploaderValidation" className="max-w-[500px] mx-auto" />
+
+## Form
+<ComponentPreview name="UploaderForm" className="max-w-[500px] mx-auto" />
