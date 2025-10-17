@@ -1,7 +1,6 @@
 'use client'
 
 import { Uploader } from '@workspace/ui/components/Uploader'
-import React from 'react'
 import { CustomUploadAction } from './UploaderDemo.utils'
 
 export function UploaderDemo() {
