@@ -16,6 +16,7 @@ import {
     setSubmitErrors,
 } from '@workspace/ui/components/Form'
 import { Input } from '@workspace/ui/components/Textfield'
+import { LoadingOverlay } from '@workspace/ui/components/LoadingOverlay'
 
 interface FormValues {
     email: string
@@ -69,37 +70,41 @@ export function RecFormSubmissionErrors() {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
                 <h2 className="text-xl font-semibold">Sign up</h2>
-                <FormField
-                    control={form.control}
-                    name="email"
-                    rules={{ validate: z.string().email().validateFn() }}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input {...field} placeholder="Enter your email" />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="name"
-                    rules={{ validate: z.string().min(4).validateFn() }}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Name</FormLabel>
-                            <FormControl>
-                                <Input {...field} placeholder="Enter your name" />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button className="w-full" isDisabled={createUserMutation.isPending} type="submit">
-                    Sign up
-                </Button>
+                <LoadingOverlay isLoading={createUserMutation.isPending}>
+                    <div className="grid gap-4">
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            rules={{ validate: z.string().email().validateFn() }}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} placeholder="Enter your email" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            rules={{ validate: z.string().min(4).validateFn() }}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} placeholder="Enter your name" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button className="w-full" type="submit">
+                            Sign up
+                        </Button>
+                    </div>
+                </LoadingOverlay>
             </form>
         </Form>
     )
