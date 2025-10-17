@@ -218,7 +218,7 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/radio-group',
                     },
                     {
-                        title: 'Switch',
+                        title: 'Switch1',
                         href: '/docs/ui/switch',
                     },
                     {
