@@ -14,12 +14,12 @@ export class CustomUploadAction extends UploaderAction {
     }
 
     formatResponse(response: AxiosResponse<TmpResponse>) {
-        const url = response.data.data.url
+        const url = response.data?.data?.url
         const id = url.split('/').slice(-2).join('/')
         const downloadUrl = `https://tmpfiles.org/dl/${id}`
 
         return {
-            id: response.data.data.url,
+            id: url,
             url: downloadUrl,
         }
     }
