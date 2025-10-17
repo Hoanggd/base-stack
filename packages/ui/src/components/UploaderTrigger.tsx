@@ -67,7 +67,7 @@ export function UploaderTrigger({
         >
             <UploadIcon className="size-5 text-muted-foreground" />
             <div className="space-y-0.5 text-center">
-                <p className="font-semibold">Choose file or drag & drop to upload</p>
+                <p className="font-medium">Choose file or drag & drop to upload</p>
                 {acceptedFileExtensions && acceptedFileExtensions?.length > 0 && (
                     <p className="text-muted-foreground">Supported file types: {acceptedFileExtensions?.join(', ')}</p>
                 )}

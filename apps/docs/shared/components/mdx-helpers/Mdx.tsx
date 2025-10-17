@@ -1,10 +1,11 @@
 import { ComponentPreview } from '@/shared/components/mdx-helpers/ComponentPreview'
 import { MdxImage } from '@/shared/components/mdx-helpers/MdxImage'
+import { ProjectFeatures } from '@/shared/components/ProjectFeatures'
 import { Button } from '@workspace/ui/components/Button'
 import { useMDXComponent } from 'next-contentlayer2/hooks'
-import { MdxSnippet } from './MdxSnippet'
 import Link from 'next/link'
-import { ProjectFeatures } from '@/shared/components/ProjectFeatures'
+import { MdxSnippet } from './MdxSnippet'
+import { MdxTip } from './MdxTip'
 
 type MdxProps = {
     code: string
@@ -16,6 +17,7 @@ const components = {
     ProjectFeatures,
     Button,
     MdxImage,
+    MdxTip,
     pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
         let lang = ''
 

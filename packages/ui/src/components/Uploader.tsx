@@ -27,7 +27,7 @@ export class UploaderAction {
         }
     }
 
-    /** Format the response from the server. */
+    /** Formats the server response into a format usable by this component. */
     formatResponse(response: AxiosResponse<any>): Partial<UploaderFile> {
         return {
             id: response.data.id,
@@ -39,9 +39,9 @@ export class UploaderAction {
         }
     }
 
-    /** Format the error from the server. */
+    /** Formats the server error into a format usable by this component. */
     formatResponseError(error: any): UploaderFile['error'] {
-        return error.response?.data?.error || 'Failed to upload file'
+        return String(error.response?.data?.error) || 'Failed to upload file'
     }
 }
 
