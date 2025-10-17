@@ -41,3 +41,6 @@ next-env.d.ts
 
 # contentlayer
 .contentlayer
+
+# uploaded files (temporary storage)
+/public/uploads
