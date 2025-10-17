@@ -17,7 +17,7 @@ interface TmpResponse {
  *  Alternatively, you can modify the UploaderAction class directly,
  *  since it is part of your own codebase.
  */
-class CustomUploadAction extends UploaderAction {
+class CustomUploaderAction extends UploaderAction {
     constructor() {
         super('https://tmpfiles.org/api/v1/upload')
     }
@@ -34,6 +34,6 @@ class CustomUploadAction extends UploaderAction {
     }
 }
 
-export function UploaderCustomAction() {
-    return <Uploader action={new CustomUploadAction()} maxFileSize={100 * 1024 * 1024} />
+export function UploaderCustom() {
+    return <Uploader action={new CustomUploaderAction()} maxFileSize={100 * 1024 * 1024} />
 }

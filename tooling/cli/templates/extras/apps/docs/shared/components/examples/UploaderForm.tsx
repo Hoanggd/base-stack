@@ -9,7 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@workspace/ui/components/Textfield'
 import { Uploader } from '@workspace/ui/components/Uploader'
 import { UploaderFile } from '@workspace/ui/components/UploaderItem'
-import { CustomUploadAction } from './UploaderDemo.utils'
+import { CustomUploaderAction } from './UploaderDemo.utils'
 
 interface FormValues {
     name: string
@@ -60,7 +60,7 @@ export function UploaderForm() {
                                 <Uploader
                                     defaultFileList={field.value}
                                     onFileListChange={field.onChange}
-                                    action={new CustomUploadAction()}
+                                    action={new CustomUploaderAction()}
                                     maxFileSize={100 * 1024 * 1024}
                                     acceptedFileExtensions={['pdf', 'docx', 'png', 'csv']}
                                 />

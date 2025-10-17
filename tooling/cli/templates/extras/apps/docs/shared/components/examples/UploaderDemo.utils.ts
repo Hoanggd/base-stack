@@ -8,7 +8,7 @@ interface TmpResponse {
     }
 }
 
-export class CustomUploadAction extends UploaderAction {
+export class CustomUploaderAction extends UploaderAction {
     constructor() {
         super('https://tmpfiles.org/api/v1/upload')
     }

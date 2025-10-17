@@ -2,7 +2,7 @@
 
 import { Uploader } from '@workspace/ui/components/Uploader'
 import { UploaderFile } from '@workspace/ui/components/UploaderItem'
-import { CustomUploadAction } from './UploaderDemo.utils'
+import { CustomUploaderAction } from './UploaderDemo.utils'
 
 const exampleFileList: Array<UploaderFile> = [
     {
@@ -30,7 +30,7 @@ const exampleFileList: Array<UploaderFile> = [
 export function UploaderVariantListType() {
     return (
         <Uploader
-            action={new CustomUploadAction()}
+            action={new CustomUploaderAction()}
             maxFileSize={100 * 1024 * 1024}
             defaultFileList={exampleFileList}
             listType="card"

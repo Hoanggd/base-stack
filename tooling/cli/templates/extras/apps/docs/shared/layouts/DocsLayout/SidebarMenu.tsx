@@ -224,7 +224,7 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Uploader',
                         href: '/docs/ui/uploader',
-                        createdAt: '2025-10-15',
+                        createdAt: '2025-10-17',
                     },
                 ],
             },
