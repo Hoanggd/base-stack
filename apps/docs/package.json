@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "prebuild": "contentlayer2 build",
         "dev": "next dev -p 9009",
         "build": "next build",
         "start": "next start",
