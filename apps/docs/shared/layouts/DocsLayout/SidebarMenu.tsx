@@ -218,13 +218,13 @@ function getMenuGroups(module: string): MenuGroup[] {
                         href: '/docs/ui/radio-group',
                     },
                     {
-                        title: 'Switch1',
+                        title: 'Switch',
                         href: '/docs/ui/switch',
                     },
                     {
                         title: 'Uploader',
                         href: '/docs/ui/uploader',
-                        createdAt: '2025-10-15',
+                        createdAt: '2025-10-17',
                     },
                 ],
             },
