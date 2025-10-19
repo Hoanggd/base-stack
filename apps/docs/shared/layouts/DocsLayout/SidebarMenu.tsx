@@ -146,6 +146,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Button',
                         href: '/docs/ui/button',
                     },
+                    {
+                        title: 'FileTrigger',
+                        href: '/docs/ui/file-trigger',
+                    },
                 ],
             },
             {
