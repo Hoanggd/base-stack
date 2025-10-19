@@ -140,6 +140,15 @@ function getMenuGroups(module: string): MenuGroup[] {
     if (module === ModuleValue.UI) {
         return [
             {
+                title: 'Display',
+                items: [
+                    {
+                        title: 'Avatar',
+                        href: '/docs/ui/avatar',
+                    },
+                ],
+            },
+            {
                 title: 'Buttons',
                 items: [
                     {
