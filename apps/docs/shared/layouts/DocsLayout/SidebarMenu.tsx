@@ -145,17 +145,14 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Accordion',
                         href: '/docs/ui/accordion',
-                        createdAt: '2025-10-20',
                     },
                     {
                         title: 'Avatar',
                         href: '/docs/ui/avatar',
-                        createdAt: '2025-10-20',
                     },
                     {
                         title: 'Separator',
                         href: '/docs/ui/separator',
-                        createdAt: '2025-10-20',
                     },
                 ],
             },
@@ -169,6 +166,7 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'FileTrigger',
                         href: '/docs/ui/file-trigger',
+                        createdAt: '2025-10-20',
                     },
                 ],
             },
