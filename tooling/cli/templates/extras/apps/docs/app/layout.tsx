@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: PROJECT_DESCRIPTION,
         description: PROJECT_DESCRIPTION,
-        images: [{ url: '/images/og-image.jpg' }],
+        images: [{ url: '/images/og-image-2.jpg' }],
         siteName: PROJECT_NAME,
     },
 }

@@ -21,7 +21,9 @@
         "react-dom": "^19.1.1",
         "react-hook-form": "^7.62.0",
         "zod": "^3.24.2",
-        "axios": "^1.12.2"
+        "axios": "^1.12.2",
+        "react-aria": "^3.44.0",
+        "react-aria-components": "^1.13.0"
     },
     "devDependencies": {
         "@workspace/eslint-config": "workspace:^",

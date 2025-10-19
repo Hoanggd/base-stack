@@ -10,7 +10,7 @@ const Separator = ({ className, orientation = 'horizontal', ...props }: AriaSepa
         className={cn(
             'bg-border',
             /* Orientation */
-            orientation === 'horizontal' ? 'h-px w-full' : 'w-px',
+            orientation === 'horizontal' ? 'h-px w-full' : 'w-px h-full',
             className,
         )}
         {...props}

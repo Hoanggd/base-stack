@@ -140,11 +140,35 @@ function getMenuGroups(module: string): MenuGroup[] {
     if (module === ModuleValue.UI) {
         return [
             {
+                title: 'Display',
+                items: [
+                    {
+                        title: 'Accordion',
+                        href: '/docs/ui/accordion',
+                        createdAt: '2025-10-20',
+                    },
+                    {
+                        title: 'Avatar',
+                        href: '/docs/ui/avatar',
+                        createdAt: '2025-10-20',
+                    },
+                    {
+                        title: 'Separator',
+                        href: '/docs/ui/separator',
+                        createdAt: '2025-10-20',
+                    },
+                ],
+            },
+            {
                 title: 'Buttons',
                 items: [
                     {
                         title: 'Button',
                         href: '/docs/ui/button',
+                    },
+                    {
+                        title: 'FileTrigger',
+                        href: '/docs/ui/file-trigger',
                     },
                 ],
             },
@@ -275,6 +299,11 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'NProgress',
                         href: '/docs/ui/nprogress',
+                    },
+                    {
+                        title: 'Skeleton',
+                        href: '/docs/ui/skeleton',
+                        createdAt: '2025-10-20',
                     },
                 ],
             },
