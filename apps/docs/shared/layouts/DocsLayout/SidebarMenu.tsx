@@ -143,8 +143,16 @@ function getMenuGroups(module: string): MenuGroup[] {
                 title: 'Display',
                 items: [
                     {
+                        title: 'Accordion',
+                        href: '/docs/ui/accordion',
+                    },
+                    {
                         title: 'Avatar',
                         href: '/docs/ui/avatar',
+                    },
+                    {
+                        title: 'Separator',
+                        href: '/docs/ui/separator',
                     },
                 ],
             },
@@ -288,6 +296,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'NProgress',
                         href: '/docs/ui/nprogress',
+                    },
+                    {
+                        title: 'Skeleton',
+                        href: '/docs/ui/skeleton',
                     },
                 ],
             },
