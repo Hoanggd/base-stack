@@ -20,19 +20,17 @@ export function HamburgerMenu() {
             <Button variant="ghost" size="icon" className="size-10 [&>svg]:size-6">
                 <MenuIcon />
             </Button>
-            <DialogOverlay>
-                <DialogContent className="pl-0">
-                    <div>
-                        <div className="px-6">
-                            <Logo withName={false} />
-                        </div>
-                        <ModulePicker />
-                        <div className="h-[400px]">
-                            <SidebarMenu />
-                        </div>
+            <DialogContent className="pl-0">
+                <div>
+                    <div className="px-6">
+                        <Logo withName={false} />
                     </div>
-                </DialogContent>
-            </DialogOverlay>
+                    <ModulePicker />
+                    <div className="h-[400px]">
+                        <SidebarMenu />
+                    </div>
+                </div>
+            </DialogContent>
         </DialogTrigger>
     )
 }

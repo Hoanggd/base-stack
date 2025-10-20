@@ -6,8 +6,8 @@ import {
     DialogDescription,
     DialogFooter,
     DialogHeader,
-    DialogOverlay,
     DialogTitle,
+    DialogTrigger,
 } from '@workspace/ui/components/Dialog'
 import { createStore } from '@xstate/store'
 import { useSelector } from '@xstate/store/react'
@@ -74,7 +74,7 @@ function ConfirmDialog() {
     }
 
     return (
-        <DialogOverlay
+        <DialogTrigger
             isOpen={isOpen}
             onOpenChange={isOpen => {
                 if (!isOpen) {
@@ -106,7 +106,7 @@ function ConfirmDialog() {
                     </DialogFooter>
                 </div>
             </DialogContent>
-        </DialogOverlay>
+        </DialogTrigger>
     )
 }
 

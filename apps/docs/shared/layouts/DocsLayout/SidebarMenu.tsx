@@ -178,7 +178,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'FileTrigger',
                         href: '/docs/ui/file-trigger',
-                        createdAt: '2025-10-20',
                     },
                 ],
             },
@@ -258,7 +257,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Uploader',
                         href: '/docs/ui/uploader',
-                        createdAt: '2025-10-17',
                     },
                 ],
             },
@@ -268,6 +266,11 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Dialog',
                         href: '/docs/ui/dialog',
+                    },
+                    {
+                        title: 'Sheet',
+                        href: '/docs/ui/sheet',
+                        createdAt: '2025-10-20',
                     },
                     {
                         title: 'ConfirmDialog',
@@ -313,7 +316,6 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Skeleton',
                         href: '/docs/ui/skeleton',
-                        createdAt: '2025-10-20',
                     },
                 ],
             },
@@ -375,7 +377,7 @@ function MenuItem({ title, href, icon, createdAt }: MenuItem) {
         >
             {icon}
             {title}
-            {isNew && <span className="text-xs bg-primary text-white px-1 py-0.5 rounded">new</span>}
+            {isNew && <span className="text-xs bg-primary-foreground/70 size-2 rounded-full" />}
         </Link>
     )
 }
