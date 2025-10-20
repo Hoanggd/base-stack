@@ -1,0 +1,338 @@
+---
+title: Code Conventions
+description: A guide to and coding conventions for writing consistent, maintainable React code in your projects.
+---
+
+> Writing clean, maintainable React code requires following consistent conventions. This guide outlines essential coding standards that will help you and your team write more readable and scalable React applications.
+
+## File Naming Conventions
+
+### Component Files
+Use **PascalCase** for component files to immediately identify them as React components:
+- ✅ `UserCard.tsx`, `LoginForm.tsx`, `NavigationBar.tsx`
+- ❌ `userCard.tsx`, `login-form.tsx`
+
+### Non-Component Files
+Use **kebab-case** for utility files, hooks, and other non-component files:
+- ✅ `use-fetch.ts`, `api-client.ts`, `format-date.ts`
+- ❌ `useFetch.ts`, `apiClient.ts`
+
+## Code Naming Conventions
+
+| Item | Convention | Example |
+|------|------------|---------|
+| Components | PascalCase | `UserList`, `AppHeader` |
+| Hooks | camelCase + `use` prefix | `useFetch`, `useAuth` |
+| Functions | camelCase | `handleClick`, `fetchUser` |
+| Variables | camelCase | `userList`, `isLoading` |
+| Enums | PascalCase | `enum UserRole { Admin, Guest }` |
+| Constants | UPPER_SNAKE_CASE | `API_BASE_URL`, `MAX_RETRY` |
+
+### Examples
+
+```tsx
+// Components - use function declaration
+function UserCard() {
+    return <div>Card</div>;
+}
+
+function LoginForm() {
+    return <form>Login</form>;
+}
+
+// Variables
+const userName = "John Doe";
+const isLoading = false;
+
+// Event handlers and methods - use arrow functions
+const handleClick = () => { ... }
+const handleSubmit = (e: React.FormEvent) => { ... }
+
+// Custom Hooks
+const useFetch = () => { ... }
+const useAuth = () => { ... }
+
+// Constants
+const API_BASE_URL = "https://api.example.com";
+const MAX_RETRY_ATTEMPTS = 3;
+
+// Enums
+enum UserRole {
+    Admin,
+    Guest,
+    Moderator
+}
+```
+
+## Function Declaration Style
+
+### Components: Use Function Declaration
+Use **function declaration** for components (not arrow functions):
+
+```tsx
+// ✅ Good: Function declaration for components
+export function UserList() {
+    return <div>List</div>;
+}
+
+export function UserProfile({ userId }: Props) {
+    return <div>Profile</div>;
+}
+
+// ❌ Avoid: Arrow function for components
+export const UserList = () => {
+    return <div>List</div>;
+};
+```
+
+### Methods & Handlers: Use Arrow Functions
+Use **arrow functions** for event handlers, methods, and callbacks:
+
+```tsx
+export function UserList() {
+    // ✅ Good: Arrow functions for handlers and methods
+    const handleClick = (id: string) => {
+        console.log('Clicked user:', id);
+    };
+    
+    const fetchUserData = async () => {
+        return await api.getUsers();
+    };
+    
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+    };
+    
+    // ✅ Good: Arrow functions for callbacks
+    return (
+        <div>
+            {users.map(user => (
+                <UserCard key={user.id} user={user} />
+            ))}
+            <button onClick={() => handleClick(user.id)}>
+                Click me
+            </button>
+        </div>
+    );
+}
+```
+
+**Why?**
+- **Components as function declarations**: Better stack traces, hoisting benefits, clearer component identity
+- **Arrow functions for handlers**: Automatic `this` binding (though not needed in functional components), consistent callback style
+
+## Destructuring Best Practices
+
+### Destructure Only Component Props
+Avoid excessive destructuring except for component props. Keep query results and complex objects intact:
+
+```tsx
+// ✅ Good: Destructure only props
+export function UserProfile({ userId, isActive }: Props) {
+    const userQuery = useQuery({
+        queryKey: ['user', userId],
+        queryFn: () => fetchUser(userId)
+    });
+    
+    // Keep query object intact, access properties directly
+    if (userQuery.isLoading) return <Spinner />;
+    if (userQuery.error) return <ErrorMessage error={userQuery.error} />;
+    
+    return <div>{userQuery.data?.name}</div>;
+}
+
+// ❌ Avoid: Excessive destructuring
+export function UserProfile(props: Props) {
+    const { userId, isActive } = props;  // Don't destructure props separately
+    const { data, isLoading, error, refetch } = useQuery(...);  // Too much destructuring
+    
+    if (isLoading) return <Spinner />;
+    return <div>{data?.name}</div>;
+}
+```
+
+**Why?** 
+- Clearer context: `userQuery.isLoading` is more explicit than just `isLoading`
+- Avoids naming conflicts when using multiple queries
+- Easier to trace where data comes from
+
+**Exception:** Always destructure component props in the function signature.
+
+## Component Structure and Organization
+
+### Order of Component Internals
+Organize your component code in a consistent order for better readability:
+
+```tsx
+export function UserProfile({ userId, isActive }: Props) {
+    // 1. State hooks (useState, useReducer)
+    const [selectedTab, setSelectedTab] = useState(0)
+    const [isEditing, setIsEditing] = useState(false)
+
+    // 2. Data fetching hooks (useQuery, custom data hooks)
+    const queryClient = useQueryClient()
+    const userQuery = useQuery({
+        queryKey: ['user', userId],
+        queryFn: () => fetchUser(userId),
+    })
+
+    // 3. Derived state and variables
+    const isAuthenticated = userQuery.data
+
+    // 4. Event handlers and functions (arrow functions)
+    const handleTabChange = (index: number) => {
+        setSelectedTab(index)
+    }
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        // Handle submit
+    }
+
+    // 5. Side effects (useEffect)
+    useEffect(() => {
+        if (shouldAutoRefresh) {
+            const interval = setInterval(() => {
+                queryClient.invalidateQueries(['user', userId])
+            }, 30000)
+            return () => clearInterval(interval)
+        }
+    }, [userId, shouldAutoRefresh, queryClient])
+
+    // 6. Early returns
+    if (userQuery.isLoading) return <LoadingSpinner />;
+    if (userQuery.error) return <ErrorMessage error={userQuery.error} />;
+    if (!userQuery.data) return <EmptyState message="No user found" />;
+
+    // 7. Return JSX
+    return <div>{/* Component JSX */}</div>
+}
+
+```
+
+## Export Conventions
+
+### Prefer Named Exports
+Use **named exports** over default exports in most cases for better IDE support, easier refactoring, and more explicit imports:
+
+```tsx
+// ✅ Preferred: Named export
+export function UserCard() {
+    return <div>User Card</div>;
+}
+
+// ❌ Avoid: Default export (unless necessary)
+export default function UserCard() {
+    return <div>User Card</div>;
+}
+```
+
+**Exception:** Use default exports when required by frameworks or libraries:
+```tsx
+// Acceptable for Next.js pages
+export default function HomePage() {
+    return <div>Home</div>;
+}
+
+// Acceptable for lazy loading
+const LazyComponent = lazy(() => import('./HeavyComponent'));
+```
+
+## Early Return Pattern
+
+Use early returns to reduce nesting and improve code readability. Handle edge cases and loading states at the beginning of your components:
+
+```tsx
+export function UserProfile({ userId }: { userId: string }) {
+    const userQuery = useQuery({
+        queryKey: ['user', userId],
+        queryFn: () => fetchUser(userId)
+    });
+    
+    // Early returns for edge cases
+    if (userQuery.isLoading) return <LoadingSpinner />;
+    if (userQuery.error) return <ErrorMessage error={userQuery.error} />;
+    if (!userQuery.data) return <EmptyState message="No user found" />;
+    
+    // Main component logic with minimal nesting
+    return (
+        <div className="user-profile">
+            <h1>{userQuery.data.name}</h1>
+            <p>{userQuery.data.email}</p>
+        </div>
+    );
+}
+```
+
+This is cleaner than deeply nested conditional rendering:
+```tsx
+// ❌ Avoid: Deeply nested conditions
+return (
+    <div>
+        {userQuery.isLoading ? (
+            <LoadingSpinner />
+        ) : userQuery.error ? (
+            <ErrorMessage />
+        ) : userQuery.data ? (
+            <div className="user-profile">
+                <h1>{userQuery.data.name}</h1>
+            </div>
+        ) : (
+            <EmptyState />
+        )}
+    </div>
+);
+```
+
+## Avoid Nested Ternaries in JSX
+
+### Use Ternary for Basic Conditions
+For straightforward either/or scenarios, the ternary operator is appropriate:
+
+```tsx
+// ✅ Recommended: Simple ternary
+return (
+    <div>
+        {isLoading ? <Spinner /> : <Content />}
+    </div>
+);
+```
+
+### Prefer Early Returns for Complex Branching
+When logic becomes intricate with more than two outcomes, it's clearer to use early returns:
+
+```tsx
+// ✅ Recommended: Early returns for complex flows
+export function Dashboard() {
+    const userQuery = useQuery({ /* ... */ });
+
+    if (userQuery.isLoading) return <Spinner />;
+    if (userQuery.error) return <ErrorPage />;
+    if (!userQuery.data) return <EmptyState />;
+    if (!userQuery.data.hasAccess) return <AccessDenied />;
+
+    return <DashboardContent data={userQuery.data} />;
+}
+
+// ❌ Not recommended: Multiple nested ternaries
+return (
+    <div>
+        {userQuery.isLoading ? (
+            <Spinner />
+        ) : userQuery.error ? (
+            <ErrorPage />
+        ) : !userQuery.data ? (
+            <EmptyState />
+        ) : !userQuery.data.hasAccess ? (
+            <AccessDenied />
+        ) : (
+            <DashboardContent />
+        )}
+    </div>
+);
+```
+
+**Cheat Sheet:**
+- **Simple if/else**: `{condition ? <A /> : <B />}`
+- **Render if true**: `{condition && <Component />}`
+- **Complex cases**: Use early returns outside JSX
