@@ -7,6 +7,7 @@ import {
     BlocksIcon,
     BookOpenIcon,
     BrainIcon,
+    CodeIcon,
     ListChecksIcon,
     NetworkIcon,
     SettingsIcon,
@@ -61,14 +62,25 @@ function getMenuGroups(module: string): MenuGroup[] {
                         icon: <ListChecksIcon size={16} strokeWidth={1.5} />,
                     },
                     {
+                        title: 'Philosophy',
+                        href: '/docs/guide/philosophy',
+                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
+                    },
+                ],
+            },
+            {
+                title: 'Recipes',
+                items: [
+                    {
                         title: 'React Folder Structure',
                         href: '/docs/guide/react-folder-structure',
                         icon: <NetworkIcon size={16} strokeWidth={1.5} />,
                     },
                     {
-                        title: 'Philosophy',
-                        href: '/docs/guide/philosophy',
-                        icon: <BrainIcon size={16} strokeWidth={1.5} />,
+                        title: 'Code Conventions',
+                        href: '/docs/guide/react-code-convention',
+                        icon: <CodeIcon size={16} strokeWidth={1.5} />,
+                        createdAt: '2025-10-20',
                     },
                 ],
             },
