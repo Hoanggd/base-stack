@@ -4,11 +4,11 @@ import { cn } from '@workspace/ui/lib/utils'
 import { Button } from '@workspace/ui/components/Button'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 
-interface ComponentPreviewCollapsibleProps {
+interface CodeCollapsibleProps {
     html: string
 }
 
-export function ComponentPreviewCollapsible({ html }: ComponentPreviewCollapsibleProps) {
+export function CodeCollapsible({ html }: CodeCollapsibleProps) {
     const [previewHeight, setPreviewHeight] = React.useState(0)
     const previewRef = React.useRef<HTMLDivElement>(null)
     const [isOpen, setIsOpen] = React.useState(false)

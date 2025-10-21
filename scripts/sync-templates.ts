@@ -47,6 +47,7 @@ const files = [
     '.vscode',
     '.gitignore',
     '.prettierrc',
+    '.prettierignore',
     'package.json',
     'pnpm-workspace.yaml',
     'README.md',

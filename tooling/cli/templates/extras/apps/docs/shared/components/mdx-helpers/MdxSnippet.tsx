@@ -3,14 +3,16 @@ import { highlightCode } from '@/shared/lib/highlight-code'
 import { ScrollArea } from '@workspace/ui/components/ScrollArea'
 import { cn } from '@workspace/ui/lib/utils'
 import { CodeIcon, SquareTerminal } from 'lucide-react'
+import { CodeCollapsible } from './CodeCollapsible'
 
 export type MdxSnippetProps = {
     children: any
     className?: string
     lang?: string
+    collapsible?: boolean
 }
 
-export async function MdxSnippet({ children, className, lang = 'bash' }: MdxSnippetProps) {
+export async function MdxSnippet({ children, className, lang = 'bash', collapsible = false }: MdxSnippetProps) {
     let code = ''
 
     try {
@@ -39,10 +41,14 @@ export async function MdxSnippet({ children, className, lang = 'bash' }: MdxSnip
                     <CopyToClipboard text={code} className="absolute right-2 top-2 z-[1]" />
                     <div className="">
                         <ScrollArea className="grid">
-                            <div
-                                dangerouslySetInnerHTML={{ __html: out }}
-                                className="[&>pre]:my-0 [&>pre]:rounded-none"
-                            />
+                            {collapsible ? (
+                                <CodeCollapsible html={out} />
+                            ) : (
+                                <div
+                                    dangerouslySetInnerHTML={{ __html: out }}
+                                    className="[&>pre]:my-0 [&>pre]:rounded-none"
+                                />
+                            )}
                         </ScrollArea>
                     </div>
                 </div>

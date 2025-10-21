@@ -12,6 +12,7 @@
         "@radix-ui/react-accordion": "^1.2.12",
         "@radix-ui/react-aspect-ratio": "^1.1.7",
         "@radix-ui/react-avatar": "^1.1.10",
+        "@radix-ui/react-collapsible": "^1.1.12",
         "@radix-ui/react-scroll-area": "^1.2.10",
         "@radix-ui/react-separator": "^1.1.7",
         "@radix-ui/react-slot": "^1.2.3",
@@ -56,6 +57,7 @@
         "./postcss.config": "./postcss.config.mjs",
         "./lib/*": "./src/lib/*.ts",
         "./components/*": "./src/components/*.tsx",
+        "./layouts/*": "./src/layouts/*.tsx",
         "./hooks/*": "./src/hooks/*.ts",
         "./core/*": "./src/core/*.tsx"
     }

@@ -1,4 +1,4 @@
-export const PROJECT_NAME = 'Base Stack'
+export const PROJECT_NAME = 'BaseStack'
 export const PROJECT_NAME_SLUG = 'base-stack'
 export const PROJECT_DESCRIPTION =
     'A modern React starter kit with best practices and all the essentials to quickly launch your frontend.'
