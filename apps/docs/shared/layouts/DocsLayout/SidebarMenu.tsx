@@ -157,6 +157,7 @@ function getMenuGroups(module: string): MenuGroup[] {
                     {
                         title: 'Sidebar',
                         href: '/docs/ui/sidebar',
+                        createdAt: '2025-10-22',
                     },
                 ],
             },
