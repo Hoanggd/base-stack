@@ -152,6 +152,15 @@ function getMenuGroups(module: string): MenuGroup[] {
     if (module === ModuleValue.UI) {
         return [
             {
+                title: 'Layout',
+                items: [
+                    {
+                        title: 'Sidebar',
+                        href: '/docs/ui/sidebar',
+                    },
+                ],
+            },
+            {
                 title: 'Display',
                 items: [
                     {

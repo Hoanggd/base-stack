@@ -18,6 +18,7 @@ const components = {
     Button,
     MdxImage,
     MdxTip,
+    MdxSnippet,
     pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
         let lang = ''
 
