@@ -2,28 +2,29 @@
 
 import { Button } from '@workspace/ui/components/Button'
 import {
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-    DialogDescription,
-} from '@workspace/ui/components/Dialog'
+    SheetContent,
+    SheetFooter,
+    SheetHeader,
+    SheetOverlay,
+    SheetTitle,
+    SheetTrigger,
+    SheetDescription,
+} from '@workspace/ui/components/Sheet'
 import { Label } from '@workspace/ui/components/Field'
 import { Input } from '@workspace/ui/components/Textfield'
 
-export function DialogDemo() {
+export function SheetDemo() {
     return (
-        <DialogTrigger>
+        <SheetTrigger>
             <Button>Sign up</Button>
-            <DialogContent className="md:max-w-[425px]">
+            <SheetContent>
                 {({ close }) => (
-                    <div className="flex flex-col gap-4">
-                        <DialogHeader>
-                            <DialogTitle>Sign up</DialogTitle>
-                            <DialogDescription>Please fill out the form below to sign up.</DialogDescription>
-                        </DialogHeader>
-                        <div className="flex-1 space-y-4">
+                    <div className="flex flex-col">
+                        <SheetHeader>
+                            <SheetTitle>Sign up</SheetTitle>
+                            <SheetDescription>Please fill out the form below to sign up.</SheetDescription>
+                        </SheetHeader>
+                        <div className="flex-1 space-y-4 px-4">
                             <div className="flex flex-col gap-2">
                                 <Label>First Name</Label>
                                 <Input placeholder="First Name" autoFocus />
@@ -33,17 +34,17 @@ export function DialogDemo() {
                                 <Input placeholder="Last Name" />
                             </div>
                         </div>
-                        <DialogFooter>
+                        <SheetFooter>
                             <Button variant="outline" onClick={close}>
                                 Cancel
                             </Button>
                             <Button onClick={close} type="submit">
                                 Save changes
                             </Button>
-                        </DialogFooter>
+                        </SheetFooter>
                     </div>
                 )}
-            </DialogContent>
-        </DialogTrigger>
+            </SheetContent>
+        </SheetTrigger>
     )
 }

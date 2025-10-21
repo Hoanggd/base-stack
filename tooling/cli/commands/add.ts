@@ -108,8 +108,6 @@ export const add = new Command()
         // Show a success message
         console.log(chalk.green.bold('\n🎉 Application created successfully!'))
         console.log('\nInstall dependencies:', chalk.cyan('pnpm install'))
-        console.log('Install dependencies:', chalk.cyan('pnpm install'))
         console.log('Start development:', chalk.cyan('pnpm dev'))
         console.log('\nHappy hacking!\n')
-
     })

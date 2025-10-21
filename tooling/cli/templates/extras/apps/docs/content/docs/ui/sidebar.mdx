@@ -1,0 +1,72 @@
+---
+title: Sidebar
+description: A composable, themeable and customizable sidebar component.
+originalDocs: https://ui.shadcn.com/docs/components/sidebar
+sourceCode: https://github.com/henry-phm/base-stack/blob/main/packages/ui/src/components/Sidebar.tsx
+---
+
+## Demo
+You can view this demo in fullscreen mode <Link href="/layout-preview/dashboard/history" target="_blank">here</Link>.
+<div className="grid mt-4">
+    <div className="overflow-hidden border rounded-xl shadow-lg">
+        <iframe
+            src="/layout-preview/dashboard/history"
+            style={{ width: '1000px', height: '600px' }}
+            title="Sidebar Demo"
+        />
+    </div>
+</div>
+
+---
+
+## Usage
+This is the sidebar component from `shadcn`, with some adjustments to make it easier to use:
+- Added the `SidebarNavigationMenu` component
+- Modified so that icons are clickable when the sidebar is collapsed
+
+When using the sidebar, there are some differences between Next.js and Tanstack Router, 
+mainly because each uses a different Link component. 
+As a result, you need to handle active link display differently for each.
+
+<MdxTip>
+By default, when initializing the project, we have already set up a **sidebar layout** for each app at `shared/layouts/DashboardLayout.tsx`. Below are examples of how to use it with each routing library.
+</MdxTip>
+
+### `Next.js`
+```tsx
+// layout.tsx
+import { DashboardLayout } from '@/shared/layouts/DashboardLayout'
+import { cookies } from 'next/headers'
+
+interface LayoutProps {
+    children: React.ReactNode
+}
+
+export default async function Layout({ children }: LayoutProps) {
+    const cookieStore = await cookies()
+    const defaultOpen = cookieStore.get('sidebar_state')?.value !== 'false'
+
+    return <DashboardLayout defaultOpen={defaultOpen}>{children}</DashboardLayout>
+}
+
+```
+
+### `Tanstack Router`
+```tsx
+// route.tsx
+import { DashboardLayout } from '@/shared/layouts/DashboardLayout'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
+
+export const Route = createFileRoute('/dashboard')({
+    component: RouteComponent,
+})
+
+function RouteComponent() {
+    return (
+        <DashboardLayout>
+            <Outlet />
+        </DashboardLayout>
+    )
+}
+
+```
