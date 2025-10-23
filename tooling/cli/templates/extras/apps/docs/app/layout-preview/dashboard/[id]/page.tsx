@@ -1,13 +1,19 @@
-import { Skeleton } from '@workspace/ui/components/Skeleton'
-import { Metadata } from 'next'
+'use client'
 
-export const metadata: Metadata = {
-    title: 'Dashboard Preview',
-    description: 'A page preview for the dashboard layout, demonstrating loading states and UI skeletons.',
+import { Skeleton } from '@workspace/ui/components/Skeleton'
+import { useParams } from 'next/navigation'
+import { Suspense } from 'react'
+
+export default function Page() {
+    return (
+        <Suspense>
+            <PageContent />
+        </Suspense>
+    )
 }
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = await params
+function PageContent() {
+    const { id } = useParams<{ id: string }>()
 
     return (
         <div>

@@ -14,7 +14,7 @@ const nextConfig: NextConfig = withContentlayer({
             },
             {
                 source: '/docs/ui',
-                destination: '/docs/ui/button',
+                destination: '/docs/ui/sidebar',
                 permanent: false,
             },
         ]

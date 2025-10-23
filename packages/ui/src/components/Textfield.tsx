@@ -50,7 +50,7 @@ const PasswordInput = ({ className, ...props }: PasswordInputProps) => {
             <FieldGroup className={cn('pl-3 pr-1 py-0', className)}>
                 <AriaInput
                     type={isVisible ? 'text' : 'password'}
-                    className="h-full focus-visible:outline-none flex-1"
+                    className="h-full focus-visible:outline-none flex-1 placeholder:text-muted-foreground"
                 />
                 <Button variant="ghost" size="iconSm" onClick={() => setIsVisible(!isVisible)}>
                     {isVisible ? <EyeIcon /> : <EyeOffIcon />}
