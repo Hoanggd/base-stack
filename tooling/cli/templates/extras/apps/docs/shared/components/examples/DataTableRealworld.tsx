@@ -56,10 +56,10 @@ export const columns = [
         header: 'Actions',
         cell: () => (
             <div className="space-x-1">
-                <Button variant="ghost" size="icon" aria-label='edit'>
+                <Button variant="ghost" size="icon" aria-label="edit">
                     <EditIcon className="text-primary-foreground" />
                 </Button>
-                <Button variant="ghost" size="icon" aria-label='delete'>
+                <Button variant="ghost" size="icon" aria-label="delete">
                     <TrashIcon className="text-destructive-foreground" />
                 </Button>
             </div>

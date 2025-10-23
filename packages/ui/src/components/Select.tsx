@@ -160,9 +160,7 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
                 <ChevronDownIcon className="w-4 h-4 text-muted-foreground" />
             </Button>
             {isClearable && <SelectClearButton />}
-            <Popover
-                className={cn('!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1', popoverClassName)}
-            >
+            <Popover className={cn('!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1', popoverClassName)}>
                 <ItemsWrapper isSearchable={isSearchable}>
                     <ListBox items={options} className="outline-hidden overflow-auto flex-1 scroll-pb-1">
                         {item => <BsSelectItem renderOption={renderOption}>{item.name}</BsSelectItem>}

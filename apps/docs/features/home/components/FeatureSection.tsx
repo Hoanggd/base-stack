@@ -1,4 +1,4 @@
-import { ProjectFeatures } from "@/shared/components/ProjectFeatures";
+import { ProjectFeatures } from '@/shared/components/ProjectFeatures'
 
 export function FeatureSection() {
     return (

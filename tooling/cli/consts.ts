@@ -11,12 +11,12 @@ export const STACK_CHOICES = [
     {
         id: Stack.Next,
         name: 'Next.js (App Router)',
-        description: "Fullstack React framework with file-based routing, server components, and built-in SSR/SSG."
+        description: 'Fullstack React framework with file-based routing, server components, and built-in SSR/SSG.',
     },
     {
         id: Stack.ViteTanstackRouter,
         name: 'Vite (Tanstack Router)',
-        description: "Vite-powered React app using TanStack Router for flexible, type-safe client-side routing."
+        description: 'Vite-powered React app using TanStack Router for flexible, type-safe client-side routing.',
     },
     // TODO: Add React Router
     // {

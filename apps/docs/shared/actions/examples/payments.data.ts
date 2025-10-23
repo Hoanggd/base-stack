@@ -468,5 +468,5 @@ export const paymentData: Array<Payment> = [
         paymentMethod: 'credit_card',
         transactionDate: '2025-09-17',
         paymentReference: 'PAY-GLUK78',
-    }
+    },
 ]
