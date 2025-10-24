@@ -26,6 +26,7 @@ second for any action that takes time to complete.
 In **React Query**, there are three loading states (`isLoading`, `isFetching`, `isPending`), the best practice is to handle them differently:
 
 ### 1. `isLoading`
+
 `isLoading` becomes `true` when the query runs for the very first time, like after the app initially mounts or on a full page reload.
 This is the ideal moment to display a global `<Spinner/>` or `<Skeleton/>` to communicate to users that the main content is loading for the first time.
 
@@ -50,11 +51,13 @@ return (
 ```
 
 ### 2. `isFetching`
-`isFetching` is `true` any time a query is actively refreshing in the background, 
-such as after changing filters, pagination, or refetching. 
-Use this state to show lightweight progress indicators (`NProgress`) 
+
+`isFetching` is `true` any time a query is actively refreshing in the background,
+such as after changing filters, pagination, or refetching.
+Use this state to show lightweight progress indicators (`NProgress`)
 while keeping existing data visible, ensuring the UI doesn't flicker or shift.
 Example:
+
 ```tsx
 const [search] = useQueryState('search', parseAsString.withDefault(''))
 
@@ -70,28 +73,33 @@ useNProgress({ isFetching: postsQuery.isFetching })
 
 // render
 ```
+
 Additionally, when fetching lists, keep in mind:
+
 - Set `placeholderData: keepPreviousData` in the query options to avoid layout shift.
 - Because list screens often include search and filters, the `queryKey` changes frequently, which can trigger many requests. Pass the abort `signal` so the query can cancel unnecessary requests.
 
-*Want to see what the isFetching looks like? Take a look <Link href="/docs/ui/data-table#real-world-example">here</Link>.*
+_Want to see what the isFetching looks like? Take a look <Link href="/docs/ui/data-table#real-world-example">here</Link>._
 
 ### 3. `isPending`
-`isPending` is `true` when a mutation is running. 
-Use this to provide UI feedback during user-triggered actions, 
+
+`isPending` is `true` when a mutation is running.
+Use this to provide UI feedback during user-triggered actions,
 such as disabling submit buttons or showing a loading spinner, so users know something is happening.
 
-1) If the action is a single button, disable that button, for example:
+1. If the action is a single button, disable that button, for example:
+
 ```tsx
 const exportMutation = useMutation({ mutationFn })
 
 <Button isDisabled={exportMutation.isPending}>Export<Button>
 ```
 
-2) For form submissions, wrap the entire form with `LoadingOverlay`, for example:
-<ComponentPreview name="RecFormWithLoading" className="max-w-[350px] mx-auto" />
+2. For form submissions, wrap the entire form with `LoadingOverlay`, for example:
+    <ComponentPreview name="RecFormWithLoading" className="max-w-[350px] mx-auto" />
 
 ## Use Optimistic UI
+
 Instead of waiting for the server response after a button click, immediately reflect the change in the UI—then update the server in the background. This lets your app feel more responsive, even if the backend is slow.
 
 But keep in mind: only use optimistic updates for actions that almost always succeed, otherwise, failed actions could make the experience worse for users.
@@ -101,7 +109,9 @@ Tanstack Query offers a clear guide on implementing optimistic UI. Our main reco
 For optimistic UI example (deleting an item), check out this <Link target="_blank" href="https://github.com/henry-phm/base-stack-example-project/blob/main/apps/web/src/features/posts/components/PostList.tsx">demo</Link>
 
 ## Additional techniques
+
 Here are some additional, less critical techniques you don't strictly need, but they're good to be aware of:
+
 - Prefetching data in advance - <Link target="_blank" href="https://tanstack.com/query/latest/docs/framework/react/guides/prefetching">source</Link>
 - Running multiple queries in parallel - <Link target="_blank" href="https://tanstack.com/query/latest/docs/framework/react/reference/useQueries">source</Link>
 - Preventing request waterfalls - <Link target="_blank" href="https://tanstack.com/query/latest/docs/framework/react/guides/request-waterfalls">source</Link>

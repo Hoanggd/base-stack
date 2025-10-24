@@ -20,6 +20,7 @@ When you start using base-stack, you might have some of the following questions:
 These are all valid questions that many developers may have when first encountering this project, and this article aims to thoroughly address each one, providing clear explanations and clarifications to help you better understand the reasoning and decisions behind our approach.
 
 ## Why use a monorepo?
+
 In many cases, your project will include multiple web applications, such as a client-facing app and an internal app like an admin portal.
 These apps often share UI components and utility functions. The best way to manage this is by using a monorepo.
 
@@ -27,19 +28,20 @@ Even if your project only has a single app, organizing your code in this way is 
 Additionally, using Turborepo speeds up the build process because it only rebuilds the apps that have changed.
 
 ## Why choose shadcn?
+
 Currently, there are many popular component libraries such as Material UI, Ant Design, Chakra UI, PrimeReact, and NextUI.
 The common limitation of these libraries is that their customization options are quite restricted.
 You can only customize components through the available props, and if you want to make deeper changes,
 you often have to use very specific and complex CSS selectors, like `& .MuiOutlinedInput-root {&.Mui-focused fieldset}`.
-This might be manageable for minor tweaks, but if your design requirements differ significantly from the library’s defaults, the 
+This might be manageable for minor tweaks, but if your design requirements differ significantly from the library’s defaults, the
 selectors can become extremely complicated, leading to overrides and conflicts.
 
-In real-world projects, the UI doesn’t just need to "look okay", 
-it often needs to match the design exactly, down to the pixel. 
+In real-world projects, the UI doesn’t just need to "look okay",
+it often needs to match the design exactly, down to the pixel.
 For example, achieving a 100% match with Material UI and a custom design can be very difficult.
 
-The solution is to use a headless UI library, which provides only the component behavior, 
-leaving the visual styling entirely up to you. That’s why we chose shadcn: most of its components are based on headless component libraries, 
+The solution is to use a headless UI library, which provides only the component behavior,
+leaving the visual styling entirely up to you. That’s why we chose shadcn: most of its components are based on headless component libraries,
 and all the styling lives in your own source code, making customization straightforward and flexible.
 
 ## Why do some shadcn components, especially form fields, seem a bit verbose to use?
@@ -72,18 +74,21 @@ You can read more about this <Link href="/docs/ui/philosophy#2-avoid-hasty-abstr
 ```
 
 ## If we use shadcn, why are most of its components replaced?
-Shadcn is great; we appreciate its idea of using headless UI and providing ready-made component files that you can freely customize. 
-However, as you might know, shadcn is not exactly a library, it mainly collects various headless UI components together, and one of its main dependencies is Radix UI. 
+
+Shadcn is great; we appreciate its idea of using headless UI and providing ready-made component files that you can freely customize.
+However, as you might know, shadcn is not exactly a library, it mainly collects various headless UI components together, and one of its main dependencies is Radix UI.
 
 Radix UI is no longer actively adding new features, as its authors have moved on to develop Base UI.
-While Radix UI is solid, the lack of ongoing feature development means its components are somewhat limited. For example, the Select component is quite basic, doesn't support multi-select, and there's no built-in date picker. 
-Even though shadcn uses React DayPicker, that library also isn't ideal. 
+While Radix UI is solid, the lack of ongoing feature development means its components are somewhat limited. For example, the Select component is quite basic, doesn't support multi-select, and there's no built-in date picker.
+Even though shadcn uses React DayPicker, that library also isn't ideal.
 
 Because of these limitations, we only keep a few shadcn components like form, button, and table, and we replace the rest entirely with react-aria-components.
 
 ## Why not use Redux, MobX, Zustand?
+
 A state management library in a web app can generally be divided into two types: client state libraries and server state libraries.
 Here’s a quote from the TanStack Query documentation:
+
 > TanStack Query is a server-state library, responsible for managing asynchronous operations between your server and client.
 
 > Redux, MobX, Zustand, etc. are client-state libraries that can be used to store asynchronous data, albeit inefficiently when compared to a tool like TanStack Query.
@@ -98,8 +103,10 @@ You should consider it when most of your application’s state lives on the clie
 For example, if you’re building an email template editor (an email builder), that’s when a lightweight client-state library such as Zustand or @xstate/store would make more sense.
 
 ## If all the docs are accessible online, why is there a `docs` folder within the `apps` directory?
+
 It's true that you can read all the documentation on our website, but you also have the option to access the documentation locally on your own machine, it's entirely up to you.
 Keeping the documentation locally offers several benefits:
+
 - You can directly edit the docs or add your own internal company materials, such as coding conventions.
 - When you modify or add new components, the documentation will be updated accordingly.
 - You can even create a completely new documentation site for internal use, based on our existing codebase.
@@ -107,4 +114,5 @@ Keeping the documentation locally offers several benefits:
 If you don't want the documentation on your local machine, just delete the `docs` folder, everything will still work as expected.
 
 ## Recap
+
 In summary, making thoughtful decisions about your UI and state management libraries is crucial for long-term maintainability and developer happiness. Avoiding premature abstractions in components keeps your codebase flexible and approachable. Select tools that are actively maintained and fit your project's needs, and remember that most applications benefit more from robust server-state management than from complex client-state solutions. By prioritizing clarity and adaptability, you'll set your project up for sustainable growth and easier collaboration.

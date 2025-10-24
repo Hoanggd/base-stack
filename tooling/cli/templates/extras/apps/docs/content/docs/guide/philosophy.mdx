@@ -28,7 +28,7 @@ if (val > someConstant // 🧠+
 // ✅ Simple
 let isValid = val > someConstant
 let isAllowed = condition2 || condition3
-let isSecure = condition4 && !condition5 
+let isSecure = condition4 && !condition5
 // 🧠, we don't need to remember the conditions, there are descriptive variables
 if (isValid && isAllowed && isSecure) {
     ...
@@ -36,13 +36,14 @@ if (isValid && isAllowed && isSecure) {
 ```
 
 ### Example: "Clever" vs. "Stupid"
+
 ```js
 // ❌ "Clever" - looks like magic
-let isEven = n => !(n & 1);
+let isEven = n => !(n & 1)
 
 // ✅ "Stupid" - obvious
 function isEven(n) {
-  return n % 2 === 0;
+    return n % 2 === 0
 }
 ```
 
@@ -74,29 +75,31 @@ Following the **AHA Programming** principle (Avoid Hasty Abstractions), we belie
 ### Prefer These Over useEffect
 
 #### Derived state
+
 ```tsx
 // ❌ useEffect for derived state
-const [fullName, setFullName] = React.useState('');
+const [fullName, setFullName] = React.useState('')
 React.useEffect(() => {
-  setFullName(`${firstName} ${lastName}`);
-}, [firstName, lastName]);
+    setFullName(`${firstName} ${lastName}`)
+}, [firstName, lastName])
 
 // ✅ Derived state
-const fullName = `${firstName} ${lastName}`;
+const fullName = `${firstName} ${lastName}`
 ```
 
 #### Data fetching
+
 ```tsx
 // ❌ useEffect for API calls on mount
-const [user, setUser] = React.useState(null);
+const [user, setUser] = React.useState(null)
 React.useEffect(() => {
-  fetchUserData().then(user => setUser(user));
-}, []);
+    fetchUserData().then(user => setUser(user))
+}, [])
 
 // ✅ Server components or data fetching libraries (Tanstack Query)
 const user = useQuery({
-  queryKey: ['user'],
-  queryFn: fetchUserData
+    queryKey: ['user'],
+    queryFn: fetchUserData,
 })
 ```
 
@@ -114,14 +117,14 @@ Global state management libraries (Zustand, Redux, Context) create invisible dep
 
 ```tsx
 // ❌ Global state
-const { searchQuery } = useSearchStore();
-const { currentPage } = usePaginationStore();
+const { searchQuery } = useSearchStore()
+const { currentPage } = usePaginationStore()
 
 // ✅ URL state with nuqs
-import { useQueryState, parseAsInteger } from 'nuqs';
+import { useQueryState, parseAsInteger } from 'nuqs'
 
-const [searchQuery, setSearchQuery] = useQueryState('q', { defaultValue: '' });
-const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
+const [searchQuery, setSearchQuery] = useQueryState('q', { defaultValue: '' })
+const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1))
 ```
 
 ### Benefits of URL State
@@ -138,7 +141,6 @@ const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
 - **UI-only state** that shouldn't be in the URL (modals, dropdowns)
 - **Theme preferences** (light/dark mode, color schemes)
 - **Layout configuration** (sidebar collapsed state, panel sizes, view preferences)
-
 
 ## 5. Obsess Over User Experience
 
@@ -164,6 +166,7 @@ That 2px difference you think nobody will notice? Users feel it. They may not kn
 - **Inline validation**: Validate as users type, place messages near the field with clear guidance
 
 #### Success States
+
 - **Affirmation**: Confirm actions with toasts or visual cues without interrupting flow
 
 ### Prevent Layout Shift

@@ -24,16 +24,17 @@ After running the CLI, you'll get a project with:
 ```text
 my-project/
 ├── apps/
-│   ├── docs/ 
-│   └── [your-app]/  
+│   ├── docs/
+│   └── [your-app]/
 ├── packages/
 │   ├── eslint-config/
 │   ├── typescript-config/
 │   ├── lib/
-│   └── ui/           
+│   └── ui/
 ├── pnpm-workspace.yaml
 └── turbo.json
 ```
+
 - `apps` Contains all application projects in the monorepo.
 - `apps/docs` The documentation site for your project.
 - `apps/[your-app]` A placeholder for your main application(s).
@@ -44,9 +45,12 @@ my-project/
 - `packages/ui` A reusable component library for your applications.
 
 ## Development
-<MdxTip>If you can't run `pnpm install`, it might be because you haven't initialized `git` or `git`
-isn't installed on your machine. Since this project uses `lefthook` to automatically format code on every commit,
-make sure to initialize a `git` repository before running `pnpm install` </MdxTip>
+
+<MdxTip>
+    If you can't run `pnpm install`, it might be because you haven't initialized `git` or `git` isn't installed on your
+    machine. Since this project uses `lefthook` to automatically format code on every commit, make sure to initialize a
+    `git` repository before running `pnpm install`{' '}
+</MdxTip>
 
 Navigate to your new project and start development:
 

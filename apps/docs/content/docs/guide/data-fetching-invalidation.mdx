@@ -10,22 +10,26 @@ In TanStack Query, to `invalidate a query` means marking a cached query as stale
 ## Just invalidate everything
 
 Honestly, the easiest approach to ensure your UI reflects server changes is to just invalidate all queries:
+
 ```tsx
 queryClient.invalidateQueries()
 ```
-It’s understandable to think this could be inefficient, and in certain situations that’s true, but for most applications, the simplicity and reliability are worth it. 
+
+It’s understandable to think this could be inefficient, and in certain situations that’s true, but for most applications, the simplicity and reliability are worth it.
 You don’t have to micromanage individual `queryKey`s, and your UI will remain accurate and up to date everywhere.
 
-If you try to fine‑grain invalidation, you must know every place a piece of data is used. For example, 
-mutating a category that’s also referenced by posts and filters means you must track 
-and invalidate all relevant query keys. That’s tedious and error‑prone. 
+If you try to fine‑grain invalidation, you must know every place a piece of data is used. For example,
+mutating a category that’s also referenced by posts and filters means you must track
+and invalidate all relevant query keys. That’s tedious and error‑prone.
 Invalidating everything is often the pragmatic choice.
 
-Another real-world example is Remix.run, a major React framework, which also invalidates all data after any mutation, 
+Another real-world example is Remix.run, a major React framework, which also invalidates all data after any mutation,
 and you can't even change this behavior.
 
 ## What if I do need fine‑grained invalidation?
+
 There are cases where you want precision. In our Next.js or Vite apps, look at `shared/components/Providers.tsx`, we set sensible defaults for TanStack Query:
+
 ```tsx
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -48,15 +52,18 @@ const queryClient = new QueryClient({
     }),
 })
 ```
+
 By default, we invalidate after every mutation. If you want a mutation to be an exception and manage invalidation yourself, provide a `meta` field with the keys to invalidate, for example:
+
 ```tsx
 useMutation({
-  mutationFn: updateLabel,
-  meta: {
-    invalidates: [['issues'], ['labels']],
-  },
+    mutationFn: updateLabel,
+    meta: {
+        invalidates: [['issues'], ['labels']],
+    },
 })
 ```
 
 ## Summary
+
 Begin with broad query invalidation for ease and reliability, and introduce fine-grained targeting only when necessary for your app’s requirements.

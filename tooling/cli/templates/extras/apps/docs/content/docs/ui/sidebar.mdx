@@ -6,7 +6,9 @@ sourceCode: https://github.com/henry-phm/base-stack/blob/main/packages/ui/src/co
 ---
 
 ## Demo
+
 You can view this demo in fullscreen mode <Link href="/layout-preview/dashboard/history" target="_blank">here</Link>.
+
 <div className="grid mt-4">
     <div className="overflow-hidden border rounded-xl shadow-lg">
         <iframe
@@ -20,17 +22,23 @@ You can view this demo in fullscreen mode <Link href="/layout-preview/dashboard/
 ---
 
 ## Usage
+
 This is the sidebar component from `shadcn`, with some adjustments to make it easier to use:
+
 - Added the `SidebarNavigationMenu` component
 - Modified so that icons are clickable when the sidebar is collapsed
 - The <Link href="https://github.com/henry-phm/base-stack/blob/main/apps/next/src/shared/layouts/DashboardLayout.tsx" target="_blank">`DashboardLayout`</Link> is pre-configured in each app, so you can use it out of the box.
 
 <MdxTip>
-When you set up the project, a **sidebar layout** is already configured for each app in `shared/layouts/DashboardLayout.tsx`. This file handles active link highlighting separately for each routing library. See the following examples for how to use it with both routing libraries.
+    When you set up the project, a **sidebar layout** is already configured for each app in
+    `shared/layouts/DashboardLayout.tsx`. This file handles active link highlighting separately for each routing
+    library. See the following examples for how to use it with both routing libraries.
 </MdxTip>
 
 ### `Next.js`
+
 In Next.js, you can use cookies to persist the sidebar's collapsed state.
+
 ```tsx
 // layout.tsx
 import { DashboardLayout } from '@/shared/layouts/DashboardLayout'
@@ -46,10 +54,10 @@ export default async function Layout({ children }: LayoutProps) {
 
     return <DashboardLayout defaultOpen={defaultOpen}>{children}</DashboardLayout>
 }
-
 ```
 
 ### `Tanstack Router`
+
 ```tsx
 // route.tsx
 import { DashboardLayout } from '@/shared/layouts/DashboardLayout'
@@ -66,5 +74,4 @@ function RouteComponent() {
         </DashboardLayout>
     )
 }
-
 ```

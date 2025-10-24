@@ -3,8 +3,8 @@ title: Build an API Client
 description: Learn how to create and use a type-safe, scalable API client for your applications with TanStack Query integration.
 ---
 
->This guide explains how to build an API client.
->If you want to skip the tutorial and view the example directly, you can check it out <Link target="_blank" href="https://github.com/henry-phm/base-stack-example-project/blob/main/packages/lib/src/api/index.ts">here</Link>
+> This guide explains how to build an API client.
+> If you want to skip the tutorial and view the example directly, you can check it out <Link target="_blank" href="https://github.com/henry-phm/base-stack-example-project/blob/main/packages/lib/src/api/index.ts">here</Link>
 
 ## Why Build a Dedicated API Client?
 
@@ -141,6 +141,6 @@ Using queryOptions or mutationOptions helps us easily reuse queryKeys or queryFu
 So when should you use query and when should you use mutation?
 
 - `query`: typically used for getting data (read operations)
-- `mutation`: typically used for mutating data (create, update, delete operations). 
+- `mutation`: typically used for mutating data (create, update, delete operations).
 
 There are some exceptions, such as when a user clicks an export data button - in this case, the user isn't actually mutating data, but we should still use mutation. To know when you're dealing with an exception, you can base it on user behavior: if getting data depends on a click event or submit action, use mutation.

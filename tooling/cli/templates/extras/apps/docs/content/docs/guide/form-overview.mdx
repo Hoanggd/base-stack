@@ -8,27 +8,34 @@ description: Building forms with React Hook Form and Zod.
 Form management is a critical aspect of modern web applications, handling user input, validation, and data submission. This guide covers everything you need to know about building robust, user-friendly forms using **React Hook Form** and **Zod**.
 
 ## Rethinking Validation
+
 You might be used to placing all validation logic directly within the form declaration like this, but in this guide, we'll take a different approach:
+
 ```tsx
 const form = useForm({
     // We won't handle validation this way
-    resolver: zodResolver(z.object({
-        email: z.string(),
-        password: z.string()
-    })),
-  })
+    resolver: zodResolver(
+        z.object({
+            email: z.string(),
+            password: z.string(),
+        }),
+    ),
+})
 ```
+
 Placing all validation logic inside your form can lead to several issues:
+
 - Your field validation logic and your field UI rendering are separated. You have to look in more than one place to understand the complete logic for a field.
 - It's difficult to handle conditional validation, such as when a field's validation depends on the value of another field (yes, you could use `refine`, but your schema will become overly complex).
 - Dynamically enabling or disabling validation for certain fields is challenging. For instance, if you conditionally hide a field, its validation still be enforced.
 
 Validating at the form level is only suitable for simple forms. In most real-world projects, forms inevitably become more complex, so we've chosen to standardize validation at the field level instead.
 
-In React Hook Form, you can perform field-level validation using the `rules` API, which offers basic rules like `min`, `max`, and `validate`. However, there isn’t a built-in way to directly use Zod for individual fields. 
+In React Hook Form, you can perform field-level validation using the `rules` API, which offers basic rules like `min`, `max`, and `validate`. However, there isn’t a built-in way to directly use Zod for individual fields.
 To address this, we’ve extended Zod to work seamlessly at the field level. You can see how this is implemented in: `packages/lib/src/validation/index.ts`.
 
 And when it comes to validation, we use a single, consistent approach:
+
 ```tsx
 import { z } from '@workspace/lib/validation'
 
