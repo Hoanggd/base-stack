@@ -28,7 +28,8 @@ export default function RootLayout({
     return (
         <html lang="en" translate="no" suppressHydrationWarning className={`${fontSans.className}`}>
             <head>
-                <link rel="icon" href="/logo.png" sizes="any" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
             </head>
             <body className={`antialiased text-secondary-foreground`}>
                 <Providers>{children}</Providers>
