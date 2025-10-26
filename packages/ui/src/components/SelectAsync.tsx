@@ -1,35 +1,66 @@
 'use client'
 
-import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
-import React from 'react'
-import type { ListBoxItemProps } from 'react-aria-components'
-import {
-    Select,
-    SelectProps,
-    Autocomplete,
-    ListBox,
-    ListBoxItem,
-    SelectValue,
-    useFilter,
-    SelectStateContext,
-} from 'react-aria-components'
-import { cn } from '@workspace/ui/lib/utils'
+import { Badge } from '@workspace/ui/components/Badge'
 import { Button } from '@workspace/ui/components/Button'
 import { Popover } from '@workspace/ui/components/Popover'
 import { BsSearchField } from '@workspace/ui/components/Searchfield'
-import { Badge } from '@workspace/ui/components/Badge'
+import { cn } from '@workspace/ui/lib/utils'
+import { flatten } from 'lodash'
+import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
+import React from 'react'
+import type { Key, ListBoxItemProps } from 'react-aria-components'
+import {
+    Autocomplete,
+    Collection,
+    ListBox,
+    ListBoxItem,
+    ListBoxLoadMoreItem,
+    ListLayout,
+    Select,
+    SelectProps,
+    SelectStateContext,
+    SelectValue,
+    useFilter,
+    Virtualizer,
+} from 'react-aria-components'
+import { Spinner } from './Spinner'
 
-interface BsSelectOption {
+export interface BsSelectAsyncOption {
     id: string | number
     name: string
 }
 
-interface BsSelectProps<T extends BsSelectOption, M extends 'single' | 'multiple'>
-    extends Omit<SelectProps<T, M>, 'children'> {
+interface BsSelectAsyncProps<T extends BsSelectAsyncOption, M extends 'single' | 'multiple'>
+    extends Omit<SelectProps<T, M>, 'children' | 'value' | 'onChange'> {
     /**
      * The array of options to display in the select dropdown.
      */
-    options?: Iterable<T>
+    options?: Array<T>
+
+    /**
+     * The value of the select.
+     */
+    value: M extends 'single' ? T | null : Array<T> | null
+
+    /**
+     * The function to call when the value changes.
+     */
+    onChange: (value: M extends 'single' ? T : Array<T>) => void
+
+    /** Information for managing async option loading. */
+    optionsLoader?: {
+        /** Whether there are more pages of options to load. */
+        hasNextPage: boolean
+
+        /** Callback to fetch the next page of options. */
+        onFetchNextPage: () => void
+
+        /** Whether the next page of options is currently being fetched. */
+        isFetching?: boolean
+
+        /** A function to search for options. */
+        onSearch?: (search: string) => void
+    }
 
     /**
      * If true, enables a search field for filtering options.
@@ -62,12 +93,24 @@ interface BsSelectProps<T extends BsSelectOption, M extends 'single' | 'multiple
     className?: string
 
     /**
+     * The class name of the button.
+     */
+    buttonClassName?: string
+
+    /**
      * The class name of the popover.
      */
     popoverClassName?: string
+
+    /**
+     * The message to display when there are no options found.
+     */
+    emptyMessage?: string
 }
 
-export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multiple' = 'single'>({
+export function BsSelectAsync<T extends BsSelectAsyncOption, M extends 'single' | 'multiple' = 'single'>({
+    value,
+    onChange,
     options,
     renderOption,
     renderValue,
@@ -77,17 +120,30 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
     isSearchable = false,
     popoverClassName,
     className,
+    buttonClassName,
+    optionsLoader,
+    emptyMessage = 'No results found',
     ...props
-}: BsSelectProps<T, M>) {
+}: BsSelectAsyncProps<T, M>) {
     const [isOpen, setIsOpen] = React.useState(false)
-    const selectionMode = props.selectionMode ?? 'single'
+    const selectionMode = (props.selectionMode || 'single') as M
+
+    const stringifiedOptions = options?.map(option => serializeOption(option))
 
     return (
-        <Select<T, M>
+        <Select
+            value={serializeValue(selectionMode, value ?? undefined) as any}
+            onChange={value => {
+                const deserializedValue = deserializeValue(selectionMode, value as any)
+                onChange?.(deserializedValue as any)
+            }}
             isOpen={isOpen}
             onOpenChange={isOpen => {
                 if (!isOpen) {
                     setIsOpen(false)
+                    setTimeout(() => {
+                        optionsLoader?.onSearch?.('')
+                    }, 100)
                 }
             }}
             aria-label="Select"
@@ -101,11 +157,15 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
                     'justify-between w-full pr-2 h-auto py-[5px] min-h-8 font-normal text-start',
                     'group-data-[invalid]:border-destructive group-data-[disabled]:opacity-80',
                     'hover:bg-background-secondary',
+                    buttonClassName,
                 )}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <SelectValue<T> className="truncate">
-                    {({ isPlaceholder, selectedItems }) => {
+                <SelectValue className="truncate">
+                    {() => {
+                        const selectedItems = value ? flatten([value]) : []
+                        const isPlaceholder = selectedItems?.length === 0
+
                         if (isPlaceholder) {
                             // If placeholder is not set, return an empty div
                             if (!placeholder) {
@@ -162,10 +222,45 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
             </Button>
             {isClearable && <SelectClearButton />}
             <Popover className={cn('!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1', popoverClassName)}>
-                <ItemsWrapper isSearchable={isSearchable}>
-                    <ListBox items={options} className="outline-hidden overflow-auto flex-1 scroll-pb-1">
-                        {item => <BsSelectItem renderOption={renderOption}>{item.name}</BsSelectItem>}
-                    </ListBox>
+                <ItemsWrapper
+                    isSearchable={isSearchable}
+                    manualSearching={!!optionsLoader}
+                    onSearch={optionsLoader?.onSearch}
+                >
+                    <Virtualizer
+                        layout={ListLayout}
+                        layoutOptions={{
+                            estimatedRowHeight: 32,
+                        }}
+                    >
+                        <ListBox
+                            className="outline-hidden overflow-auto flex-1 scroll-pb-1"
+                            renderEmptyState={() => {
+                                if (optionsLoader?.isFetching) return null
+
+                                return (
+                                    <div className="text-muted-foreground text-sm text-center h-8 flex items-center justify-center">
+                                        {emptyMessage}
+                                    </div>
+                                )
+                            }}
+                        >
+                            <Collection items={stringifiedOptions}>
+                                {item => (
+                                    <BsSelectAsyncItem renderOption={renderOption}>
+                                        {deserializeOption(item)?.name}
+                                    </BsSelectAsyncItem>
+                                )}
+                            </Collection>
+                            <ListBoxLoadMoreItem
+                                onLoadMore={optionsLoader?.hasNextPage ? optionsLoader?.onFetchNextPage : undefined}
+                                isLoading={optionsLoader?.isFetching}
+                                className="flex items-center justify-center pt-1.5"
+                            >
+                                <Spinner className="size-5 text-muted-foreground/50" />
+                            </ListBoxLoadMoreItem>
+                        </ListBox>
+                    </Virtualizer>
                 </ItemsWrapper>
             </Popover>
         </Select>
@@ -175,21 +270,23 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
 interface ItemsWrapperProps {
     children: React.ReactNode
     isSearchable: boolean
+    manualSearching?: boolean
+    onSearch?: (search: string) => void
 }
 
-function ItemsWrapper({ children, isSearchable }: ItemsWrapperProps) {
+function ItemsWrapper({ children, isSearchable, manualSearching, onSearch }: ItemsWrapperProps) {
     const { contains } = useFilter({ sensitivity: 'base' })
 
     return isSearchable ? (
-        <Autocomplete filter={contains}>
-            <BsSearchField autoFocus className="ring-0! border " /> {children}
+        <Autocomplete filter={manualSearching ? undefined : contains}>
+            <BsSearchField autoFocus className="ring-0! border " onChange={onSearch} /> {children}
         </Autocomplete>
     ) : (
         children
     )
 }
 
-function BsSelectItem<T extends BsSelectOption>(
+function BsSelectAsyncItem<T extends BsSelectAsyncOption>(
     props: ListBoxItemProps & {
         children: string
         renderOption?: (item: T) => React.ReactNode
@@ -208,7 +305,9 @@ function BsSelectItem<T extends BsSelectOption>(
                 <>
                     <div className="text-sm flex-1 font-normal group-selected:font-medium overflow-hidden">
                         <div className="truncate">
-                            {props.renderOption ? props.renderOption(props.value as T) : props.children}
+                            {props.renderOption
+                                ? props.renderOption(deserializeOption(props.value as any) as T)
+                                : props.children}
                         </div>
                     </div>
                     <div className="w-5 flex items-center justify-center text-primary-foreground group-data-focused:text-white">
@@ -245,7 +344,7 @@ function SelectClearButton() {
     )
 }
 
-function BadgeClearButton({ data }: { data: BsSelectOption }) {
+function BadgeClearButton({ data }: { data: BsSelectAsyncOption }) {
     const state = React.useContext(SelectStateContext)
     const value = state?.value as string | Array<number | string>
 
@@ -258,11 +357,46 @@ function BadgeClearButton({ data }: { data: BsSelectOption }) {
             className="size-4! flex items-center justify-center z-10 rounded bg-transparent hover:bg-neutral-400/15"
             onClick={e => {
                 e.stopPropagation()
-                const newKeys = value.filter(v => v !== data.id)
+                const newKeys = value.filter(v => deserializeOption({ id: v as string }).id !== data.id)
                 state?.setValue(newKeys)
             }}
         >
             <XIcon className="size-2.5!" />
         </div>
     )
+}
+
+function serializeOption(item: BsSelectAsyncOption) {
+    return { id: JSON.stringify(item) }
+}
+
+function deserializeOption(item: { id: string }) {
+    return JSON.parse(item.id) as BsSelectAsyncOption
+}
+
+function serializeValue(
+    selectionMode: 'single' | 'multiple',
+    value?: BsSelectAsyncOption | Array<BsSelectAsyncOption>,
+) {
+    if (!value) return undefined
+
+    if (selectionMode === 'single') {
+        return JSON.stringify(value)
+    }
+
+    if (selectionMode === 'multiple') {
+        return (value as Array<BsSelectAsyncOption>).map(item => JSON.stringify(item))
+    }
+}
+
+function deserializeValue(selectionMode: 'single' | 'multiple', value?: Key | null) {
+    if (!value) return undefined
+
+    if (selectionMode === 'single') {
+        return JSON.parse(value as string) as BsSelectAsyncOption
+    }
+
+    if (selectionMode === 'multiple') {
+        return (value as unknown as Array<Key>).map(item => JSON.parse(item as string) as BsSelectAsyncOption)
+    }
 }

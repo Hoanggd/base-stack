@@ -302,6 +302,10 @@ function getMenuGroups(module: string): MenuGroup[] {
                         title: 'Select',
                         href: '/docs/ui/select',
                     },
+                    {
+                        title: 'SelectAsync',
+                        href: '/docs/ui/select-async',
+                    },
                 ],
             },
             {
