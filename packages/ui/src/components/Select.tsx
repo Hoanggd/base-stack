@@ -91,6 +91,7 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
                 }
             }}
             aria-label="Select"
+            isInvalid={(props as any)['aria-invalid']}
             className={cn('group w-full relative', className)}
             {...props}
         >
