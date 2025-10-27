@@ -12,6 +12,8 @@ import {
     SelectValue,
     useFilter,
     SelectStateContext,
+    ListLayout,
+    Virtualizer,
 } from 'react-aria-components'
 import { cn } from '@workspace/ui/lib/utils'
 import { Button } from '@workspace/ui/components/Button'
@@ -65,6 +67,11 @@ interface BsSelectProps<T extends BsSelectOption, M extends 'single' | 'multiple
      * The class name of the popover.
      */
     popoverClassName?: string
+
+    /**
+     * The message to display when there are no options found.
+     */
+    emptyMessage?: string
 }
 
 export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multiple' = 'single'>({
@@ -77,6 +84,7 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
     isSearchable = false,
     popoverClassName,
     className,
+    emptyMessage = 'No results found',
     ...props
 }: BsSelectProps<T, M>) {
     const [isOpen, setIsOpen] = React.useState(false)
@@ -163,9 +171,26 @@ export function BsSelect<T extends BsSelectOption, M extends 'single' | 'multipl
             {isClearable && <SelectClearButton />}
             <Popover className={cn('!max-h-[350px] w-(--trigger-width) flex flex-col p-1.5 gap-1', popoverClassName)}>
                 <ItemsWrapper isSearchable={isSearchable}>
-                    <ListBox items={options} className="outline-hidden overflow-auto flex-1 scroll-pb-1">
-                        {item => <BsSelectItem renderOption={renderOption}>{item.name}</BsSelectItem>}
-                    </ListBox>
+                    <Virtualizer
+                        layout={ListLayout}
+                        layoutOptions={{
+                            estimatedRowHeight: 32,
+                        }}
+                    >
+                        <ListBox
+                            items={options}
+                            className="outline-hidden overflow-auto flex-1 scroll-pb-1"
+                            renderEmptyState={() => {
+                                return (
+                                    <div className="text-muted-foreground text-sm text-center h-8 flex items-center justify-center">
+                                        {emptyMessage}
+                                    </div>
+                                )
+                            }}
+                        >
+                            {item => <BsSelectItem renderOption={renderOption}>{item.name}</BsSelectItem>}
+                        </ListBox>
+                    </Virtualizer>
                 </ItemsWrapper>
             </Popover>
         </Select>
