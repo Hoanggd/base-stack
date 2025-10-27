@@ -10,9 +10,15 @@ NProgressJs.configure({
 
 function useNProgress({ isFetching }: { isFetching: boolean }) {
     React.useEffect(() => {
-        if (isFetching) {
-            NProgressJs.start()
-        } else {
+        setTimeout(() => {
+            if (isFetching) {
+                NProgressJs.start()
+            } else {
+                NProgressJs.done()
+            }
+        }, 0)
+
+        return () => {
             NProgressJs.done()
         }
     }, [isFetching])

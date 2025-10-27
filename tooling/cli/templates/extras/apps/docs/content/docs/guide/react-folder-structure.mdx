@@ -94,20 +94,30 @@ Let's review everything we've covered so far to get a comprehensive overview of 
 
 <MdxImage src="/images/folder-feature-based.avif" alt="Folder structure feature-based" />
 Traditional approaches organize by technical concern (all components together, all utilities together). Feature-based
-architecture organizes by business domain. This means: - **Locality of Behavior** - Everything related to "posts" lives
-in the posts feature. Need to understand how posts work? Look in one place. - **Independent Development** - Teams can
-work on different features with minimal conflicts and coordination overhead. - **Easier Deletion** - When a feature is
-deprecated, you can delete one folder instead of hunting through dozens of technical folders. - **Scalability** - As
-your app grows to dozens or hundreds of features, the structure remains navigable because each feature is
-self-contained.
+architecture organizes by business domain. This means:
+
+- **Locality of Behavior** - Everything related to "posts" lives
+  in the posts feature. Need to understand how posts work? Look in one place.
+- **Independent Development** - Teams can
+  work on different features with minimal conflicts and coordination overhead.
+- **Easier Deletion** - When a feature is
+  deprecated, you can delete one folder instead of hunting through dozens of technical folders.
+- **Scalability** - As
+  your app grows to dozens or hundreds of features, the structure remains navigable because each feature is
+  self-contained.
 
 ### 5. Dependency Rules and Best Practices
 
 <MdxImage src="/images/folder-import-flow.avif" alt="Folder import flow" />
-**Dependency Rules:** - **Routing depends on Features, Shared** - Route handlers import and compose feature components -
-**Features depend on Shared** - Features use common components and utilities - **Shared depends on nothing** - Shared
-code is foundational and has no INTERNAL dependencies - **Features NEVER depend on other Features** - This prevents
-tight coupling - **Features NEVER depend on Routing**
+**Dependency Rules:**
+
+- **Routing depends on Features, Shared** - Route handlers import and compose feature components
+- **Features depend on Shared** - Features use common components and utilities
+- **Shared depends on nothing** - Shared
+  code is foundational and has no INTERNAL dependencies
+- **Features NEVER depend on other Features** - This prevents
+  tight coupling
+- **Features NEVER depend on Routing**
 
 Following these rules also makes it easier to decide whether a file belongs in the features or shared folder.
 Since one feature cannot depend on another, if you have a component used by multiple features, it’s best to move it to the shared folder instead of keeping it inside any single feature.
