@@ -32,7 +32,7 @@ function TitleAndCTA() {
                 <h1 className="text-center text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-foreground to-muted-foreground sm:text-5xl sm:text-left">
                     The Foundation for Modern React Apps
                 </h1>
-                <p className="text-center text-base sm:text-lg mt-1 sm:text-left">
+                <p className="text-center text-base text-muted-foreground sm:text-lg mt-1 sm:text-left">
                     A modern React starter kit with best practices and all the essentials to quickly launch your
                     frontend.
                 </p>
